@@ -13,15 +13,16 @@ module.exports = {
         nav: [
             // 普通链接
             { text: '更新日志', link: '/guide/' }, // 内部链接，以docs为根目录
+            // 计算机基础
             {
                 text: '计算机基础', link: '/cs/', items: [
-                    { text: '数据结构', link: '/troika/DS/' },
-                    { text: '操作系统', link: '/troika/OS/' },
-                    { text: '计算机网络', link: '/troika/CN/' },
-                    { text: '计算机组成原理', link: '/troika/CO/' }
+                    { text: '数据结构', link: '/cs/DS/' },
+                    { text: '操作系统', link: '/cs/OS/' },
+                    { text: '计算机网络', link: '/cs/CN/' },
+                    { text: '计算机组成原理', link: '/cs/CO/' }
                 ]
             },
-            // 下拉列表
+            // 核心技术
             {
                 text: '核心技术',
                 items: [
@@ -32,13 +33,14 @@ module.exports = {
                     { text: 'Axios', link: '/troika/axios_study/' },
                 ]
             },
-            // 分组下拉列表
+            // 主流框架
             {
                 text: '主流框架', link: '/frame/', items: [
                     { text: 'Vue', link: '/frame/vue_study/' },
                     { text: 'React', link: '/frame/react_study/' }
                 ]
             },
+            // 其他学习
             {
                 text: '其他学习', link: '/others/', items: [
                     { text: 'Nodejs', link: '/others/nodejs_study/' },
@@ -68,14 +70,52 @@ module.exports = {
                 },
 
             ],
-            '/troika/': [
+            '/cs/': [
                 {
-                    title: 'CSS学习',
-                    path: '/troika/css_study/',
+                    title: '数据结构',
+                    path: '/cs/DS/',
                     sidebarDepth: 2,
                     children: [
-                        "/troika/css_study/flexLayout.md",
-                        "/troika/css_study/transform.md",
+                        // "/cs/nodejs_study/NodeJsNotes.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                {
+                    title: '操作系统',
+                    path: '/cs/OS/',
+                    sidebarDepth: 2,
+                    children: [
+                        // "/cs/webpack_study/WebpackNotes.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                {
+                    title: '计算机网络',
+                    path: '/cs/CN/',
+                    sidebarDepth: 2,
+                    children: [
+                        // "/cs/git_study/GitNotes.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                {
+                    title: '计算机组成原理',
+                    path: '/cs/CO/',
+                    sidebarDepth: 2,
+                    children: [
+                        // "/cs/git_study/GitNotes.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+            ],
+            '/troika/': [
+                {
+                    title: 'HTML/CSS学习',
+                    path: '/troika/html_css_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/troika/html_css_study/flexLayout.md",
+                        "/troika/html_css_study/transform.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -90,6 +130,53 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
+                {
+                    title: 'Promise学习',
+                    path: '/troika/promise_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/troika/promise_study/PromiseNotes.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                {
+                    title: 'Ajax学习',
+                    path: '/troika/ajax_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/troika/ajax_study/AjaxNotes.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                {
+                    title: 'Axios学习',
+                    path: '/troika/axios_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/troika/axios_study/axiosNotes.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+            ],
+            '/frame/': [
+                {
+                    title: 'Vue学习',
+                    path: '/frame/vue_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/frame/vue_study/Vue笔记.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                {
+                    title: 'React学习',
+                    path: '/frame/react_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        // "/frame/react_study/WebpackNotes.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
             ],
             '/others/': [
                 {
@@ -97,8 +184,7 @@ module.exports = {
                     path: '/others/nodejs_study/',
                     sidebarDepth: 2,
                     children: [
-                        // "/others/css_study/flexLayout.md",
-                        // "/others/css_study/transform.md",
+                        "/others/nodejs_study/NodeJsNotes.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -107,9 +193,7 @@ module.exports = {
                     path: '/others/webpack_study/',
                     sidebarDepth: 2,
                     children: [
-                        // "/others/js_study/base.md",
-                        // "/others/js_study/WebAPI.md",
-                        // "/others/js_study/senior.md",
+                        "/others/webpack_study/WebpackNotes.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -118,9 +202,7 @@ module.exports = {
                     path: '/others/git_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/others/git_study/Git笔记.md",
-                        // "/others/git_study/WebAPI.md",
-                        // "/others/git_study/senior.md",
+                        "/others/git_study/GitNotes.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
