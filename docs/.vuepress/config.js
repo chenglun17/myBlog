@@ -15,19 +15,21 @@ module.exports = {
             { text: '更新日志', link: '/guide/' }, // 内部链接，以docs为根目录
             {
                 text: '计算机基础', link: '/cs/', items: [
-                    // { text: '数据结构', link: '/troika/html_study/' },
-                    // { text: '计算机网络', link: '/troika/html_study/' },
-                    // { text: '计算机组成原理', link: '/troika/html_study/' },
-                    // { text: '操作系统', link: '/troika/html_study/' }
+                    { text: '数据结构', link: '/troika/DS/' },
+                    { text: '操作系统', link: '/troika/OS/' },
+                    { text: '计算机网络', link: '/troika/CN/' },
+                    { text: '计算机组成原理', link: '/troika/CO/' }
                 ]
             },
             // 下拉列表
             {
-                text: '三剑客',
+                text: '核心技术',
                 items: [
-                    { text: 'HTML', link: '/troika/html_study/' },
-                    { text: 'CSS', link: '/troika/css_study/' }, // 可不写后缀 .md
+                    { text: 'HTML/CSS', link: '/troika/html_css_study/' }, // 可不写后缀 .md
                     { text: 'JavaScript', link: '/troika/js_study/' },
+                    { text: 'Promise', link: '/troika/promise_study/' },
+                    { text: 'Ajax', link: '/troika/ajax_study/' },
+                    { text: 'Axios', link: '/troika/axios_study/' },
                 ]
             },
             // 分组下拉列表
