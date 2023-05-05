@@ -1,36 +1,5 @@
 
 
-# 准备工作
-
-## json-server的介绍与服务搭建
-
-> - [json-server 详解](https://blog.csdn.net/namechenfl/article/details/120885849)
-> - [github—json-server](https://github.com/typicode/json-server)
-
-1. 作为一个前端开发工程师，在后端还没有ready的时候，不可避免的要使用mock的数据。很多时候，我们并不想使用简单的静态数据，而是希望自己起一个本地的mock-server来完全模拟请求以及请求回来的过程。
-
-   json-server 是一个很好的可以替我们完成这一工作的工具。我们只需要提供一个json文件，或者写几行简单的js脚本就可以模拟出RESTful API的接口。
-
-2. 安装 json-server， **`npm install -g json-server`**
-
-3. 创建 db.json 在一个文件夹下新建一个 db.json 文件
-
-   ```javascript
-   {
-     "posts": [
-       { "id": 1, "title": "json-server", "author": "typicode" }
-     ],
-     "comments": [
-       { "id": 1, "body": "some comment", "postId": 1 }
-     ],
-     "profile": { "name": "typicode" }
-   }
-   ```
-
-   在该文件目录下运行：**`json-server --watch db.json`** 这是对数据的获取
-
-
-
 # axios的理解与使用
 
 ## axios 介绍
@@ -78,7 +47,7 @@ axios 是一个基于 promise 的HTTP库，可以用于浏览器和 node.js
 
 **原理图：**
 
-<img src="axiosNotes.assets/Axios系统学习笔记原理图.png" alt="Axios系统学习笔记原理图" style="zoom:100%;" />
+<img src="AxiosUse.assets/Axios系统学习笔记原理图.png" alt="Axios系统学习笔记原理图" style="zoom: 80%;" />
 
 ## axios 请求响应结果
 
@@ -294,29 +263,4 @@ axios.interceptors.request.eject(inter)
 
 > - 服务端做延时响应：`json-server --watch db.json -d 2000`
 > - 在发送请求时，看上个请求是否还在继续发送，若还在继续，就把它取消
-
-# axios的难点问题
-
-## axios文件目录结构
-
-```
-├── /dist/ 		# 项目输出目录 
-├── /lib/ 		# 项目源码目录 
-│ ├── /adapters/ 	# 定义请求的适配器 xhr、http 
-│ │ ├── http.js 	# 实现 http 适配器(包装 http 包) 
-│ │ └── xhr.js 		# 实现 xhr 适配器(包装 xhr 对象) 
-│ ├── /cancel/ 		# 定义取消功能 
-│ ├── /core/ 		# 一些核心功能 
-│ │ ├── Axios.js 			   # axios 的核心主类 
-│ │ ├── dispatchRequest.js 		# 用来调用 http 请求适配器方法发送请求的函数 
-│ │ ├── InterceptorManager.js 	# 拦截器的管理器 
-│ │ └── settle.js 			   # 根据 http 响应状态，改变 Promise 的状态 
-│ ├── /helpers/ 	# 一些辅助方法 
-│ ├── axios.js 		# 对外暴露接口 
-│ ├── defaults.js 	# axios 的默认配置 
-│ └── utils.js 		# 公用工具 
-├── package.json # 项目信息 
-├── index.d.ts 	 # 配置 TypeScript 的声明文件 
-└── index.js 	 # 入口文件
-```
 

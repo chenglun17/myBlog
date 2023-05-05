@@ -144,7 +144,12 @@ module.exports = {
                     path: '/troika/ajax_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/troika/ajax_study/AjaxNotes.md",
+                        "/troika/ajax_study/NativeAjax.md",
+                        "/troika/ajax_study/jQueryAjax.md",
+                        "/troika/ajax_study/Axios.md",
+                        "/troika/ajax_study/Fetch.md",
+                        "/troika/ajax_study/Difference.md",
+                        "/troika/ajax_study/CrossDomain.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -153,7 +158,9 @@ module.exports = {
                     path: '/troika/axios_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/troika/axios_study/axiosNotes.md",
+                        "/troika/axios_study/Preparation.md",
+                        "/troika/axios_study/AxiosUse.md",
+                        "/troika/axios_study/DifficultProblem.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -216,5 +223,8 @@ module.exports = {
         // nextLinks: false,
         // 默认值是 true 。设置为 false 来禁用所有页面的 上一篇 链接
         // prevLinks: false,
-    }
+    },
+    plugins: [
+        '@vuepress/back-to-top', // 回到顶部
+    ]
 }

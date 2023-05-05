@@ -1415,10 +1415,18 @@
     markdown-it-table-of-contents "^0.4.0"
     prismjs "^1.13.0"
 
-"@vuepress/plugin-active-header-links@1.9.9":
+"@vuepress/plugin-active-header-links@^1.9.9", "@vuepress/plugin-active-header-links@1.9.9":
   version "1.9.9"
   resolved "https://registry.npmmirror.com/@vuepress/plugin-active-header-links/-/plugin-active-header-links-1.9.9.tgz"
   integrity sha512-lTnIhbuALjOjFts33jJD8r4ScNBxnZ6MtmePKEwvYlC3J9uvngs1Htpb1JzLEX9QCydt+bhLmZ92bTXn/PdTpg==
+  dependencies:
+    "@vuepress/types" "1.9.9"
+    lodash.debounce "^4.0.8"
+
+"@vuepress/plugin-back-to-top@^1.9.9":
+  version "1.9.9"
+  resolved "https://registry.npmmirror.com/@vuepress/plugin-back-to-top/-/plugin-back-to-top-1.9.9.tgz"
+  integrity sha512-8bNsdZ0Dr96OdcoJ67dxCx1ysXpeTHma8w+YSsqBJoWGEOucBr0nW9oaDH85yoOtpiriWBlhUO32/Q0ojJtMfA==
   dependencies:
     "@vuepress/types" "1.9.9"
     lodash.debounce "^4.0.8"
