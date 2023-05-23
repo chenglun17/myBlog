@@ -121,8 +121,8 @@ module.exports = {
                         "/troika/html_css_study/Display.md",
                         "/troika/html_css_study/Div.md",
                         "/troika/html_css_study/CssSelector.md",
-                        "/troika/html_css_study/FlexLayout.md",
-                        "/troika/html_css_study/Transform.md",
+                        "/troika/html_css_study/flexLayout.md",
+                        "/troika/html_css_study/transform.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -132,9 +132,9 @@ module.exports = {
                     path: '/troika/js_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/troika/js_study/Base.md",
+                        "/troika/js_study/base.md",
                         "/troika/js_study/WebAPI.md",
-                        "/troika/js_study/Senior.md",
+                        "/troika/js_study/senior.md",
                         "/troika/js_study/ES6.md",
                         "/troika/js_study/WebAPI_Other.md",
                     ],
