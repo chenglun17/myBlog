@@ -784,7 +784,7 @@ console.log(ldh.sing === zxy.sing)	// true
 >
 > 该 <strong style="color:#DD5145">constructor属性 ===> 该prototype的构造函数</strong>，让 原型对象 能够重新找到 创造它的构造函数
 
-<img src="E:/Study/JS_Study/JSNotes.assets/image-20230321173528625.png" alt="image-20230321173528625" style="zoom: 60%;" />
+<img src="Senior.assets/image-20230321173528625.png" alt="image-20230321173528625" style="zoom:55%;" />
 
 #### 总结
 
@@ -866,7 +866,7 @@ console.log(ldh.__proto__.constructor === Star)		// true
 >
 > A有一个实例化对象a，instanceof的判断规则是沿着a的 \__proto__ 这条线去找，同时沿着A的prototype这条线去找，<br>如果两条线能找到同一个引用，即同一个对象，就返回true，如果找到终点还没有重合就返回false.
 
-![image-20230322100213654](senior.assets/image-20230322100213654.png)
+<img src="Senior.assets/image-20230322100213654.png" alt="image-20230322100213654" style="zoom:60%;" />
 
 #### 原型链之Object，Function
 
@@ -914,7 +914,7 @@ console.log(Object instanceof Function) // true
 >
 > **`Function.prototype`** 指向 "内置函数"。而 **`Object.prototype`** 指向 "根源对象"
 
-<img src="E:/Study/JS_Study/JSNotes.assets/image-20230415095613630.png" alt="image-20230415095613630" style="zoom: 50%;" />
+<img src="Senior.assets/image-20230415095613630.png" alt="image-20230415095613630" style="zoom:50%;" />
 
 ## JS 进阶 04
 
@@ -1241,8 +1241,6 @@ fun()
 </script>
 ```
 
-
-
 > - **手写**一个防抖函数来处理
 
 ```javascript
@@ -1292,7 +1290,24 @@ fun()
 >
 >   语法：**_.throttle(fun, 时间)**
 
+```html
+<div class="box"></div>
+<script src="./lodash.min.js"></script>
+<script>
+    // 鼠标在盒子上移动，里面的数字就会变化+1
+    const box = document.querySelector('.box')
+    let i = 1
+    function mouseMove() {
+        box.innerHTML = i++
+    }
+    // 添加事件
+    // box.addEventListener('mousemove', mouseMove)
 
+    // 利用 lodash库 实现节流 1000毫秒之内，只 +1 一次
+    // 语法：_.throttle(fun, 时间)
+    box.addEventListener('mousemove', _.throttle(mouseMove, 1000))
+</script>
+```
 
 > - **手写**一个防抖函数来处理
 

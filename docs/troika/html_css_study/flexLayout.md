@@ -1,4 +1,4 @@
-# flex布局
+# Flex布局
 
 ## 1.0传统布局和flex布局对比
 
@@ -33,7 +33,7 @@
 
 **总结**：就是通过给父盒子添加**`flex`**属性，来控制子盒子的位置和排列方式
 
-<img src="flex布局.assets/image-20230427212924154.png" alt="image-20230427212924154" style="zoom:50%;" />
+<img src="FlexLayout.assets/image-20230427212924154.png" alt="image-20230427212924154" style="zoom: 50%;" />
 
 ## 3.0 父项常见属性
 
@@ -51,11 +51,11 @@
 + <strong style="color:#DD5145">默认主轴</strong> 方向就是 x 轴方向，<strong style="color:#DD5145">水平向右</strong>，子元素是跟着<strong style="color:#DD5145">主轴</strong>来排列的
 + <strong style="color:#32CD32">默认侧轴</strong> 方向就是 y 轴方向，<strong style="color:#32CD32">水平向下</strong>
 
-<img src="flex布局.assets/1.jpg" style="zoom: 67%;" >
+<img src="FlexLayout.assets/1.JPG" alt="1" style="zoom:67%;" />
 
 + 注意： 主轴和侧轴是会变化的，就看 flex-direction 设置谁为主轴，剩下的就是侧轴。
 
-  <img src="flex布局.assets/2.jpg" style="zoom: 80%;" >
+  <img src="FlexLayout.assets/2.JPG" alt="2" style="zoom:80%;" />
 
   
 
@@ -65,7 +65,7 @@
 
 - 注意：使用这个属性之前一定要先确定好主轴是哪一个
 
-<img src="flex布局.assets/3.jpg" style="zoom: 75%;" >
+<img src="FlexLayout.assets/3.JPG" alt="3" style="zoom: 67%;" />
 
 
 
@@ -83,7 +83,7 @@
 + **`center`** 居中显示
 + **`stretch`** 拉伸
 
-<img src="flex布局.assets/image-20230427221753785.png" alt="image-20230427221753785" style="zoom: 60%;" />
+<img src="FlexLayout.assets/image-20230427221753785.png" alt="image-20230427221753785" style="zoom: 50%;" />
 
 
 
@@ -91,7 +91,7 @@
 
 - **`align-content`** 设置子元素在 <strong style="color:#32CD32">侧轴</strong>（默认是y轴）上的排列方式，且只能用于子项 <strong style="color:#32CD32">换行</strong> 的情况（<strong style="color:#32CD32">多行</strong>），**在单行下是没有效果的**。
 
-<img src="flex布局.assets/4.jpg" style="zoom:85%;" >
+<img src="FlexLayout.assets/4.JPG" alt="4" style="zoom:80%;" />
 
 
 
@@ -165,47 +165,7 @@ order 属性定义项目的排列顺序，<strong style="color:#7B68EE">数值�
 }
 ```
 
-## 5.0 携程网首页案例制作
 
-携程网链接：http://m.ctrip.com
-
-1.技术选型
-
-方案：我们采取单独制作移动页面方案
-
-技术：布局采取flex布局
-
-2.搭建相关文件夹
-
-<img src="flex布局.assets/5.jpg" style="zoom:50%;" >
-
-3.设置视口标签以及引入初始化样式
-
-```html
-<meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/index.css">
-```
-
-4.常用初始化样式
-
-```css
-body {
-  max-width: 540px;
-  min-width: 320px;
-  margin: 0 auto;
-  font: normal 14px/1.5 Tahoma,"Lucida Grande",Verdana,"Microsoft Yahei",STXihei,hei;
-  color: #000;
-  background: #f2f2f2;
-  overflow-x: hidden;
-  -webkit-tap-highlight-color: transparent;
-}
-```
-
-5.模块名字划分
-
-<img src="flex布局.assets/6.jpg" style="zoom:80%;" >
 
 
 

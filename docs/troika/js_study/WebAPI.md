@@ -804,7 +804,7 @@ JS 执行过程：
 
 由于主线程不断的重复获得任务、执行任务、再获取任务、再执行、所有这种机制被称为 **事件循环（event loop）**
 
-<img src="E:/Study/JS_Study/JSNotes.assets/image-20230315135320450.png" alt="image-20230315135320450" style="zoom:80%;" />
+<img src="WebAPI.assets/image-20230315135320450.png" alt="image-20230315135320450" style="zoom: 80%;" />
 
 
 

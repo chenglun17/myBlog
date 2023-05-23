@@ -22,12 +22,13 @@ module.exports = {
                     { text: '计算机组成原理', link: '/cs/CO/' }
                 ]
             },
-            // 核心技术
+            // Web前端
             {
-                text: '核心技术',
+                text: 'Web前端',
                 items: [
                     { text: 'HTML/CSS', link: '/troika/html_css_study/' }, // 可不写后缀 .md
                     { text: 'JavaScript', link: '/troika/js_study/' },
+                    { text: 'Web API 接口', link: '/troika/WebAPI_Interface/' },
                     { text: 'Promise', link: '/troika/promise_study/' },
                     { text: 'Ajax', link: '/troika/ajax_study/' },
                     { text: 'Axios', link: '/troika/axios_study/' },
@@ -109,36 +110,69 @@ module.exports = {
                 },
             ],
             '/troika/': [
+                // HTML/CSS学习
                 {
                     title: 'HTML/CSS学习',
                     path: '/troika/html_css_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/troika/html_css_study/flexLayout.md",
-                        "/troika/html_css_study/transform.md",
+                        "/troika/html_css_study/HTMLNotes.md",
+                        "/troika/html_css_study/BoxModel.md",
+                        "/troika/html_css_study/Display.md",
+                        "/troika/html_css_study/Div.md",
+                        "/troika/html_css_study/CssSelector.md",
+                        "/troika/html_css_study/FlexLayout.md",
+                        "/troika/html_css_study/Transform.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
+                // JS学习
                 {
                     title: 'JS学习',
                     path: '/troika/js_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/troika/js_study/base.md",
+                        "/troika/js_study/Base.md",
                         "/troika/js_study/WebAPI.md",
-                        "/troika/js_study/senior.md",
+                        "/troika/js_study/Senior.md",
+                        "/troika/js_study/ES6.md",
+                        "/troika/js_study/WebAPI_Other.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
+                // Web API 接口
+                {
+                    title: 'Web API 接口',
+                    path: '/troika/WebAPI_Interface/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/troika/WebAPI_Interface/Blob.md",
+                        "/troika/WebAPI_Interface/Canvas.md",
+                        "/troika/WebAPI_Interface/FileReader.md",
+                        "/troika/WebAPI_Interface/WebSocket.md",
+                        "/troika/WebAPI_Interface/WebWorker.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                // Promise学习
                 {
                     title: 'Promise学习',
                     path: '/troika/promise_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/troika/promise_study/PromiseNotes.md",
+                        "/troika/promise_study/Introduction.md",
+                        "/troika/promise_study/PromiseAPI.md",
+                        "/troika/promise_study/KeyIssue.md",
+                        "/troika/promise_study/CustomPackage.md",
+                        "/troika/promise_study/Generator.md",
+                        "/troika/promise_study/async_await.md",
+                        "/troika/promise_study/Comparison.md",
+                        "/troika/promise_study/Question.md",
+                        "/troika/promise_study/HandwrittenPromise.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
+                // Ajax学习
                 {
                     title: 'Ajax学习',
                     path: '/troika/ajax_study/',
@@ -153,6 +187,7 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
+                // Axios学习
                 {
                     title: 'Axios学习',
                     path: '/troika/axios_study/',
