@@ -2,7 +2,7 @@
 
 [参考文章](https://blog.csdn.net/chelen_jak/article/details/82754535)、[参考文章2](http://www.w3cplus.com/content/css3-transform)、[参考文章3](https://blog.csdn.net/qq_45025670/article/details/125588381?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522168263808516800180659247%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=168263808516800180659247&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-125588381-null-null.142^v86^insert_down1,239^v2^insert_chatgpt&utm_term=transform&spm=1018.2226.3001.4187)
 
-Transform 字面上就是变形，改变的意思。
+Transform 字面上就是变形，改变。
 
 在CSS3中transform主要包括以下几种：**旋转rotate**、**扭曲skew**、**缩放scale**和**移动translate**以及**矩阵变形matrix**。
 
