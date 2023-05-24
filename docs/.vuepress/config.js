@@ -260,7 +260,10 @@ module.exports = {
                     path: '/others/webpack_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/others/webpack_study/WebpackNotes.md",
+                        "/others/webpack_study/Intro.md",
+                        "/others/webpack_study/Base.md",
+                        "/others/webpack_study/Senior.md",
+                        "/others/webpack_study/Project.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -278,6 +281,7 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
+                // Regex学习
                 {
                     title: 'Regex学习',
                     path: '/others/regex_study/',
