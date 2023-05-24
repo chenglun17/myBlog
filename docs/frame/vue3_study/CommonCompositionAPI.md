@@ -390,9 +390,9 @@ watch(() => person.job, (newValue, oldValue) => {
 
 ### Vue2生命周期
 
-<img src="CommonCompositionAPI.assets/vue2生命周期.png" alt="vue2生命周期" style="zoom:50%;" />![vue3生命周期](CompositionAPI.assets/vue3生命周期.png)
+<img src="CommonCompositionAPI.assets/vue2生命周期.png" alt="vue2生命周期" style="zoom:50%;" />
 
-###      Vue3生命周期
+### Vue3生命周期
 
 ![vue3生命周期](CommonCompositionAPI.assets/vue3生命周期.png)
 
