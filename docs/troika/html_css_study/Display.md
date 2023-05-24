@@ -11,3 +11,4 @@
 > - <strong style="color:#32CD32">list-item</strong>：指定对象为列表项目，为元素内容生成一个块型盒，随后再生成一个列表型的行内盒
 > - <strong style="color:#32CD32">table</strong>：指定对象作为块级元素的表格。类同于html标签table
 > - flex：将对象作为弹性伸缩盒显示
+

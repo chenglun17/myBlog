@@ -2,8 +2,6 @@
 
 ## JS 进阶 01
 
-<img src="Senior.assets/JavaScript第一天.jpg" alt="JavaScript第一天" style="zoom:50%;" />
-
 ### 作用域
 
 #### 1.作用域
@@ -60,7 +58,7 @@
 > - 全局变量一般不会回收（关闭页面才会回收）
 > - 一般情况下局部变量的值，不使用了，会被自动回收掉
 
-**内存泄露：**程序中分配的内存由于某种原因，程序 **未释放** 或 **无法释放** 叫做内存泄露，垃圾回收机制就是防止内存泄露的。
+**内存泄露：** 程序中分配的内存由于某种原因，程序 **未释放** 或 **无法释放** 叫做内存泄露，垃圾回收机制就是防止内存泄露的。
 
 栈堆空间分配区别：
 
@@ -96,11 +94,11 @@
 
 **闭包 = 内层函数 + 外层函数的变量**，即**闭包是指有权访问另一个函数作用域中的变量的函数**
 
-**闭包作用：**通过一系方法，将函数内部的变量(局部变量)转化为全局变量，封闭数据，提供操作，**外部也可以访问函数内部的变量**
+**闭包作用：** 通过一系方法，将函数内部的变量(局部变量)转化为全局变量，封闭数据，提供操作，**外部也可以访问函数内部的变量**
 
-**闭包应用：**实现数据的私有。例如，统计函数被调用的次数
+**闭包应用：** 实现数据的私有。例如，统计函数被调用的次数
 
-**闭包存风险：**可能会引起内存泄露
+**闭包存风险：** 可能会引起内存泄露
 
 例1：
 
@@ -135,7 +133,7 @@ fn() // 调用，外部函数访问函数内部的变量，输出10
 
 inner函数在outer函数的最后返回出去了，那么const fn = outer(); 其实就是让fn指向了inner函数，执行fn就等于执行inner函数
 
-说明inner函数是在**outer函数作用域之外**的作用域执行的（这里就是全局window），却能正确的引用到a，这就是闭包的效果。
+说明inner函数是在**outer函数作用域之外**执行的（这里就是全局window），却能正确的引用到a，这就是闭包的效果。
 
 **对比一下例1和例2：**
 
@@ -189,7 +187,7 @@ var fun = function () {
 }
 ```
 
-> - **函数的提升高于变量的提升**，匿名函数不会提升 ==重点==
+> <strong style="color:#DD5145">重点</strong>：**函数的提升高于变量的提升**，匿名函数不会提升
 
 
 
@@ -320,8 +318,8 @@ obj.sayHi()
 
 数组结构是将数组的单元值快速批量赋值给一系列变量的简洁语法
 
-> - **赋值运算符`=`** 左侧的 **`[]`** 用于批量声明变量，右侧数组的单元值将被赋值给左侧的变量
-> - 变量的顺序对应数组单元值的位置依次进行赋值操作
+- **赋值运算符`=`** 左侧的 **`[]`** 用于批量声明变量，右侧数组的单元值将被赋值给左侧的变量
+- 变量的顺序对应数组单元值的位置依次进行赋值操作
 
 ```javascript
 cosnt arr = [100, 60, 80]
@@ -341,20 +339,20 @@ console.log(a, b) // 3 1
 
 JS 前面必须加分号情况：
 
-> 1. **立即执行函数**
->
-> ```javascript
-> (function t() {})();
-> // 或者
-> ;(function t() {})()
-> ```
->
-> 2. **数组解构**
->
-> ```javascript
-> // 数组开头的，特别是前面有语句的一定注意加分号
-> ;[b, a] = [a, b]
-> ```
+1. **立即执行函数**
+
+```javascript
+(function t() {})();
+// 或者
+;(function t() {})()
+```
+
+2. **数组解构**
+
+```javascript
+// 数组开头的，特别是前面有语句的一定注意加分号
+;[b, a] = [a, b]
+```
 
 
 
@@ -362,10 +360,10 @@ JS 前面必须加分号情况：
 
 对象结构是将对象属性和方法快速批量赋值给一系列变量的简洁语法
 
-> - **赋值运算符`=`** 左侧的 **`{}`** 用于批量声明变量，右侧对象的属性值将被赋值给左侧的变量
-> - 对象属性的值将被赋值给与**属性名相同的变量**
-> - 注意解构的变量名不要和外面的变量冲突，否则报错
-> - 对象中找不到与变量名一致的属性时变量值为 undefined
+- **赋值运算符`=`** 左侧的 **`{}`** 用于批量声明变量，右侧对象的属性值将被赋值给左侧的变量
+- 对象属性的值将被赋值给与**属性名相同的变量**
+- 注意解构的变量名不要和外面的变量冲突，否则报错
+- 对象中找不到与变量名一致的属性时变量值为 undefined
 
 ```javascript
 const { uname, age } = { uname: 'pink老师', age: 18}
@@ -443,9 +441,9 @@ obj.age = 18
 
 构造函数是一种特殊的函数，主要用来**快速创建多个类似的对象**
 
-> - 它们的命名以**大写字母开头**
-> - 它们只能由 **“new”** 操作符来执行
-> - 内部创建要用 **“this”** 指向我们创建的实例化对象
+- 它们的命名以**大写字母开头**
+- 它们只能由 **“new”** 操作符来执行
+- 内部创建要用 **“this”** 指向我们创建的实例化对象
 
 ```javascript
 // 创建一个构造函数
@@ -456,12 +454,12 @@ function Pig(name,age) {
 const peppa = new Pig('佩奇', 6)
 ```
 
-> - 使用 **new 关键字** 调用函数的行为被称为 **实例化**
-> - 实例化构造函数时，若没有参数，则可以省略（）
-> - 构造函数内部 return 返回的值无效，**无需写 return**，默认返回值即为新创建的对象
-> - new Object（）、new Date（）也是实例化构造函数
+- 使用 **new 关键字** 调用函数的行为被称为 **实例化**
+- 实例化构造函数时，若没有参数，则可以省略（）
+- 构造函数内部 return 返回的值无效，**无需写 return**，默认返回值即为新创建的对象
+- new Object（）、new Date（）也是实例化构造函数
 
-**实例化过程：**例如 **`const Child = new Parent()`**
+**实例化过程：** 例如 **`const Child = new Parent()`**
 
 > 1. **创建新空对象**
 >
@@ -503,13 +501,13 @@ const peppa = new Pig('佩奇', 6)
 
 三个常用的静态方法（静态方法只有构造函数可Object可以调用）
 
-- **`Object.keys`**静态方法，获取对象中所有 属性（键），返回的是 一个数组
+- **`Object.keys`** 静态方法，获取对象中所有 属性（键），返回的是 一个数组
 
 - **`Object.values`** 静态方法，获取对象中所有 属性值，返回的是 一个数组
 
 - **`Object.assign`** 静态方法，用于对象拷贝、给对象添加属性
 
-  **`Object.assign(拷贝的对象，原始对象)`**使场景：给对象 **添加属性**
+  **`Object.assign(拷贝的对象，原始对象)`** 使用场景：给对象 **添加属性**
 
 ```javascript
 const obj = { name: '佩奇', age: 6}
@@ -554,7 +552,7 @@ Object.assign(obj2, obj) // 返回 {name: '佩奇', age: 6}
 
 ##### 数组 map 方法
 
-**map（）**可以 **遍历** 数组并**处理数据**，并且**返回新的数组**，迭代数组，==重点==
+**map（）** 可以 **遍历** 数组并**处理数据**，并且**返回新的数组**，迭代数组
 
 ```javascript
 const arr = ['red','blue','green']
@@ -570,7 +568,7 @@ console.log(newArr)	// ['red颜色','blue颜色','green颜色']
 
 ##### 数组 forEach 方法
 
-**forEach（）**方法用于调用数组的每个元素，并将元素传递给回调函数，==重点==
+**forEach（）** 方法用于调用数组的每个元素，并将元素传递给回调函数
 
 ```javascript
 被遍历的数组.forEach(function (ele, index) {
@@ -584,7 +582,7 @@ console.log(newArr)	// ['red颜色','blue颜色','green颜色']
 
 ##### 数组 filter 方法
 
-**filter（）**方法创建一个新数组，新数组中的元素是通过检查指定数组中符合条件的所有元素，用于筛选，**不改变旧数组**，**返回一个新数组**
+**filter（）** 方法创建一个新数组，新数组中的元素是通过检查指定数组中符合条件的所有元素，用于筛选，**不改变旧数组**，**返回一个新数组**
 
 ```javascript
 被遍历的数组.filter(function (ele, index) {
@@ -620,7 +618,7 @@ arr.reduce(function(上一次值, 当前值){}, 起始值)
 
 ##### 数组 every 方法
 
-> **检测数组 **所有元素是否都符合指定条件，如果 **所有元素** 都通过检测返回 ture，否则返回 false
+> **检测数组**所有元素是否都符合指定条件，如果 **所有元素** 都通过检测返回 ture，否则返回 false
 
 语法：
 
@@ -653,8 +651,6 @@ function isBigEnough(element, index, array) {
 
 
 #### 3.String
-
-常见实例方法
 
 ##### length 方法
 
@@ -744,7 +740,7 @@ includes(搜索的字符串[, 检测位置索引号])
 
 #### 1.原型对象
 
-**原型（原型对象）**是一个**对象**，称 **prototype**
+**原型（原型对象）** 是一个 **对象**，称 **prototype**
 
 > - 构造函数通过在 **原型对象** 上挂载函数，可以实现**共享**，更加**节省内存**
 > - javaScript 规定，每一个**构造函数**都有一个 **prototype 属性（原型对象）**，指向另一个对象
@@ -768,10 +764,10 @@ console.log(ldh.sing === zxy.sing)	// true
 
 #### 2.对象原型
 
-每个**【实例化的对象】**都会有一个属性**【对象原型 \__proto__】**，指向 **所属构造函数的【prototype原型对象】**
+每个 **实例化的对象** 都会有一个属性 **对象原型 \__proto__**，指向 **所属构造函数的 prototype 原型对象**
 
 > - 因为 \__proto__ 对象原型的存在，所以 **实例对象** 可以 **访问** 到 **原型对象**上的属性和方法
-> - **\__proto__ 对象原型 **里面也有一个 **constructor属性**，指向 创建该实例对象的 **构造函数**
+> - **\__proto__ 对象原型**里面也有一个 **constructor属性**，指向 创建该实例对象的 **构造函数**
 > - 重点:  <strong style="color:#DD5145">【对象原型（ \__proto__ ）】 ===> 【原型对象】</strong>
 
 注意：
@@ -782,21 +778,21 @@ console.log(ldh.sing === zxy.sing)	// true
 
 #### 3.constructor 属性
 
-> 每个 **prototype ** 和 **\__proto__ ** 里面都有个 **constructor 属性**（constructor 构造函数）
->
-> 该 <strong style="color:#DD5145">constructor属性 ===> 该prototype的构造函数</strong>，让 原型对象 能够重新找到 创造它的构造函数
+每个 **prototype** 和 **\__proto__** 里面都有个 **constructor 属性**（constructor 构造函数）
 
-<img src="Senior.assets/image-20230321173528625.png" alt="image-20230321173528625" style="zoom:55%;" />
+该 <strong style="color:#DD5145">constructor属性 ===> 该prototype的构造函数</strong>，让 原型对象 能够重新找到 创造它的构造函数
+
+![](senior.assets/image-20230321173528625.png)
 
 #### 总结
 
-> - 每个构造函数 **实例化的对象** 里面都有 <strong style="color:#DD5">对象原型 \__proto__，且 ===> 原型对象 prototype</strong>
+> - 每个构造函数 **实例化的对象** 里面都有 <strong style="color:#32CD32">对象原型 \__proto__，且 ===> 原型对象 prototype</strong>
 >
-> - 所有的 **原型对象** 和 **对象原型** 里面都有 <strong style="color:#DD5">constructor属性，且 ===> 构造函数</strong>
+> - 所有的 **原型对象** 和 **对象原型** 里面都有 <strong style="color:#32CD32">constructor属性，且 ===> 构造函数</strong>
 >
-> - <strong style="color:#DD5">`__proto__`（隐式原型）</strong>和 <strong style="color:#DD5">`constructor`</strong>是**对象**特有的属性；
+> - <strong style="color:#32CD32">`__proto__`（隐式原型）</strong>和 <strong style="color:#32CD32">`constructor`</strong>是**对象**特有的属性；
 >
-> - <strong style="color:#DD5">`prototype`（显示原型）</strong>是**函数**特有的属性，又因为函数也是一种**对象**，所以函数也拥有**`__proto__`**和**`constructor`**属性。
+> - <strong style="color:#32CD32">`prototype`（显示原型）</strong>是**函数**特有的属性，又因为函数也是一种**对象**，所以函数也拥有 **`__proto__`** 和 **`constructor`** 属性。
 
 代码演示：
 
@@ -824,14 +820,14 @@ console.log(ldh.__proto__.constructor === Star)		// true
 
 原型有三大特性：**封装** **继承** **多态**
 
-> 1、原型链继承 （Child.prototype=new Parent()）
-> 2、构造函数继承（在构造函数里面使用call）
-> 3、组合继承（原型链继承+构造继承）
-> 4、原型式继承（用了object.create，也有把他归类到寄生式）
-> 5、寄生式继承（原型式继承的进阶版）(也有叫拷贝继承)
-> 6、寄生组合式继承（寄生式+组合式，是class出现前的终极继承方案）
-> 7、对象冒充（不知道谁先想出来的怪招）
-> 8、class继承（大家都嫌寄生组合太麻烦了，所以出现了它，屠龙术）
+> 1. 原型链继承 （Child.prototype=new Parent()）
+> 2. 构造函数继承（在构造函数里面使用call）
+> 3. 组合继承（原型链继承+构造继承）
+> 4. 原型式继承（用了object.create，也有把他归类到寄生式）
+> 5. 寄生式继承（原型式继承的进阶版）(也有叫拷贝继承)
+> 6. 寄生组合式继承（寄生式+组合式，是class出现前的终极继承方案）
+> 7. 对象冒充（不知道谁先想出来的怪招）
+> 8. class继承（大家都嫌寄生组合太麻烦了，所以出现了它，屠龙术）
 
 > - 因为**原型链继承**不能传参，所以有了构造继承，但是**构造继承**不能继承父级的原型，所以出现了结合两种方式的**组合继承**
 > - 因为组合继承实例化了两次父类，性能有缺陷，所以想出了**原型式继承**，
@@ -844,7 +840,7 @@ console.log(ldh.__proto__.constructor === Star)		// true
 <strong style="color:#DD5145">原型链是一种 查找规则，顺着 \__proto__ 属性，一步一步往上查找的</strong>，也叫隐式原型链
 
 > 1. 当访问一个对象的属性（包括方法）时，首先查找这个 **对象自身** 有没有属性
-> 2. 如果没有就查找它的原型（即 **对象原型 \__proto__ ** ===> **原型对象 prototype**）
+> 2. 如果没有就查找它的原型（即 **对象原型 \__proto__** ===> **原型对象 prototype**）
 > 3. 如果还没有就查找原型对象的原型（**Object 的原型对象**）
 > 4. 依次类推一直找到 Object 为止（**`Object.prototype.__proto__ === null`**），所以称<strong style="color:#DD5145">`Object.prototype`为 原型链的终端</strong> 
 > 5. **\__proto__ 对象原型** 的意义就在于为对象成员查找机制提供一个方向，或一条路线
@@ -862,13 +858,14 @@ console.log(ldh.__proto__.constructor === Star)		// true
 > console.log(b instanceof Array)		// true
 > console.log(a instanceof Array)		// false
 > 
-> // A有一个实例化对象a，instanceof的判断规则是沿着a的 __proto__ 这条线去找，同时沿着A的prototype这条线去找
-> // 如果两条线能找到同一个引用，即同一个对象，就返回true，如果找到终点还没有重合就返回false.
+> // A有一个实例化对象a，instanceof的判断规则是沿着a的 __proto__ 这条线去找，
+> // 同时沿着A的prototype这条线去找，如果两条线能找到同一个引用，即同一个对象，就返回true，
+> // 如果找到终点还没有重合就返回false.
 > ```
 >
-> A有一个实例化对象a，instanceof的判断规则是沿着a的 \__proto__ 这条线去找，同时沿着A的prototype这条线去找，<br>如果两条线能找到同一个引用，即同一个对象，就返回true，如果找到终点还没有重合就返回false.
+> A有一个实例化对象a，instanceof的判断规则是沿着a的 \__proto__ 这条线去找，同时沿着A的prototype这条线去找，如果两条线能找到同一个引用，即同一个对象，就返回true，如果找到终点还没有重合就返回false。
 
-<img src="Senior.assets/image-20230322100213654.png" alt="image-20230322100213654" style="zoom:60%;" />
+![](senior.assets/image-20230322100213654.png)
 
 #### 原型链之Object，Function
 
@@ -888,9 +885,9 @@ console.log(Object instanceof Function) // true
 
 - 分析：
 
-> Object 实例对象是通过**`var Object = new Function()`**创建的，因此**`Object.__proto__ === Function.prototype`**
->
-> 而**`Function.prototype`**是一个空对象，是 Object 对象的实例，因此**`Function.prototype.__proto__ === Object.prototype`**
+Object 实例对象是通过 **`var Object = new Function()`** 创建的，因此 **`Object.__proto__ === Function.prototype`**
+
+而 **`Function.prototype`** 是一个空对象，是 Object 对象的实例，因此 **`Function.prototype.__proto__ === Object.prototype`**
 
 > 1. Function是个类，而类的本质是一个构造函数 Function
 > 2. 因为：Function(类) = Function(构造函数)
@@ -916,7 +913,7 @@ console.log(Object instanceof Function) // true
 >
 > **`Function.prototype`** 指向 "内置函数"。而 **`Object.prototype`** 指向 "根源对象"
 
-<img src="Senior.assets/image-20230415095613630.png" alt="image-20230415095613630" style="zoom:50%;" />
+![](senior.assets/image-20230415095613630.png)
 
 ## JS 进阶 04
 
@@ -930,8 +927,8 @@ console.log(Object instanceof Function) // true
 
 两种拷贝方法：
 
-> 1. 拷贝**对象**：**`Object.assign(拷贝的对象，原始对象)`**或 展开运算符**`{...obj}`**
-> 2. 拷贝**数组**：**`Array.prototype.concat()`**或 **`[...arr]`**
+> 1. 拷贝**对象**： **`Object.assign(拷贝的对象，原始对象)`** 或 展开运算符 **`{...obj}`**
+> 2. 拷贝**数组**： **`Array.prototype.concat()`** 或 **`[...arr]`**
 
 > - 拷贝对象之后，里面的属性值是简单数据类型，则 **直接拷贝值**
 > - 若属性值是引用数据类型，则拷贝的是 **地址**
@@ -975,8 +972,8 @@ console.log(p2); //{ name: '小白',age: 18}
 三种深拷贝方法：核心是创建新地址
 
 > 1. 通过 **递归函数** 实现
-> 2. 通过 **js库 [lodash](https://www.lodashjs.com/)** ，使用**`_.cloneDeep()`**实现
-> 3. 通过**`JSON.parse(JSON.stringify())`**实现
+> 2. 通过 **js库 [lodash](https://www.lodashjs.com/)** ，使用 **`_.cloneDeep()`** 实现
+> 3. 通过 **`JSON.parse(JSON.stringify())`** 实现
 
 1.通过 **递归函数** 实现深拷贝
 
@@ -1044,7 +1041,7 @@ function deepCopy(newObj, oldObj) {
 </script>
 ```
 
-3.通过 **JSON.stringify（）**实现
+3.通过 **JSON.stringify（）** 实现
 
 ```javascript
 const obj = {
@@ -1189,7 +1186,7 @@ console.log(max)
 console.log(Math.max(...arr))
 ```
 
-**3.bind（）-- 重点**
+**3.bind（）--  重点**
 
  bind 方法 **不会调用函数**，但是能改变函数内部 this 指向，**返回值是个函数**，里面的 this 是更改过的
 

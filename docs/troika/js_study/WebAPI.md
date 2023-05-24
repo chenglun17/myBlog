@@ -4,21 +4,19 @@
 
 ### const 声明
 
-> const声明的值不能改变
->
-> 对于引用数据类型，const声明的变量，里面存的不是值，而是 **地址**
->
-> ==建议数组和对象使用 const 来声明==
+const声明的值不能改变
+
+对于引用数据类型，const声明的变量，里面存的不是值，而是 **地址**
+
+<strong style="color:#DD5145">建议数组和对象使用 const 来声明</strong>
 
 ### API 作用和分类
 
-> 使用 JS 去操作 html 和 浏览器
->
-> 分为DOM（Document Object Model，文档对象模型）、BOM（浏览器对象模型）
+使用 JS 去操作 HTML和 浏览器
 
-#### DOM
+分为DOM（Document Object Model，文档对象模型）、BOM（浏览器对象模型）
 
-DOM：是JS操作网页的接口。它的作用是将网页转为一个JS对象，从而可以用脚本进行各种操作（比如增删内容）
+DOM：是JS操作网页的接口。作用是将网页转为一个JS对象，可以用脚本进行各种操作（比如增删内容）
 
 DOM树：文档树直观的体现了标签与标签之间的关系
 
@@ -28,11 +26,11 @@ DOM：浏览器根据html标签生成的 **JS对象（DOM对象）**
 > - 修改这个对象的属性会自动映射到标签身上
 > - DOM的核心就是把内容当对象来处理
 
-document 是DOM里面最大的一个对象
+document 是 DOM 里面最大的一个对象
 
 ### 获取DOM对象
 
-| `方法`                                  | `描述`                                                       |
+| 方法                                    | 描述                                                         |
 | :-------------------------------------- | :----------------------------------------------------------- |
 | `document.getElementById(id)`           | 通过元素 id 来查找元素                                       |
 | `document.getElementsByTagName(name)`   | 通过标签名来查找元素                                         |
@@ -56,13 +54,13 @@ document.querySelectorAll('ui li')
 // 返回值：CSS选择器匹配的NodeList 对象集合
 ```
 
-> document.querySelectorAll（'css选择器'）得到是一个 **伪数组**
->
+document.querySelectorAll（'css选择器'）得到是一个 **伪数组**
+
 > - 有长度、有索引号的数组
 > - 没有pop()、push() 等数组方法
 > - 不可以直接修改，只能通过遍历的方式一次给里面的元素做修改
 
-3. 其他获取DOM元素方法（了解）
+3. 其他获取DOM元素方法
 
 ```javascript
 //	根据id获取一个元素
@@ -102,38 +100,38 @@ pic.title = '刘德华黑马演唱会'
 
 2.1 通过 **style属性** 操作CSS
 
-> > **对象.style.样式属性 = 值**
->
-> 行内样式表，权重比较高
->
-> ```javascript
-> const box = document.querySelector('.box')
-> // 修改元素样式
-> box.style.width = '200px'
-> box.style.marginTop = '15px'
-> box.style.backgroundColor = 'pink'
-> // 若属性有 -连接符，则需要转换为小驼峰命名法
-> // 赋值的时候，不要忘记加CSS单位
-> ```
->
-> 标签选择 body 的时候，可以直接写 **document.body.style**，因为body是唯一的标签
+> **对象.style.样式属性 = 值**
 
-2.2 操作 **类名（className）**操作CSS
+行内样式表，权重比较高
 
-> 若修改的样式比较多，可借助于 css类名的形式，同时修改多个样式
+```javascript
+const box = document.querySelector('.box')
+// 修改元素样式
+box.style.width = '200px'
+box.style.marginTop = '15px'
+box.style.backgroundColor = 'pink'
+// 若属性有 -连接符，则需要转换为小驼峰命名法
+// 赋值的时候，不要忘记加CSS单位
+```
+
+标签选择 body 的时候，可以直接写 **document.body.style**，因为body是唯一的标签
+
+2.2 操作 **类名（className）** 操作CSS
+
+若修改的样式比较多，可借助于 css类名的形式，同时修改多个样式
+
+> **元素.className = '类名'**
+
+```javascript
+元素.className = 'active'
+// active 是一个css类名
+```
+
+直接使用 className 赋值会 ==覆盖==以前的类名
+
+> 由于 class 是关键字，所以使用 className代替
 >
-> > **元素.className = '类名'**
->
-> ```javascript
-> 元素.className = 'active'
-> // active 是一个css类名
-> ```
->
-> 直接使用 className 赋值会 ==覆盖==以前的类名
->
-> > 由于 class 是关键字，所以使用 className代替
-> >
-> > className 是使用新值**替换**旧值，如果需要添加一个类，需要保留之前的类名
+> className 是使用新值**替换**旧值，如果需要添加一个类，需要保留之前的类名
 
 2.3 通过 **classList** 操作类控制CSS（==推荐使用==）
 
@@ -215,31 +213,31 @@ clearInterval(定时器名)
 
 **事件监听三要素：**
 
-> - **事件源：**那个dom元素被事件触发了，要获取dom元素
-> - **事件类型：**用什么方式触发，比如鼠标单击 click、鼠标经过mouseover等
-> - **事件调用的函数：**要做什么事
+> - **事件源：** 那个dom元素被事件触发了，要获取dom元素
+> - **事件类型：** 用什么方式触发，比如鼠标单击 click、鼠标经过mouseover等
+> - **事件调用的函数：** 要做什么事
 
 **事件监听版本：**
 
-> - DOM L0，传统 on 注册，**`事件源.on事件 = function(){}`**
->
->   同一个对象，后面注册的事件会 ==覆盖== 前面注册（同一个事件）
->
->   直接使用 null 覆盖就可以实现事件的解绑
->
->   都是**冒泡阶段**执行的
+- DOM L0，传统 on 注册，**`事件源.on事件 = function(){}`**
 
-> - DOM L2 （==推荐==），**`事件源.addEventListener(事件, 事件处理函数, 是否使用捕获){}`** 
->
->   后面注册的事件不会覆盖前面注册的事件（同一个事件）
->
->   可以通过第三个参数去确定是否在冒泡阶段或捕获阶段执行
->
-> - 解绑
->
->   普通函数必须使用 **`removeEventListener(事件, 事件处理函数, 是否使用捕获)`** 解绑
->
->   匿名函数无法被解绑
+  同一个对象，后面注册的事件会 **覆盖** 前面注册（同一个事件）
+
+  直接使用 null 覆盖就可以实现事件的解绑
+
+  都是**冒泡阶段**执行的
+
+- DOM L2 （**推荐**），**`事件源.addEventListener(事件, 事件处理函数, 是否使用捕获){}`** 
+
+  后面注册的事件不会覆盖前面注册的事件（同一个事件）
+
+  可以通过第三个参数去确定是否在冒泡阶段或捕获阶段执行
+
+- 解绑
+
+  普通函数必须使用 **`removeEventListener(事件, 事件处理函数, 是否使用捕获)`** 解绑
+
+  匿名函数无法被解绑
 
 > 区别：on方式会覆盖，addEventListener 方式可绑定多次，拥有事件更多特性
 
@@ -288,7 +286,7 @@ setTimeout(A, 1000)
 
 **回调函数中this的指向问题**
 
-注意：在回调函数调用时this的执行上下文并 <strong style="color:#DD5">不是回调函数定义时的那个上下文</strong>，<strong style="color:#DD5145">而是调用它的函数所在的上下文</strong>。
+回调函数调用时 this 的执行上下文并 <strong style="color:#32CD32">不是回调函数定义时的上下文</strong>，<strong style="color:#DD5145">而是调用它的函数所在的上下文</strong>。
 
 ```html
 <script>
@@ -318,8 +316,8 @@ setTimeout(A, 1000)
 
 解决方法：
 
-> - 箭头函数
-> - `let self = this`
+- 箭头函数
+- `let self = this`
 
 
 
@@ -378,9 +376,9 @@ DOM.addEventListener(事件类型, 事件处理函数, 是否使用捕获机制)
 
 #### 2. 事件冒泡
 
+**事件冒泡是默认存在的**
+
 > 当一个元素触发事件后，会依次向上调用所有父级元素的 **同名事件**（**从里到外**）
->
-> **事件冒泡是默认存在的**
 >
 > L2 事件监听第三个参数是 False，或 默认都是冒泡
 
@@ -436,7 +434,7 @@ btn.removeEventListener('click', fn)
 
 > mouseover 和 mouseout 会**有冒泡效果**
 >
-> **mouseenter** 和 **mouseleave** 没有冒泡效果（==推荐==）
+> **mouseenter** 和 **mouseleave** 没有冒泡效果（**推荐**）
 
 
 
@@ -457,11 +455,11 @@ btn.removeEventListener('click', fn)
 
 #### 1. 页面加载事件
 
-加载外部资源（如图片、外联CSS和JavaScript等）加载完毕时触发的事件
+加载外部资源（如图片、外联CSS 和 JavaScript等）加载完毕时触发的事件
 
-> 事件名：**load**
->
-> 监听页面所有资源加载完毕
+事件名：**load**
+
+作用：监听页面所有资源加载完毕
 
 ```javascript
 // 页面加载事件
@@ -472,9 +470,9 @@ window.addEventListener('load', function () {
 
 不光可以监听整个页面资源加载完毕，也可以针对某个资源绑定 load 事件
 
-> 事件名：**DOMContentLoaded**
->
-> 监听页面DOM加载完毕，无需等待样式表、图像等完全加载
+事件名：**DOMContentLoaded**
+
+作用：监听页面 DOM 加载完毕，无需等待样式表、图像等完全加载
 
 ```javascript
 document.addEventListener('DOMContentLoaded', function () {
@@ -484,13 +482,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
 #### 2. 元素滚动事件
 
-> 事件名：**scroll**
->
-> 监听整个页面滚动，**scrollLeft** 和 **scrollTop**属性，==可读写==
+[参考文章](https://blog.csdn.net/shibazijiang/article/details/103894498)、[参考文章](https://blog.csdn.net/Amnesiac666/article/details/122083846)
 
-> 获取元素距离自己定位父级元素的左、上距离（看最近一级**带有定位的祖先元素**）
->
-> **offsetLeft** 和 **offsetTop**，注意是 ==只读属性==
+事件名：**scroll**
+
+作用：监听整个页面滚动
+
+属性：
+
+**`scrollHeight`**：返回元素的高度（包括元素高度、内边距和溢出尺寸，不包括边框和外边距），**只读**
+
+**`scrollWidth`**：
+
+**`scrollTop`**：设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离，**可读写**
+
+**`scrollLeft`**：
+
+------
+
+**`offsetHeight`**：返回元素的高度（包括元素高度、内边距和边框，不包括外边距），**只读**
+
+**`offsetWidth`**：
+
+**`offsetTop`**：获取当前对象到其上级层顶部的距离，**只读**
+
+**`offsetLeft`**：
+
+------
+
+**`clientHeight`**：返回元素的高度（包括元素高度、内边距，不包括边框、外边距和滚动条），**只读**
+
+**`clientWidth`**：
 
 ```javascript
 // 页面滚动事件
@@ -506,9 +528,9 @@ document.documentElement
 document.documentElement.scrollTop	// 得到的是数字型数据，不带单位
 ```
 
-> 事件名：**scrollTo（）**
->
-> 将内容滚动到指定的坐标
+事件名：**scrollTo（）**
+
+作用：将内容滚动到指定的坐标
 
 ```javascript
 // 让页面滚动到 y轴1000像素的位置
@@ -519,9 +541,7 @@ window.scrollTo(0, 1000)
 
 会在窗口尺寸改变的时候触发事件
 
-> 事件名：**resize**
->
-> 获取元素的可见部分宽高（**不包含**边框border、margin、滚动条等）：**clientWidth** 和 **clientHeight**，==只读属性==
+事件名：**resize**
 
 ```javascript
 // 检测屏幕宽度
@@ -531,13 +551,8 @@ window.addEventListener('resize', function () {
 })
 ```
 
-> 获取元素的自身宽高（包含padding、border、滚动条等）：**offsetWidth** 和 **offsetHeight**，==只读属性==
+> 获取位置：**element.getBoundingClientRect（）** 方法返回元素的大小及其**相对于视口**的位置
 >
-> 获取的是可视宽高，如果盒子是隐藏的，则获取的结果为0
-
-> 获取位置：**element.getBoundingClientRect（）**
->
-> 方法返回元素的大小及其**相对于视口**的位置
 
 ## Web APIs 04
 
@@ -804,7 +819,7 @@ JS 执行过程：
 
 由于主线程不断的重复获得任务、执行任务、再获取任务、再执行、所有这种机制被称为 **事件循环（event loop）**
 
-<img src="WebAPI.assets/image-20230315135320450.png" alt="image-20230315135320450" style="zoom: 80%;" />
+![](WebAPI.assets/image-20230315135320450.png)
 
 
 
@@ -890,7 +905,7 @@ regObj.exec(被检测的字符串)
 | ^      | 表示匹配行首的文本（以谁开始） |
 | $      | 表示匹配行尾的文本（以谁结束） |
 
-==如果 ^ 和 $ 在一起，表示必须精确匹配==
+**如果 ^ 和 $ 在一起，表示必须精确匹配**
 
 #### 2.量词
 

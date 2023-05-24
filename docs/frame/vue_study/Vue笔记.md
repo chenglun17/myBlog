@@ -34,8 +34,6 @@ Diff 比较规则：
 
 > 1. Diff 比较两个虚拟DOM只会在同层级之间进行比较，不会跨层级进行比较
 >
->    <img src="Vue笔记.assets/Diff比较.png" alt="Diff比较" style="zoom:100%;" />
->
 >    ![](Vue笔记.assets/Diff比较.png)
 >
 > 2. Diff 是采用**先序深度优先遍历**的方式进行节点比较的

@@ -14,9 +14,9 @@
 
 - **`box-sizing: content-box`** ：标准盒模型（默认值）
 
-  - **`box-sizing: border-box`** ：IE（替代）盒模型
+- **`box-sizing: border-box`** ：IE（替代）盒模型
 
-<img src="BoxModel.assets/盒子模型.png" alt="盒子模型" style="zoom:67%;" />
+![](BoxModel.assets/盒子模型.png)
 
 - **`border : <宽度> <线条图案> <颜色>;`**，例如 **`border: 1px solid orange;`**
 
@@ -26,7 +26,7 @@
 
 - **margin**是用来隔开**元素与元素的间距**；**padding**是用来隔开**元素与内容的间隔**。
 
-- 使用 **margin、padding简化** 写法注意事项：
+- 使用 **margin、padding 简化** 写法注意事项：
 
 > - 如果只提供一个，将用于全部的四边。 
 > - 如果提供两个，第一个用于**上、下**，第二个用于**左、右**。 

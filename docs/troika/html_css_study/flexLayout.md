@@ -1,8 +1,8 @@
 # Flex布局
 
-## 1.0传统布局和flex布局对比
+## 1.0 传统布局和flex布局对比
 
-### 1.1传统布局
+### 1.1 传统布局
 
 + 兼容性好
 + 布局繁琐
@@ -31,9 +31,9 @@
 
   它的所有子元素自动成为容器成员，称为 **Flex 项目（flex item）**，简称 "**项目**"。
 
-**总结**：就是通过给父盒子添加**`flex`**属性，来控制子盒子的位置和排列方式。
+**总结**：就是通过给父盒子添加 **`flex`** 属性，来控制子盒子的位置和排列方式。
 
-<img src="FlexLayout.assets/image-20230427212924154.png" alt="image-20230427212924154" style="zoom: 50%;" />
+![](flexLayout.assets/image-20230427212924154.png)
 
 ## 3.0 父项常见属性
 
@@ -51,21 +51,23 @@
 + <strong style="color:#DD5145">默认主轴</strong> 方向就是 x 轴方向，<strong style="color:#DD5145">水平向右</strong>，子元素是跟着<strong style="color:#DD5145">主轴</strong>来排列的
 + <strong style="color:#32CD32">默认侧轴</strong> 方向就是 y 轴方向，<strong style="color:#32CD32">水平向下</strong>
 
-<img src="FlexLayout.assets/1.JPG" alt="1" style="zoom:67%;" />
+![](flexLayout.assets/axis.png)
 
 + 注意： 主轴和侧轴是会变化的，就看 flex-direction 设置谁为主轴，剩下的就是侧轴。
 
-  <img src="FlexLayout.assets/2.JPG" alt="2" style="zoom:80%;" />
+  ![](flexLayout.assets/flex-direction.png)
 
+  
+  
   
 
 ### 3.2 justify-content 属性⭐️
 
-- **`justify-content`**设置子元素在<strong style="color:#DD5145">主轴</strong>（默认是x轴）上的排列方式
+- **`justify-content`** 设置子元素在<strong style="color:#DD5145">主轴</strong>（默认是x轴）上的排列方式
 
 - 注意：使用这个属性之前一定要先确定好主轴是哪一个
 
-<img src="FlexLayout.assets/3.JPG" alt="3" style="zoom: 67%;" />
+![](flexLayout.assets/justify-content.png)
 
 
 
@@ -83,17 +85,13 @@
 + **`center`** 居中显示
 + **`stretch`** 拉伸
 
-<img src="FlexLayout.assets/image-20230427221753785.png" alt="image-20230427221753785" style="zoom: 50%;" />
-
-
+![](flexLayout.assets/align-items.png)
 
 ### 3.5 align-content 属性⭐️
 
 - **`align-content`** 设置子元素在 <strong style="color:#32CD32">侧轴</strong>（默认是y轴）上的排列方式，且只能用于子项 <strong style="color:#32CD32">换行</strong> 的情况（<strong style="color:#32CD32">多行</strong>），**在单行下是没有效果的**。
 
-<img src="FlexLayout.assets/4.JPG" alt="4" style="zoom:80%;" />
-
-
+![](flexLayout.assets/align-content.png)
 
 ### 3.6 align-items 和 align-content 区别
 
@@ -144,14 +142,12 @@ span:nth-child(2) {
 
 其中：
 
-```
-1. auto 表示继承容器的 align-items 属性。（默认值）
-2. flex-start 沿着交叉轴方向 起点 对齐（默认值）。
-3. flex-end 沿着交叉轴方向 结尾 对齐。
-4. center 沿着交叉轴方向 居中 对齐。
-5. baseline 沿着交叉轴方向，按照项目内的文字对齐。
-6. stretch 沿着交叉轴方向自动进行拉升到最大。
-```
+> 1. auto 表示继承容器的 align-items 属性。（默认值）
+> 2. flex-start 沿着交叉轴方向 起点 对齐（默认值）。
+> 3. flex-end 沿着交叉轴方向 结尾 对齐。
+> 4. center 沿着交叉轴方向 居中 对齐。
+> 5. baseline 沿着交叉轴方向，按照项目内的文字对齐。
+> 6. stretch 沿着交叉轴方向自动进行拉升到最大。
 
 ### 4.3 order 属性
 

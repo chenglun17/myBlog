@@ -212,5 +212,4 @@ a 标签，也是**行内元素**，不是块级元素
 
 `log<sub>10</sub>10`:设置下标
 
-<img src="HTMLNotes.assets/sup+sub.png" alt="sup+sub" style="zoom:67%;" />
-
+![](HTMLNotes.assets/sup+sub.png)
