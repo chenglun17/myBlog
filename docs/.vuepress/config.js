@@ -12,7 +12,7 @@ module.exports = {
         // 导航栏配置
         nav: [
             // 普通链接
-            { text: '更新日志', link: '/guide/' }, // 内部链接，以docs为根目录
+            { text: '快速了解', link: '/guide/' }, // 内部链接，以docs为根目录
             // 计算机基础
             {
                 text: '计算机基础', link: '/cs/', items: [
@@ -217,7 +217,6 @@ module.exports = {
                     path: '/frame/vue3_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/frame/vue3_study/Vue3Intro.md",
                         "/frame/vue3_study/CreateProject.md",
                         "/frame/vue3_study/CommonCompositionAPI.md",
                         "/frame/vue3_study/OtherCompositionAPI.md",
@@ -303,6 +302,12 @@ module.exports = {
         // prevLinks: false,
     },
     plugins: [
-        '@vuepress/back-to-top', // 回到顶部
+        ['@vuepress/back-to-top'], // 回到顶部
+        ['@vuepress/last-updated'], // 更新日期（git）
+        ['@vuepress/active-header-links', {
+            sidebarLinkSelector: '.sidebar-link',
+            headerAnchorSelector: '.header-anchor'
+        }],
+        ['vuepress-plugin-code-copy', true], // 复制代码块
     ]
 }

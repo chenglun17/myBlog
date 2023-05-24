@@ -9,6 +9,10 @@
                     {{ data.heroText || $title || 'Hello' }}
                 </h1>
 
+                <p v-if="data.tip !== null" class="tip">
+                    {{ data.tip || $title || 'Welcome to your VuePress site' }}
+                </p>
+
                 <p v-if="data.tagline !== null" class="description">
                     {{ data.tagline || $description || 'Welcome to your VuePress site' }}
                 </p>
@@ -21,7 +25,7 @@
         <!-- 底部区域 -->
         <div v-if="data.features && data.features.length" class="features">
             <div v-for="(feature, index) in data.features" :key="index" class="feature">
-                <h2>这是一个图标</h2>
+                <div class="icon">{{ feature.icon }}</div>
                 <h2>{{ feature.title }}</h2>
                 <p>{{ feature.details }}</p>
             </div>
@@ -119,10 +123,15 @@
             h1
                 font-size 3rem
             h1, .description, .action
-                margin 1.5rem auto
+                margin 0.8rem auto
+            .tip
+                max-width 35rem
+                font-size 1rem
+                line-height 1
+                color lighten($textColor, 70%)
             .description
                 max-width 35rem
-                font-size 1.6rem
+                font-size 1.3rem
                 line-height 1.3
                 color lighten($textColor, 40%)
             .action-button
@@ -131,7 +140,7 @@
                 color #fff
                 background-color $accentColor
                 padding 0.8rem 1.6rem
-                border-radius 4px
+                border-radius 10px
                 transition background-color .1s ease
                 box-sizing border-box
                 border-bottom 1px solid darken($accentColor, 10%)
@@ -160,6 +169,15 @@
         background-color #f6f6f7
         border-radius 5%
         box-shadow 0 4px 8px 0 rgba(0, 0, 0, 0.2)
+        .icon
+          display: flex
+          justify-content: center
+          align-items: center
+          border-radius: 6px
+          background-color: var(--vp-c-bg-soft-down)
+          width: 48px
+          height: 48px
+          font-size: 30px
         h2
           font-size 1.4rem
           font-weight 500
