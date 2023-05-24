@@ -309,5 +309,12 @@ module.exports = {
             headerAnchorSelector: '.header-anchor'
         }],
         ['vuepress-plugin-code-copy', true], // 复制代码块
-    ]
+    ],
+    // 解决中文图片资源路径
+    markdown: {
+        lineNumbers: true,
+        extendMarkdown: md => {
+            md.use(require("markdown-it-disable-url-encode"))
+        }
+    }
 }
