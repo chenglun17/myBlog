@@ -37,7 +37,8 @@ module.exports = {
             // 主流框架
             {
                 text: '主流框架', link: '/frame/', items: [
-                    { text: 'Vue', link: '/frame/vue_study/' },
+                    { text: 'Vue2.x', link: '/frame/vue_study/' },
+                    { text: 'Vue3', link: '/frame/vue3_study/' },
                     { text: 'React', link: '/frame/react_study/' }
                 ]
             },
@@ -46,7 +47,8 @@ module.exports = {
                 text: '其他学习', link: '/others/', items: [
                     { text: 'Nodejs', link: '/others/nodejs_study/' },
                     { text: 'Webpack', link: '/others/webpack_study/' },
-                    { text: 'Git', link: '/others/git_study/' }
+                    { text: 'Git/Tortoisegit', link: '/others/git_study/' },
+                    { text: '正则表达式', link: '/others/regex_study/' },
                 ]
             },
             { text: 'GitHub', link: 'https://github.com/chenglun17' },
@@ -182,8 +184,8 @@ module.exports = {
                         "/troika/ajax_study/jQueryAjax.md",
                         "/troika/ajax_study/Axios.md",
                         "/troika/ajax_study/Fetch.md",
-                        "/troika/ajax_study/Difference.md",
                         "/troika/ajax_study/CrossDomain.md",
+                        "/troika/ajax_study/Difference.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -202,11 +204,32 @@ module.exports = {
             ],
             '/frame/': [
                 {
-                    title: 'Vue学习',
+                    title: 'Vue2学习',
                     path: '/frame/vue_study/',
                     sidebarDepth: 2,
                     children: [
                         "/frame/vue_study/Vue笔记.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                {
+                    title: 'Vue3学习',
+                    path: '/frame/vue3_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/frame/vue3_study/Vue3Intro.md",
+                        "/frame/vue3_study/CreateProject.md",
+                        "/frame/vue3_study/CommonCompositionAPI.md",
+                        "/frame/vue3_study/OtherCompositionAPI.md",
+                        "/frame/vue3_study/Advantage.md",
+                        "/frame/vue3_study/NewComponent.md",
+                        "/frame/vue3_study/Vue3Other.md",
+                        "/frame/vue3_study/VueRouter.md",
+                        "/frame/vue3_study/Pinia.md",
+                        "/frame/vue3_study/VueUse.md",
+                        "/frame/vue3_study/Optimization.md",
+                        "/frame/vue3_study/Other.md",
+                        "/frame/vue3_study/OtherQuestions.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -221,6 +244,7 @@ module.exports = {
                 },
             ],
             '/others/': [
+                // Nodejs学习
                 {
                     title: 'Nodejs学习',
                     path: '/others/nodejs_study/',
@@ -230,6 +254,7 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
+                // Webpack学习
                 {
                     title: 'Webpack学习',
                     path: '/others/webpack_study/',
@@ -239,12 +264,26 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
+                // Git学习
                 {
                     title: 'Git学习',
                     path: '/others/git_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/others/git_study/GitNotes.md",
+                        "/others/git_study/GitIntro.md",
+                        "/others/git_study/GitBasicUse.md",
+                        "/others/git_study/OperationProcess.md",
+                        "/others/git_study/Problem.md",
+                        "/others/git_study/InterviewQuestions.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                {
+                    title: 'Regex学习',
+                    path: '/others/regex_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/others/regex_study/Regex.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
