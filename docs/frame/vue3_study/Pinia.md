@@ -1,4 +1,4 @@
-# 八、Pinia 状态管理库
+# 十、Pinia 状态管理库
 
 [参考文章](https://blog.csdn.net/weixin_42365757/article/details/123848276)、[参考文章2](https://blog.csdn.net/weixin_42776111/article/details/126008933)
 

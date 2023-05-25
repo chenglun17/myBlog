@@ -1,12 +1,10 @@
-# 七、VueRouter
+# 九、VueRouter
 
 安装
 
 ```sh'
 npm install vue-router@4
 ```
-
-
 
 ## vue2和vue3的路由区别
 
