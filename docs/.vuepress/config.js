@@ -134,11 +134,11 @@ module.exports = {
                     path: '/troika/js_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/troika/js_study/base.md",
-                        "/troika/js_study/WebAPI.md",
-                        "/troika/js_study/senior.md",
+                        "/troika/js_study/JS_Base.md",
+                        "/troika/js_study/JS_WebAPI.md",
+                        "/troika/js_study/JS_Senior.md",
                         "/troika/js_study/ES6.md",
-                        "/troika/js_study/WebAPI_Other.md",
+                        "/troika/js_study/WebAPI_Interface.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -313,7 +313,7 @@ module.exports = {
     ],
     // 解决中文图片资源路径
     markdown: {
-        lineNumbers: true,
+        // lineNumbers: true, // 显示代码块行号
         extendMarkdown: md => {
             md.use(require("markdown-it-disable-url-encode"))
         }
