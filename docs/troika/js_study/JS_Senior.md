@@ -32,15 +32,15 @@ JavaScript 语言的一大特点急就是 **单线程**。
 
 JS中出现了 **同步** 和 **异步**，本质区别是这流水线上各个流程的执行顺序不同。
 
-- **同步任务**：都在**主线程**上执行，形成一个 **执行栈**
+- **同步任务**：都在 **主线程 **上执行，形成一个 **执行栈**
 
-- **异步任务**：都添加到 **任务队列（消息队列）**，JS的**异步**通过**回调函数**实现
+- **异步任务**：都添加到 **任务队列（消息队列）**，JS的 **异步** 通过 **回调函数** 实现
 
   普通事件，如 click、resize 等
 
   资源加载，如 load、error 等
 
-  定时器，包括setInterval、setTimeout 等
+  定时器，包括 `setInterval`、`setTimeout` 等
 
 **JS 执行过程：**
 
@@ -116,7 +116,7 @@ JS中出现了 **同步** 和 **异步**，本质区别是这流水线上各个�
 
 ### 1.构造函数
 
-构造函数是一种特殊的函数，主要用来**快速创建多个类似的对象**
+构造函数是一种特殊的函数，主要用来**快速创建多个类似的对象**。
 
 - 它们的命名以**大写字母开头**
 - 它们只能由 **“new”** 操作符来执行
@@ -138,39 +138,64 @@ const peppa = new Pig('佩奇', 6)
 
 **实例化过程：**
 
-例如 **`const Child = new Parent()`**
+例如 **`const peppa = new Pig()`**：
 
-> 1. **创建新空对象**
->
-> 2. **构造函数 this 指向 新对象**
->
->    让Prarent中的this指向Child
->
-> 3. **执行构造函数代码，将属性添加给Prarent中的this对象**
->
->    设置原型链，将Child的\__proto__的成员指向了Prarent的prototype的成员
->
-> 4. **返回新对象，构造函数里面不需要写 return**
->
->    给Child赋值，Parent的返回值类型是个值child就是个值，是个对象，child就是这个对象
+1. **创建新空对象**
+
+2. **构造函数 this 指向 新对象**
+
+   让 Pig 中的 this 指向 peppa
+
+3. **执行构造函数代码，将属性添加给 Pig 中的 this 对象**
+
+   设置原型链，将 peppa 的 \__proto__ 的成员指向了 Pig 的 prototype 的成员
+
+4. **返回新对象，构造函数里面不需要写 return**
+
+   给 peppa 赋值，Pig 的返回值是个值，那么 peppa 就是个值，若返回值是个对象，peppa 就是这个对象
+
+> - 当使用 `new` 时，`this` 引用我们创建的空对象（peppa）。
+> - 当未使用 `new` 时，`this` 引用的是**全局对象**（global object）。
+
+
 
 ### 2.实例成员&静态成员
 
-通过 **构造函数 **创建的对象称为**实例对象**
+通过 **构造函数 **创建的对象称为 **实例对象**
 
-1. **实例对象中**的属性和方法称为 <strong style="color:#DD5145">实例成员</strong>（实例属性和实例方法）
+**1. 实例对象中**的属性和方法称为 <strong style="color:#DD5145">实例成员</strong>（实例属性和实例方法）
 
 - 为构造函数传入参数，创建结构相同但值 **不同的对象**
 - 构造函数创建的实例对象 **彼此独立** 互不影响
 - 它是通过 **prototype** 原型对象添加的，**所有的实例对象**都能够继承调用
 
-2. **构造函数中**的属性和方法被称为 <strong style="color:#DD5145">静态成员</strong>（静态属性和静态方法）
+**2. 构造函数中**的属性和方法被称为 <strong style="color:#DD5145">静态成员</strong>（静态属性和静态方法）
 
-- 静态成员只能 **构造函数访问** 
+- 静态成员只能 **构造函数访问** ，不能被实例使用
 - 静态方法中的 this 指向构造函数，在构造函数本身上定义的方法，只能通过构造函数本身调用
 - 静态方法直接用**类名.方法名**去调用
 
 > 例如， Date.now()、Math.PI、Math.random()
+
+```js
+class Chameleon {
+  static colorChange(newColor) {
+    this.newColor = newColor
+    return this.newColor
+  }
+
+  constructor({ newColor = 'green' } = {}) {
+    this.newColor = newColor
+  }
+}
+
+const freddie = new Chameleon({ newColor: 'purple' })
+freddie.colorChange('orange')	// 因为 freddie 是一个实例，静态方法不能被实例使用，因此抛出了 TypeError 错误。
+```
+
+[参考文章-例8](https://github.com/lydiahallie/javascript-questions/blob/master/zh-CN/README-zh_CN.md)
+
+
 
 ## 内置构造函数
 
@@ -201,35 +226,24 @@ Object.assign(obj2, obj) // 返回 {name: '佩奇', age: 6}
 
 ### 2.Array
 
-创建数组建议使用**字面量创建**，不用 Array 构造函数创建
+创建数组建议使用**字面量创建**，不用 Array 构造函数创建。
 
-- `map()` : 遍历数组，返回回调返回值组成的新数组
-- `forEach()` : 无法 break ，可以用 try/catch 中 throw new Error 来停止
-- `filter` : 过滤
-- `some()` : 有一项返回 true ，则整体为 true
-- `every()` : 有一项返回 false ，则整体为 false
-- `join()` : 通过指定连接符生成字符串
-- `push() / pop()` : 末尾推入和弹出，改变原数组， 返回推入/弹出项
-- `unshift() / shift()` : 头部推入和弹出，改变原数组，返回操作项
-- `sort() / reverse()` : 排序与反转，改变原数组
-- `concat()` : 连接数组，不影响原数组， 浅拷贝
-- `slice(start, end)` : 返回截断后的新数组，不改变原数组
-- `splice(start,number,value…)`: 返回删除元素组成的数组，value 为插入项，改变原数组
-- `indexOf / lastIndexOf(value, fromIndex)` : 查找数组项，返回对应的下标
-- `reduce(fn(prev, cur) ，起始值)` : 两两执行，prev 为上次化简函数的return 值，cur 为当前值(从第二项开始)
+1. [map()](#map方法)：遍历并处理数据，返回的新数组
+2. [forEach()](#foreach方法)：只遍历，不返回
+3. [filter()](#filter方法)：返回新数组，返回的是筛选满足条件的数组元素
+4. [reduce()](#reduce方法)：返回函数累积处理的结果，经常用于求和
+5. [find()](#find方法)：
+6. [findIndex()](#findindex方法)：
+7. [findOf()](#findof方法)：
+8. [every()](#every方法)：有一项返回 false ，则整体为 false
+9. [some()](#some方法)：有一项返回 true ，则整体为 true
+10. [from()](#from方法)：
+11. [flat()](#flat方法)：
+12. [flatMap()](#flatmap方法)：
 
-数组常见实例方法-核心方法
+------
 
-| 方法    | 作用     | 描述                                       |
-| ------- | -------- | ------------------------------------------ |
-| forEach | 遍历数组 | 只遍历，不返回                             |
-| filter  | 过滤数组 | 返回新数组，返回的是筛选满足条件的数组元素 |
-| map     | 迭代数组 | 返回新数组，新数组里面的元素是处理之后的值 |
-| reduce  | 累积器   | 返回函数累积处理的结果，经常用于求和       |
-
-
-
-#### 数组 map 方法
+#### map方法
 
 [参考文章](https://blog.csdn.net/weixin_44337386/article/details/126142501)、[参考文章2](https://blog.csdn.net/rambler_designer/article/details/118365562)
 
@@ -279,9 +293,9 @@ console.log(parseInt('3',2))  // NaN，二进制不包括 3 这个数字
 >
 > [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
 
-#### 数组 forEach 方法
+#### forEach方法
 
-**forEach（）** 方法用于调用数组的每个元素，并将元素传递给回调函数，==重点==
+用于调用数组的每个元素，并将元素传递给回调函数。
 
 ```javascript
 Array.forEach(function (ele, index) {
@@ -292,10 +306,11 @@ Array.forEach(function (ele, index) {
 
 > - 与 map（）相似，但是 forEach（）<strong style="color:#DD5145">只遍历，不返回新数组</strong>
 > - 适用于遍历数组对象
+> - 无法 break ，可以用 try/catch 中 throw new Error 来停止
 
-#### 数组 filter 方法
+#### filter方法
 
-filter() 方法创建一个新数组，新数组中的元素是通过检查指定数组中符合条件的所有元素，用于筛选，**不改变旧数组**，**返回一个新数组**
+filter() 方法创建一个新数组，新数组中的元素是通过检查指定数组中符合条件的所有元素，用于筛选，**不改变旧数组**，**返回一个新数组**。
 
 ```javascript
 Array.filter(function (ele, index) {
@@ -304,11 +319,11 @@ Array.filter(function (ele, index) {
 // 参数ele是必须要写的，index可选
 ```
 
-#### 数组 reduce 方法
+#### reduce方法
 
 [参考文章](https://blog.csdn.net/qq_33591873/article/details/125248005)
 
-> 遍历数组元素，返回函数 **累积处理** 的结果，经常用于**求和**
+遍历数组元素，返回函数 **累积处理** 的结果，经常用于**求和**。
 
 ```javascript
 Array.reduce(function(上一次值, 当前值){}, 起始值)
@@ -338,14 +353,16 @@ let res = arr.reduce((pre, cur) => {
 console.log(res)
 ```
 
-#### 数组 find 方法
 
-> 查找元素，返回符合测试条件的**第一个数组元素值**，如果没有符号条件的则返回 undefined
->
-> - find() 对于空数组，函数是不会执行的。
-> - find() 并没有改变数组的原始值。
 
-语法
+#### find方法
+
+查找元素，返回符合测试条件的**第一个数组元素值**，如果没有符号条件的则返回 undefined。
+
+- find() 对于空数组，函数是不会执行的。
+- find() 并没有改变数组的原始值。
+
+语法：
 
 ```js
 Array.find(function(currentValue, index, arr), thisValue)
@@ -361,9 +378,9 @@ console.log(num)  // 2
 
 
 
-#### 数组 findIndex 方法
+#### findIndex方法
 
-> 返回数组中满足提供的测试函数的**第一个数组元素的索引**。若没有找到对应元素则返回-1
+返回数组中满足提供的测试函数的**第一个数组元素的索引**。若没有找到对应元素则返回-1。
 
 ```js
 const arr = [10, 9, 12, 15, 16]
@@ -372,9 +389,11 @@ console.log(arr.findIndex(isLargeNumber))
 // 3
 ```
 
-#### 数组 findOf 方法
 
-> 返回在数组中可以找到一个**给定元素**的第一个索引，如果不存在，则返回-1
+
+#### findOf方法
+
+返回在数组中可以找到一个**给定元素**的第一个索引，如果不存在，则返回-1。
 
 ```js
 const arr = ['a', 'b', 'c', 'd', 'e']
@@ -382,12 +401,14 @@ console.log(arr.indexOf('b'))
 // 1
 ```
 
-#### 数组 every 方法
 
-> **检测数组 **所有元素是否都符合指定条件，如果**所有数组元素**都通过检测返回 ture，否则返回 false
->
-> - every() 不会对空数组进行检测
-> - every() 不会改变原始数组
+
+#### every方法
+
+**检测数组 **所有元素是否都符合指定条件，如果**所有数组元素**都通过检测返回 ture，否则返回 false。
+
+- every() 不会对空数组进行检测
+- every() 不会改变原始数组
 
 语法：
 
@@ -406,14 +427,14 @@ function isBigEnough(element, index, array) {
 [12, 54, 18, 130, 44].every(isBigEnough); // true
 ```
 
-#### 数组 some 方法
+#### some方法
 
-> 检测数组中的元素是否满足指定条件，如果**有数组元素**满足条件返回 true，否则返回 false
->
-> - some() 不会对空数组进行检测。
-> - some() 不会改变原始数组。
+检测数组中的元素是否满足指定条件，如果**有数组元素**满足条件返回 true，否则返回 false。
 
-语法
+- some() 不会对空数组进行检测。
+- some() 不会改变原始数组。
+
+语法：
 
 ```js
 Array.some(function(currentValue, index, arr), thisValue)
@@ -421,11 +442,11 @@ Array.some(function(currentValue, index, arr), thisValue)
 
 
 
-#### 数组 from 方法
+#### from方法
 
->  Array.from() 方法就是将一个类数组对象或者可遍历对象转换成一个**真正的数组**
+将一个类数组对象或者可遍历对象转换成一个**真正的数组**。
 
-语法
+语法：
 
 ```js
 Array.from(object, mapFunction, thisValue)
@@ -435,36 +456,59 @@ Array.from(object, mapFunction, thisValue)
 > - mapFunction 可选。对数组的每个项目调用的 map 函数。
 > - thisValue 可选。执行 mapFunction 时用作 this 的值。
 
-#### 数组 flat 方法
+#### flat方法
 
-> flat() 方法会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回
+会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
 
-语法
+语法：
 
 ```js
 Array.flat(depth)
 ```
 
-> depth 可选，如果是`Infinity`就意味着不管你嵌套了多少个数组都能转为一维。
->
-> 如果不写参数，就默认减少最外的多维数组，如果参数写成**数字**，意味着减少多少层 [ ]
->
-> 注意：**`flat()`会跳过空位**
+> - depth 可选，如果是`Infinity`就意味着不管你嵌套了多少个数组都能转为一维
+>- 如果不写参数，就默认减少最外的多维数组，如果参数写成**数字**，意味着减少多少层 [ ]
+> 
+>注意：**`flat()`会跳过空位**
 
 ```js
 let arr = [[1, 2, 3], 4, 5, 6, [[7, 8, 9]]]
 console.log(arr.flat(Infinity)) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
-#### 数组 flatMap 方法
+
+
+#### flatMap方法
+
+
 
 ### 3.String
 
-常见实例方法
+1. [length()](#length方法)：返回数组长度
+2. [split()](#split方法)：
+3. [toString()](#tostring方法)：
+4. [subString()](#substring方法)：
+5. [startsWith()](#startswith方法)：
+6. [includes()](#includes方法)：
 
-#### length 方法
 
-#### toString 方法
+
+#### length方法
+
+
+
+#### split方法
+
+join 方法与其相反，方法用于把数组中的所有元素转换成为一个**字符串**。
+
+```javascript
+split('分隔符')
+// 用来将 字符串 转换成 数组
+```
+
+
+
+#### toString方法
 
 转换为字符串
 
@@ -478,16 +522,9 @@ Object.prototype.toString()
 window.hasOwnProperty('String')  //true
 ```
 
-#### split 方法
 
-> join 方法与其相反，方法用于把数组中的所有元素转换成为一个**字符串**
 
-```javascript
-split('分隔符')
-// 用来将 字符串 转换成 数组
-```
-
-#### substring 方法
+#### substring方法
 
 ```javascript
 substring(需要截取的第一个字符的索引号 [, 结束的索引号])
@@ -496,25 +533,43 @@ const str = 'hello'
 console.log(str.substring(1,3))	// 结果为 el
 ```
 
-#### startsWith 方法
+
+
+#### startsWith方法
 
 ```javascript
 stratsWith(检测字符串[, 检测位置索引号])
 // 检测是否以某字符 开头
 ```
 
-#### includes 方法
+
+
+#### includes方法
 
 ```javascript
 includes(搜索的字符串[, 检测位置索引号])
 // 判断一个字符串是否 包含 在另一个字符串中，区分大小写，根据情况返回 true 或 false
 ```
 
+
+
 ### 4.Number
+
+`new Number()` 是一个内建的函数构造器。虽然它看着像是一个 number，但它实际上并不是一个真实的 number：它有一堆额外的功能并且它是一个**对象**。
 
 #### toFixed 方法
 
 > toFixed（）设置保留小数位数的长度
+
+#### parseFloat 方法
+
+解析一个字符串，并返回一个浮点数。
+
+
+
+#### parseInt 方法
+
+解析一个字符串，并返回一个整数。
 
 
 
@@ -540,6 +595,8 @@ var fun = function () {
 
 
 ### 2.函数参数
+
+
 
 #### 动态参数 arguments
 
@@ -576,11 +633,11 @@ function getSum(a, b, ...rest) {
 getSum(1, 2, 3, 4, 5)	// 输出的是一个数组 [3, 4, 5]
 ```
 
-#### 展开运算符 spread
+### 3.展开运算符
 
-**展开运算符`...`**，将一个**数组展开**，不会修改原数组
+**展开运算符（扩展运算符）`...`**，主要用于函数调用的时候，将一个数组展开变为参数序列，不会修改原数组。
 
-用于 求数组最大值（最小值），合并数组等
+用于求数组最大值（最小值）、合并数组等
 
 ```javascript
 const arr = [1, 3, 2, 5]
@@ -594,7 +651,7 @@ const arr3 = [...arr1, ...arr2]
 console.log(arr3)	// [1, 2, 3, 4, 5, 6]
 ```
 
-### 3.箭头函数
+### 4.箭头函数
 
 箭头函数更适用于那些需要匿名函数的地方
 
@@ -636,7 +693,7 @@ const fn = uname => ({ uname: uname })
 console.log(fn('刘德华'))	// {uname: '刘德华'}
 ```
 
-### 4.箭头函数this
+### 5.箭头函数this
 
 **箭头函数不会创建自己的 this**，它只会从自己的作用域链的上一层沿用this
 
@@ -822,11 +879,11 @@ inner函数在outer函数的最后返回出去了，那么const fn = outer(); �
 
 ### 1.原型对象
 
-**原型（原型对象）**是一个**对象**，称 **prototype**
+**原型（原型对象）**是一个**对象**，称 **prototype**，除了**基本对象**（base object），所有对象都有原型。
 
-> - 构造函数通过在 **原型对象** 上挂载函数，可以实现**共享**，更加**节省内存**
-> - javaScript 规定，每一个**构造函数**都有一个 **prototype 属性（原型对象）**，指向另一个对象
-> - 重点: <strong style="color:#DD5145">【构造函数】和【原型对象】 中的【this】都指向【实例化的对象】</strong>
+- 构造函数通过在 **原型对象** 上挂载函数，可以实现**共享**，更加**节省内存**
+- javaScript 规定，每一个**构造函数**都有一个 **prototype 属性（原型对象）**，指向另一个对象
+- 重点: <strong style="color:#DD5145">【构造函数】和【原型对象】 中的【this】都指向【实例化的对象】</strong>
 
 ```javascript
 // 1.公共的属性 写到 构造函数里面
@@ -844,37 +901,39 @@ console.log(ldh === zxy)  // false
 console.log(ldh.sing === zxy.sing)	// true
 ```
 
+
+
 ### 2.对象原型
 
-每个 **实例化的对象** 都会有一个属性 **对象原型 \__proto__**，指向 **所属构造函数的 prototype 原型对象**
+每个 **实例化的对象** 都会有一个属性 **对象原型 \__proto__**，指向 **所属构造函数的 prototype 原型对象**。
 
-> - 因为 \__proto__ 对象原型的存在，所以 **实例对象** 可以 **访问** 到 **原型对象**上的属性和方法
-> - **\__proto__ 对象原型 **里面也有一个 **constructor属性**，指向 创建该实例对象的 **构造函数**
-> - 重点:  <strong style="color:#DD5145">对象原型（ \__proto__ ） ===> 原型对象</strong>
+- 因为 \__proto__ 对象原型的存在，所以 **实例对象** 可以 **访问** 到 **原型对象**上的属性和方法
+- **\__proto__ 对象原型 **里面也有一个 **constructor属性**，指向 创建该实例对象的 **构造函数**
+- 重点:  <strong style="color:#DD5145">对象原型（ \__proto__ ） ===> 原型对象</strong>
 
 注意：
 
-> - \__proto__ （四个下划线）是JS非标准属性，只读
-> - 浏览器的 **[ [ prototype ] ]** 和 **\__proto__ 对象原型** 意义相同，**`[[prototype]]`** 被称为**原型属性**
-> - 用来表明当前实例对象指向哪个原型对象 prototype
+- \__proto__ （四个下划线）是JS非标准属性，只读
+- 浏览器的 **[ [ prototype ] ]** 和 **\__proto__ 对象原型** 意义相同，**`[[prototype]]`** 被称为**原型属性**
+- 用来表明当前实例对象指向哪个原型对象 prototype
 
 ### 3.constructor 属性
 
-> 每个 **prototype ** 和 **\__proto__ ** 里面都有个 **constructor 属性**（constructor 构造函数）
->
-> 该 <strong style="color:#DD5145">constructor属性 ===> 该prototype的构造函数</strong>，让 原型对象 能够重新找到 创造它的构造函数
+每个 **prototype ** 和 **\__proto__ ** 里面都有个 **constructor 属性**（constructor 构造函数）。
+
+- 该 <strong style="color:#DD5145">constructor属性 ===> 该prototype的构造函数</strong>，让 原型对象 能够重新找到 创造它的构造函数
 
 
 
 ### 总结
 
-> - 每个构造函数 **实例化的对象** 里面都有 <strong style="color:#DD5">对象原型 \__proto__，且 ===> 原型对象 prototype</strong>
->
-> - 所有的 **原型对象** 和 **对象原型** 里面都有 <strong style="color:#DD5">constructor属性，且 ===> 构造函数</strong>
->
-> - <strong style="color:#DD5">`__proto__`（隐式原型）</strong>和 <strong style="color:#DD5">`constructor`</strong>是**对象**特有的属性；
->
-> - <strong style="color:#DD5">`prototype`（显示原型）</strong>是**函数**特有的属性，又因为**函数**也是一种**对象**，所以函数也拥有**`__proto__`**和**`constructor`**属性。
+- 每个构造函数 **实例化的对象** 里面都有 <strong style="color:#DD5">对象原型 \__proto__，且 ===> 原型对象 prototype</strong>
+
+- 所有的 **原型对象** 和 **对象原型** 里面都有 <strong style="color:#DD5">constructor属性，且 ===> 构造函数</strong>
+
+- <strong style="color:#DD5">`__proto__`（隐式原型）</strong>和 <strong style="color:#DD5">`constructor`</strong>是**对象**特有的属性；
+
+- <strong style="color:#DD5">`prototype`（显示原型）</strong>是**函数**特有的属性，又因为**函数**也是一种**对象**，所以函数也拥有**`__proto__`**和**`constructor`**属性。
 
 ![](JS_Senior.assets/image-20230321173528625.png)
 
@@ -1004,8 +1063,6 @@ console.log(Object instanceof Function) // true
 
 ## 深浅拷贝
 
-[参考文章](https://blog.csdn.net/weixin_45856239/article/details/127894968)、[参考文章2](https://blog.csdn.net/jiang7701037/article/details/98738487)、[参考文章3](https://blog.csdn.net/jbj6568839z/article/details/107964274)
-
 首先浅拷贝和深拷贝只针对**引用类型（即地址类型）**
 
 ### 1.浅拷贝
@@ -1013,15 +1070,15 @@ console.log(Object instanceof Function) // true
 两种拷贝方法：
 
 1. 拷贝**对象**：**`Object.assign(拷贝的对象，原始对象)`**或 展开运算符**`{...obj}`**
-2. 拷贝**数组**：**`Array.prototype.concat()`**或 **`[...arr]`**
+2. 拷贝**数组**：**`Array.prototype.concat()`** 或 **`[...arr]`**
 
-> - 拷贝对象之后，里面的属性值是简单数据类型，则 **直接拷贝值**
-> - 若属性值是引用数据类型，则拷贝的是 **地址**
+- 拷贝对象之后，里面的属性值是简单数据类型，则 **直接拷贝值**
+- 若属性值是引用数据类型，则拷贝的是 **地址**
 
 直接赋值与浅拷贝的区别：
 
-> - **直接赋值**的方法，只要是对象，都会相互影响，因为是<strong style="color:#DD5145">直接拷贝对象栈里面的地址</strong>
-> - 简单来说就是浅拷贝： **只能拷贝一层对象，或者一层数组**，如果出现多层对象拷贝则还会影响
+- **直接赋值**的方法，只要是对象，都会相互影响，因为是<strong style="color:#DD5145">直接拷贝对象栈里面的地址</strong>
+- 简单来说就是浅拷贝： **只能拷贝一层对象，或者一层数组**，如果出现多层对象拷贝则还会影响
 
 ```js
 // 创建一个p1对象
@@ -1056,9 +1113,9 @@ console.log(p2); //{ name: '小白',age: 18}
 
 三种深拷贝方法：核心是创建新地址
 
-> 1. 通过 **递归函数** 实现
-> 2. 通过 **js库 [lodash](https://www.lodashjs.com/)** ，使用**`_.cloneDeep()`**实现
-> 3. 通过**`JSON.parse(JSON.stringify())`**实现
+1. 通过 **递归函数** 实现
+2. 通过 **js库 [lodash](https://www.lodashjs.com/)** ，使用 **`_.cloneDeep()`** 实现
+3. 通过 **`JSON.parse(JSON.stringify())`** 实现
 
 #### 通过 递归函数
 
@@ -1153,6 +1210,8 @@ console.log(obj)
 > - 循环引用，也不能通过该方法实现深拷贝
 > - 在遇到函数、 undefined 或者 symbol 的时候，该对象也不能正常的序列化
 
+[参考文章](https://blog.csdn.net/weixin_45856239/article/details/127894968)、[参考文章2](https://blog.csdn.net/jiang7701037/article/details/98738487)、[参考文章3](https://blog.csdn.net/jbj6568839z/article/details/107964274)
+
 
 
 ## 异常处理
@@ -1161,9 +1220,9 @@ console.log(obj)
 
 ### 1.throw 抛出异常
 
-> - thorw 抛出异常信息，然后 **终止程序**
-> - throw 后面跟的是错误提升信息
-> - Error 对象配合 throw 使用，能够设置更详细的错误信息
+- thorw 抛出异常信息，然后 **终止程序**
+- throw 后面跟的是错误提升信息
+- Error 对象配合 throw 使用，能够设置更详细的错误信息
 
 ```javascript
 function fn(x, y) {
@@ -1178,10 +1237,10 @@ console.log(fn())
 
 ### 2.try / catch 捕获异常
 
-> - try ... catch 用于捕获错误信息，**不会中断程序**
-> - 将预估可能发生错误的代码写在 **try** 代码段中
-> - 如果 try 代码段中出现错误后，会执行 **catch** 代码段，并**捕获**到错误信息
-> - **finally** 不管是否有错误，都会执行
+- try ... catch 用于捕获错误信息，**不会中断程序**
+- 将预估可能发生错误的代码写在 **try** 代码段中
+- 如果 try 代码段中出现错误后，会执行 **catch** 代码段，并**捕获**到错误信息
+- **finally** 不管是否有错误，都会执行
 
 ```html
 <p>123</p>
@@ -1226,9 +1285,9 @@ console.log(fn())
 
 实现方式：
 
-> - **lodash库** 提供的防抖处理
->
->   语法：**`_.debounce(fun, 时间)`**
+**lodash库** 提供的防抖处理
+
+语法：**`_.debounce(fun, 时间)`**
 
 ```html
 <div class="box"></div>
@@ -1246,7 +1305,7 @@ console.log(fn())
 </script>
 ```
 
-> - **手写**一个防抖函数来处理
+**手写**一个防抖函数来处理：
 
 ```html
 <div class="box"></div>
@@ -1295,9 +1354,9 @@ console.log(fn())
 
 实现方式：
 
-> - **lodash库** 提供的**节流函数**来处理
->
->   语法：**`_.throttle(fun, 时间)`**
+**lodash库** 提供的**节流函数**来处理
+
+语法：**`_.throttle(fun, 时间)`**
 
 ```html
 <div class="box"></div>
@@ -1318,7 +1377,7 @@ console.log(fn())
 </script>
 ```
 
-> - **手写**一个防抖函数来处理
+**手写**一个防抖函数来处理：
 
 ```html
 <div class="box"></div>

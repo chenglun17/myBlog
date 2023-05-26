@@ -405,6 +405,8 @@ btn.removeEventListener('click', fn)
 | offsetX / offsetY | 获取光标相对于当前DOM元素左上角的位置         |
 | **key**           | 用户按下的键盘键的值（**不建议**使用keyCode） |
 
+
+
 ### 5.环境对象
 
 环境对象指的是函数内部特殊 **变量 this** ，它代表<strong style="color:#DD5145">当前函数运行时所处的环境</strong>
@@ -430,7 +432,13 @@ btn.removeEventListener('click', fn)
 
 ## 事件流
 
-#### 1. 事件捕获
+事件流指的是事件完整执行过程中的流动路径，分为**事件捕获阶段**、**目标阶段**、**冒泡阶段**。
+
+在**捕获（capturing）阶段**中，事件从祖先元素向下传播到目标元素。当事件达到**目标（target）**元素后，**冒泡（bubbling）**才开始。
+
+![](JS_WebAPI.assets/事件传播.png)
+
+### 1. 事件捕获
 
 从DOM的根元素开始去执行对应的事件（**从外到里**）。
 
@@ -443,7 +451,7 @@ DOM.addEventListener(事件类型, 事件处理函数, 是否使用捕获机制)
 
 
 
-#### 2. 事件冒泡
+### 2. 事件冒泡
 
 当一个元素触发事件后，会依次向上调用所有父级元素的 **同名事件**（**从里到外**）。
 
@@ -451,11 +459,11 @@ DOM.addEventListener(事件类型, 事件处理函数, 是否使用捕获机制)
 
 L2 事件监听第三个参数是 False，或 默认都是冒泡。
 
-![](JS_WebAPI.assets/Snipaste_2023-05-26_13-04-42.png)
 
 
 
-#### 3. 阻止冒泡和捕获
+
+### 3. 阻止冒泡和捕获
 
 ```javascript
 事件对象.stopPropagation()
@@ -466,7 +474,7 @@ L2 事件监听第三个参数是 False，或 默认都是冒泡。
 
 
 
-#### 4. 阻止默认行为
+### 4. 阻止默认行为
 
 ```javascript
 事件对象.preventDefault()

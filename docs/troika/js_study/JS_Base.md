@@ -63,21 +63,21 @@ JavaScript 拥有动态类型，这意味着相同的变量可用作不同的类
 
 ## 类型转换
 
-Boolean转换
+### Boolean 转换
 
 - **如果布尔对象无初始值**，
 
   **或其值为 '  '、0、-0、undefined、null、false、NaN** 转换为布尔值后都为 **false**，其余则为 **true**
 
-隐式转换
+### 隐式转换
 
-- 任何数据 + 字符串 结果都为字符串
-- 减法 -（像大多数数学运算一样）只能用与数字，它会使空字符串 " " 转换为0
+- <strong style="color:#DD5145">任何数据 + 字符串 结果都为字符串</strong>
+- 减法 -（像大多数数学运算一样）只能用与数字，它会使空字符串 " " 转换为 0
 - null 经过数字转换之后会变成 0
 - undefined 经过数字转换之后会变成 NaN
 - **+** 号为正号解析可以转换成数字型
 
-显示转换
+### 显示转换
 
 - Number() 字符串内容里有非数字得到 NaN
 - parseInt()
@@ -87,11 +87,37 @@ Boolean转换
 
 
 
-## 模板字符串
+## 字符串模板
 
-**反引号 \` `**
+使用 **反引号 \` `** 来编写字符串，称之为模板字符串，内容拼接变量时，用 `${ expression }` 嵌入动态的内容。
 
-内容拼接变量时，用 **\$\{ 变量名 }** 包住变量
+```js
+tagFunction`string text ${expression} string text`
+```
+
+- **expression**：要插入当前位置的表达式，其值被转换为字符串 或 传递给 tagFunction。
+- **tagFunction**：如果指定，将使用模板字符串数组和替换表达式调用它，返回值将成为模板字面量的值。
+
+```js
+function getPersonInfo(one, two, three) {
+  console.log(one)
+  console.log(two)
+  console.log(three)
+}
+
+const person = 'Lydia'
+const age = 21
+
+getPersonInfo`${person} is ${age} years old` 
+
+// ["", " is ", " years old"]
+// "Lydia"
+// 21
+```
+
+> 如果使用标记模板字面量，第一个参数的值总是**包含字符串的数组**。其余的参数获取的是传递的**表达式的值**！
+>
+> [参考文章-例17](https://github.com/lydiahallie/javascript-questions/blob/master/zh-CN/README-zh_CN.md)
 
 
 
@@ -145,6 +171,44 @@ console.log(true || 66)		// true
 | 6      | 逻辑运算符 | 先 && 后 \| \|  |
 | 7      | 赋值运算符 | =               |
 | 8      | 逗号运算符 | ,               |
+
+
+
+## 比较
+
+**基本类型**通过它们的**值（value）**进行比较，而**对象**通过它们的**引用（reference）**进行比较。JavaScript 检查对象是否具有对内存中相同位置的引用。
+
+
+
+### 1.等于操作符
+
+等于操作符，用两个等于号（ == ）表示，如果操作数相等，则会返回 `true`。等于操作符（==）在比较中会**先进行类型转换**，再确定操作数是否相等。
+
+- `null`和`undefined`相等
+
+```js
+let result1 = (null == undefined ) // true
+```
+
+- 如果有任一操作数是 `NaN` ，则相等操作符返回 `false`
+
+```js
+let result1 = (NaN == NaN ) // false
+```
+
+- 如果两个操作数都是对象，则比较它们是不是同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回`true`
+
+```js
+let obj1 = { name:"xxx" }
+let obj2 = { name:"xxx" }
+let result1 = (obj1 == obj2 ) // false
+```
+
+
+
+### 2.全等操作符
+
+全等操作符，用 3 个等于号（ === ）表示，只有两个操作数在**不转换**的前提下相等才返回 `true`。即类型相同，值也需相同。
 
 
 
@@ -252,6 +316,10 @@ obj.age = 18
 
 对象由属性（静态）和方法（即函数，动态）组成。对象里面可以存储任何数据类型。
 
+在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
+
+当我们使用括号语法时（`[]`），JavaScript 会解释语句。它首先看到第一个开始括号 `[` 并继续前进直到找到结束括号 `]`。只有这样，它才会计算语句的值。
+
 ```javascript
 // 方法一：
 对象名.属性名 === 对象名.['属性名']
@@ -264,8 +332,8 @@ obj.age = 18
 对象名[变量名]
 ```
 
-> 1. 点属性访问器：**`object.property === object['property']`**
-> 2. 中括号属性访问：**`object[property]`**，如果是变量则不需要加引号
+> 1. 使用**点语法**访问属性：**`object.property === object['property']`**
+> 2. 使用**括号语法**访问属性：**`object[property]`**，如果是变量则不需要加引号
 > 3. 对象解构：**`const { property } = object`**
 
 
@@ -723,6 +791,35 @@ var num = 10
 var num
 console.log(num + '件')	// undefined 件
 num = 10  // 变量声明会提升，但是赋值不会提升
+```
+
+
+
+## 严格模式
+
+JavaScript 严格模式（strict mode）即在严格的条件下运行。
+
+`"use strict"` 指令，它不是一条语句，但是是一个字面量表达式，目的是指定代码在严格条件下执行。
+
+```js
+"use strict"
+myFunction()
+
+function myFunction() {
+    y = 3.14   // Uncaught ReferenceError: y is not defined（引用错误）
+}
+```
+
+在函数内部声明是局部作用域 (只在函数内使用严格模式)：
+
+```js
+x = 3.14       // 不报错
+myFunction()
+
+function myFunction() {
+   "use strict"
+    y = 3.14   // Uncaught ReferenceError: y is not defined
+}
 ```
 
 
