@@ -208,7 +208,17 @@ module.exports = {
                     path: '/frame/vue_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/frame/vue_study/Vue笔记.md",
+                        "/frame/vue_study/Vue_Base.md",
+                        "/frame/vue_study/LifeCycle.md",
+                        "/frame/vue_study/Components-In-Depth.md",
+                        "/frame/vue_study/LogicalReuse.md",
+                        "/frame/vue_study/VueCLI.md",
+                        "/frame/vue_study/Vuex.md",
+                        "/frame/vue_study/VueRouter.md",
+                        "/frame/vue_study/Others.md",
+                        "/frame/vue_study/Optimization.md",
+                        "/frame/vue_study/OtherFunction.md",
+                        "/frame/vue_study/OtherQuestions.md",
                     ],
                     initialOpenGroupIndex: 0
                 },

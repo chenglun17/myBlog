@@ -1,3 +1,17 @@
-# Vue
+# Vue是什么？
 
-Vue (读音 /vjuː/，类似于 **view**) 是一套用于构建用户界面的**渐进式框架**。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与[现代化的工具链](https://v2.cn.vuejs.org/v2/guide/single-file-components.html)以及各种[支持类库](https://github.com/vuejs/awesome-vue#libraries--plugins)结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。
+一套用于 **构建用户界面** 的 **渐进式** JavaScript 框架。
+
+Vue 的特点：
+
+- 采用 **组件化** 模式，提高代码复用率，且让代码更好维护
+- **声明式** 编码，让编码人员无需直接操作 DOM，提高开发效率
+- 使用 **虚拟DOM** + 优秀的 **Diff 算法**，尽量复用 DOM节点
+
+学习 Vue 之前要掌握的 JavaScript 基础知识：
+
+- ES6语法规范、ES6模块化
+- 包管理器
+- 原型、原型链
+- 数组常用方法
+- axios、promise
