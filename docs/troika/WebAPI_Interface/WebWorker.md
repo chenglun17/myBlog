@@ -1,18 +1,14 @@
 # Web Worker
 
-MDN文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API
+## 扩展 -- 浏览器内核
 
-[参考文章](https://juejin.cn/post/7139718200177983524)、[参考文章2](https://juejin.cn/post/6844904198639714311)
-
-## 扩展 --- 浏览器内核
-
-**「 浏览器最核心的部分是 “Rendering Engine”，即 “渲染引擎”，不过我们一般习惯将之称为 “浏览器内核”。」** 它主要包括以下线程：
+**浏览器最核心的部分是 “Rendering Engine”，即 “渲染引擎”，又称 “浏览器内核”。** 主要包括以下线程：
 
 <img src="WebWorker.assets/浏览器内核（渲染进程）.png" alt="浏览器内核（渲染进程）" style="zoom:50%;" />
 
 ### 1. GUI 渲染线程
 
-GUI 渲染线程负责**渲染浏览器界面，解析 HTML，CSS，构建 DOM 树 和 RenderObject 树，布局和绘制等**。
+GUI 渲染线程负责**渲染浏览器界面，解析HTML, CSS, 构建DOM树 和 RenderObject树，布局和绘制等**。
 
 当界面需要重绘（Repaint）或由于某种操作引发回流（Reflow）时，该线程就会执行。
 
@@ -38,9 +34,9 @@ JavaScript 引擎线程负责**解析 JavaScript 脚本并运行相关代码**�
 
 
 
-## Web Worker 是什么
+## 一、Web Worker 是什么
 
-### 基本概念
+### 1.基本概念
 
 Web Worker 是 HTML5 提供的一个 JavaScript 多线程解决方案
 
@@ -54,37 +50,39 @@ Web Worker 的出现，就是为 JavaScript 创造多线程环境，允许主线
 
 <img src="WebWorker.assets/Worker线程.png" alt="Worker线程" style="zoom: 50%;" />
 
-### 几个注意点
+### 2.几个注意点
 
 Web Worker 有几个使用注意点：
 
-1. **同源限制**
+- **同源限制**
 
-   分配给 Worker 线程运行的脚本文件，必须与主线程脚本文件同源
+  分配给 Worker 线程运行的脚本文件，必须与主线程脚本文件同源
 
-2. **DOM限制**
+- **DOM限制**
 
-   Worker 线程所在的全局对象，与主线程不一样，无法读取主线程所在网页的 DOM 对象，也无法使用 `window`、`document`等对象，但可以使用 `navigator`和`location`对象
+  Worker 线程所在的全局对象，与主线程不一样，无法读取主线程所在网页的 DOM 对象，也无法使用 `window`、`document`等对象，但可以使用 `navigator`和`location`对象
 
-3. **通信联系**
+- **通信联系**
 
-   Worker 线程和主线程不在同一个上下文环境，他们不能直接通信，必须通过<strong style="color:#DD5145">信息</strong>完成通信
+  Worker 线程和主线程不在同一个上下文环境，他们不能直接通信，必须通过<strong style="color:#DD5145">信息</strong>完成通信
 
-4. **脚本限制**
+- **脚本限制**
 
-   Worker 线程不能执行`alert()`和`confirm()`方法，但可以使用`XMLHttpRequest`对象发出的`AJAX`请求，但是 `XMLHttpRequest` 对象的 `responseXML` 和 `channel` 这两个属性的值将总是 `null`
+  Worker 线程不能执行`alert()`和`confirm()`方法，但可以使用`XMLHttpRequest`对象发出的`AJAX`请求，但是 `XMLHttpRequest` 对象的 `responseXML` 和 `channel` 这两个属性的值将总是 `null`
 
-5. **文本限制**
+- **文本限制**
 
-   Worker 线程无法读取本地文件，即不能打开本机的文件系统（`file://`），它所加载的脚本，<strong style="color:#DD5145">必须来自网络</strong>
-   
-6. Worker 线程上下文也存在一个顶级对象<strong style="color:#DD5145">`self`</strong>（类似浏览器中的 window对象）
+  Worker 线程无法读取本地文件（`file://`），它所加载的脚本，<strong style="color:#DD5145">必须来自网络</strong>
 
-除此之外，绝大多数 Window 对象上的方法和属性，都被共享到 Worker 上下文全局对象 WorkerGlobalScope 中。
+- Worker 线程上下文也存在一个顶级对象<strong style="color:#DD5145">`self`</strong>（类似浏览器中的 window对象）
+
+------
+
+绝大多数 Window 对象上的方法和属性，都被共享到 Worker 上下文全局对象 WorkerGlobalScope 中。
 
 
 
-## Web Worker API
+## 二、Web Worker API
 
 ### 1. 主线程
 
@@ -265,7 +263,7 @@ export default add = (a, b) => a + b;
 
 
 
-## Web Worker 数据通信
+## 三、Web Worker 数据通信
 
 主线程与 Worker 线程之间的通信内容，可以是文本，也可以是对象。注意，这种通信是拷贝关系。即，数据传递是<strong style="color:#DD5145">传值而不是传地址</strong>，Worker 对通信内容的修改，不会影响到主线程。
 
@@ -286,19 +284,28 @@ const exp = new ArrayBuffer(1)
 worker.postMessage(exp, [exp])
 ```
 
-## Web Worker 分类
+## 四、Web Worker 分类
 
-Web Worker 规范中定义了两类工作线程，分别是**专用线程 Dedicated Worker** 和 **共享线程 Shared Worker**，其中，Dedicated Worker 只能为一个页面所使用，而 Shared Worker 则可以被多个页面所共享。
+Web Worker 规范中定义了两类工作线程，**专用线程 Dedicated Worker** 和 **共享线程 Shared Worker**。
 
-### Dedicated Worker
+其中，Dedicated Worker 只能为一个页面所使用，而 Shared Worker 则可以被多个页面所共享。
+
+### 1.Dedicated Worker
 
 
 
-### Shared Worker
+### 2.Shared Worker
 
 **SharedWorker** 是一种特殊类型的 Worker，可以被多个浏览上下文访问，比如多个 windows，iframes 和 workers，但这些浏览上下文必须同源。
 
 使用场景：点赞计数器 ...
 
-## Service Workers
 
+
+## 五、Service Workers
+
+
+
+## 参考
+
+[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API)、[参考文章](https://juejin.cn/post/7139718200177983524)、[参考文章2](https://juejin.cn/post/6844904198639714311)

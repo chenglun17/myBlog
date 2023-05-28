@@ -1,10 +1,6 @@
 # FileReader
 
-MDN文档：https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader
-
-[参考文章](https://blog.csdn.net/weixin_44116302/article/details/91554835)、[参考文章2](https://devpress.csdn.net/viewdesign/64094e44986c660f3cf91cba.html)
-
-## 基本概念
+## 1.基本概念
 
 FileReader 是 HTML5 新增的一种<strong style="color:#DD5145">异步文件读取机制</strong>，结合 **`input:file`** 可以很方便的读取本地文件。
 
@@ -14,7 +10,7 @@ FileReader 仅用于以安全的方式从用户（远程）系统读取文件内
 
 > **备注：** 此特性在 Web Worker 中可用
 
-## input 的 file 类型
+## 2.input 的 file 类型
 
 ```html
 <input type="file" id="file">
@@ -36,7 +32,7 @@ webkitRelativePath：此处为空；当在 input 上加上 webkitdirectory 属�
 <input type="file" id="file" webkitdirectory>
 ```
 
-## base64
+## 3.base64
 
 > 🟢Base64 是一种编码方式，可以将任意二进制数据编码成只包含 64 种字符的文本，以便在文本协议中传输。
 >
@@ -46,7 +42,7 @@ webkitRelativePath：此处为空；当在 input 上加上 webkitdirectory 属�
 >
 > 它常用于在处理文本数据的场合，表示、传输、存储一些二进制数据，包括 MIME 的电子邮件及 XML 的一些复杂数据。
 
-## FileReader API
+## 4.FileReader API
 
 ### 构造函数
 
@@ -106,7 +102,7 @@ var reader = new FileReader()
 > - **`onload`** 当读取操作成功完成时调用
 > - **`onloadend`** 当读取操作完成时调用，无论成功，失败或取消
 
-## 实例：上传图片
+## 5.实例：上传图片
 
 ```html
 <input type="file" id="file">
@@ -145,3 +141,6 @@ document.querySelector('#file').addEventListener('change', (fileChoosed) => {
 })
 ```
 
+
+
+[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader)、[参考文章](https://blog.csdn.net/weixin_44116302/article/details/91554835)、[参考文章2](https://devpress.csdn.net/viewdesign/64094e44986c660f3cf91cba.html)

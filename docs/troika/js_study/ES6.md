@@ -1,6 +1,4 @@
-# ES6 新增
-
-[参考文章](https://blog.csdn.net/qq_22182989/article/details/123811497)、[参考文章2](https://blog.csdn.net/aoxi9939/article/details/102038812)、[参考文章3](https://www.cnblogs.com/theblogs/p/10575845.html)
+# ES6+ 新增
 
 ECMAScript5，即ES5，是ECMAScript的第五次修订，于2009年完成标准化
 
@@ -38,6 +36,8 @@ ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也�
 
 14. 修饰器 @，decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
 
+
+
 ## 2. var、let、const 之间的区别
 
 - `var` 是**全局变量**，存在变量提升过程，可以先使用在声明，可以**重复声明**
@@ -51,7 +51,9 @@ ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也�
 
 ## 3. ES6 如何转为 ES5
 
-> 使用 babel 转码器，babel 是一个 ES6 转码器，可以将 ES6 代码转为 ES5 代码，以便兼容那些还没支持ES6的平台。
+使用 babel 转码器，babel 是一个 ES6 转码器，可以将 ES6 代码转为 ES5 代码，以便兼容那些还没支持ES6的平台。
+
+
 
 ## 4. ES6 的导出导入模块
 
@@ -101,19 +103,23 @@ class Point {
 
 ## 6. 使用箭头函数需要注意什么？
 
-> 1. 使用了箭头函数，this 就不是指向 window，它只会在自己作用域的上一层继承 this（指向是可变的）。
->
-> 2. 不能够使用 arguments 对象。取而代之使用的是 rest 参数（即剩余参数 **`...`**）解决。
->
-> 3. 不能用作构造函数，即不能够使用 new 命令，否则会抛出一个错误。
->
-> 4. 不可以使用 yield 命令，因此箭头函数不能用作 Generator 函数。
->
-> 5. 箭头函数没有 prototype
+1. 使用了箭头函数，this 就不是指向 window，它只会在自己作用域的上一层继承 this（指向是可变的）。
+2. 不能够使用 arguments 对象。取而代之使用的是 rest 参数（即剩余参数 **`...`**）解决。
+3. 不能用作构造函数，即不能够使用 new 命令，否则会抛出一个错误。
+4. 不可以使用 yield 命令，因此箭头函数不能用作 Generator 函数。
+5. 箭头函数没有 prototype
 
-## 7. 数据结构 Set
 
-ES6 提供了新的数据结构 **Set（集合）**，它类似于数组，但**成员的值都是唯一的**，集合实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历
+
+## 7. Set 数据结构
+
+ES6 提供了新的数据结构 **Set（集合）**，它类似于数组，但 <strong style="color:#DD5145">Set 的元素是唯一的</strong>，集合实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
+
+MDN 官方文档定义：
+
+- **`Set`** 对象是值的集合，你可以按照插入的顺序迭代它的元素。Set 中的元素只会**出现一次**，即 Set 中的元素是唯一的
+- **`Set`** 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用
+- 另外，`NaN` 和 `undefined` 都可以被存储在 Set 中，`NaN` 之间被视为相同的值（`NaN` 被认为是相同的，尽管 `NaN !== NaN`）
 
 属性和方法：
 
@@ -125,7 +131,9 @@ ES6 提供了新的数据结构 **Set（集合）**，它类似于数组，但**
 - 集合转为数组：`[...st]`
 - 合并两个集合：`[...st1, ...st2]`
 
-## 8. 数据结构 Map
+
+
+## 8. Map 数据结构
 
 ES6 提供了 **Map** 数据结构。它类似于对象，也是键值对的集合。但是 “键” 的范围不限于字符串，各种类型的值（包括对象）都可以当作键。Map 也实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历
 
@@ -143,16 +151,16 @@ Set 和 Map 都是 ES6 中新增的数据结构，是对当前 js 数组 和 对
 
 Set 用于数据重组，Map 用于数据存储
 
-> Set：ES6 引入的一种类似 Array 的新的数据结构
->
-> 1. 元素不能重复
-> 2. 只有键值没有键名，类似数组
-> 3. 可以遍历，方法有add、delete、has
+**Set**：ES6 引入的一种类似 Array 的新的数据结构
 
-> Map：ES6 引入的一种类似 Object 的新的数据结构
->
-> 1. 本质上是健值对的集合，类似集合
-> 2. 可以遍历，可以跟各种数据格式转换
+- 元素不能重复
+- 只有键值没有键名，类似数组
+- 可以遍历，方法有add、delete、has
+
+**Map**：ES6 引入的一种类似 Object 的新的数据结构
+
+- 本质上是健值对的集合，类似集合
+- 可以遍历，可以跟各种数据格式转换
 
 使用 Set 实现数组的过滤去重
 
@@ -168,7 +176,7 @@ console.log(newArr)   // [12, 43, 23, 68]
 
 JavaScript 的七种基本数据类型
 
-- 值类型（基本类型）：string、number、boolean、undefined、null、symbol
+- 基本类型（值类型）：string、number、boolean、undefined、null、symbol
 - 引用数据类型：object（包括 array、function）
 
 ES6 引入了一种新的原始数据类型 Symbol，表示**独一无二的值**。它是 JavaScript 语言的第七种数据类型，是一种类似于字符串的数据类型
@@ -217,7 +225,11 @@ console.log(f.description); // 测试
 
 ## forEach、for in、for of 三者区别
 
-> - forEach 更多的用来遍历数组
-> - for in 一般常用来遍历 对象 或 json
-> - for of 数组、对象都可以遍历，遍历对象需要通过和 Object.keys()
-> - for in 循环出的是 key，for of 循环出的是 value
+- forEach 更多的用来遍历数组
+- for in 一般常用来遍历 对象 或 json
+- for of 数组、对象都可以遍历，遍历对象需要通过和 Object.keys()
+- for in 循环出的是 key，for of 循环出的是 value
+
+
+
+[参考文章](https://blog.csdn.net/qq_22182989/article/details/123811497)、[参考文章2](https://blog.csdn.net/aoxi9939/article/details/102038812)、[参考文章3](https://www.cnblogs.com/theblogs/p/10575845.html)

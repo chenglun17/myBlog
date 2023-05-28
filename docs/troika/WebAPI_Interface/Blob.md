@@ -4,7 +4,7 @@ MDN文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Blob
 
 [参考文章](https://blog.csdn.net/yaojiqic/article/details/125090825)、[你不知道的 Blob](https://segmentfault.com/a/1190000022812794)
 
-## 基本概念
+## 1.基本概念
 
 **Blob（Binary Large Object）**表示**二进制类型的大对象**。在 JavaScript 中 Blob 对象表示一个不可变、原始数据的<strong style="color:#DD5145">类文件对象</strong>。
 
@@ -12,7 +12,7 @@ MDN文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Blob
 
 Blob 表示的不一定是 JavaScript 原生格式的数据
 
-## Blob API
+## 2.Blob API
 
 `Blob` 由一个可选的字符串 `type`（通常是 MIME 类型）和 `blobParts` 组成：
 
@@ -59,7 +59,7 @@ var aBlob = new Blob(array, options)
 
 
 
-## Blob 使用场景
+## 3.Blob 使用场景
 
 ### 1.分片上传
 
@@ -127,21 +127,7 @@ PDF（便携式文件格式，Portable Document Format）是由 Adobe Systems �
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Blob 与 ArrayBuffer 的区别
+## 4.Blob 与 ArrayBuffer 的区别
 
 > **Blob** 类型的对象表示不可变的类似文件对象的原始数据。Blob 表示的不一定是 JavaScript 原生格式的数据。
 >

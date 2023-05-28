@@ -6,13 +6,13 @@ MDN文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
 
 
 
-## 什么是 Canvas
+## 1.什么是 Canvas
 
 简单来说，`<canvas>` 是 HTML5 中的标签，它是一个容器，可以使用JS在其中绘制图形或文字。
 
 canvas 标签是一张画布
 
-## Canvas API
+## 2.Canvas API
 
 **Canvas API** 提供了一个通过 JavaScript 和 HTML 的`canvas`元素来绘制图形的方式。它可以用于动画、游戏画面、数据可视化、图片编辑以及实时视频处理等方面。
 
@@ -69,9 +69,9 @@ canvas.toBlob(callback, type, quality)
 
 
 
-## Canvas 基本使用
+## 3.Canvas 基本使用
 
-### 1. \<canvas>元素
+### \<canvas>元素
 
 ```html
 <canvas id="tutorial" width="300" height="300"></canvas>
@@ -85,7 +85,7 @@ canvas.toBlob(callback, type, quality)
 
 `<canvas>`元素**需要**结束标签(`</canvas>`)。如果结束标签不存在，则文档的其余部分会被认为是替代内容，将不会显示出来。
 
-### 2. 渲染上下文
+### 渲染上下文
 
 渲染上下文(Thre Rending Context)
 
@@ -95,7 +95,7 @@ const canvas = document.getElementById('tutorial');
 const ctx = canvas.getContext('2d');
 ```
 
-### 3. 坐标系
+### 坐标系
 
 `Canvas` 使用的是 **W3C 坐标系** ，也就是遵循我们屏幕、报纸的阅读习惯，从上往下，从左往右。
 
@@ -122,7 +122,7 @@ function draw(){
 
 
 
-## 绘制基础图形
+## 4.绘制基础图形
 
 ### 绘制线段
 
@@ -339,7 +339,7 @@ ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise)
 > - rotation，startAngle 分别表示开始、结束绘制点
 > - anticlockwise 表示绘制方向，逆时针为 true，顺时针为 false（默认为 false）
 
-## 绘制贝塞尔曲线
+## 5.绘制贝塞尔曲线
 
 贝塞尔曲线(Bézier curve)，又称贝兹曲线或贝济埃曲线，是应用于二维图形应用程序的数学曲线。
 
@@ -386,7 +386,7 @@ quadraticCurveTo(cp1x, cp1y, x, y)
 
 <img src="Canvas.assets/二次贝塞尔曲线.png" alt="二次贝塞尔曲线" style="zoom: 67%;" />
 
-## 绘制文本
+## 6.绘制文本
 
 **绘制文本**：
 
@@ -428,7 +428,7 @@ measureText(text)
 
 > 文本长度的测量结果**只**和文本的`font`参数相关。
 
-## 设置样式和颜色
+## 7.设置样式和颜色
 
 ### 渐变色
 
@@ -512,7 +512,7 @@ createPattern(pattern, type)
 
 `globalAlpha` 属性在需要绘制大量拥有相同透明度的图形时候相当高效。不过，使用`rgba()`设置透明度更加好一些。
 
-## 绘制图片
+## 8.绘制图片
 
 使用<strong style="color:orange">`drawImage()`</strong>方法绘制图形，该方法可以接收3-9个参数进行拉伸、裁剪等。
 
@@ -564,7 +564,9 @@ drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 > - dx，dy 表示图片左上角绘制的起始坐标
 > - dWidth，dHeight 表示拉伸的宽度、高度
 
-# Canvas 实现 HTML 页面转为图片
+## 9.使用场景
+
+### Canvas 实现 HTML 页面转为图片
 
 **前端生成 PDF 的方法主要有两种**：
 
@@ -575,11 +577,11 @@ drawImage(img, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 
 
 
-# Canvas 实现图片压缩上传
+### Canvas 实现图片压缩上传
 
 [参考文章](https://blog.csdn.net/weixin_42159569/article/details/107003913)、[参考文章2](https://blog.csdn.net/Andrew83/article/details/88715222)
 
-## 1. 图片裁剪
+#### 1. 图片裁剪
 
 大体的思路是将图片抽样显示在canvas上，然后用通过`canvas.toDataURL`方法得到 base64 字符串来实现压缩。
 

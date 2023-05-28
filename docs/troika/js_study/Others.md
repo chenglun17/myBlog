@@ -2,8 +2,6 @@
 
 ## 控制请求的并发量
 
-[参考文章](https://blog.csdn.net/DLGDark/article/details/128339268)、[参考文章2](https://blog.csdn.net/m0_46672781/article/details/127647557)
-
 **需求：** 现在有一组请求，想让其依次每次执行一定的请求数量[并发](https://so.csdn.net/so/search?q=并发&spm=1001.2101.3001.7020)请求，直到请求到最后一个请求，直至完成所有请求，而且要求请求返回的结果顺序和请求时的顺序保持一致。
 
 ```js
@@ -94,3 +92,4 @@ function concurRequest(urls, maxNum) {
 </html>
 ```
 
+[参考文章](https://blog.csdn.net/DLGDark/article/details/128339268)、[参考文章2](https://blog.csdn.net/m0_46672781/article/details/127647557)
