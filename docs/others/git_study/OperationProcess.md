@@ -1,6 +1,6 @@
 # 三、基础操作流程
 
-<img src="OperationProcess.assets/gitupload.png" alt="gitupload" style="zoom:67%;" />
+![](OperationProcess.assets/gitupload.png)
 
 ## 上传远程仓库（remote）
 

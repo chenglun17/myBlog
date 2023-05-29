@@ -4,58 +4,367 @@ ECMAScript5，即ES5，是ECMAScript的第五次修订，于2009年完成标准�
 
 ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也称ES2015
 
-## 1. ES6 新增的一些特性
+## ES6 新增的一些特性
 
-1. let 和 const 命令，用来声明变量，两个都有块级作用域。
+1. 字面量增强
 
-2. 箭头函数，**`() => {}`**。
+2. let 和 const 命令，用来声明变量，两个都有块级作用域。
 
-3. 模板字符串，**` 反引号`` `**，可以当作普通字符串使用，也可以用来定义多行字符串。用**`${}`**来界定。
+3. 箭头函数，**`() => {}`**。
 
-4. 解构赋值，允许按照一定模式，从数组和对象中提取值，对变量进行赋值。
+4. 模板字符串，**` 反引号`` `**，可以当作普通字符串使用，也可以用来定义多行字符串。用**`${}`**来界定。
 
-5. for of 循环，可以遍历数组、Set、Map结构、某些类似数组的对象、对象，以及字符串。
+5. 解构赋值，允许按照一定模式，从数组和对象中提取值，对变量进行赋值。
 
-6. **`...`** 展开运算符，可以将数组或对象里面的值展开，还可以将多个值收集为一个变量。
+6. **`for of`** 循环，可以遍历数组、Set、Map结构、某些类似数组的对象、对象，以及字符串。
 
-7. 引入 module 模块的概念，import 导入、export 导出。
+7. 扩展运算符 **`...`**，可以将数组或对象里面的值展开，还可以将多个值收集为一个变量。
 
-8. Set 数据结构，类似数组，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
+8. 引入 module 模块的概念，import 导入、export 导出。
 
-9. 将 Promise 对象纳入规范，提供了原生的 Promise 对象，是异步编程的一种解决方案。
+9. Set 数据结构，类似数组，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
 
-10. async、await 搭配 promise，可以通过编写类似同步的代码来处理异步流程, 提高代码的简洁性和可读性。
+10. Map 数据结构，类似对象，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
+
+11. 将 Promise 对象纳入规范，提供了原生的 Promise 对象，是异步编程的一种解决方案。
+
+12. async、await 搭配 Promise，可以通过编写类似同步的代码来处理异步流程, 提高代码的简洁性和可读性。
 
     async 用于申明一个 function 是异步的，而 await 用于等待一个异步方法执行完成。
 
-11. Proxy 代理，监听对象的操作，然后可以做一些相应事情。
+13. Proxy 代理，监听对象的操作，然后可以做一些相应事情。
 
-12. Symbol，是一种基本类型。Symbol 通过调用 symbol 函数产生，它接收一个可选的名字参数，该函数返回的 symbol 是唯一的。
+14. Symbol，是一种基本类型。Symbol 通过调用 Symbol 函数产生，它接收一个可选的名字参数，该函数返回的 Symbol 是唯一的。
 
-13. class 类的继承，ES6中不再像ES5一样使用原型链实现继承，而是引入Class这个概念。
+15. Class 类的继承，ES6 中不再像 ES5 一样使用原型链实现继承，而是引入 Class 这个概念。
 
-14. 修饰器 @，decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
-
-
-
-## 2. var、let、const 之间的区别
-
-- `var` 是**全局变量**，存在变量提升过程，可以先使用在声明，可以**重复声明**
-- 通过 `let` 和 `const` 关键字声明的变量也会提升，但是和 `var` 不同，它们不会被**初始化**。在我们声明（初始化）之前是不能访问它们的。这个行为被称之为暂时性死区。
-- `let` 必须先声明再使用，而且<strong style="color:#DD5145">不能重复声明</strong>，但是可以重新赋值。
-- `const` 声明之后必须赋值，否则会报错。
-- `const` 定义的是常量，不能修改，但是如果定义的是对象，可以修改对象内部的数据。
-- 通过 `let` 和 `const` 关键字声明的变量是拥有块级作用域（指的是任何在 { } 中的内容），就会形成封闭作用域。
+16. 修饰器 @，decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
 
 
 
-## 3. ES6 如何转为 ES5
+## 1.字面量增强
 
-使用 babel 转码器，babel 是一个 ES6 转码器，可以将 ES6 代码转为 ES5 代码，以便兼容那些还没支持ES6的平台。
+**property shorthand**（属性的简写）
+
+```js
+const name = 'chenglun17'
+const age = 18
+const obj = {
+    name: name,
+    age: age
+}
+// 可以简写为
+const obj = {
+    name,
+    age
+}
+```
+
+**method shorthand**（方法的简写）
+
+```js
+const obj = {
+    foo: function() {}
+    // 可以简写为
+    foo() {}
+}
+```
+
+**computed property name**（计算属性名），它可以在对象字面量中动态计算属性名称。
+
+可以直接在字面量定义中使用计算属性，只要使用`[]`即可，我们甚至可以在`[]`中书写表达式：
+
+```js
+const name = '名字'
+
+const person = {
+    [name]: 'chenglun17',
+    ['last' + 'name']: '不知道',
+    // 方法也可以用这样的方式定义
+    ['say' + ' Hello']() {
+        console.log('hello')
+    }
+}
+
+console.log(person) // {名字: 'chenglun17', real name: '不知道', say Hello: ƒ}
+console.log(person['名字']) // chenglun17
+console.log(person['real name']) // 不知道
+console.log(person['say Hello'])
+```
 
 
 
-## 4. ES6 的导出导入模块
+
+
+## 补充知识
+
+浏览器会在计算机内存中分配一块内存，专门用来供代码执行的 **栈内存**，称作 **执行环境栈 ECStack**，同时会创建一个 **全局对象 GO**，将内置的属性方法（`isNaN`、`setInterval`、`setTimeout`... ）存放到一块单独的堆内存空间，并且使用 **window** 指向全局对象。
+
+在执行代码前，还需要创建一个**全局执行上下文 EC(G)**，创建完成后，进入到栈内存中去执行 **进栈**，在当前全局执行上下文中，因为会创建很多变量并且赋值，所以会创建一个**变量对象 VO** 来进行保存，在函数私有上下文中的变量对象叫做 **活动对象 AO** （ps: 每个执行上下文都有一个单独的变量对象）。
+
+- **执行环境栈 ECStack**：专门用来供代码执行的栈内存
+
+- **全局对象 GO（Global Object）**：存放内置的属性方法，window 指向
+
+- **全局执行上下文 EC(G)（Execution Context Global）** ：页面加载后进栈、销毁后出栈
+
+- **变量对象 VO（Variable Object）**： 存放当前执行上下文中创建的变量和值
+
+  最新标准ECMA标准中已经修改为 **变量环境 VE（VariableEnvironment）**
+
+- **活动对象 AO（Activation Object）**： 函数私有上下文中的变量对象
+
+![](ES6.assets/变量环境.png)
+
+[参考文章](https://blog.csdn.net/weixin_39762001/article/details/110747455)、[参考文章](https://blog.csdn.net/QinGP97/article/details/127476977)、[参考文章](https://juejin.cn/post/6844904094318985230)
+
+
+
+## 2.var / let / const 关系
+
+### 2.1 作用域提升的区别
+
+- `var` 是**全局变量**，存在变量提升（作用域提升），可以先使用在声明，也可以**重复声明**，但`let`、`const`<strong style="color:#DD5145">不允许重复声明变量</strong>。
+- 通过 `let` 和 `const` 关键字声明的变量也会提升（有争议），但是和 `var` 不同，它们不会被**初始化**。在我们声明（初始化）之前是不能访问它们的。这个行为被称之为<strong style="color:#DD5145">暂时性死区（Temporal Dead Zone，TDZ）</strong>。
+- `let` 必须先声明再使用，可以重新赋值。
+- `const` 定义的是常量，不能修改，如果定义的是对象，可以修改对象内部的数据。且**声明之后必须赋值**，否则会报错。
+
+```js
+console.log(foo)
+var foo = 'foo'	// undefined
+
+console.log(foo) // 执行这一行代码时，foo已经被创建出来了，但是不能被访问，即暂时性死区
+const foo = 'foo'	// Uncaught ReferenceError: Cannot access 'foo' before initialization
+```
+
+
+
+### 2.2 window 对象的区别
+
+- 在全局通过 `var` 来声明一个变量，事实上会在 window 上添加一个属性。
+- `let`、`const`是不会给 window 上添加任何属性的。
+- 以前的 var 声明的变量是放在 window 对象的，现在 let 不是了，放在 `varibles_` 对象，但是 var 声明的依然在 window 上。
+
+
+
+### 2.3 块级作用域的区别
+
+- 通过 `let` 和 `const` 关键字声明的变量是拥有**块级作用域**（指的是任何在 { } 中的内容），就会形成封闭作用域。
+
+ES6 之前只有两种作用域：**全局作用域** 和 **函数作用域**
+
+ES6 的代码块级作用域对 let / cosnt / function / class 声明的类型是有效的
+
+不同的浏览器有不同实现（大部分力量为了兼容以前的代码，让 function 是没有块级作用域的）
+
+
+
+## 3.使用箭头函数需要注意什么？
+
+1. 使用了箭头函数，this 就不是指向 window，它只会在自己作用域的上一层继承 this（指向是可变的）。
+2. 不能够使用 arguments 对象。取而代之使用的是 rest 参数（即剩余参数 **`...`**）解决。
+3. 不能用作构造函数，即不能够使用 new 命令，否则会抛出一个错误。
+4. 不可以使用 yield 命令，因此箭头函数不能用作 Generator 函数。
+5. 箭头函数没有 prototype
+
+
+
+## 4.字符串模板
+
+使用 **反引号 \` `** 来编写字符串，称之为**模板字符串**，内容拼接变量时，用 `${ expression }` 嵌入动态的内容。
+
+```js
+tagFunction`string text ${expression} string text`
+```
+
+- **expression**：要插入当前位置的表达式，其值被转换为字符串 或 传递给 tagFunction。
+- **tagFunction**：如果指定，将使用模板字符串数组和替换表达式调用它，返回值将成为模板字面量的值。
+
+另一种用法：调用函数的方式，**标签模板字符串**
+
+```js
+function getPersonInfo(one, two, three) {
+  console.log(one)	 // 第一个参数，依然是模板次字符串中整个字符串，只是被${}切割成三份，放入到了数组中
+  console.log(two)	 // 第二个参数，模板字符串中第一个${}
+  console.log(three) // 第三个参数，模板字符串中第二个${}
+}
+
+const person = 'Lydia'
+const age = 21
+
+getPersonInfo`${person} is ${age} years old` 
+
+// ['', ' is ', ' years old']
+// "Lydia"
+// 21
+```
+
+如果使用标记模板字面量，第一个参数的值总是**包含字符串的数组**。其余的参数获取的是传递的**表达式的值**！
+
+[参考文章-例17](https://github.com/lydiahallie/javascript-questions/blob/master/zh-CN/README-zh_CN.md)
+
+
+
+## 5.解构赋值
+
+解构赋值是一种快速为变量赋值的简洁语法，本质上仍为变量赋值。
+
+### 1.数组解构
+
+数组结构是将数组的单元值快速批量赋值给一系列变量的简洁语法。
+
+- **赋值运算符`=`** 左侧的 **`[]`** 用于批量声明变量，右侧数组的单元值将被赋值给左侧的变量
+- 变量的顺序对应数组单元值的位置依次进行赋值操作
+
+```javascript
+cosnt arr = [100, 60, 80]
+const [max, min, avg] = arr
+// 或
+const [max, min, avg] = [100, 60, 80]
+```
+
+典型应用，交换2个变量
+
+```javascript
+const a = 1
+const b = 2;	// 必须有分号;
+[b, a] = [a, b];
+console.log(a, b) // 2 1
+```
+
+![](ES6.assets/数组解构.png)
+
+```js
+[y] = [1, 2, 3, 4, 5];
+console.log(y) // 1
+```
+
+![](ES6.assets/数组解构2.png)
+
+前面必须加分号情况：
+
+1. **立即执行函数**
+
+```javascript
+(function t() {})();
+// 或者
+;(function t() {})()
+```
+
+2. **数组解构**
+
+```javascript
+// 数组开头的，特别是前面有语句的一定注意加分号
+;[b, a] = [a, b]
+```
+
+
+
+### 2.对象解构
+
+对象结构是将对象属性和方法快速批量赋值给一系列变量的简洁语法。
+
+- **赋值运算符`=`** 左侧的 **`{}`** 用于批量声明变量，右侧对象的属性值将被赋值给左侧的变量
+- 对象属性的值将被赋值给与**属性名相同的变量**
+- 注意解构的变量名不要和外面的变量冲突，否则报错
+- 对象中找不到与变量名一致的属性时变量值为 undefined
+
+```javascript
+const { uname, age } = { uname: 'pink老师', age: 18}
+console.log(uname)	// pink老师
+console.log(age)	// 18
+```
+
+给新的变量名赋值：
+
+```javascript
+// 旧变量名: 新变量名
+const { uname: username, age } = { uname: 'pink老师', age: 18}
+console.log(uname)	// pink老师
+console.log(age)	// 18
+```
+
+
+
+### 3.数组对象解构
+
+```javascript
+const pig = [{
+    name: '佩奇',
+    age: 6
+}]
+const [{ name, age }] = pig
+console.log(name, age)	// 佩奇 6
+```
+
+多级对象解构：
+
+```javascript
+const pig = {
+    name: '佩奇',
+    family: {
+        mother: '猪妈妈',
+        father: '猪爸爸',
+        brother: '乔治'
+    },
+    age: 6
+}
+// 若外层是数组，则在外面再加一层数组[]
+const { name, family: { mother, father, brother } } = pig
+console.log(name)
+```
+
+
+
+
+
+## 9.扩展（展开）运算符
+
+展开语法（Spread syntax）：
+
+- 可以在函数调用 / 数组构造时，将数组表达式或者 String 在语法层面展开
+- 还可以在构造字面量对象时，将对象表达式按 key-value 的方式展开
+
+展开语法的使用场景：
+
+- 在函数调用时使用
+- 在数组构造时使用
+- 在构造数组字面量是，也可以使用展开运算符，ES2018（ES9）中新增的
+
+------
+
+扩展运算符可以将字符串映射成一个一个元素，或将一个数组转为用逗号分隔的参数序列，或合并数组或对象，或实现数组的简单复制。
+
+通过扩展运算符实现的是<strong style="color:#DD5145">浅拷贝</strong>，修改了引用指向的值，会同步反映到新数组。
+
+```js
+[...'hello']
+// ['h', 'e', 'l', 'l', 'o']
+
+console.log(1, ...[2, 3, 4], 5)
+// 1 2 3 4 5
+
+const arr1 = ['a', 'b']
+const arr2 = ['c']
+[...arr1, ...arr2] // ['a', 'b', 'c']
+
+// 可以复制对象中的键值对，然后把它们加到另一个对象里去
+const obj1 = { name: 'chenglun17', age: 18}
+const person = { admin: true, ...obj1} // {admin: true, name: 'chenglun17', age: 18}
+
+const a1 = [1, 2];
+const [...a2] = a1;
+// [1, 2]
+a1[1] = 20	// 修改a1，会影响到a2（浅拷贝）
+console.log(a2)
+// [1, 20]
+```
+
+
+
+
+
+## 4.ES6 导出导入模块
 
 导出，通过 export 关键字
 
@@ -69,7 +378,7 @@ export default {
 }
 ```
 
-导入，通过 import 关键字
+导入，通过 import 关键字（导入的模块是<strong style="color:#DD5145">只读</strong>，只有导出他们的模块才能修改其值）
 
 ```js
 // 简便方式导入，只能用于 默认暴露
@@ -84,7 +393,7 @@ import * as example from "./exportExample.js"
 
 
 
-## 5. ES6 怎么写 class
+## 5.ES6 怎么写 class
 
 ES6 的 class 可以看作是一个语法糖，它的绝大部分功能 ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法
 
@@ -101,17 +410,11 @@ class Point {
 }
 ```
 
-## 6. 使用箭头函数需要注意什么？
-
-1. 使用了箭头函数，this 就不是指向 window，它只会在自己作用域的上一层继承 this（指向是可变的）。
-2. 不能够使用 arguments 对象。取而代之使用的是 rest 参数（即剩余参数 **`...`**）解决。
-3. 不能用作构造函数，即不能够使用 new 命令，否则会抛出一个错误。
-4. 不可以使用 yield 命令，因此箭头函数不能用作 Generator 函数。
-5. 箭头函数没有 prototype
 
 
 
-## 7. Set 数据结构
+
+## 7.Set 数据结构
 
 ES6 提供了新的数据结构 **Set（集合）**，它类似于数组，但 <strong style="color:#DD5145">Set 的元素是唯一的</strong>，集合实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
 
@@ -121,35 +424,84 @@ MDN 官方文档定义：
 - **`Set`** 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用
 - 另外，`NaN` 和 `undefined` 都可以被存储在 Set 中，`NaN` 之间被视为相同的值（`NaN` 被认为是相同的，尽管 `NaN !== NaN`）
 
-属性和方法：
+### Set 的属性和方法
 
-- `st.size`：返回集合个数
-- `st.add(item)`：往集合中添加一个新元素 item，返回当前集合
-- `st.delete(item)`：删除集合中的元素，返回 boolean 值
-- `st.has(item)`：检测集合中是否包含某个元素，返回 boolean 值
-- `st.clear()`：清空集合
+- `size`：返回集合个数
+- `add(item)`：往集合中添加一个新元素 item，返回 Set 结构本身
+- `delete(item)`：删除集合中的元素，返回 boolean 值
+- `has(item)`：检测集合中是否包含某个元素，返回 boolean 值
+- `clear()`：清除所有成员，没有返回值
+
 - 集合转为数组：`[...st]`
 - 合并两个集合：`[...st1, ...st2]`
 
+```js
+const set = new Set([1, 1, 2, 3, 4])
+
+console.log(set) 	// 返回{1, 2, 3, 4}
+```
+
+### 遍历
+
+`Set`实例遍历的方法有如下：
+
+关于遍历的方法，有如下：
+
+- keys()：返回键名的遍历器
+- values()：返回键值的遍历器
+- entries()：返回键值对的遍历器
+- forEach()：使用回调函数遍历每个成员
 
 
-## 8. Map 数据结构
 
-ES6 提供了 **Map** 数据结构。它类似于对象，也是键值对的集合。但是 “键” 的范围不限于字符串，各种类型的值（包括对象）都可以当作键。Map 也实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历
+## 8.Map 数据结构
 
-Map 的属性和方法：（k 为键，v为值）：
+ES6 提供了 **Map** 数据结构。它类似于对象，也是键值对的集合。而键和值都可以是任意类型，也实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
+
+### Map 的属性和方法
 
 - `size`：返回 Map 的元素（键值对）个数
-- `set(k, v)`：增加一个键值对，返回当前 Map
-- `get(k)`：返回键值对的键值
-- `has()`：检测 Map 中是否包含某个元素
-- `clear()`：清空集合，返回 undefined
+- `set(key, value)`：增加一个键值对，返回整个 Map 结构
+- `get(key)`：返回 key 对应的键值，如果找不到`key`，返回`undefined`
+- `has()`：检测 Map 中是否包含某个元素，返回 boolean 值
+- `delete(key)`：删除某个键 key，返回 boolean 值
+- `clear()`：清除所有成员，没有返回值
 
-## Set 和 Map 的区别？
+```js
+const map = new Map([
+  ['F', 'no'],
+  ['T',  'yes'],
+])
+console.log(map)	// {'F' => 'no', 'T' => 'yes'}
+```
 
-Set 和 Map 都是 ES6 中新增的数据结构，是对当前 js 数组 和 对象这两种重要数据结构的扩展
+### 遍历
 
-Set 用于数据重组，Map 用于数据存储
+`Map`结构原生提供三个遍历器生成函数和一个遍历方法：
+
+- keys()：返回键名的遍历器
+- values()：返回键值的遍历器
+- entries()：返回所有成员的遍历器
+- forEach()：遍历 Map 的所有成员
+
+
+
+## Set 和 Map 的区别
+
+如果要用一句来描述，我们可以说 `Set` 是一种叫做集合的数据结构，`Map` 是一种叫做字典的数据结构。
+
+- 集合：
+  是由一堆无序的、相关联的，且不重复的内存结构组成的组合。
+- 字典：
+  是一些元素的集合。每个元素有一个称作 key 的域，不同元素的 key 各不相同。
+
+------
+
+Object 结构提供了 “字符串—值” 的对应，Map 结构提供了 “值—值” 的对应，是一种更完善的 Hash 结构实现。
+
+如果你需要 “键值对” 的数据结构，Map 比 Object 更合适。
+
+Set 用于数据重组，Map 用于数据存储。
 
 **Set**：ES6 引入的一种类似 Array 的新的数据结构
 
@@ -159,6 +511,7 @@ Set 用于数据重组，Map 用于数据存储
 
 **Map**：ES6 引入的一种类似 Object 的新的数据结构
 
+- 元素不能重复
 - 本质上是健值对的集合，类似集合
 - 可以遍历，可以跟各种数据格式转换
 
@@ -172,52 +525,118 @@ console.log(newArr)   // [12, 43, 23, 68]
 
 
 
-## 9. Symbol
 
-JavaScript 的七种基本数据类型
 
-- 基本类型（值类型）：string、number、boolean、undefined、null、symbol
-- 引用数据类型：object（包括 array、function）
+## Symbol 类型
 
-ES6 引入了一种新的原始数据类型 Symbol，表示**独一无二的值**。它是 JavaScript 语言的第七种数据类型，是一种类似于字符串的数据类型
+JavaScript 的七种基本数据类型：
+
+- 基本类型（值类型）：String、Number、Boolean、Undefined、Null、Symbol
+- 引用数据类型：Object（包括 Array、Function）
+
+ES6 新增了一种原始数据类型 Symbol，表示**独一无二的值**。它是 JavaScript 语言的第七种数据类型，一种类似于字符串的数据类型。
+
+
+
+### 1.为什么需要 Symbol 呢？
+
+- 在 ES6 之前，对象的属性名都是字符串形式，很容易造成属性名的冲突
+- 开发中如果我们使用混入，那么混入中出现了同名的属性吗，必然有一个会被覆盖掉
+
+<strong style="color:yellow">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（Symbol 除外）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
+
+Symbol 值就是为了解决上面的问题，用来生成一个独一无二的值
+
+- Symbol 值是通过 Symbol 函数来生成，生成后可以作为**属性名**
+- 也就是在 ES6 中，对象的属性名可以使用**字符串**，也可以使用 **Symbol 值**
+
+
+
+### 2.Symbol 的基本使用
 
 **Symbol 的特点：**
 
 - Symbol 的 **值是唯一的**，用来解决命名冲突的问题
 - Symbol 值不能与其他数据进行运算
 - Symbol 定义的对象属性**不能使用 for...in 循环遍历**，但是可以使用 `Reflect.ownKeys` 来获取对象的所有键名
+- 使用 `Symbol()` 方法创建，名字相同的 Symbol 是不同的实体
 
-**Symbol 的创建：**
+**Symbol 的方法与属性：**
 
-- 使用 Symbol() 方法创建，名字相同的 Symbol 是不同的实体
-- 使用 Symbol.for() 方法创建，名字相同的 Symbol 具有相同的实体
-- 输出 Symbol 变量的描述，使用 **description** 属性
+- 使用 `Symbol.for()` 方法创建，名字相同的 Symbol 具有相同的实体
+- `Symbol.keyFor(Symbol)`，返回 key 对应的属性值
+- 输出 Symbol 变量的描述，使用 `description` 属性（ES2019 即 ES10 新增的）
 
 ```js
 // Symbol() 创建
-let s = Symbol()
-console.log(s, typeof s)	// Symbol() 'symbol'
+const s1 = Symbol('chenglun17')
+console.log(s1, typeof s1)	// Symbol() 'symbol'
+console.log(s1.description)	// chenglun17
 
-let s2 = Symbol('chenglun17')
-let s3 = Symbol('chenglun17')
+const s2 = Symbol('chenglun17')
+const s3 = Symbol('chenglun17')
 console.log(s2 === s3)	// false
 
 // Symbol.for 创建
-let s4 = Symbol.for('chenglun17')
-let s5 = Symbol.for('chenglun17')
+const s4 = Symbol.for('chenglun17')
+const s5 = Symbol.for('chenglun17')
 console.log(s4 === s5)	// true
 
 // 不能与其他数据进行运算
-let result = s + 100
-let result = s > 100
-let result = s + s
+const result = s1 + 100
+const result = s1 > 100
+const result = s1 + s1
 console.log(result)		// Uncaught TypeError: Cannot convert a Symbol value to a number
 
-let f = Symbol('测试');
-console.log(f.description); // 测试
+const f = Symbol('测试')
+console.log(f.description) // 测试
 ```
 
-### 对象添加 Symbol 类型的属性
+### 3.Symbol 值作为 key
+
+对象添加 Symbol 类型的属性
+
+```js
+const s1 = Symbol()
+const s2 = Symbol()
+const s3 = Symbol('aaa')
+
+// 1.在定义对象字面量时使用
+const obj = {
+    [s1]: 'abc',
+    [s2]: 'cba'
+}
+
+// 2.新增属性
+obj[s3] = 'nba'
+
+const s4 = Symbol()
+// 3.Object.defineProperty方式
+Object.defineProperty(obj, s4, {
+    enumerable: true,
+    configurable: true,
+    writable: true,
+    value: 'mba'
+})
+
+console.log(obj[s1], obj[s2], obj[s3], obj[s4])
+// 🔴注意：不能通过 .语法获取 console.log(obj.s1)
+
+// 4.使用 Symbol 作为 key 的属性名，在遍历 / Object.keys 等中是获取不到这些 Symbol 值的🔴
+console.log(Object.keys(obj)) // 返回空数组
+console.log(Object.getOwnPropertyNames(obj)) // 返回空数组
+
+// 🟢需要通过 getOwnPropertySymbols 来获取所有 Symbol 的 key
+console.log(Object.getOwnPropertySymbols(obj)) // [Symbol(), Symbol(), Symbol(aaa), Symbol()]
+
+const sKeys = Object.getOwnPropertySymbols(obj)
+
+for (const sKey of sKeys) {
+    console.log(obj[sKey])	// 遍历到对应属性值
+}
+```
+
+
 
 ### Symbol 内置值
 
@@ -232,4 +651,12 @@ console.log(f.description); // 测试
 
 
 
-[参考文章](https://blog.csdn.net/qq_22182989/article/details/123811497)、[参考文章2](https://blog.csdn.net/aoxi9939/article/details/102038812)、[参考文章3](https://www.cnblogs.com/theblogs/p/10575845.html)
+## 3.ES6 如何转为 ES5
+
+使用 babel 转码器，babel 是一个 ES6 转码器，可以将 ES6 代码转为 ES5 代码，以便兼容那些还没支持ES6的平台。
+
+
+
+## 参考
+
+[阮一峰 ECMAScript 6 入门教程](https://es6.ruanyifeng.com/)、[JS高级进阶 ES6~ES13详解](https://www.bilibili.com/video/BV1zd4y1X7ky/?spm_id_from=333.999.0.0&vd_source=78b42a044f07447d2049c465a76bae26)、[参考文章](https://blog.csdn.net/qq_22182989/article/details/123811497)、[参考文章2](https://blog.csdn.net/aoxi9939/article/details/102038812)、[参考文章3](https://www.cnblogs.com/theblogs/p/10575845.html)

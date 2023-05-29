@@ -95,40 +95,6 @@ JavaScript 拥有动态类型，这意味着相同的变量可用作不同的类
 
 
 
-## 字符串模板
-
-使用 **反引号 \` `** 来编写字符串，称之为模板字符串，内容拼接变量时，用 `${ expression }` 嵌入动态的内容。
-
-```js
-tagFunction`string text ${expression} string text`
-```
-
-- **expression**：要插入当前位置的表达式，其值被转换为字符串 或 传递给 tagFunction。
-- **tagFunction**：如果指定，将使用模板字符串数组和替换表达式调用它，返回值将成为模板字面量的值。
-
-```js
-function getPersonInfo(one, two, three) {
-  console.log(one)
-  console.log(two)
-  console.log(three)
-}
-
-const person = 'Lydia'
-const age = 21
-
-getPersonInfo`${person} is ${age} years old` 
-
-// ["", " is ", " years old"]
-// "Lydia"
-// 21
-```
-
-> 如果使用标记模板字面量，第一个参数的值总是**包含字符串的数组**。其余的参数获取的是传递的**表达式的值**！
->
-> [参考文章-例17](https://github.com/lydiahallie/javascript-questions/blob/master/zh-CN/README-zh_CN.md)
-
-
-
 ## 运算符
 
 ### 1.赋值运算符

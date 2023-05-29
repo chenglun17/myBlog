@@ -1,10 +1,8 @@
 # 二、基本使用
 
-[参考文章](https://blog.csdn.net/qq_38758371/article/details/127030120)、[参考文章](https://blog.csdn.net/qq_43211060/article/details/122774813)、[参考文章](https://blog.csdn.net/weixin_45518253/article/details/115425743)、[参考文章](https://blog.csdn.net/oZuiJiaoWeiYang/article/details/45220901)、[参考文章](https://pypypy.blog.csdn.net/article/details/104551896)、[Git教程](https://www.liaoxuefeng.com/wiki/896043488029600)
 
-## 安装（略）
 
-## 配置
+## 1.安装与配置
 
 配置 name 和 email（Git Bash中操作）
 
@@ -17,26 +15,17 @@ git config user.name	# 查看用户名
 git config user.email	# 查看邮箱
 ```
 
-## 基础命令
+## 2.提交操作
 
 ```sh
 git init	# 初始化一个版本库
 
-git add <filename>		# 将文件提交到临时存储区
+git add <filename>		# 将文件提交到临时存储区（暂存区）
 git add *			    # 将所有已修改（未跟踪）的文件暂存
 git add .
 
 git commit -m "日志信息"	 	# 提交暂存区的文件，将文件提交到本地库
 git commit -a -m "日志信息"		# 提交已修改的所有被跟踪文件的新内容未跟踪的文件不会提交）
-
-git reset --hard 版本号	# 版本穿梭
-git reset --hard <commit-hash>	# 可以使用 git log 命令查看提交历史记录，然后找到要删除的提交的哈希值
-
-# 此时执行commit后，还没执行push时，想要撤销这次的commit，该怎么办？
-git reset --hard HEAD^  # 撤销暂存区add的内容（回退到上次提交，并清除本地提交的代码）
-git reset --soft HEAD^  # 仅仅只是撤销commit（回退到上次提交，但不清除本地提交的代码）
-# 如果控制台出现More?，则将命令改成 git reset --soft HEAD^^即可）
-git reset HEAD~	# HEAD代表：上一次提交
 
 # 如果只是想修改commit的注释内容
 git commit --amend -m "修改commit的信息" 
@@ -47,20 +36,6 @@ git diff	# 查看修改内容
 git reflog	# 查看历史记录
 git log		# 查看版本详细信息
 ```
-
-参数说明：
-
-> **reset 命令只能回滚最新的提交，无法满足保留最后一次提交只回滚之前的某次提交**
->
-> - `HEAD^`：表示上一个版本（上一次的commit），也可以写成`HEAD~1`，几个^ 代表几次提交，如果回滚两次就是`HEAD^^`。如果你进行了2次commit，想全部撤回，可以使用`HEAD~2`。
->
-> - `--soft`：不删除工作空间改动代码，撤销commit，不撤销 git add .
->
-> - `--hard`：删除工作空间改动代码，撤销commit，撤销 git add .
->
-> - `--mixed`：此为默认方式
->
->   如果不指定 reset 的模式，默认使用 -mixed 模式，即 git reset --mixed HEAD^ 和 git reset HEAD^ 效果是一样的，不带任何参数的 git reset，即时这种方式，它回退到某个版本， 只保留源码，回退 commit 和 add 信息
 
 重置文件
 
@@ -85,7 +60,7 @@ git mv 1.txt 2.txt # 1.txt 重命名为 2.txt
 
 
 
-##  分支操作
+##  2.分支操作
 
 git 在存储文件时，每一次代码的提交都会创建一个与之对应的节点，git 就是通过一个一个的节点来记录代码的状态的。
 
@@ -107,9 +82,6 @@ git checkout -b <name>	# 创建，并切换分支
 git switch <name>		# 切换分支
 git switch -c <name>	# 创建，并切换分支
 
-git merge <name>		# 合并分支，把指定的分支合并到当前分支上
-git merge new			# 此命令为将new分支合并到master分支上（默认为master）
-
 git branch -d <name>	# 删除分支，-d 选项只能删除已经参与了合并的
 # 不能删除当前工作分支或者不存在的分支（会在删除前检查merge状态）
 git branch -D <name>	# 对于未有合并的分支是无法删除的，如果想强制删除一个分支，可以使用-D选项
@@ -120,7 +92,75 @@ git branch -D <name>	# 对于未有合并的分支是无法删除的，如果想
 >
 > 因为`git checkout`除了可以操作分支，它还可以操作文件。这条命令可以重写工作区，是一个很危险的命令
 
-## 远程库操作
+## 3.合并操作
+
+```sh
+git merge <name>		# 合并分支，把指定的分支合并到当前分支上
+git merge new			# 此命令为将new分支合并到master分支上（默认为master）
+
+git rebase 分支名/节点哈希值
+```
+
+与`merge`不同的是`rebase`合并看起来不会产生新的节点(实际上是会产生的，只是做了一次复制)，而是将需要合并的节点直接累加。
+
+
+
+## 4.回退操作
+
+### reset
+
+该命令会强行覆盖当前版本和要回退的版本之间的其他版本（不太建议）。
+
+```sh
+git status	# 查看本地库状态
+git diff	# 查看修改内容
+git reflog	# 查看历史记录
+git log		# 查看版本详细信息
+
+git reset --hard 版本号/<commit-hash>	# 版本穿梭，回到某一个版本
+
+# 此时执行commit后，还没执行push时，想要撤销这次的commit，该怎么办？
+# 撤销暂存区add的内容（回退到上次提交，并清除本地提交的代码）
+git reset --hard HEAD^
+# 仅仅只是撤销commit（回退到上次提交，但不清除本地提交的代码）
+git reset --soft HEAD^
+
+# 如果控制台出现More?，则将命令改成 git reset --soft HEAD^^即可）
+git reset HEAD~	# HEAD代表：上一次提交
+```
+
+参数说明：
+
+**reset 命令只能回滚最新的提交，无法满足保留最后一次提交只回滚之前的某次提交**
+
+- `HEAD^`：表示上一个版本（上一次的commit），也可以写成`HEAD~1`，几个^ 代表几次提交，如果回滚两次就是`HEAD^^`。如果你进行了2次commit，想全部撤回，可以使用`HEAD~2`。
+
+- `--soft`：不删除工作空间改动代码，撤销commit，不撤销 git add .
+
+- `--hard`：删除工作空间改动代码，撤销commit，撤销 git add .
+
+- `--mixed`：此为默认方式
+
+  如果不指定 reset 的模式，默认使用 -mixed 模式，即 git reset --mixed HEAD^ 和 git reset HEAD^ 效果是一样的，不带任何参数的 git reset，即时这种方式，它回退到某个版本， 只保留源码，回退 commit 和 add 信息
+
+![](GitBasicUse.assets/reset.png)
+
+### revert
+
+在当前版本的基础上新增一个版本，不影响以前的代码。
+
+```sh
+git log		# 查看版本详细信息
+git revert -n (版本号)
+```
+
+
+
+![](GitBasicUse.assets/revert.png)
+
+
+
+## 5.远程库操作
 
 ```bash
 git remote		# 列出当前的关联的远程库
@@ -239,4 +279,10 @@ dbg/
 /dbg
 
 ```
+
+
+
+## 参考
+
+[参考文章](https://blog.csdn.net/qq_38758371/article/details/127030120)、[参考文章](https://blog.csdn.net/qq_43211060/article/details/122774813)、[参考文章](https://blog.csdn.net/weixin_45518253/article/details/115425743)、[参考文章](https://blog.csdn.net/oZuiJiaoWeiYang/article/details/45220901)、[参考文章](https://pypypy.blog.csdn.net/article/details/104551896)、[Git教程](https://www.liaoxuefeng.com/wiki/896043488029600)、[参考文章](https://blog.csdn.net/L1147484597/article/details/128480953)
 

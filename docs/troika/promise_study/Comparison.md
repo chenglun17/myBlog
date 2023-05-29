@@ -1,4 +1,4 @@
-# 异步方案的比较
+# 七、异步方案的比较
 
 异步解决方案的发展历程：回调函数 --- Promise --- Generator --- async / await
 

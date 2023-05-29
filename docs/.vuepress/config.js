@@ -119,6 +119,7 @@ module.exports = {
                     sidebarDepth: 2,
                     children: [
                         "/troika/html_css_study/HTMLNotes.md",
+                        "/troika/html_css_study/CSSNotes.md",
                         "/troika/html_css_study/BoxModel.md",
                         "/troika/html_css_study/Display.md",
                         "/troika/html_css_study/Div.md",

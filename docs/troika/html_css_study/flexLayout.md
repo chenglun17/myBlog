@@ -1,6 +1,6 @@
 # Flex布局
 
-## 1.0 传统布局和flex布局对比
+## 1.传统布局和flex布局对比
 
 ### 1.1 传统布局
 
@@ -19,7 +19,7 @@
 +  如果是pc端页面布局，还是采用传统方式
 + 如果是移动端或者是不考虑兼容的pc则采用flex
 
-## 2.0 flex布局原理
+## 2.flex布局原理
 
 + flex 是 flexible Box 的缩写，意为<strong style="color:#DD5145">"弹性布局"</strong>，用来为盒状模型提供最大的灵活性，任何一个容器都可以指定为 flex 布局。
 
@@ -35,7 +35,7 @@
 
 ![](flexLayout.assets/image-20230427212924154.png)
 
-## 3.0 父项常见属性
+## 3.父项常见属性
 
 + **`flex-direction`**：设置<strong style="color: #DD5145">主轴</strong>的**方向**
 + **`justify-content`**：设置<strong style="color: #DD5145">主轴</strong>上的**子元素排列方式**
@@ -111,7 +111,7 @@ div {
 }
 ```
 
-## 4.0 子项常见属性
+## 4.子项常见属性
 
 + **`flex`** 子项目占的份数
 + **`align-self`** 控制子项自己在侧轴的排列方式

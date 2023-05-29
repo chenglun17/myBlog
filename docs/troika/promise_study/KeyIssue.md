@@ -1,8 +1,8 @@
-# Promise 关键问题
+# 三、Promise 关键问题
 
 ## 1.如何改变 Promise 的状态?
 
-改变 Promise **的状态的3种方法**
+改变 Promise **的状态的3种方法**：
 
 1. `resolve(value)`：如果当前是 pending 就会变为 resolved
 2. `reject(reason)`：如果当前是 pending 就会变为 rejected
@@ -80,7 +80,7 @@ p.then(value => {
 
 ## 4.Promise 中 then 的返回值
 
-首先实例化一个 promise 对象。promise 对象身上有 then 方法，可用来指定回调，对成功和失败的结果进行处理
+首先实例化一个 promise 对象。promise 对象身上有 then 方法，可用来指定回调，对成功和失败的结果进行处理。
 
 它接受两个回调函数，一个是 resolve 成功的回调，一个是 reject 失败的回调。
 
@@ -95,15 +95,15 @@ const p1 = p.then(value => {}, reason => {})
 console.log(p === p1)  // false，说明p.then()的结果是与p1不是一个promise对象
 ```
 
-> p.then() 返回的也是一个promise对象，因此可以进行**链式调用**，是promise可以解决异步编程[回调地狱](https://so.csdn.net/so/search?q=回调地狱&spm=1001.2101.3001.7020)的原因
->
-> ==重点==：then 返回的 promise对象 **p1 的状态** 是由 **then 内部回调函数的执行结果** 来决定的，不取决于p的状态，不取决于你调用的是p的成功或者失败的回调，
+p.then() 返回的也是一个promise对象，因此可以进行**链式调用**，是promise可以解决异步编程[回调地狱](https://blog.csdn.net/qq_42698326/article/details/111075519)的原因
+
+**重点**：then 返回的 promise对象 **p1 的状态** 是由 **then 内部回调函数的执行结果** 来决定的，不取决于p的状态，不取决于你调用的是p的成功或者失败的回调，
 
 **then的返回的状态和值有三种情况，如下：**
 
-1. 如果回调函数的返回结果是 <strong style="color:#DD5145">非promise类型的对象</strong>，则 then 方法返回的 promise 对象 p1 的状态为成功 **fulfilled**，同时返回的结果就是 promise 对象 p1 成功的值 1111
+1. 如果回调函数的返回结果是 <strong style="color:#DD5145">非promise类型的对象</strong>，则 then 方法返回的 promise 对象 p1 的状态为成功 **fulfilled**，同时返回的结果就是 promise 对象 p1 成功的值 1111。
 
-> ==注意==：如果你不写 return，默认返回结果是 **undefined**，又 undefined 也是**非promise类型**，<br>所以 p1 状态还是成功 **fulfilled**，返回的 promise 成功值 为undefined。
+> 如果你不写 return，默认返回结果是 **undefined**，又 undefined 也是**非promise类型**，所以 p1 状态还是成功 **fulfilled**，返回的 promise 成功值 为undefined。
 
 ```js
 const p1 = p.then(value => {        // 接受p成功的回调
@@ -117,7 +117,11 @@ const p1 = p.then(value => {}, reason => {   // 接受p失败的回调
 console.log(p1)   // 此时p1的状态还是fulfilled，证明只和then内部回调函数的返回结果有关系
 ```
 
-2. 如果回调函数的返回结果是 <strong style="color:#DD5145">新promise类型对象</strong>，则p1的状态就取决于**return返回的这个promise对象内部的状态**，内部为 resolve, 则p1状态为 fulfilled，内部为 reject，则p1状态为 rejected
+> 证明p1返回的状态只和then内部回调函数的返回结果有关系
+
+
+
+2. 如果回调函数的返回结果是 <strong style="color:#DD5145">新promise类型对象</strong>，则p1的状态就取决于**return返回的这个promise对象内部的状态**，内部为 resolve, 则p1状态为 fulfilled，内部为 reject，则p1状态为 rejected。
 
 ```js
 const p1 = p.then(value => {
@@ -128,7 +132,9 @@ const p1 = p.then(value => {
 console.log(p1)   // 结果为 rejected
 ```
 
-3. 第三种情况为 <strong style="color:#DD5145">抛出错误</strong>，则p1状态为 **rejected**，返回的结果就是你抛出的值
+
+
+3. 第三种情况为 <strong style="color:#DD5145">抛出错误</strong>，则p1状态为 **rejected**，返回的结果就是你抛出的值。
 
 ```js
 const p1 = p.then(value => {

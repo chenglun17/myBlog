@@ -101,13 +101,58 @@ JavaScript 中运行任何的代码都是在执行上下文中运行的。
 
 
 
-### 3.事件循环
+## 事件循环
 
-由于主线程不断的重复获得任务、执行任务、再获取任务、再执行、所有这种机制被称为 **事件循环（event loop）**
+### 1.基本概念
 
-![](JS_Senior.assets/image-20230315135320450.png)
+首先，`JavaScript`是一门单线程的语言，意味着同一时间内只能做一件事，但是这并不意味着单线程就是阻塞，而实现单线程非阻塞的方法就是事件循环。
 
-[参考文章](https://blog.csdn.net/qq_42865575/article/details/124847530)
+在`JavaScript`中，所有的任务都可以分为：
+
+- **同步任务**：立即执行的任务，同步任务一般会直接进入到主线程中执行
+- **异步任务**：异步执行的任务，比如`ajax`网络请求，`setTimeout`定时函数等
+
+同步任务与异步任务的运行流程图如下：
+
+- 同步任务进入主线程，即主**执行栈（调用栈）**
+- 异步任务进入**任务队列（消息队列）**，主线程内的任务执行完毕为空，会去任务队列读取对应的任务，推入主线程执行。
+- 上述过程的不断重复就**事件循环（event loop）**
+
+![](JS_Senior.assets/61efbc20-7cb8-11eb-85f6-6fac77c0c9b3.png)
+
+
+
+### 2.宏任务与微任务
+
+异步任务主要分为**宏任务**与**微任务**两种，ES6 规范中，<strong style="color:#DD5145">宏任务（Macrotask） 称为 Task， 微任务（Microtask） 称为 Jobs。</strong>
+
+宏任务是**由宿主（浏览器、Node）发起的**，而微任务**由 JavaScript 自身发起**。
+
+| 宏任务（Macrotask）         | 微任务（Microtask）                      |
+| --------------------------- | ---------------------------------------- |
+| **`setTimeout`**            | requestAnimationFrame（有争议）          |
+| **`setInterval`**           | MutationObserver（浏览器环境）           |
+| postMessage、MessageChannel | **`Promise.[then/catch/finally]`**       |
+| I/O，事件队列               | process.nextTick（Node环境）             |
+| setImmediate（Node环境）    | queueMicrotask                           |
+| script（整体代码块）        | Object.observe（已废弃；Proxy 对象替代） |
+
+
+
+**如何理解 script（整体代码块）是个宏任务呢？**
+
+- 实际上如果同时存在两个 script 代码块，会首先在执行第一个 script 代码块中的同步代码，如果这个过程中创建了微任务并进入了微任务队列，第一个 script 同步代码执行完之后，会首先去**清空微任务队列**，再去开启第二个 script 代码块的执行。所以这里应该就可以理解 script（整体代码块）为什么会是宏任务。
+
+事件循环，宏任务，微任务的关系如图所示：
+
+它的执行机制是：
+
+- 执行一个宏任务，如果遇到微任务就将它放到**微任务的事件队列**中
+- 当前**宏任务执行完成后**，会查看微任务的事件队列，然后再将里面的所有微任务依次执行完
+
+![](JS_Senior.assets/6e80e5e0-7cb8-11eb-85f6-6fac77c0c9b3.png)
+
+[参考文章](https://blog.csdn.net/qq_42865575/article/details/124847530)、[参考文章](https://vue3js.cn/interview/JavaScript/event_loop.html)
 
 
 
@@ -115,9 +160,7 @@ JavaScript 中运行任何的代码都是在执行上下文中运行的。
 
 ### 垃圾回收机制
 
-垃圾回收机制（Garbage Collection，GC）
-
-JavaScript 中**内存**的分配与回收都是**自动完成**，内存不再使用时会被**垃圾回收器**自动回收。
+垃圾回收机制（Garbage Collection，GC），JavaScript 中**内存**的分配与回收都是**自动完成**，内存不再使用时会被**垃圾回收器**自动回收。
 
 程序中分配的内存由于某种原因，程序未释放或无法释放叫做**内存泄露**，而垃圾回收机制就是防止内存泄露的。
 
@@ -228,6 +271,15 @@ JavaScript 是支持函数式编程，函数可以作为另外一个函数的参
 
 对于那些我们不会再使用的对象，但是对于GC来说，它不知道要进行释放，对应的内存依然会被保留。
 
+常见内存泄露情况：
+
+- 意外的全局变量（严格模式，可以避免意外的全局变量）
+- 另一种意外的全局变量可能由 `this` 创建（严格模式，可以避免）
+- 定时器也常会造成内存泄露
+- 闭包，维持函数内局部变量，使其得不到释放
+- 没有清理对`DOM`元素的引用同样造成内存泄露
+- 使用事件监听`addEventListener`监听的时候，在不监听的情况下使用`removeEventListener`取消对事件监听
+
 
 
 ### 3.浏览器闭包的优化
@@ -270,6 +322,23 @@ fn()
 - 在函数被执行时，会 **优先查找当前** 函数作用域中查找变量
 - 如果当前作用域查找不到，则会 **依次逐级查找父级作用域** 直到 **全局作用域**
 - 子级作用域可以访问父级作用域，父级作用域无法访问子级作用域
+
+
+
+## 运算符
+
+### delete 运算符
+
+用于删除对象的一个属性，如果该属性的值是一个对象，并且没有更多对该对象的引用，该属性所持有的对象最终会自动释放。
+
+返回一个布尔值：`true`指删除成功，否则返回`false`。
+
+但是通过 `var`, `const` 或 `let` 关键字声明的变量无法用 `delete` 操作符来删除。全局对象以及对象中的属性是可以删除的。
+
+```js
+delete object.property
+delete object[property]
+```
 
 
 
@@ -366,6 +435,31 @@ freddie.colorChange('orange')	// 因为 freddie 是一个实例，静态方法�
 
 
 
+## 内置对象
+
+### 1.parseInt
+
+解析一个字符串并返回指定基数的十进制整数 或 NaN，`radix` 是 2-36 之间的整数，表示被解析字符串的基数。
+
+```js
+parseInt(string, radix)
+```
+
+- string，必须，要被解析的字符串
+- radix，可选，表示要解析的数字的基数，该值介于 2~36 之间
+  - 如果省略该参数或其值为 0，则数字将以 10 为基础来解析。如果它以 `"0x"` 或 `"0X"` 开头，将以 16 为基数
+  - 如果该参数小于 2 或者大于 36，则 parseInt() 将返回 NaN
+
+**注意**：
+
+如果字符串的第一个字符不能被转换为数字，那么 `parseInt` 会返回 NaN。
+
+如果遇到的字符不是指定 `radix` 参数中的数字，它将忽略该字符以及所有后续字符，并返回到该点为止已解析的整数值。
+
+`parseInt` 将数字截断为整数值。允许前导和尾随空格。
+
+
+
 ## 内置构造函数
 
 ### 1.Object
@@ -419,7 +513,7 @@ Object.assign(obj2, obj) // 返回 {name: '佩奇', age: 6}
 **map（）**可以遍历数组并处理数据，并且**返回新的数组**，迭代数组，**不会对空数组进行检测**。
 
 - map 也称为 **映射**，指两个元素的集之间相互 “对应” 的关系
-- map 有返回值，所有 callback 需要 **return**，否则会返回 undefined
+- map 有返回值，所有 callback 需要 **return**，否则默认返回 **undefined**
 
 语法：
 
@@ -427,13 +521,13 @@ Object.assign(obj2, obj) // 返回 {name: '佩奇', age: 6}
 Array.map(function(currentValue, index, arr){}, thisValue)
 ```
 
-> - 第一个参数为一个回调函数，必传，数组中的每一项都会遍历执行该函数。
->   - currentValue，必须，当前元素的值
->   - index，可选，当前元素属于的索引值
->   - arr，可选，当前元素属于的数组对象
-> - 第二个参数 thisValue 为可选参数，回调函数中的 this 会指向该参数对象。
->
-> <strong style="color:#DD5145">默认参数</strong>：当没有给 map 指定输入几个参数时，**采用全部参数的形式**。
+- 第一个参数为一个回调函数，必传，数组中的每一项都会遍历执行该函数。
+  - currentValue，必须，当前元素的值
+  - index，可选，当前元素属于的索引值
+  - arr，可选，当前元素属于的数组对象
+- 第二个参数 thisValue 为可选参数，回调函数中的 this 会指向该参数对象。
+
+<strong style="color:#DD5145">默认参数</strong>：当没有给 map 指定输入几个参数时，**采用全部参数的形式**。
 
 ```javascript
 const arr = ['red', 'blue', 'green']
@@ -455,12 +549,7 @@ console.log(parseInt('2',1))  // NaN，radix值介于 2~36 之间
 console.log(parseInt('3',2))  // NaN，二进制不包括 3 这个数字
 ```
 
-> **`parseInt(string [, radix])`**，解析一个字符串，并返回一个整数 或 NaN
->
-> - string，必须，要被解析的字符串
-> - radix，可选，表示要解析的数字的基数，该值介于 2~36 之间
->
-> [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
+
 
 #### forEach方法
 
@@ -473,9 +562,11 @@ Array.forEach(function (ele, index) {
 // 参数：当前数组元素ele是必须要写的，当前元素索引号index可选
 ```
 
-> - 与 map（）相似，但是 forEach（）<strong style="color:#DD5145">只遍历，不返回新数组</strong>
-> - 适用于遍历数组对象
-> - 无法 break ，可以用 try/catch 中 throw new Error 来停止
+- 与 map（）相似，但是 forEach（）<strong style="color:#DD5145">只遍历，不返回新数组</strong>
+- 适用于遍历数组对象
+- 无法 break ，可以用 try/catch 中 throw new Error 来停止
+
+
 
 #### filter方法
 
@@ -487,6 +578,8 @@ Array.filter(function (ele, index) {
 })
 // 参数ele是必须要写的，index可选
 ```
+
+
 
 #### reduce方法
 
@@ -504,13 +597,13 @@ Array.reduce(function(上一次值, 当前值){}, 起始值)
 reduce((previousValue, currentValue, currentIndex, array) => {}, init)
 ```
 
-> - previousValue: **必需**。初始值, 或者计算结束后的返回值。
-> - currentValue：**必需**。当前元素。
-> - currentIndex：可选。当前元素的索引。
-> - array：可选。当前元素所属的数组对象。
-> - init: 可选。传递给函数的初始值，相当于pre的初始值。
->
-> reduce 里面有一定要 return，return 出去的值也要注意
+- previousValue: **必需**。初始值, 或者计算结束后的返回值。
+- currentValue：**必需**。当前元素。
+- currentIndex：可选。当前元素的索引。
+- array：可选。当前元素所属的数组对象。
+- init: 可选。传递给函数的初始值，相当于pre的初始值。
+
+reduce 里面有一定要 return，return 出去的值也要注意
 
 例如，求和
 
@@ -804,8 +897,6 @@ sum(5, 10)
 sum(1, 2, 3)
 ```
 
-
-
 #### 剩余参数 rest
 
 - **`...`** 是语法符号，置于最末函数形参之前，用于获取 **多余的实参**
@@ -817,7 +908,7 @@ sum(1, 2, 3)
 function getSum(a, b, ...rest) {
     console.log(rest)	// 使用的时候不需要加 ...
 }
-getSum(1, 2, 3, 4, 5)	// 输出的是一个数组 [3, 4, 5]
+getSum(3, 4, 5)	// 输出的是一个数组 [3, 4, 5]
 ```
 
 
@@ -840,9 +931,11 @@ const arr3 = [...arr1, ...arr2]
 console.log(arr3)	// [1, 2, 3, 4, 5, 6]
 ```
 
+
+
 ### 4.箭头函数
 
-箭头函数更适用于那些需要匿名函数的地方
+箭头函数更适用于那些需要匿名函数的地方：
 
 - 箭头函数属于表达式函数，因此**不存在函数提升**
 - 加括号的函数体返回对象字面量表达式，如例5
@@ -882,9 +975,11 @@ const fn = uname => ({ uname: uname })
 console.log(fn('刘德华'))	// {uname: '刘德华'}
 ```
 
+
+
 ### 5.箭头函数this
 
-**箭头函数不会创建自己的 this**，它只会从自己的作用域链的上一层沿用this
+**箭头函数不会创建自己的 this**，它只会从自己的作用域链的上一层沿用 this。
 
 DOM事件回调函数为了简便，不推荐使用箭头函数
 
@@ -976,106 +1071,6 @@ fun()
 
 
 
-
-## 解构赋值
-
-解构赋值是一种快速为变量赋值的简洁语法，本质上仍为变量赋值。
-
-### 1.数组解构
-
-数组结构是将数组的单元值快速批量赋值给一系列变量的简洁语法。
-
-- **赋值运算符`=`** 左侧的 **`[]`** 用于批量声明变量，右侧数组的单元值将被赋值给左侧的变量
-- 变量的顺序对应数组单元值的位置依次进行赋值操作
-
-```javascript
-cosnt arr = [100, 60, 80]
-const [max, min, avg] = arr
-// 或
-const [max, min, avg] = [100, 60, 80]
-```
-
-典型应用，交换2个变量
-
-```javascript
-let a = 1
-let b = 3;	// 必须有分号;
-[b, a] = [a, b]
-console.log(a, b) // 3 1
-```
-
-前面必须加分号情况：
-
-1. **立即执行函数**
-
-```javascript
-(function t() {})();
-// 或者
-;(function t() {})()
-```
-
-2. **数组解构**
-
-```javascript
-// 数组开头的，特别是前面有语句的一定注意加分号
-;[b, a] = [a, b]
-```
-
-
-
-### 2.对象解构
-
-对象结构是将对象属性和方法快速批量赋值给一系列变量的简洁语法。
-
-- **赋值运算符`=`** 左侧的 **`{}`** 用于批量声明变量，右侧对象的属性值将被赋值给左侧的变量
-- 对象属性的值将被赋值给与**属性名相同的变量**
-- 注意解构的变量名不要和外面的变量冲突，否则报错
-- 对象中找不到与变量名一致的属性时变量值为 undefined
-
-```javascript
-const { uname, age } = { uname: 'pink老师', age: 18}
-console.log(uname)	// pink老师
-console.log(age)	// 18
-```
-
-给新的变量名赋值：
-
-```javascript
-// 旧变量名: 新变量名
-const { uname: username, age } = { uname: 'pink老师', age: 18}
-console.log(uname)	// pink老师
-console.log(age)	// 18
-```
-
-
-
-### 3.数组对象解构
-
-```javascript
-const pig = [{
-    name: '佩奇',
-    age: 6
-}]
-const [{ name, age }] = pig
-console.log(name, age)	// 佩奇 6
-```
-
-多级对象解构：
-
-```javascript
-const pig = {
-    name: '佩奇',
-    family: {
-        mother: '猪妈妈',
-        father: '猪爸爸',
-        brother: '乔治'
-    },
-    age: 6
-}
-// 若外层是数组，则在外面再加一层数组[]
-const { name, family: { mother, father, brother } } = pig
-console.log(name)
-```
 
 
 
