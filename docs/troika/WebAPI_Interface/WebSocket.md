@@ -1,8 +1,4 @@
-# WebSocket
-
-MDN文档：https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket
-
-[参考文章](https://blog.csdn.net/weixin_48845614/article/details/126634761)、[参考文章2](https://blog.csdn.net/sinat_36422236/article/details/85051547)、[参考文章3](https://blog.csdn.net/qq_54773998/article/details/123863493)
+# Web Socket
 
 ## 1. 什么是 WebSocket
 
@@ -14,10 +10,8 @@ WebSocket 是 HTML5 下的一种<strong style="color:#DD5145">网络通信协议
 
 在 WebSocket 的 API 中，浏览器和服务器<strong style="color:#DD5145">只需要完成一次握手</strong>，两者之间就直接可以创建持久性的连接，并进行双向数据传输
 
-> WebSocket 是一个**持久化**的协议
->
-> WebSocket 目前支持两种统一资源标志符`ws`和`wss（加密）`，类似于 HTTP 和 HTTPS。
->
+- WebSocket 是一个**持久化**的协议
+- WebSocket 目前支持两种统一资源标志符`ws`和`wss（加密）`，类似于 HTTP 和 HTTPS。
 
 ## 2. WebSocket 的特点
 
@@ -29,27 +23,27 @@ WebSocket 是 HTML5 下的一种<strong style="color:#DD5145">网络通信协议
 
 **为什么需要 WebSocket ? 我们已经有了 HTTP 协议，为什么还需要另一个协议？它能带来什么好处？**
 
-> - 因为 HTTP 协议有一个缺陷：通信只能由客户端发起
-> - 我们都知道轮询的效率低，非常浪费资源（因为必须不停连接，或者 HTTP 连接始终打开）, 因此 WebSocket 应运而生。
-> - WebSocket 不是用来代替 HTTP 的，它是用来解决实时通信的业务。若业务不需要实时性，那就没必要使用 WebSocket。
+- 因为 HTTP 协议有一个缺陷：通信只能由客户端发起
+- 我们都知道轮询的效率低，非常浪费资源（因为必须不停连接，或者 HTTP 连接始终打开）, 因此 WebSocket 应运而生。
+- WebSocket 不是用来代替 HTTP 的，它是用来解决实时通信的业务。若业务不需要实时性，那就没必要使用 WebSocket。
 
 ## 3. WebSocket 与 HTTP 的关系
 
 **相同点：**
 
-> 1. 都是基于 TCP 的，都是可靠性传输协议
-> 2. 都是应用层协议
+1. 都是基于 TCP 的，都是可靠性传输协议
+2. 都是应用层协议
 
 **不同点：**
 
-> 1. WebSocket 是双向通信协议，模拟Socket协议，可以双向发送或接受信息
-> 2. HTTP 是单向的
-> 3. WebSocket 是需要浏览器和服务器握手进行建立连接的
-> 4. 而 HTTP 是浏览器发起向服务器的连接，服务器预先并不知道这个连接
+1. WebSocket 是双向通信协议，模拟Socket协议，可以双向发送或接受信息
+2. HTTP 是单向的
+3. WebSocket 是需要浏览器和服务器握手进行建立连接的
+4. 而 HTTP 是浏览器发起向服务器的连接，服务器预先并不知道这个连接
 
 **WebSocket 在建立握手时，数据是通过 HTTP 传输的。但是建立之后，在真正传输时候是不需要 HTTP 协议的**
 
-<img src="WebSocket.assets/image-20230520205820817.png" alt="image-20230520205820817" style="zoom: 50%;" />
+![](WebSocket.assets/image-20230520205820817.png)
 
 ## 4. WebSocket 的方法
 
@@ -96,9 +90,9 @@ ws.onclose = function（）{
 }
 ```
 
-# WebSocket 的使用
+## 7.WebSocket 的使用
 
-## 客户端搭建
+### 客户端搭建
 
 ws 是一个 websocket 库，可以用了创建服务器。
 
@@ -108,4 +102,11 @@ ws 是一个 websocket 库，可以用了创建服务器。
 
 
 
-## 服务器搭建
+### 服务器搭建
+
+
+
+## 参考
+
+[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)、[参考文章](https://blog.csdn.net/weixin_48845614/article/details/126634761)、[参考文章2](https://blog.csdn.net/sinat_36422236/article/details/85051547)、[参考文章3](https://blog.csdn.net/qq_54773998/article/details/123863493)
+

@@ -1,7 +1,5 @@
 # 八、一道题目
 
-[参考文章](https://juejin.cn/post/7062155174436929550#heading-12)
-
 ```js
 async function async1() {
     await async2()				// 2.1 执行 async2 函数
@@ -13,9 +11,11 @@ async function async2() {
 }
 
 console.log('script start')		// 1.全局代码自上而下执行，直接打印
+
 setTimeout(function() {
     console.log('setTimeout')	// 6.上一个宏任务所有事都做完了，开始下一个宏任务，就是定时器
 }, 0)
+
 async1()	// 2.执行 async1 函数
 
 new Promise(resolve => {	 // 3.执行 new Promise
@@ -31,6 +31,8 @@ console.log('script end')	// 4.直接打印，全局代码执行完毕
 						  // 5.同步代码执行完了，开始执行微任务
 ```
 
+答案：`script start`-`async2 end`-`Promise`-`script end`-`async1 end`-`promise1`-`promise2`-`setTimeout`
+
 解题技巧：
 
 - 无论是 then 还是 catch 里的回调内容，只有代码正常执行或正常返回，则当前新的 Promise 实例为 fulfilled 状态，如果有报错或返回 Promise.reject() 则新的 Promise 实例为 rejected 状态。
@@ -39,3 +41,5 @@ console.log('script end')	// 4.直接打印，全局代码执行完毕
 - 执行 async 函数，返回的是 Promise 对象
 - await 相当于 Promise 的 then，并且同一作用域下 await 后的内容全部作为 then 中回调的内容
 - 异步中先执行宏任务，再执行微任务
+
+[参考文章](https://juejin.cn/post/7062155174436929550#heading-12)

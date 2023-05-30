@@ -14,6 +14,8 @@ Promise是一个构造函数，其自身有resolve，reject，race，all等方�
 
 属于new Promsie的API
 
+
+
 ### 1.1 Promise 构造函数
 
 Promise 构造函数：**`Promise(executor) {}`**
@@ -24,7 +26,7 @@ Promise 构造函数：**`Promise(executor) {}`**
 
 说明：**executor 会在 Promise 内部立即同步调用（立即执行），异步操作在执行器中执行**
 
-> reject 是用来抛出异常的，catch 是用来处理异常的
+<strong style="color:#DD5145">reject 是用来抛出异常的，catch 是用来处理异常的</strong>
 
 
 
@@ -37,12 +39,10 @@ then(onFulfilled)
 then(onFulfilled, onRejected)
 ```
 
-- **onResolved** 函数：成功的回调函数 **`value => {}`**
-- **onRejected** 函数：失败的回调函数 **`reason => {}`**
+- **onResolved** 函数：成功的回调函数 **`value => {}`** 
+- **onRejected** 函数：失败的回调函数 **`reason => {}`** 
 
-> promise 是同步执行，**then是异步执行**
->
-> promise 本身不是异步的，只是内部包含了异步代码。
+<strong style="color:#DD5145">Promise 本身是同步，但是 Promise 的回调 then 和 catch 是异步的</strong>
 
 ```javascript
 const p = new Promise((resolve, reject) => {
@@ -63,11 +63,11 @@ console.log(res);
 
 
 
-###  1.3 then方法的规则
+###  1.3 then 方法的规则
 
 - `then`方法下一次的输入需要上一次的输出
-- 如果一个promise执行完后 返回的还是一个promise，会把这个promise 的执行结果，传递给下一次`then`中
-- 如果`then`中返回的不是Promise对象而是一个普通值，则会将这个结果作为下次then的成功的结果
+- 如果一个 promise 执行完后 返回的还是一个 promise，会把这个 promise 的执行结果，传递给下一次`then`中
+- 如果`then`中返回的不是 promise 对象而是一个普通值，则会将这个结果作为下次 then 的成功的结果
 - 如果当前`then`中失败了 会走下一个`then`的失败
 - 如果返回的是 undefined 不管当前是成功还是失败 都会走下一次的成功
 - catch是错误没有处理的情况下才会走
@@ -120,7 +120,7 @@ promise.then(result => {···})
 
 
 
-## 2.Promise的静态方法
+## 2.Promise 的静态方法
 
 不属于new Promise的API
 
@@ -176,7 +176,7 @@ console.log(p2);
 
 
 
-### 2.3Promise.all
+### 2.3 Promise.all
 
 **Promise.all 方法**：**(promises) => { }**
 

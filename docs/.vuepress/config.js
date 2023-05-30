@@ -97,7 +97,7 @@ module.exports = {
                     path: '/cs/CN/',
                     sidebarDepth: 2,
                     children: [
-                        // "/cs/git_study/GitNotes.md",
+                        "/cs/CN/InterviewQuestions.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -190,9 +190,9 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
-                // Axios学习
+                // Axios进阶
                 {
-                    title: 'Axios学习',
+                    title: 'Axios进阶',
                     path: '/troika/axios_study/',
                     sidebarDepth: 2,
                     children: [

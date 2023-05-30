@@ -40,26 +40,21 @@
 
 一个 Promise 必然处于以下几种状态之一：
 
-- 实例对象中的一个属性 对象的状态：**【PromiseState】**
+- 实例对象中的一个属性**对象的状态**：<strong style="color:#DD5145">PromiseState</strong>，保存着对象成功/失败的状态
 
   - 待定 **pending**：初始状态，既没有被兑现，也没有被拒绝
   - 已兑现 **resolved** 或 **fulfilled**：意味着操作 **成功**
   - 已拒绝 **rejected**：意味着操作 **失败**
-
-- 实例对象中的另一个属性 对象结果值：**【PromiseResult】**
-
-  保存着对象 **成功 / 失败** 的结果
-
+- 实例对象中的另一个属性**对象结果值**：<strong style="color:#DD5145">PromiseResult</strong>，保存着对象成功/失败的结果
   - resolved
   - rejected
 
-Promised 的状态改变：
+Promise 的状态改变：
 
 - 从 **pending** 变为 **resolved（fulfilled）**
-
 - 从 **pending** 变为 **rejected**
 
-  说明：只有这 2 种，且一个 promise对象只能改变一次，无论成功或失败，都会有一个结果数据，成功的结果数据为 **value**，失败为 **reason**
+说明：只有这 2 种，且一个 promise 对象只能改变一次，无论成功或失败，都会有一个结果数据，成功的结果数据为 **value**，失败为 **reason**
 
 
 
@@ -71,9 +66,9 @@ Promised 的状态改变：
 
 ## 5.Promise 的基本使用
 
-### Promise的使用
+### Promise 的使用
 
-Promise对象是一个构造函数，用来生成 Promise实例，创造 Promise 实例后，它会<strong style="color:#DD5145">立即执行</strong>。
+Promise 对象是一个构造函数，用来生成 Promise 实例，创造 Promise 实例后，它会<strong style="color:#DD5145">立即执行</strong>。
 
 Promise 构造函数： **`new Promise ((resolve, reject) => {})`**
 
@@ -102,7 +97,7 @@ p.then(value => {
 
 
 
-### Promise封装读取文件
+### Promise 封装读取文件
 
 ```javascript
 // 使用 nodejs 的 fs 读取文件模块
@@ -125,7 +120,7 @@ p.then(value => {
 
 
 
-### Promise封装Ajax请求
+### Promise 封装Ajax请求
 
 ```javascript
 const p = new Promise((resolve, reject) => {

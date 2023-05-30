@@ -1,11 +1,5 @@
 # Canvas
 
-MDN文档：https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API
-
-[参考文章](https://blog.csdn.net/nvgis/article/details/127316552)、[参考文章2](https://blog.csdn.net/u012468376/article/details/73350998)
-
-
-
 ## 1.什么是 Canvas
 
 简单来说，`<canvas>` 是 HTML5 中的标签，它是一个容器，可以使用JS在其中绘制图形或文字。
@@ -99,7 +93,7 @@ const ctx = canvas.getContext('2d');
 
 `Canvas` 使用的是 **W3C 坐标系** ，也就是遵循我们屏幕、报纸的阅读习惯，从上往下，从左往右。
 
-<img src="Canvas.assets/canvas坐标系.png" alt="canvas坐标系" style="zoom: 67%;" />
+![](Canvas.assets/canvas坐标系.png)
 
 ### 浏览器是否支持
 
@@ -288,7 +282,7 @@ arc(x, y, radius, startAngle, endAngle, anticlockwise)
 > - 以`(x, y)`为圆心，以`r`为半径，从 `startAngle`弧度开始到`endAngle`弧度结束
 > - `anticlosewise`是布尔值，`true`表示逆时针，`false`表示顺时针。(默认是顺时针)
 
-<img src="Canvas.assets/canvas绘制圆弧.png" alt="canvas绘制圆弧" style="zoom:67%;" />
+![](Canvas.assets/canvas绘制圆弧.png)
 
 注意：
 
@@ -324,7 +318,7 @@ acrTo(cx, cy, x2, y2, radius)
 </script>
 ```
 
-<img src="Canvas.assets/canvas绘制圆弧-1684810636483.png" alt="canvas绘制圆弧" style="zoom: 67%;" />
+![](Canvas.assets/canvas绘制圆弧.png)
 
 ### 绘制椭圆
 
@@ -345,7 +339,7 @@ ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise)
 
 一般的矢量图形软件通过它来精确画出曲线，贝兹曲线由线段与节点组成，节点是可拖动的支点，线段像可伸缩的皮筋，我们在绘图工具上看到的钢笔工具就是来做这种矢量曲线的。
 
-在线调试二次贝塞尔曲线的小工具：http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html
+[在线调试二次贝塞尔曲线的小工具](http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html)
 
 ### 一次贝塞尔曲线 (线性贝塞尔曲线)
 
@@ -384,7 +378,7 @@ quadraticCurveTo(cp1x, cp1y, x, y)
 </script>
 ```
 
-<img src="Canvas.assets/二次贝塞尔曲线.png" alt="二次贝塞尔曲线" style="zoom: 67%;" />
+![](Canvas.assets/二次贝塞尔曲线.png)
 
 ## 6.绘制文本
 
@@ -647,3 +641,8 @@ preview: function(){
     },
 ```
 
+
+
+## 参考
+
+[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API)、[参考文章](https://blog.csdn.net/nvgis/article/details/127316552)、[参考文章2](https://blog.csdn.net/u012468376/article/details/73350998)

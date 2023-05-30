@@ -458,6 +458,43 @@ parseInt(string, radix)
 
 `parseInt` 将数字截断为整数值。允许前导和尾随空格。
 
+### 2.math
+
+**Math** 是一个内置对象，它拥有一些数学常数属性和数学函数方法。Math 不是一个函数对象，Math 不是一个构造器。Math 的所有属性与方法都是静态的。
+
+- `Math.PI` ：表示一个圆的周长与直径的比例，约为 3.14159。
+
+- `Math.round()`：返回一个数字四舍五入后最接近的整数。
+
+- `random()`：返回一个浮点型伪随机数字，左闭右开 `[0,1)` 之间的随机数。
+
+- `max()`：返回两个给定的数中的较大的数。
+
+- `min()`：返回两个给定的数中的较小的数。
+
+- `abs()`：返回一个数字的绝对值。
+
+- `ceil()`：返回一个大于等于给定数字的最小整数。
+
+  例如 `Math.ceil(10.1)` 返回 11
+
+- `floor()` ：返回一个小于等于给定数字的最大整数。
+
+  例如 `Math.floor(10.6)` 返回 10
+
+扩展：得到一个两数之间的随机整数
+
+```js
+function getRandomInt(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min)) + min // 含最小值,不含最大值 [min, max)
+    return Math.floor(Math.random() * (max - min + 1)) + min // 含最小值,含最大值 [min, max]
+}
+```
+
+
+
 
 
 ## 内置构造函数
@@ -495,14 +532,15 @@ Object.assign(obj2, obj) // 返回 {name: '佩奇', age: 6}
 2. [forEach()](#foreach方法)：只遍历，不返回
 3. [filter()](#filter方法)：返回新数组，返回的是筛选满足条件的数组元素
 4. [reduce()](#reduce方法)：返回函数累积处理的结果，经常用于求和
-5. [find()](#find方法)：
-6. [findIndex()](#findindex方法)：
-7. [findOf()](#findof方法)：
-8. [every()](#every方法)：有一项返回 false ，则整体为 false
-9. [some()](#some方法)：有一项返回 true ，则整体为 true
-10. [from()](#from方法)：
-11. [flat()](#flat方法)：
-12. [flatMap()](#flatmap方法)：
+5. [splice()](#splice方法)：
+6. [find()](#find方法)：
+7. [findIndex()](#findindex方法)：
+8. [findOf()](#findof方法)：
+9. [every()](#every方法)：有一项返回 false ，则整体为 false
+10. [some()](#some方法)：有一项返回 true ，则整体为 true
+11. [from()](#from方法)：
+12. [flat()](#flat方法)：
+13. [flatMap()](#flatmap方法)：
 
 ------
 
@@ -578,6 +616,19 @@ Array.filter(function (ele, index) {
 })
 // 参数ele是必须要写的，index可选
 ```
+
+
+
+#### splice方法
+
+此方法通过移除或者替换已存在的元素和/或添加新元素就地改变一个数组的内容。
+
+**会改变原始数组**，返回删除内容。
+
+- `splice(index)`：从元素下标 index 开始，**删除**之后**所有元素**
+- `splice(index, howmany)`：**删除**元素，index 为起始位置，howmany 为删除的个数，若 howmany 小于等于 0，则不删除
+- `splice(index, howmany, item ...)`：**替换**元素，index 为起始位置，howmany 为被删除的元素个数，item 为插入的新值（先删除后插入达到替换目的）
+- `splice(index, 0, item ...)`：index 为插入位置，在 index **之前插入**元素，item 为插入元素
 
 
 
@@ -748,11 +799,13 @@ console.log(arr.flat(Infinity)) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 1. [length()](#length方法)：返回数组长度
 2. [split()](#split方法)：
-3. [toString()](#tostring方法)：
-4. [subString()](#substring方法)：
-5. [startsWith()](#startswith方法)：
-6. [includes()](#includes方法)：
-7. [对象转换为字符串](#对象转换为字符串)：
+3. [replace()](#replace方法)：
+4. [toString()](#tostring方法)：
+5. [toUpperCase()](#touppercase方法)：
+6. [subString()](#substring方法)：
+7. [startsWith()](#startswith方法)：
+8. [includes()](#includes方法)：
+9. [对象转换为字符串](#对象转换为字符串)：
 
 
 
@@ -771,6 +824,12 @@ split('分隔符')
 
 
 
+#### replace方法
+
+`replace('被替换的字符', '替换的字符')`，替换字符，它只会替换第一个字符，原字符串不会改变。
+
+
+
 #### toString方法
 
 转换为字符串
@@ -784,6 +843,21 @@ Object.prototype.toString()
 // 字符串类型强转。需要保证的是类型可以转成String类型
 window.hasOwnProperty('String')  //true
 ```
+
+
+
+#### toUpperCase方法
+
+`toUpperCase()` 方法将调用该方法的字符串转为大写形式并返回（如果调用该方法的值不是字符串类型会被强制转换）。
+
+此方法不会影响原字符串本身的值，因为 JavaScript 中字符串的值是不可改变的。
+
+```js
+console.log('alphabet'.toUpperCase()) // 'ALPHABET'
+console.log( "ALPHABET".toLowerCase() ) // 'alphabet'
+```
+
+- 同理，`toLowerCase()` 会将调用该方法的字符串值转为小写形式，并返回。
 
 
 
@@ -814,6 +888,8 @@ includes(搜索的字符串[, 检测位置索引号])
 // 判断一个字符串是否 包含 在另一个字符串中，区分大小写，根据情况返回 true 或 false
 ```
 
+
+
 #### 对象转换为字符串
 
 ```js
@@ -822,7 +898,7 @@ String({a:1})	// 返回 '[object Object]'
 String({a:'1'})	// 返回 '[object Object]'
 ```
 
-<strong style="color:yellow">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
+<strong style="color:tomato">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
 
 
 
@@ -1268,11 +1344,11 @@ console.log(Object instanceof Function) // true
 
 两种拷贝方法：
 
-1. 拷贝**对象**：**`Object.assign(拷贝的对象，原始对象)`**或 展开运算符**`{...obj}`**
+1. 拷贝**对象**：**`Object.assign(拷贝的对象，原始对象)`** 或 展开运算符**`{...obj}`**
 2. 拷贝**数组**：**`Array.prototype.concat()`** 或 **`[...arr]`**
 
-- 拷贝对象之后，里面的属性值是简单数据类型，则 **直接拷贝值**
-- 若属性值是引用数据类型，则拷贝的是 **地址**
+- 拷贝对象之后，里面的属性值是简单数据类型，则**直接拷贝值**
+- 若属性值是引用数据类型，则拷贝的是**地址**
 
 直接赋值与浅拷贝的区别：
 
@@ -1385,6 +1461,20 @@ console.log(oldObj)
 
 #### 通过 JSON.stringify()
 
+- 会忽略 Undefined
+
+- 会忽略 Symbol
+
+- 不能序列化函数。
+
+  序列化：把对象转化为可传输的字节序列过程称为序列化
+
+- 在遇到函数、 Undefined 或者 Symbol 的时候，该对象也不能正常的序列化
+
+- 不能解决循环引用的对象
+
+- 循环引用，也不能通过该方法实现深拷贝
+
 ```javascript
 const obj = {
     uname: 'pink',
@@ -1402,12 +1492,7 @@ newObj.family.baby = '修改后的小pink'
 console.log(obj)
 ```
 
-> - 会忽略undefined
-> - 会忽略symbol
-> - 不能序列化函数
-> - 不能解决循环引用的对象
-> - 循环引用，也不能通过该方法实现深拷贝
-> - 在遇到函数、 undefined 或者 symbol 的时候，该对象也不能正常的序列化
+
 
 [参考文章](https://blog.csdn.net/weixin_45856239/article/details/127894968)、[参考文章2](https://blog.csdn.net/jiang7701037/article/details/98738487)、[参考文章3](https://blog.csdn.net/jbj6568839z/article/details/107964274)
 

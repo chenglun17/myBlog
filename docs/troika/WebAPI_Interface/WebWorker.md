@@ -4,7 +4,7 @@
 
 **浏览器最核心的部分是 “Rendering Engine”，即 “渲染引擎”，又称 “浏览器内核”。** 主要包括以下线程：
 
-<img src="WebWorker.assets/浏览器内核（渲染进程）.png" alt="浏览器内核（渲染进程）" style="zoom:50%;" />
+![](WebWorker.assets/浏览器内核（渲染进程）.png)
 
 ### 1. GUI 渲染线程
 
@@ -308,4 +308,4 @@ Web Worker 规范中定义了两类工作线程，**专用线程 Dedicated Worke
 
 ## 参考
 
-[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API)、[参考文章](https://juejin.cn/post/7139718200177983524)、[参考文章2](https://juejin.cn/post/6844904198639714311)
+[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API)、[参考文章](https://juejin.cn/post/7139718200177983524)、[你不知道的 Web Workers](https://juejin.cn/post/6844904198639714311)
