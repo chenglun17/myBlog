@@ -108,7 +108,7 @@ new Vue({
 
 2. 通过切换，“隐藏” 了的路由组件，**默认是被销毁掉的，需要的时候再去挂载**
 
-3. 每个路由组件都有**`$route属性`**，里面<strong style="color:#DD5415">存储着自己的路由信息</strong>，是一个局部的对象，可以获取对应的name，path，params，query等
+3. 每个路由组件都有 **`$route属性`**，里面<strong style="color:#DD5145">存储着自己的路由信息</strong>，是一个局部的对象，可以获取对应的name，path，params，query等
 
 4. 整个应用只有一个 router，可以通过组件的 **`$router属性`** 获取到
 
@@ -124,7 +124,7 @@ new Vue({
 
 嵌套路由，使用 **`children`** 配置项
 
-<strong style="color:#DD5145">路由元信息</strong>：路由中**`meta`**这个配置项，我们可以在这个配置项中添加一些**自定义参数**，用于后续的判断
+<strong style="color:#DD5145">路由元信息</strong>：路由中 **`meta`** 配置项，我们可以在这个配置项中添加一些**自定义参数**，用于后续的判断
 
 ```javascript
 /* router/index.js 文件 */
@@ -194,12 +194,12 @@ routes:[
 
 作用：不借助 **`<router-link>`** 实现路由跳转，让路由跳转更加灵活
 
-> - **`this.$router.push({path: '/路径'})`**：相当于点击路由链接(可以返回到当前路由界面)
-> - 或 **`this.$router.push({name: "路由名称"})`**
-> - **`this.$router.replace({path})`**：用新路由替换当前路由(不可以返回到当前路由界面)
-> - **`this.$router.forward()`**：请求(返回)下一个记录路由
-> - **`this.$router.back()`**：请求(返回)上一个记录路由
-> - **`this.$router.go(n)`**：可前进也可后退，n为正数前进n，为负数后退
+- **`this.$router.push({path: '/路径'})`**：相当于点击路由链接(可以返回到当前路由界面)
+- 或 **`this.$router.push({name: "路由名称"})`**
+- **`this.$router.replace({path})`**：用新路由替换当前路由(不可以返回到当前路由界面)
+- **`this.$router.forward()`**：请求(返回)下一个记录路由
+- **`this.$router.back()`**：请求(返回)上一个记录路由
+- **`this.$router.go(n)`**：可前进也可后退，n为正数前进n，为负数后退
 
 1. 作用：控制路由跳转时操作浏览器历史记录的模式
 
@@ -258,7 +258,7 @@ methods: {
 
 ### 1. query参数
 
-> 它直接就可以传参不需要去路由中配置参数，它的**参数名称会在 url 地址上显示出来**
+它直接就可以传参不需要去路由中配置参数，它的**参数名称会在 url 地址上显示出来**。
 
 1. 传递参数
 
@@ -281,9 +281,9 @@ methods: {
 
 ### 2. params参数
 
-> - query 相当于GET请求，页面跳转的时候，可以在地址栏看到请求参数
-> - params 相当于POST请求，参数不会在地址栏中显示
-> - params 参数传递的时候需要 <strong style="color:#DD5145">占位</strong>
+- query 相当于GET请求，页面跳转的时候，可以在地址栏看到请求参数
+- params 相当于POST请求，参数不会在地址栏中显示
+- params 参数传递的时候需要 <strong style="color:#DD5145">占位</strong>
 
 1. 配置路由，**声明接收 params 参数**
 
@@ -331,10 +331,10 @@ methods: {
 
 ### 两者传参参数的区别
 
-> - query 传递配置的时path，而params传递配置的是name，在params中配置path无效
-> - query 在路由配置不需要设置参数，而params必须设置
-> - query 传递的参数会显示在地址栏中，params则不会
-> - params 刷新后参数会丢失，数据安全，但是query会保存传递过来的值，刷新不变；
+- query 传递配置的时path，而params传递配置的是name，在params中配置path无效
+- query 在路由配置不需要设置参数，而params必须设置
+- query 传递的参数会显示在地址栏中，params则不会
+- params 刷新后参数会丢失，数据安全，但是query会保存传递过来的值，刷新不变；
 
 ```js
 // 字符串
@@ -404,13 +404,13 @@ props作用：让路由组件更方便的收到参数，可以将params、query�
 
 具体使用：
 
-> - **activated** 路由组件**被激活**时触发
-> - **deactivated** 路由组件**失活**时触发
+- **activated** 路由组件**被激活**时触发
+- **deactivated** 路由组件**失活**时触发
 
-> - activated 和 deactivated 是配合 <strong style="color:#DD5415">keep-alive标签</strong> 一起使用的
-> - activated 和 deactivated 没有 keep-alive 的时候是不会被触发的
-> - 在存在 keep-alive 的时候可以将 activated 当作 created 进行使用
-> - deactivated 是组件销毁的时候触发，此时的 destory 是不执行的
+- activated 和 deactivated 是配合 <strong style="color:#DD5415">keep-alive标签</strong> 一起使用的
+- activated 和 deactivated 没有 keep-alive 的时候是不会被触发的
+- 在存在 keep-alive 的时候可以将 activated 当作 created 进行使用
+- deactivated 是组件销毁的时候触发，此时的 destory 是不执行的
 
 ## 路由守卫
 
@@ -422,15 +422,17 @@ props作用：让路由组件更方便的收到参数，可以将params、query�
 
 - 全局前置守卫**beforeEach**
 
-> <strong style="color:#DD5145">`beforeEach`</strong> 有三个参数，**to 表示要跳转到的路由组件**，**from 表示当前的路由组件**，**next 表示进行跳转命令**
->
-> - **`next()`**，放行
-> - **`next(false)`**，中断当前导航
-> - **`next('/')`**或**`next({path:'/'})`**，跳转到一个不同的地址
+<strong style="color:#DD5145">`beforeEach`</strong> 有三个参数，**to 表示要跳转到的路由组件**，**from 表示当前的路由组件**，**next 表示进行跳转命令**
+
+- **`next()`**，放行
+- **`next(false)`**，中断当前导航
+- **`next('/')`**或**`next({path:'/'})`**，跳转到一个不同的地址
+
+
 
 - 全局后置守卫**afterEach**
 
-> <strong style="color:#DD5145">`afterEach`</strong> 只有两个参数，to 表示要跳转到的路由组件，from 表示当前的路由组件
+<strong style="color:#DD5145">`afterEach`</strong> 只有两个参数，to 表示要跳转到的路由组件，from 表示当前的路由组件
 
 <strong style="color:#DD5145">路由元信息</strong>：路由中**`meta`**这个配置项，我们可以在这个配置项中添加一些**自定义参数**，用于后续的判断
 
@@ -487,7 +489,7 @@ export default router
 
 ### 2. 路由独享的守卫
 
-> 独享路由守卫只有前置 <strong style="color:#DD5145">beforeEnter</strong>，没有后置
+独享路由守卫只有前置 <strong style="color:#DD5145">beforeEnter</strong>，没有后置。
 
 **`src/router/index.js`** 里面的路由配置 **`new VueRouter({})`** 中编写
 
@@ -546,6 +548,8 @@ const Foo = {
 
 执行顺序，前置路由，独享路由，进入路由，后置路由，离开路由
 
+
+
 ## 两种工作模式
 
 `vue-router` 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。
@@ -558,15 +562,15 @@ const Foo = {
 
 3. **hash模式** 
 
-> - 地址中永远带着#号，不美观
-> - 若以后将地址通过第三方手机app分享，若app校验严格，则地址会被标记为不合法
-> - 兼容性较好
+- 地址中永远带着#号，不美观
+- 若以后将地址通过第三方手机app分享，若app校验严格，则地址会被标记为不合法
+- 兼容性较好
 
 4. **history模式**
 
-> - 地址干净，美观
-> - 兼容性和hash模式相比略差
-> - 应用部署上线时需要后端人员支持，解决刷新页面服务端404的问题
+- 地址干净，美观
+- 兼容性和hash模式相比略差
+- 应用部署上线时需要后端人员支持，解决刷新页面服务端404的问题
 
 ```javascript
 const router =  new VueRouter({
@@ -575,6 +579,8 @@ const router =  new VueRouter({
 })
 export default router
 ```
+
+
 
 ## 滚动行为
 

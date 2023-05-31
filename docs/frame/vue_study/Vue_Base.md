@@ -4,7 +4,7 @@
 
 1. 想让 Vue 工作，就必须创建一个 Vue 实例，且要传入一个配置对象
 2. root 容器里面的代码依然符合 html 规范，只不过混入了一些特殊的 Vue语法
-3. root 容器里面的代码被称为**【Vue模板】**
+3. root 容器里面的代码被称为**Vue模板**
 4. Vue实例和容器是一一对应的
 5. 真实开发中只有一个Vue实例，并且会配合着组件一起使用
 6. { { xxx } } 中的 xxx 要写 js表达式，并且会配合着组件一起使用
@@ -30,9 +30,7 @@ Vue模板语法有2大类：
 
 功能：用于**解析标签体**内容
 
-写法：**`{{xxx}}`**，xxx是 js 表达式，且可以直接读取到 data 中的所有属性
-
-
+写法：双花括号`{{}}`，里面写 js 表达式，且可以直接读取到 data 中的所有属性
 
 ### 指令语法
 
@@ -305,7 +303,7 @@ handleChange(args, val){
 > 4. 也可以使用 keyCode 去指定具体的按键（不推荐）
 > 5. Vue.config.keyCodes.自定义键名 = 键码，也可以去定制按键别名（不推荐）
 
-## 7.计算属性computed
+## 7.计算属性 computed
 
 **计算属性 computed：**
 
@@ -333,15 +331,17 @@ handleChange(args, val){
 
 **computed 与 watch 之间的区别：**
 
-> - computed 能完成的功能，watch 都可以完成
-> - watch 能完成的功能，computed 则不一定能完成，例如，watch可以进行异步操作
->
-> 两个重要的小原则：
->
-> 1. 所有**被Vue管理**的函数，最好写成**普通函数**，这样 this 的指向才是 vm 或 组件实例对象
-> 2. 所有**不被Vue管理**的函数（定时器的回调函数、ajax的回调函数、promise的回调函数等），<br>最好写成**箭头函数**，这样 this 的指向才是 vm 或 组件实例对象
+- computed 能完成的功能，watch 都可以完成
+- watch 能完成的功能，computed 则不一定能完成，例如，watch可以进行异步操作
 
-## 8.侦听属性watch
+两个重要的小原则：
+
+1. 所有**被Vue管理**的函数，最好写成**普通函数**，这样 this 的指向才是 vm 或 组件实例对象
+2. 所有**不被Vue管理**的函数（定时器的回调函数、ajax的回调函数、promise的回调函数等），<br>最好写成**箭头函数**，这样 this 的指向才是 vm 或 组件实例对象
+
+
+
+## 8.侦听属性 watch
 
 **监视（侦听）属性 watch：**
 
@@ -354,8 +354,8 @@ handleChange(args, val){
 
 注意：
 
-> - Vue 中所管理的 **函数 **不建议使用 **箭头函数**
-> - methods中、computed中、简写的时候、监视属性中的 **handler** 都是 Vue 管理的
+- Vue 中所管理的 **函数 **不建议使用 **箭头函数**
+- methods中、computed中、简写的时候、监视属性中的 **handler** 都是 Vue 管理的
 
 ```html
 <title>天气案例_监视属性</title>
@@ -401,11 +401,11 @@ handleChange(args, val){
 
 ### 深度监视（deep）
 
-> 1. Vue中的 watch 默认不监测对象内部值的改变（一层）
-> 2. watch 中的配置 **【deep：true】** 可以监测 **对象内部值** 的改变（**多层**）
->
-> - Vue **自身可以监测** 对象内部值的改变，但 Vue 中提供的 watch 默认不可以
-> - 使用 watch 时根据数据的具体结构，决定是否采用深度监视
+1. Vue中的 watch 默认不监测对象内部值的改变（一层）
+2. watch 中的配置 **【deep：true】** 可以监测 **对象内部值** 的改变（**多层**）
+
+- Vue **自身可以监测** 对象内部值的改变，但 Vue 中提供的 watch 默认不可以
+- 使用 watch 时根据数据的具体结构，决定是否采用深度监视
 
 ```javascript
 // 09_src_TodoList_本地存储-案例 -- App组件中局部代码
@@ -431,39 +431,41 @@ watch: {
 
 2. 如何监测 **对象** 中的数据？
 
-> 通过 **setter** 实现监测，且要在 **new Vue ( )** 时就传入要监测的数据
->
-> - 对象中后追加的属性，Vue 默认不做 **响应式处理**
-> - 如需给后添加的属性做响应式，请使用如下API：
->   - **`Vue.set (target, propertyName/index, value)`** 或
->   - **`vm.$set (target, propertyName/index, value)`**
+通过 **setter** 实现监测，且要在 **new Vue ( )** 时就传入要监测的数据
+
+- 对象中后追加的属性，Vue 默认不做 **响应式处理**
+- 如需给后添加的属性做响应式，请使用如下API：
+  - **`Vue.set (target, propertyName/index, value)`** 或
+  - **`vm.$set (target, propertyName/index, value)`**
 
 3. 如何监测 **数组** 中的数据？
 
-> 通过 **包裹的数组** 更新元素的方法实现，本质就是做了两件事：
->
-> - 调用原生对应的方法对数组进行**更新**
-> - **重新解析**模板，进而更新页面
+通过 **包裹的数组** 更新元素的方法实现，本质就是做了两件事：
+
+- 调用原生对应的方法对数组进行**更新**
+- **重新解析**模板，进而更新页面
 
 4. 在 Vue 中 **修改数组** 中的某个元素一定要使用如下方法：
 
-> - 使用API：
->
->   **push（）**、**pop（）**、**shift（）**、**unshift（）**、**splice（）**、**sort（）**、**reverse（）**
->
-> - **`Vue.set()`** 或 **`vm.$set()`**
->
-> <strong style="color:#DD5145">特别注意</strong>：Vue.set（） 或 vm.\$set（） **不能 **给 vm 或 vm的 **根数据对象（vm._data）** 添加属性
+- 使用API：
+
+  **push（）**、**pop（）**、**shift（）**、**unshift（）**、**splice（）**、**sort（）**、**reverse（）**
+
+- **`Vue.set()`** 或 **`vm.$set()`**
+
+<strong style="color:#DD5145">特别注意</strong>：Vue.set（） 或 vm.\$set（） **不能 **给 vm 或 vm的 **根数据对象（vm._data）** 添加属性
+
+
 
 ## 9.绑定样式
 
 1. **class 样式**
 
-> 写法 **`:class="xxx"`** ，其中xxx可以是字符串、对象、数组
->
-> - **字符串**写法适用于：类名不确定、要动态获取
-> - **对象**写法适用于：要绑定多个样式，个数不确定，名字也不确定
-> - **数组**写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定用不用
+写法 **`:class="xxx"`** ，其中xxx可以是字符串、对象、数组
+
+- **字符串**写法适用于：类名不确定、要动态获取
+- **对象**写法适用于：要绑定多个样式，个数不确定，名字也不确定
+- **数组**写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定用不用
 
 ```vue
 <div :class="{ active: isActive }"></div>
@@ -487,8 +489,8 @@ watch: {
 
 2. **style 样式**
 
-> - **`:style="{ fontSize: xxx }"`** ，其中xxx是动态变值
-> - **`:style=[a, b]`** 其中a、b是**样式对象**，样式对象里面的key不能乱写，例如 backgroundColor、fontSize，
+- **`:style="{ fontSize: xxx }"`** ，其中xxx是动态变值
+- **`:style=[a, b]`** 其中a、b是**样式对象**，样式对象里面的key不能乱写，例如 backgroundColor、fontSize，
 
 ```vue
 <div :style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
@@ -500,28 +502,36 @@ watch: {
 
 1. **v-if**
 
-> - 写法：**v-if="表达式"**、**v-else-if="表达式"**、**v-else**
-> - 适用于：**切换频繁较低**的场景
-> - 特点：不展示的DOM元素之间**被移除**
-> - 注意：v-if 可以和 v-else-if、v-else 一起使用，但要求结构不能被 “打断”
-> - v-if 可以与 **template** 配合使用
+- 写法：**v-if="表达式"**、**v-else-if="表达式"**、**v-else**
+- 适用于：**切换频繁较低**的场景
+- 特点：不展示的DOM元素之间**被移除**
+- 注意：v-if 可以和 v-else-if、v-else 一起使用，但要求结构不能被 “打断”
+- v-if 可以与 **template** 配合使用
+
+```vue
+<template v-if="isShow">
+    <p v-for="item in items">
+</template>
+```
+
+> 不能和 v-show 的原因应该是，v-show 是 display 隐藏，但是实际渲染后根本没有 templete 节点，自然无效了
 
 2. **v-show**
 
-> - 写法：**v-show="表达式"**
-> - 适用于：**切换频率较高**的场景
-> - 特点：不展示的DOM元素不会被移除，仅仅是使用样式**隐藏**掉
-> - **注意**：使用 v-if 的时候，元素可能无法获取到，而使用 v-show 一定可以获取到
+- 写法：**v-show="表达式"**
+- 适用于：**切换频率较高**的场景
+- 特点：不展示的DOM元素不会被移除，仅仅是使用样式**隐藏**掉
+- **注意**：使用 v-if 的时候，元素可能无法获取到，而使用 v-show 一定可以获取到
 
-> 不能和 v-show 的原因应该是，v-show 是 display 隐藏，但是实际渲染后根本没有 templete 节点，自然无效了
+
 
 ## 11.列表渲染
 
 **v-for 指令：**
 
-> 1. 用于展示列表数据
-> 2. 语法：**`v-for="(item, index) in xxx   :key="yyy"`**，yyy 最好是数据的**唯一标识**
-> 3. 可遍历：数组、对象、字符串、指定次数
+1. 用于展示列表数据
+2. 语法：**`v-for="(item, index) in xxx   :key="yyy"`**，yyy 最好是数据的**唯一标识**
+3. 可遍历：数组、对象、字符串、指定次数
 
 **1.key的原理，index作为key**
 
@@ -589,9 +599,9 @@ react、vue 中的 key 有什么作用？（key的内部原理）
 
 备注：v-model 的三个修饰符：
 
-> - **.lazy**：失去焦点再收集数据
-> - **.number**：输入字符串转为有效的数字
-> - **.trim**：除去首尾空格
+- **.lazy**：失去焦点再收集数据
+- **.number**：输入字符串转为有效的数字
+- **.trim**：除去首尾空格
 
 
 
@@ -613,43 +623,43 @@ react、vue 中的 key 有什么作用？（key的内部原理）
 
 共同点：
 
-> 都是动态显示 DOM 元素，都可以控制 DOM 元素的显示和隐藏
+都是动态显示 DOM 元素，都可以控制 DOM 元素的显示和隐藏
 
 区别点：
 
-> - v-if 直接将 DOM 元素从页面删除，再次切换需要重新渲染页面
-> - v-show 只是改变 display 属性，DOM 元素并未消失，切换时不需要重新渲染页面
+- v-if 直接将 DOM 元素从页面删除，再次切换需要重新渲染页面
+- v-show 只是改变 display 属性，DOM 元素并未消失，切换时不需要重新渲染页面
 
-> - v-if 是动态的向 DOM 树内添加或者删除 DOM 元素
-> - v-show 是通过设置 DOM 元素的 display 样式属性控制显示
+- v-if 是动态的向 DOM 树内添加或者删除 DOM 元素
+- v-show 是通过设置 DOM 元素的 display 样式属性控制显示
 
-> - v-if 切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件
-> - v-show 只是简单的基于 css 切换
+- v-if 切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件
+- v-show 只是简单的基于 css 切换
 
 性能消耗：
 
-> - v-if 有更高的切换消耗
-> - v-show 有更高的初始渲染消耗
+- v-if 有更高的切换消耗
+- v-show 有更高的初始渲染消耗
 
 使用场景：
 
-> - v-if 适合运营条件不大可能改变
-> - v-show 适合频繁切换
+- v-if 适合运营条件不大可能改变
+- v-show 适合频繁切换
 
-> v-show 由false变为true的时候不会触发组件的生命周期
->
-> v-if 由false变为true的时候，触发组件的beforeCreate、create、beforeMount、mounted钩子，由true变为false的时候触发组件的beforeDestory、destoryed方法
+v-show 由false变为true的时候不会触发组件的生命周期
+
+v-if 由false变为true的时候，触发组件的beforeCreate、create、beforeMount、mounted钩子，由true变为false的时候触发组件的beforeDestory、destoryed方法
 
 v-for 与 v-if 的优先级?
 
-> v-for 和 v-if 同时使用，有一个先后运行的优先级，v-for 比 v-if 优先级更高，<br>这就说明在v-for 每次的循环赋值中每一次调用 v-if 的判断，所以不推荐 v-if 和 v-for 在同一个标签中同时使用。
+v-for 和 v-if 同时使用，有一个先后运行的优先级，v-for 比 v-if 优先级更高，<br>这就说明在v-for 每次的循环赋值中每一次调用 v-if 的判断，所以不推荐 v-if 和 v-for 在同一个标签中同时使用。
 
 ### v-model的原理
 
 v-model 本质上不过是语法糖官方有说到，v-model 的原理其实是背后有两个操作：
 
-> 1. v-bind 绑定 value 属性的值
-> 2. v-on 绑定 input 事件监听到函数中，函数会获取最新的值赋值到绑定的属性中
+1. v-bind 绑定 value 属性的值
+2. v-on 绑定 input 事件监听到函数中，函数会获取最新的值赋值到绑定的属性中
 
 - 作用在表单元素上`v-model="message"`等同于`:value="message" @input="message = $event.target.value"`
 
@@ -659,29 +669,29 @@ v-model 本质上不过是语法糖官方有说到，v-model 的原理其实是�
 
 v-model 的三个修饰符：
 
-> - **lazy**：失去焦点再收集数据
-> - **number**：输入字符串转为有效的数字
-> - **trim**：除去首尾空格
+- **lazy**：失去焦点再收集数据
+- **number**：输入字符串转为有效的数字
+- **trim**：除去首尾空格
 
 ### v-text 指令
 
-> - 作用：向其所在的节点中渲染**文本内容**
-> - 与插值语法的区别：v-text 会替换掉节点中的内容，{{xxx}} 则不会
+- 作用：向其所在的节点中渲染**文本内容**
+- 与插值语法的区别：v-text 会替换掉节点中的内容，{{xxx}} 则不会
 
 ### v-html 指令
 
-> - 作用：向指定节点中渲染包含 **html结构** 的内容
-> - 与插值语法的区别：
->   1. v-html 会替换掉节点中所有的内容，{{xxx}} 则不会
->   2. v-html 可以识别 html 结构
-> - 严重注意：v-html 有安全性问题：
->   1. 在网站上动态渲染任意HTML是非常危险的，容易导致XSS攻击
->   2. 一定要在可信的内容上使用 v-html，永远不要用在用户提交的内容上
+- 作用：向指定节点中渲染包含 **html结构** 的内容
+- 与插值语法的区别：
+  1. v-html 会替换掉节点中所有的内容，{{xxx}} 则不会
+  2. v-html 可以识别 html 结构
+- 严重注意：v-html 有安全性问题：
+  1. 在网站上动态渲染任意HTML是非常危险的，容易导致XSS攻击
+  2. 一定要在可信的内容上使用 v-html，永远不要用在用户提交的内容上
 
 ### v-cloak 指令（没有值）
 
-> 1. 本质是一个<strong style="color:#DD5145">特殊属性</strong>，**Vue 实例创建完毕并接管容器后**，就会删掉 v-cloak 属性
-> 2. 使用 css 配合 v-cloak 可以**解决网速慢时页面展示出 {{xxx}} 的问题**
+1. 本质是一个<strong style="color:#DD5145">特殊属性</strong>，**Vue 实例创建完毕并接管容器后**，就会删掉 v-cloak 属性
+2. 使用 css 配合 v-cloak 可以**解决网速慢时页面展示出 {{xxx}} 的问题**
 
 ```html
 <title>v-cloak指令</title>
@@ -711,8 +721,8 @@ v-model 的三个修饰符：
 
 ### v-once 指令（没有值）
 
-> 1. v-once 所在节点在**初次动态渲染**后，之后就视为静态内容了
-> 2. 以后数据的改变不会引起 v-once 所在结构的更新，可以**用于优化性能**
+1. v-once 所在节点在**初次动态渲染**后，之后就视为静态内容了
+2. 以后数据的改变不会引起 v-once 所在结构的更新，可以**用于优化性能**
 
 ```html
 <title>v-once指令</title>
@@ -732,8 +742,8 @@ v-model 的三个修饰符：
 
 ### v-pre 指令（没有值）
 
-> 1. **跳过**其所在节点的**编译**过程
-> 2. 可以利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译
+1. **跳过**其所在节点的**编译**过程
+2. 可以利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译
 
 ```html
 <title>v-pre指令</title>
@@ -753,21 +763,80 @@ v-model 的三个修饰符：
 
 
 
+## 14.常用修饰符
+
+### 表单修饰符
+
+在我们填写表单的时候用得最多的是`input`标签，指令用得最多的是`v-model`
+
+关于表单的修饰符有如下：
+
+- lazy
+- trim
+- number
+
+### 事件修饰符
+
+事件修饰符是对事件捕获以及目标进行了处理，有如下修饰符：
+
+- stop
+- prevent
+- self
+- once
+- capture
+- passive
+- native
+
+### 鼠标按钮修饰符
+
+鼠标按钮修饰符针对的就是左键、右键、中键点击，有如下：
+
+- left 左键点击
+- right 右键点击
+- middle 中键点击
+
+### 键盘修饰符
+
+键盘修饰符是用来修饰键盘事件（`onkeyup`，`onkeydown`）的，有如下：
+
+`keyCode`存在很多，但`vue`为我们提供了别名，分为以下两种：
+
+- 普通键（enter、tab、delete、space、esc、up...）
+- 系统修饰键（ctrl、alt、meta、shift...）
+
+###  v-bind 修饰符
+
+v-bind 修饰符主要是为属性进行操作，用来分别有如下：
+
+- async
+- prop
+- camel
+
+###  应用场景
+
+根据每一个修饰符的功能，我们可以得到以下修饰符的应用场景：
+
+- .stop：阻止事件冒泡
+- .native：绑定原生事件
+- .once：事件只执行一次
+- .self ：将事件绑定在自身身上，相当于阻止事件冒泡
+- .prevent：阻止默认事件
+- .caption：用于事件捕获
+- .once：只触发一次
+- .keyCode：监听特定键盘按下
+- .right：右键
 
 
 
+## 15.scoped 样式
 
-## 14.scoped 样式
+作用：让样式在**局部生效**，防止冲突
 
-> 作用：让样式在**局部生效**，防止冲突
->
-> 写法：**`<style scoped>`**
+写法：**`<style scoped>`**
 
 
 
 ## 15.Diff 算法
-
-[参考文章](https://blog.csdn.net/weixin_42707287/article/details/113994483)
 
 **虚拟 DOM 就是一个普通的 js 对象**，用来描述真实 DOM 结构的 js 对象。
 
@@ -783,6 +852,8 @@ Diff 比较规则：
    ![](Vue_Base.assets/Diff比较.png)
 
 2. Diff 是采用**先序深度优先遍历**的方式进行节点比较的
+
+[参考文章](https://blog.csdn.net/weixin_42707287/article/details/113994483)
 
 
 

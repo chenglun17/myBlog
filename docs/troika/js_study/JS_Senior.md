@@ -350,7 +350,7 @@ delete object[property]
 2. 利用 <strong style="color:#DD5145">new Object</strong> 创建对象
 3. 利用 <strong style="color:#DD5145">构造函数</strong> 创建对象
 
-<strong style="color:yellow">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
+<strong style="color:#DD5145">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
 
 ### 1.构造函数
 
@@ -533,14 +533,15 @@ Object.assign(obj2, obj) // 返回 {name: '佩奇', age: 6}
 3. [filter()](#filter方法)：返回新数组，返回的是筛选满足条件的数组元素
 4. [reduce()](#reduce方法)：返回函数累积处理的结果，经常用于求和
 5. [splice()](#splice方法)：
-6. [find()](#find方法)：
-7. [findIndex()](#findindex方法)：
-8. [findOf()](#findof方法)：
-9. [every()](#every方法)：有一项返回 false ，则整体为 false
-10. [some()](#some方法)：有一项返回 true ，则整体为 true
-11. [from()](#from方法)：
-12. [flat()](#flat方法)：
-13. [flatMap()](#flatmap方法)：
+6. [slice()](#slice方法)：
+7. [find()](#find方法)：
+8. [findIndex()](#findindex方法)：
+9. [findOf()](#findof方法)：
+10. [every()](#every方法)：有一项返回 false ，则整体为 false
+11. [some()](#some方法)：有一项返回 true ，则整体为 true
+12. [from()](#from方法)：
+13. [flat()](#flat方法)：
+14. [flatMap()](#flatmap方法)：
 
 ------
 
@@ -629,6 +630,24 @@ Array.filter(function (ele, index) {
 - `splice(index, howmany)`：**删除**元素，index 为起始位置，howmany 为删除的个数，若 howmany 小于等于 0，则不删除
 - `splice(index, howmany, item ...)`：**替换**元素，index 为起始位置，howmany 为被删除的元素个数，item 为插入的新值（先删除后插入达到替换目的）
 - `splice(index, 0, item ...)`：index 为插入位置，在 index **之前插入**元素，item 为插入元素
+
+
+
+#### slice方法
+
+**`slice()`** 方法返回一个新的数组对象，这一对象是一个由 `start` 和 `end` 决定的原数组的浅拷贝（包括 `start`，不包括 `end`），其中 `start` 和 `end` 代表了数组元素的索引。**原始数组不会被改变**。
+
+```js
+slice()
+slice(start)
+slice(start, end) // 截取数组
+```
+
+- 当只有一个参数的时候，则会截取至数组的最后一个单元
+- start：开始位置的索引
+- end：结束位置的索引（但不包含该索引位置的元素）
+
+
 
 
 

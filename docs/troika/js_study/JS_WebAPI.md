@@ -733,16 +733,18 @@ window.prompt("sometext","defaultvalue")
 
 
 
-## 本地存储
+## Web Storage
 
 本地存储只能存储 **字符串数据类型**，将 **复杂数据类型** 转换为 **JSON字符串**，存储到本地存储中。
 
 ### 1.localStorage
 
-- 数据可以长期保留在本地浏览器中，数据不会丢失
-- 以 **键值对** 的形式存储，并且存储的是 **字符串**，省略了window
+`localStorage` 用于持久化的本地存储，除非主动删除数据，否则数据是永远不会过期的。同源可以读取并修改 localStorage 数据。
+
+- 数据可以持久存储在本地浏览器中，数据不会丢失
+- 以**键值对**的形式存储，并且存储的是**字符串**，省略了 window
 - 需要手动清除，数据才会消失
-- 属性名使用 **双引号** 引起来，不能是单引号
+- 属性名使用**双引号**引起来，不能是单引号
 
 相关API
 
@@ -759,12 +761,14 @@ localStorage.clear()
 
 ### 2.sessionStorage
 
-用法跟 localStorage 基本相同
+sessionStorage 用于本地存储一个会话（session）中的数据，这些数据只有在同一个会话中的页面才能访问。并且当会话结束后数据也随之销毁。因此 sessionStorage 不是一种持久化的本地存储，仅是会话级别的存储。**只允许同一窗口访问**。
+
+用法跟 localStorage 基本相同。
 
 - 生命周期，存储的数据随着浏览器窗口关闭而消失
 - 在同一个窗口（页面）下数据可以共享
 - 以键值对的形式存储使用
-- 属性名使用 **双引号** 引起来，不能是单引号
+- 属性名使用**双引号**引起来，不能是单引号
 
 ```javascript
 JSON.stringify(复杂数据类型) // 存储 复杂数据类型
@@ -774,11 +778,65 @@ JSON.parse(JSON字符串) // 读取
 JSON.parse(null) // 结果依然是null
 ```
 
+### 3.拓展 -- cookie
+
+**Cookie，存储少量数据，面向服务器**，cookie 其实就是一些数据信息，类型为“**小型文本文件**”，存储于电脑上的文本文件中。
+
+存储在浏览器中，每次浏览器向服务器发生请求都需要携带 cookie，一般情况下，cookie 产生与服务器端，保存与客户端。
+
+可以借助 js-cookie 第三方库来操作 cookie。
+
+- `new Cookie(String name, String value)`：创建一个Cookie对象，必须传入cookie的名字和cookie的值
+- `getValue()`：得到cookie保存的值
+- `getName()`：获取cookie的名字
+- `setMaxAge(int expiry)`：设置cookie的有效期，默认为-1。这个如果设置负数，表示客服端关闭，cookie就会删除。0表示马上删除。正数表示有效时间，单位是秒。
+- `setPath(String uri)`：设置cookie的作用域
 
 
-## 定时器 - 间歇函数
 
-设置定时器 **`setInterval(函数, 间隔时间){}`**
+### 三者的区别
+
+**1 存储大小不同**
+
+- cookie： 4K
+- session : 5M
+- local：5M
+
+**2 数据有效期不同**
+
+- cookie：可以设置， 设置过期时间， 也可以手动清空
+- session：仅在浏览器关闭前有效
+- local：永久有效，除非手动清除
+
+**3 作用域**
+
+- cookie：在所有同源窗口共享
+- session：仅在一个浏览器共享，不同浏览器不共享
+- local：在所有同源窗口共享
+
+**4 通信**
+
+- cookie：通过http,在浏览器和服务器传递
+- session：仅在客户端
+- local：仅在客户端
+
+**5 应用**
+
+- cookie：判断用户是否登陆过，记忆密码自动登录
+- session：敏感账号一次登录，关闭浏览器删除
+- local：个人长期登录， 长期保存数据
+
+
+
+[参考文章](https://blog.csdn.net/qq_51066068/article/details/124413001)
+
+
+
+## 定时器
+
+### 1.间歇函数
+
+设置定时器 **`setInterval(函数, 间隔时间){}`** 
 
 ```javascript
 setInterval(函数, 间隔时间)
@@ -793,7 +851,7 @@ setInterval(fn, 1000)
 
 > 定时器返回的是一个 **id数字**，使用 **let 声明**
 
-关闭定时器 **`clearInterval(定时器名)`**
+关闭定时器 **`clearInterval(定时器名)`** 
 
 ```javascript
 let 变量名 = setInterval(函数, 间隔时间)
@@ -803,9 +861,9 @@ clearInterval(定时器名)
 
 
 
-## 定时器 - 延时函数
+### 2.延时函数
 
-JavaScript 内置的一个用来让代码延迟执行的函数 **setTimeout（）**，**只执行一次**
+JavaScript 内置的一个用来让代码延迟执行的函数 **`setTimeout()`**，**只执行一次** 
 
 ```javascript
 // 开启定时器
@@ -818,8 +876,8 @@ clearTimeout(timerId)
 
 每一次调用延时器都会产生一个新的延时器
 
-> `setTimeout` 函数是一种异步定时器，它只会在经过指定的时间后执行一次。
->
-> `setInterval` 函数也是一种定时器，但它会按照指定的时间间隔重复执行。
->
-> 两者的区别在于执行次数，setTimeout只执行一次，setInterval会反复执行。
+### 3.两者区别
+
+- `setTimeout` 函数是一种异步定时器，它只会在经过指定的时间后执行一次。
+- `setInterval` 函数也是一种定时器，但它会按照指定的时间间隔重复执行。
+- 两者的区别在于执行次数，setTimeout <strong style="color:#DD5145">只执行一次</strong>，setInterval <strong style="color:#DD5145">会反复执行</strong>。

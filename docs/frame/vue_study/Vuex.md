@@ -1,7 +1,5 @@
 # Vuex 状态管理库
 
-[参考文章](https://blog.csdn.net/jiangjunyuan168/article/details/122640925)
-
 Vue组件间通信方式：
 
 1. props，只适用于：<strong style="color:#DD5145">父组件 ===> 子组件</strong>
@@ -18,16 +16,14 @@ Vue组件间通信方式：
 
 ## 理解 Vuex
 
-[Vuex Github地址](https://github.com/vuejs/vuex)、[参考文章](https://blog.csdn.net/qq_56989560/article/details/124706021)、[参考文章](https://devpress.csdn.net/viewdesign/63ff2b5b986c660f3cf90b93.html)
-
 **1.Vuex是什么？**
 
-> 1. 概念：专门在 Vue 中实现集中式 **状态（数据）管理** 的一个 **Vue 插件**，对 Vue 应用中多个组件的共享状态进行集中式的管理（读/写），也是一种组件间通信的方式，且适用于<strong style="color:#DD5145">任意组件间通信</strong>
+概念：专门在 Vue 中实现集中式 **状态（数据）管理** 的一个 **Vue 插件**，对 Vue 应用中多个组件的共享状态进行集中式的管理（读/写），也是一种组件间通信的方式，且适用于<strong style="color:#DD5145">任意组件间通信</strong>。
 
 **2.什么时候使用 Vuex？**
 
-> 1. 多个组件依赖于同一状态
-> 2. 来自不同组件的行为需要变更同一状态
+- 多个组件依赖于同一状态
+- 来自不同组件的行为需要变更同一状态
 
 **3.全局事件总线 实现多组件间数据共享：**
 
@@ -42,7 +38,7 @@ Vue组件间通信方式：
 ## Vuex 工作原理
 
 - Vuex 由三个组件构成：<strong style="color:#9370DB">State</strong>（状态即数据），<strong style="color:#DC143C">Mutations</strong>（修改，加工维护），<strong style="color:orange">Actions</strong>（动作）
-- 将数据交给 Vuex 中的 **state** 对象进行保管，通过 **store** 来管理 Vuex 的三个组件，通过 store 来调用 <strong style="color:#bfa">dispatch</strong>、<strong style="color:#bfa">commit</strong> 
+- Vuex 中数据存储在 **state**，通过 **store** 来调用 <strong style="color:#3AB882">dispatch</strong> 和 <strong style="color:#3AB882">commit</strong> 
 - Devtools：指的是官方提供的 Vuex 调试工具
 
 ![](Vuex.assets/Vuex工作原理.png)
@@ -108,9 +104,9 @@ new Vue({
 
 ## 核心概念
 
-vuex的核心思想：组件数据统一管理（统一存储，统一修改）
+vuex 的核心思想：组件数据统一管理（统一存储，统一修改）
 
-Vuex 的基本使用，vuex 中一共有五个状态 **state**、**mutation**、**action**、**getter**、**module**
+vuex 的基本使用，vuex 中一共有五个状态 **state**、**mutation**、**action**、**getter**、**module**
 
 ### 1.state
 
@@ -181,7 +177,7 @@ mutations: {
 }
 ```
 
-组件中再使用**`this.$store.commit("mutations中的方法名", 参数)`**
+组件中再使用 **`this.$store.commit("mutations中的方法名", 参数)`**
 
 ```js
 methods:{
@@ -226,7 +222,7 @@ actions: {
 }
 ```
 
-actions 函数的参数：[参考文章](https://blog.csdn.net/qq_41820577/article/details/100530155)
+actions 函数的参数：
 
 ```js
 context:{
@@ -241,7 +237,7 @@ context:{
 位置写自己想要的属性，如：{commit}。
 ```
 
-组件中再使用**`this.$store.dispatch("actions中的方法名", 参数)`**
+组件中再使用 **`this.$store.dispatch("actions中的方法名", 参数)`**
 
 ```js
 methods:{
@@ -445,3 +441,8 @@ methods:{
    ...mapMutations('countAbout', {increment:'JIA',decrement:'JIAN'})
    ```
 
+
+
+## 参考
+
+[Vuex Github地址](https://github.com/vuejs/vuex)、[参考文章](https://blog.csdn.net/qq_56989560/article/details/124706021)、[参考文章](https://devpress.csdn.net/viewdesign/63ff2b5b986c660f3cf90b93.html)、[参考文章](https://blog.csdn.net/jiangjunyuan168/article/details/122640925)、[参考文章](https://blog.csdn.net/qq_41820577/article/details/100530155)

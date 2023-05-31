@@ -4,7 +4,7 @@ ECMAScript5，即ES5，是ECMAScript的第五次修订，于2009年完成标准�
 
 ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也称ES2015
 
-## ES6 新增的一些特性
+## ES6+ 新增的一些特性
 
 1. 字面量增强
 
@@ -20,25 +20,27 @@ ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也�
 
 7. 扩展运算符 **`...`**，可以将数组或对象里面的值展开，还可以将多个值收集为一个变量。
 
-8. 引入 module 模块的概念，import 导入、export 导出。
+8. 可选链（Optional Chaining）
 
-9. Set 数据结构，类似数组，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
+9. 引入 module 模块的概念，import 导入、export 导出。
 
-10. Map 数据结构，类似对象，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
+10. Set 数据结构，类似数组，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
 
-11. 将 Promise 对象纳入规范，提供了原生的 Promise 对象，是异步编程的一种解决方案。
+11. Map 数据结构，类似对象，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
 
-12. async、await 搭配 Promise，可以通过编写类似同步的代码来处理异步流程, 提高代码的简洁性和可读性。
+12. 将 Promise 对象纳入规范，提供了原生的 Promise 对象，是异步编程的一种解决方案。
+
+13. async、await 搭配 Promise，可以通过编写类似同步的代码来处理异步流程, 提高代码的简洁性和可读性。
 
     async 用于申明一个 function 是异步的，而 await 用于等待一个异步方法执行完成。
 
-13. Proxy 代理，监听对象的操作，然后可以做一些相应事情。
+14. Proxy 代理，监听对象的操作，然后可以做一些相应事情。
 
-14. Symbol，是一种基本类型。Symbol 通过调用 Symbol 函数产生，它接收一个可选的名字参数，该函数返回的 Symbol 是唯一的。
+15. Symbol，是一种基本类型。Symbol 通过调用 Symbol 函数产生，它接收一个可选的名字参数，该函数返回的 Symbol 是唯一的。
 
-15. Class 类的继承，ES6 中不再像 ES5 一样使用原型链实现继承，而是引入 Class 这个概念。
+16. Class 类的继承，ES6 中不再像 ES5 一样使用原型链实现继承，而是引入 Class 这个概念。
 
-16. 修饰器 @，decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
+17. 修饰器 @，decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
 
 
 
@@ -362,6 +364,34 @@ console.log(a2)
 
 
 
+## 可选链（Optional Chaining）
+
+ES11 中新增的一个特性，主要作用于让我们的代码在进行 null 和 undefined 判断时更加清晰和简洁。
+
+```js
+const info = {
+    name: 'chenglun17',
+    // friend: {
+    //     name: 'Tom',
+    //     girlfriend: {
+    //         name: 'Rhona'
+    //     }
+    // }
+}
+
+console.log(info.friend.girlfriend.name) // TypeError：Cannot read property 'girlfriend' of undefined
+
+if(info && info.friend && info.friend.girlfrend){
+    console.log(info.friend.girlfriend.name)
+}
+// 可选链
+console.log(info.friend?.girlfriend?.name)
+            
+console.log('其他代码')
+```
+
+
+
 
 
 ## 4.ES6 导出导入模块
@@ -543,7 +573,7 @@ ES6 新增了一种原始数据类型 Symbol，表示**独一无二的值**。�
 - 在 ES6 之前，对象的属性名都是字符串形式，很容易造成属性名的冲突
 - 开发中如果我们使用混入，那么混入中出现了同名的属性吗，必然有一个会被覆盖掉
 
-<strong style="color:yellow">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（Symbol 除外）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
+<strong style="color:tomato">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（Symbol 除外）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
 
 Symbol 值就是为了解决上面的问题，用来生成一个独一无二的值
 
@@ -644,9 +674,11 @@ for (const sKey of sKeys) {
 
 ## forEach、for in、for of 三者区别
 
-- forEach 更多的用来遍历数组
-- for in 一般常用来遍历 对象 或 json
-- for of 数组、对象都可以遍历，遍历对象需要通过和 Object.keys()
+- `for...of` 和 `for...in` 是 JavaScript 中的两种循环语句，而`forEach`是数组的一个方法
+
+- forEach 它可以遍历一个数组并对数组中的每个元素执行指定操作。
+- `for in`它可以遍历一个对象的所有可枚举属性，但不能遍历数组。遍历对象属性，返回的是属性名。
+- `for of`它可以遍历一个可迭代对象（如数组、字符串、Set 等），并返回数组元素的值。遍历对象需要通过和 Object.keys()
 - for in 循环出的是 key，for of 循环出的是 value
 
 
