@@ -136,10 +136,10 @@ module.exports = {
                     sidebarDepth: 2,
                     children: [
                         "/troika/js_study/JS_Base.md",
-                        "/troika/js_study/JS_WebAPI.md",
+                        "/troika/js_study/JS_Built-inObject.md",
                         "/troika/js_study/JS_Senior.md",
+                        "/troika/js_study/JS_WebAPI.md",
                         "/troika/js_study/ES6.md",
-                        "/troika/js_study/WebAPI_Interface.md",
                     ],
                     initialOpenGroupIndex: 0
                 },

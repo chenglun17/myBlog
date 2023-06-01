@@ -54,12 +54,16 @@ JavaScript 中有 7 种数据类型：
 - 数字（Number）, 字符串（String）, 布尔值（Boolean）, 未定义（Undefined）, 空（Null）, 对象（Object）, Symbol。
 
 > **Symbol** 是 ES6 引入了一种新的原始数据类型，表示独一无二的值。
-
-**基本数据类型**（值类型）：String、Number、Boolean、Null、Undefined、Symbol。
-
+>
 > **null**：表示赋值了，但内容为空，**undefined**：表示没有赋值。
 
+**基本数据类型（原始数据类型）**：String、Number、Boolean、Null、Undefined、Symbol。（6种）
+
+- 存储在<strong style="color:#DD5145">栈（stack）</strong>中的简单数据段，占据空间小，大小固定，属于被频繁使用的数据，所以存储在栈中。
+
 **引用数据类型**（对象类型）：Object，包含 数组（Array）、函数（Function）、正则（RegExp） 和 日期（Date）等。
+
+- 存储在<strong style="color:#DD5145">堆（heap）</strong>中的对象，占据空间大，大小不固定。引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址，当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后，从堆中获得实体。
 
 JavaScript 拥有动态类型，这意味着相同的变量可用作不同的类型。
 
@@ -105,9 +109,7 @@ JavaScript 拥有动态类型，这意味着相同的变量可用作不同的类
 
 ### 4.逻辑运算符
 
-逻辑中断
-
-js 利用逻辑运算符 **&&** 和 **||** 代替 if else 写判断语句
+**逻辑中断**：js 利用逻辑运算符 **&&** 和 **||** 代替 if else 写判断语句
 
 ```javascript
 console.log(11 && 22)		// 22
@@ -148,7 +150,7 @@ console.log(true || 66)		// true
 
 
 
-## 比较
+## 比较运算符
 
 **基本类型**通过它们的**值（value）**进行比较，而**对象**通过它们的**引用（reference）**进行比较。JavaScript 检查对象是否具有对内存中相同位置的引用。
 
@@ -156,7 +158,15 @@ console.log(true || 66)		// true
 
 ### 1.等于操作符
 
-等于操作符，用两个等于号（ == ）表示，如果操作数相等，则会返回 `true`。等于操作符（==）在比较中会**先进行类型转换**，再确定操作数是否相等。
+等于操作符，用两个等于号（ == ）表示，如果操作数相等，则会返回 `true`。
+
+等于操作符（==）在比较中会**先进行类型转换**，再确定操作数是否相等。
+
+- 如果任一操作数是布尔值，则将其转换为数值再比较是否相等
+
+```js
+let result1 = (true == 1); // true
+```
 
 - `null`和`undefined`相等
 
@@ -178,11 +188,25 @@ let obj2 = { name:"xxx" }
 let result1 = (obj1 == obj2 ) // false
 ```
 
+> 两个都为引用类型，则比较它们是否指向同一个对象
+
 
 
 ### 2.全等操作符
 
-全等操作符，用 3 个等于号（ === ）表示，只有两个操作数在**不转换**的前提下相等才返回 `true`。即类型相同，值也需相同。
+全等操作符，用 3 个等于号（ === ）表示，只有两个操作数在**不转换类型**的前提下相等才返回 `true`。即**类型相同，值也需相同**。
+
+```js
+let result1 = ("55" === 55) // false，不相等，因为数据类型不同
+let result2 = (55 === 55) // true，相等，因为数据类型相同值也相同
+```
+
+- `undefined` 和 `null` 与自身严格相等
+
+```js
+let result1 = (null === null)  // true
+let result2 = (undefined === undefined)  // true
+```
 
 
 
@@ -640,14 +664,14 @@ let funcName = new Function('arg1', 'arg2', 'arg3', ..., '函数体')
 
 ```javascript
 // 方式一（第二个小括号相当于调用函数，其小括号里面的参数为形参）
-(function () {}) ();
+;(function () {}) ();
 // 例如：
-(function () {
+;(function () {
     console.log(22)
 }) ();
 
 // 方式二
-(function (x, y) {} (1, 2));
+;(function (x, y) {} (1, 2));
 
 // 方式三
 !function () {} ();

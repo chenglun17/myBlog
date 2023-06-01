@@ -1,6 +1,6 @@
 # 一、原生 AJAX
 
-## 1.1 AJAX 简介
+## 1.AJAX 简介
 
 **AJAX （Asynchronous JavaScript And XML）**，即 **异步的 JavaScript 和 XML**
 
@@ -30,7 +30,7 @@ AJAX 的缺点：
 >
 >   目的是让搜索引擎的爬虫更容易收集到你网站的内容，并把它们编写进自己的索引库中
 
-## 1.2 XMLHttpRequest
+## 2.XMLHttpRequest
 
 `XMLHttpRequest`（XHR）对象用于与服务器交互。通过 XMLHttpRequest 可以在不刷新页面的情况下请求特定 URL，获取数据。这允许网页在不影响用户操作的情况下，更新页面的局部内容。`XMLHttpRequest` 在 AJAX 编程中被大量使用。
 
@@ -40,7 +40,7 @@ AJAX 的缺点：
 >
 > XML 和 HTML 类似，不同的是 HTML 中都是预定义标签，而 **XML 中没有预定义标签**
 
-## 1.3 XMLHttpRequest API
+## 3.XMLHttpRequest API
 
 MDN文档：https://developer.mozilla.org/zh-CN/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
 
@@ -148,7 +148,7 @@ const request = new XMLHttpRequest()
 
 
 
-## 1.4 AJAX 的使用
+## 4.AJAX 的使用
 
 ### 服务端搭建
 
@@ -284,13 +284,13 @@ xhr.abort()  // 终止该请求
 
 
 
-## 1.5 Ajax 解决浏览器缓存问题
+## 5.Ajax 解决浏览器缓存问题
 
 > - 在 ajax 发送请求前加上 **`anyAjaxObj.setRequestHeader("If-Modified-Since","0")`** <br>或 **`anyAjaxObj.setRequestHeader("Cache-Control","no-cache")`**
 > - 在 URL 后面加上一个随机数： **`"fresh=" + Math.random()`**
 > - 在 URL 后面加上时间搓： **`"nowtime=" + new Date().getTime()`**
 
-## 1.6 原生 Ajax 封装成 promise
+## 6.原生 Ajax 封装成 promise
 
 ```js
 function sendAjax() {
@@ -320,7 +320,7 @@ sendAjax().then(value => {
 })
 ```
 
-## 1.7 HTTP
+## 7.HTTP
 
 HTTP（HyperText Transport Protocol）超文本传输协议，协议详细规定了浏览器与万维网服务器之间互相通信的规则
 

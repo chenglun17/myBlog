@@ -9,9 +9,9 @@
 - DOM（Document Object Model，文档对象模型）
 - BOM（Browser Object Model，浏览器对象模型）
 
-## 一、DOM 📕
+## 📕 DOM 
 
-DOM（Document Object Model ，文档对象模型）一种独立于语言，用于操作XML，HTML文档的**应用编程接口**。
+DOM（Document Object Model ，文档对象模型）一种用于操作XML，HTML文档的**应用编程接口**。
 
 为了能够使 JavaScript 操作 HTML，JavaScript 就有了一套自己的 DOM 接口。
 
@@ -594,7 +594,7 @@ window.addEventListener('resize', function () {
 
 
 
-## 二、BOM 📘
+## 📘 BOM 
 
 BOM（Browser Object Model，浏览器对象模型）是为了控制浏览器的行为而出现的接口。
 

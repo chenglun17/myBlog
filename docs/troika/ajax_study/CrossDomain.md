@@ -1,11 +1,17 @@
 # 五、跨域问题
 
-## 1.同源策略
+## 1.什么是跨域
+
+<strong style="color:#DD5145">跨域本质是浏览器基于同源策略的一种安全手段。</strong>
 
 **同源策略（Same-Origin Policy）** 最早由 Netscape 公司提出，是浏览器的一种安全策略
 
 - 同源：**协议**、**域名**、**端口号** 必须完全相同
-- 跨域：违背同源策略就是跨域
+- 跨域：三者之间任意一个与当前页面 url 不同即为跨域，违背同源策略就是跨域
+
+一定要注意跨域是浏览器的限制，你用抓包工具抓取接口数据，是可以看到接口已经把数据返回回来了，只是浏览器的限制，你获取不到数据。
+
+用 postman 请求接口能够请求到数据。这些再次印证了跨域是浏览器的限制。
 
 
 
@@ -21,9 +27,9 @@
 
 ### （1）JSONP
 
-**JSONP（JSON with Padding）**，是非官方的跨域解决方案，程序员自己开发出来，<strong style="color:#DD5415">只支持 GET 请求</strong>。
+**JSONP（JSON with Padding）**，是非官方的跨域解决方案，程序员自己开发出来，<strong style="color:#DD5145">只支持 GET 请求</strong>。
 
-网页中有一些标签天生具有跨域能力，比如：img、link、iframe、script，JSONP 就是利用 `script` 标签的跨域能力来发送请求的。
+网页中有一些标签天生具有跨域能力，比如：img、link、iframe、script，JSONP 就是利用 `script` 标签、src属性的跨域能力来发送请求的。
 
 JSONP 和 Ajax 之间没有任何关系，不能把 JSONP 请求数据的方式叫做 Ajax，因为 JSONP 没有用到 XMLHttpRequest 对象。
 
