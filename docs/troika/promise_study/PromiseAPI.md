@@ -65,25 +65,25 @@ console.log(res);
 
 ###  1.3 then 方法的规则
 
-- `then`方法下一次的输入需要上一次的输出
+- `.then`方法下一次的输入需要上一个回调函数返回的值
 - 如果一个 promise 执行完后 返回的还是一个 promise，会把这个 promise 的执行结果，传递给下一次`then`中
 - 如果`then`中返回的不是 promise 对象而是一个普通值，则会将这个结果作为下次 then 的成功的结果
 - 如果当前`then`中失败了 会走下一个`then`的失败
 - 如果返回的是 undefined 不管当前是成功还是失败 都会走下一次的成功
-- catch是错误没有处理的情况下才会走
+- `catch`是错误没有处理的情况下才会走
 - `then`中不写方法则值会**穿透**，传入下一个`then`中
 
 
 
 ### 1.4 Promise.prototype.catch方法
 
-**Promise.prototype.catch 方法**：就是一个语法糖，只接收一个参数。
+`Promise.prototype.catch`方法：就是一个语法糖，只接收一个参数。
 
 ```js
 p.catch(onRejected)
 ```
 
-- **onRejected** 函数：失败的回调函数 **(reason) => { }**
+- **onRejected** 函数：失败的回调函数 (reason) => { }
 
 说明：then() 的语法糖, 相当于：**`then(undefined, onRejected)`**
 

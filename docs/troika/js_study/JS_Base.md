@@ -73,9 +73,9 @@ JavaScript 拥有动态类型，这意味着相同的变量可用作不同的类
 
 ### Boolean 转换
 
-只有 8 种 [falsy](https://developer.mozilla.org/zh-CN/docs/Glossary/Falsy) 值：`''`(empty string)、`0`、`-0`、`undefined`、`null`、`false`、`NaN` ，其余都是 [truthy](https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy)。
+只有 7 种 [falsy](https://developer.mozilla.org/zh-CN/docs/Glossary/Falsy) 值：`''`(空字符串)、`0`、`-0`、`undefined`、`null`、`false`、`NaN`。
 
-`Function` 构造函数，比如 `new Number` 和 `new Boolean`，是 truthy。
+`Function`构造函数，比如 `new Number`，任何对象、`[]`(空数组)，字符串`"false"`，都是 [truthy](https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy)。
 
 
 
@@ -150,13 +150,11 @@ console.log(true || 66)		// true
 
 
 
-## 比较运算符
+### 6.比较运算符
 
 **基本类型**通过它们的**值（value）**进行比较，而**对象**通过它们的**引用（reference）**进行比较。JavaScript 检查对象是否具有对内存中相同位置的引用。
 
-
-
-### 1.等于操作符
+#### 等于操作符
 
 等于操作符，用两个等于号（ == ）表示，如果操作数相等，则会返回 `true`。
 
@@ -190,9 +188,7 @@ let result1 = (obj1 == obj2 ) // false
 
 > 两个都为引用类型，则比较它们是否指向同一个对象
 
-
-
-### 2.全等操作符
+#### 全等操作符
 
 全等操作符，用 3 个等于号（ === ）表示，只有两个操作数在**不转换类型**的前提下相等才返回 `true`。即**类型相同，值也需相同**。
 
@@ -380,7 +376,7 @@ obj.speak()
    const arr1 = new Array(2,3)		// 创建了一个数组[2, 3]
    ```
 
-
+数组元素可以包含任何值。 数字，字符串，布尔值，对象，数组，`null`，`undeifned`，以及其他表达式，如日期，函数和计算。
 
 ### 2.检查是否为数组
 
@@ -453,10 +449,10 @@ console.log(arr.join(''))	// red颜色blue颜色green颜色
 
 | 方法名     | 说明                                                 | 返回值                 |
 | ---------- | ---------------------------------------------------- | ---------------------- |
-| push( )    | 末尾添加一个或多个元素，注意修改原数组               | 返回新的长度           |
+| push( )    | 向数组的**末尾添加**一个或多个元素，注意修改原数组   | **返回新的长度**       |
 | pop( )     | 删除数组最后一个元素，数组长度+1，无参数、修改原数组 | 返回它删除的元素值     |
-| unshift( ) | 向数组的开头添加一个或多个元素，注意修改原数组       | 返回新的长度           |
-| shift( )   | 删除数组的第一个元素                                 | 返回第一个元素的值     |
+| unshift( ) | 向数组的**开头添加**一个或多个元素，注意修改原数组   | **返回新的长度**       |
+| shift( )   | 删除数组的第一个元素                                 | 返回它删除的元素值     |
 | slice( )   | 数组**截取** slice(begin, end)                       | 返回被截取项目的新数组 |
 | concat( )  | 连接两个或多个数组，不影响原数组                     | 返回一个新数组         |
 
@@ -1022,6 +1018,8 @@ console.log(/[abc]/.test('andy'))	// true
 
 语法：**/ 表达式 / 修饰符**
 
+replace（） 替换，**`字符串.replace(/正则表达式/, '替换文本')`**
+
 下表列出了正则表达式常用的修饰符：
 
 | 修饰符 | 含义                             | 描述                                                         |
@@ -1031,8 +1029,19 @@ console.log(/[abc]/.test('andy'))	// true
 | m      | multi line - 多行匹配            | 使边界字符 \^ 和 \$ 匹配每一行的开头和结尾，<br>**记住是多行**，而不是整个字符串的开头和结尾 |
 | s      | 特殊字符圆点 \. 中包含换行符 \\n | 默认情况下的圆点 \. 是匹配除换行符 \\n 之外的任何字符，<br>加上 s 修饰符之后，\. 中包含换行符 \\n |
 
-> replace（） 替换，**`字符串.replace(/正则表达式/, '替换文本')`**
->
 
 
+## 错误提示
 
+`ReferenceError`：
+
+- 当 JavaScript 无法找到您尝试访问的值的引用时，抛出引用错误
+
+`SyntaxError`：
+
+- 当你编写了一些非有效的 JavaScript 时，会抛出语法错误，例如当你把`return`这个词写成`retrun`时
+- 当 Javascript 引擎解析代码时，遇到了不符合语法规范的标记（token）或标记顺序，则会抛出 `SyntaxError`
+
+`TypeErrors`：
+
+- 当值不是预期类型时，会抛出类型错误。 JavaScript 期望`name`是一个函数，我们试图调用它。 但它是一个字符串

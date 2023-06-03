@@ -8,9 +8,9 @@
 
 静态方法只有构造函数可 Object 可以调用
 
-- **`Object.keys`** 静态方法，获取对象中所有 属性（键），返回的是 一个数组
+- **`Object.keys`** 静态方法，返回一个由给定对象自身的**可枚举 (enumerable)** 字符串键属性名组成的**数组**
 
-- **`Object.values`** 静态方法，获取对象中所有 属性值，返回的是 一个数组
+- `Object.values` 静态方法，返回一个由给定对象自身的可枚举字符串键属性值组成的数组
 
 - **`Object.assign`** 静态方法，用于对象拷贝（**浅拷贝**）、给对象添加属性
 
@@ -29,7 +29,46 @@ Object.assign(obj2, obj) // 返回 {name: '佩奇', age: 6}
 
 
 
-### defineProperty方法
+### frerzze方法
+
+`Object.freeze()` 静态方法可以使一个对象被**冻结**。冻结对象可以防止扩展，并使现有的属性不可写入和不可配置。
+
+被冻结的对象不能再被更改：不能添加新的属性，不能移除现有的属性，不能更改它们的可枚举性、可配置性、可写性或值，对象的原型也不能被重新指定。
+
+
+
+### entries方法
+
+`Object.entries()` 静态方法返回一个数组，包含给定对象自有的**可枚举**字符串键属性的**键值对**。
+
+一个由给定对象自有的可枚举字符串键属性的键值对组成的数组。每个键值对都是一个包含两个元素的数组：第一个元素是属性的键（始终是字符串），第二个元素是属性值。
+
+```js
+const obj = { foo: "bar", baz: 42 }
+console.log(Object.entries(obj)) // 返回一个二维数组 [ ['foo', 'bar'], ['baz', 42] ]
+
+// 类数组对象
+const obj = { 0: "a", 1: "b", 2: "c" }
+console.log(Object.entries(obj)) // [ ['0', 'a'], ['1', 'b'], ['2', 'c'] ]
+
+// 具有随机键排序的类数组对象
+const anObj = { 100: "a", 2: "b", 7: "c" }
+console.log(Object.entries(anObj)) // [ ['2', 'b'], ['7', 'c'], ['100', 'a'] ]
+```
+
+非对象参数会**强制转换成对象**。只有字符串可以有自己的可枚举属性，所有其他基本类型均返回一个空数组。
+
+```js
+// 字符串具有索引作为可枚举的自有属性
+console.log(Object.entries("foo")) // [ ['0', 'f'], ['1', 'o'], ['2', 'o'] ]
+
+// 其他基本类型没有自有属性
+console.log(Object.entries(100)) // []
+```
+
+
+
+## defineProperty
 
 `Object.defineProperty()` 静态方法会直接在一个对象上定义一个新属性，或修改其现有属性，并返回此对象。
 
@@ -41,19 +80,79 @@ Object.defineProperty(obj, prop, descriptor)
 - `prop`：一个字符串或 `Symbol`，指定了要定义或修改的属性键
 - `descriptor`：要定义或修改的属性的描述符
 
+<strong style="color:tomato">注意</strong>：我们使用`defineProperty`方法给对象添加了一个属性之后，<strong style="color:tomato">属性默认为不可枚举 (not enumerable)</strong>。
+
+用`defineProperty`方法添加的属性默认不可变。可以通过`writable`, `configurable` 和 `enumerable`属性来改变这一行为。
+
 ```js
 Object.defineProperty(obj, prop, {
-    // value: 18,
+    // value: 'chenglun17',
     // writable: true,        // 控制属性是否可以修改，默认值是false
     // enumerable: true,      // 控制属性是否可以枚举，默认值是false
     // configurable: true,    // 控制属性是否可以被删除，默认值是false
+    get(){},
+    set(){}
 })
 ```
-### 拓展 -- setter
+
+
+
+### getter
+
+有时需要允许访问返回动态计算值的属性，或者你可能需要反映内部变量的状态，而不需要使用显式方法调用。在 JavaScript 中，可以使用`getter`来实现。
+
+**`get`** 语法将对象属性绑定到<strong style="color:#DD5145">查询该属性</strong>时将被调用的函数。
+
+```js
+{ get prop() { ... } }
+{ get [expression]() { ... } }
+```
+
+- `prop`：要绑定到给定函数的属性名
+- `expression`，从 ECMAScript 2015 开始，还可以使用一个计算属性名的表达式绑定到给定的函数
+
+------
+
+在新对象初始化时定义一个 getter：
+
+这会为`obj`创建一个伪属性`latest`，它会返回`log`数组的最后一个元素
+
+```js
+const obj = {
+    log: ['example', 'test'],
+    get latest() {
+        if (this.log.length == 0) return undefined
+        return this.log[this.log.length - 1]
+    }
+}
+console.log(obj.latest); // "test"
+```
+
+> 注意，尝试为`latest`分配一个值不会改变它
+
+使用`delete`，可以删除 getter：
+
+```js
+delete <getter>
+```
+
+使用`Object.defineProperty()`在现有对象上定义 getter，并且<strong style="color:#DD5145">`get`一定要有返回值</strong>：
+
+```js
+const obj = { a: 0 }
+
+Object.defineProperty(obj, 'b', { get: function () { return this.a + 1 } })
+
+console.log(obj.b) // Runs the getter, which yields a + 1 (which is 1)
+```
+
+
+
+### setter
 
 在 JavaScript 中，如果试着改变一个属性的值，那么对应的 setter 将被执行。setter 经常和 getter 连用以创建一个伪属性。不可能在具有真实值的属性上同时拥有一个 setter 器。
 
-**`set`** 语法将对象属性绑定到要调用的函数。它还可以在类中应用。
+**`set`** 语法将对象属性绑定到<strong style="color:#DD5145">修改该属性</strong>时被调用的函数。它还可以在类中应用。
 
 ```js
 { set prop(val) { /* … */ } }
@@ -62,6 +161,30 @@ Object.defineProperty(obj, prop, {
 
 - `prop`：要绑定到给定函数的属性名
 - `val`：用于保存尝试分配给`prop`的值的变量的一个别名
+- `expression`，从 ECMAScript 2015 开始，还可以使用一个计算属性名的表达式绑定到给定的函数
+
+------
+
+在对象初始化时定义 setter：
+
+这将定义一个对象 `language` 的伪属性`current`，当`current`被分配一个值时，将使用该值更新`log`
+
+```js
+const language = {
+    set current(name) {
+        this.log.push(name);
+    },
+    log: []
+}
+
+language.current = 'EN';
+console.log(language.log); // ['EN']
+
+language.current = 'FA';
+console.log(language.log); // ['EN', 'FA']
+```
+
+> 请注意，`current`属性是未定义的，访问它时将会返回 `undefined`
 
 使用`delete`操作符，可以移除 setter：
 
@@ -81,35 +204,6 @@ console.log(obj.a) // 5
 ```
 
 
-
-### 拓展 -- getter
-
-有时需要允许访问返回动态计算值的属性，或者你可能需要反映内部变量的状态，而不需要使用显式方法调用。在 JavaScript 中，可以使用`getter`来实现。
-
-**`get`** 语法将对象属性绑定到<strong style="color:#DD5145">查询该属性</strong>时将被调用的函数。
-
-```js
-{ get prop() { ... } }
-{ get [expression]() { ... } }
-```
-
-- `prop`：要绑定到给定函数的属性名。
-
-使用`delete`，可以删除 getter：
-
-```js
-delete <getter>
-```
-
-使用`Object.defineProperty()`在现有对象上定义 getter：
-
-```js
-const obj = { a: 0 }
-
-Object.defineProperty(obj, 'b', { get: function () { return this.a + 1 } })
-
-console.log(obj.b) // Runs the getter, which yields a + 1 (which is 1)
-```
 
 ### 经典题目
 
@@ -231,7 +325,7 @@ console.log(obj) // {b: 3, c: 5}
 3. [filter()](#filter方法)：返回新数组，返回的是筛选满足条件的数组元素
 4. [reduce()](#reduce方法)：返回函数累积处理的结果，经常用于求和
 5. [splice()](#splice方法)：
-6. [slice()](#slice方法)：
+6. [slice()](#slice方法)：数组**截取**，返回被截取项目的新数组
 7. [join()](#join方法)：
 8. [find()](#find方法)：
 9. [findIndex()](#findindex方法)：
@@ -244,6 +338,19 @@ console.log(obj) // {b: 3, c: 5}
 16. [flatMap()](#flatmap方法)：
 
 ------
+
+### 数组常用操作
+
+| 方法名     | 说明                                                 | 返回值                                                  |
+| ---------- | ---------------------------------------------------- | ------------------------------------------------------- |
+| push( )    | 向数组的**末尾添加**一个或多个元素，注意修改原数组   | 返回新数组的<strong style="color:#DD5145">长度</strong> |
+| pop( )     | 删除数组最后一个元素，数组长度+1，无参数、修改原数组 | 返回它删除的元素值                                      |
+| unshift( ) | 向数组的**开头添加**一个或多个元素，注意修改原数组   | 返回新数组的<strong style="color:#DD5145">长度</strong> |
+| shift( )   | 删除数组的第一个元素                                 | 返回它删除的元素值                                      |
+| slice( )   | 数组**截取** slice(begin, end)                       | 返回被截取项目的新数组                                  |
+| concat( )  | 连接两个或多个数组，不影响原数组                     | 返回一个新数组                                          |
+
+
 
 ### map方法
 
@@ -322,9 +429,7 @@ Array.filter(function (ele, index) {
 
 ### splice方法
 
-此方法通过移除或者替换已存在的元素和/或添加新元素就地改变一个数组的内容。
-
-**会改变原始数组**，返回删除内容。
+`splice`方法通过移除或者替换已存在的元素和/或添加新元素就地改变原数组的内容，<strong style="color:#DD5145">返回删除内容</strong>。
 
 - `splice(index)`：从元素下标 index 开始，**删除**之后**所有元素**
 - `splice(index, howmany)`：**删除**元素，index 为起始位置，howmany 为删除的个数，若 howmany 小于等于 0，则不删除
@@ -353,9 +458,7 @@ slice(start, end) // 截取数组
 
 **`join(separator)`** 方法将一个数组（或类数组对象）的所有元素连接成一个字符串并返回这个字符串，用指定的分隔符字符串分隔。
 
-如果数组只有一个元素，那么将返回该元素而不使用分隔符。
-
-如果 separator 省略，数组元素用逗号（`,`）分隔。
+如果数组只有一个元素，那么将返回该元素而不使用分隔符。如果 separator 省略，数组元素用逗号（`,`）分隔。
 
 ```js
 const a = ["Wind", "Water", "Fire"]
@@ -389,18 +492,25 @@ reduce((previousValue, currentValue, currentIndex, array) => {}, init)
 - currentValue：**必需**。当前元素。
 - currentIndex：可选。当前元素的索引。
 - array：可选。当前元素所属的数组对象。
-- init: 可选。传递给函数的初始值，相当于pre的初始值。
+- init: 可选。传递给函数的初始值，相当于 pre 的初始值。如果没有提供`initialValue`，则将使用数组中的第一个元素。
 
-reduce 里面有一定要 return，return 出去的值也要注意
+<strong style="color:#DD5145">reduce 里面有一定要有返回值`return`，没有则默认返回`undefined`，`return` 出去的值也要注意</strong>
 
 例如，求和
 
 ```js
 const arr = [1, 2, 3, 4]
+
 let res = arr.reduce((pre, cur) => {
+    console.log(pre, cur)
     return pre + cur
 })
+
 console.log(res)
+// 1 2，若没有返回值则为 1 2
+// 3 3，若没有返回值则为 undefined 3
+// 6 4，若没有返回值则为 undefined 4
+// 10，，若没有返回值则为 undefined
 ```
 
 
@@ -560,7 +670,8 @@ console.log(arr.flat(Infinity)) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 6. [subString()](#substring方法)：
 7. [startsWith()](#startswith方法)：
 8. [includes()](#includes方法)：
-9. [对象转换为字符串](#对象转换为字符串)：
+9. [raw()](#raw方法)：
+10. [padstart()](#padstart方法)：
 
 ------
 
@@ -694,6 +805,55 @@ str.charCodeAt(index)
 ```
 
 ![](JS_Built-inObject.assets/e850352ac65c103880a07b53bc119313b17e8941)
+
+
+
+### raw方法
+
+`String.raw()` 是一个模板字符串的标签函数，用来获取一个模板字符串的原始字符串的，它返回一个字符串，其中忽略了转义符（`\n`，`\v`，`\t`等）。
+
+```js
+String.raw(callSite, ...substitutions)
+String.raw`templateString`
+```
+
+- `callSite`参数，一个模板字符串的“调用点对象”。类似 `{ raw: ['foo', 'bar', 'baz'] }`
+- `...substitutions`参数，任意个可选的参数，表示任意个内插表达式对应的值
+- `templateString`参数，给定模板字符串的原始字符串
+
+但反斜杠可能造成问题，因为你可能会遇到下面这种类似情况：
+
+```js
+const path = `C:\Documents\Projects\table.html`
+String.raw`${path}`
+```
+
+
+
+### padStart方法
+
+`padStart()` 方法**用另一个字符串填充**当前字符串（如果需要的话，会重复多次），以便产生的字符串达到给定的长度。从当前字符串的**左侧开始填充**。
+
+返回值：在原字符串开头填充指定的填充字符串直到目标长度所形成的新字符串。
+
+```js
+padStart(targetLength)
+padStart(targetLength, padString)
+```
+
+- `targetLength`，当前字符串需要填充到的目标长度。如果这个数值**小于**当前字符串的长度，则返回当前字符串本身
+- `padString` 可选，填充字符串。如果字符串太长，使填充后的字符串长度超过了目标长度，则只保留最左侧的部分，其他部分会被截断。此参数的默认值为 " "（U+0020）
+
+同理：
+
+`padEnd()` 方法会用一个字符串填充当前字符串（如果需要的话则重复填充），返回填充后达到指定长度的字符串。从当前字符串的**末尾（右侧）开始填充**。
+
+```js
+padEnd(targetLength)
+padEnd(targetLength, padString)
+```
+
+
 
 
 

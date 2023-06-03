@@ -164,7 +164,10 @@ git revert -n (版本号)
 
 ```bash
 git remote		# 列出当前的关联的远程库
-git remote -v	# 查看当前所有远程地址别名
+git remote --verbose # 查看当前所有远程地址别名
+git remote -v
+
+git remote show <remote-name> # 查看某个远程仓库的详细信息
 
 git remote add origin <url> 	# 关联远程仓库
 # 添加后，远程库的名字就是origin，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库
@@ -177,16 +180,17 @@ git push -u <远程库名> <分支名> 			# 向远程库推送代码，并和当
 git push <远程库名> <本地分支>:<远程分支> 	 # 把本地的分支推送给远程的分支
 git push <远程库名> <分支名>				# 后续直接push即可
 
-git pull <远程库名> <分支名>  # 拉取远程仓库
+git pull <远程库名> <分支名>  # 拉取远程仓库（必须连接远程仓库才能用，不管本地有没有代码。可以用于下载完整代码更新本地代码）
 
 git clone <url>		# 将远程仓库的内容克隆到本地
 git clone <url> <重命名>
+# 只要你想往本地下载远程仓库完整的代码就可以用，不用连接远程仓库（连接了也可以），不适用于更新本地代码
+
  
 # 要想推送成功，必须先确保本地库和远程库的版本一致，fetch会从远程库下载所有代码，但它不会将代码和当前分支自动合并
 git fetch	# 使用fetch拉取代码后，必须要手动对代码进行合并
 		
-git merge origin/master		# 将当前分支和远程仓库（origin是在本地的名字）上的master分支合并
-		 
+git merge origin/master		# 将当前分支和远程仓库（origin是在本地的名字）上的master分支合并 
 ```
 
 > 注意：推送代码之前，一定要先从远程库中拉取最新的代码

@@ -461,10 +461,10 @@ var fun = function () {
 
 **`arguments`** 是函数内部内置的伪数组对象，它<strong style="color:#DD5145">包含了调用函数时传入的所有实参</strong>
 
-- **`arguments`** 是一个**伪数组**，**只存在于函数中**
-- **`arguments`** 的作用是**动态获取**函数的实参
+- `arguments` 是一个**伪数组**，**只存在于函数中**
+- `arguments` 的作用是**动态获取函数的实参**
 - 可以通过 for 循环依次得到传递过来的实参
-- **`Array.from()`**，将伪数组转换为真数组
+- `Array.from()`，将伪数组转换为真数组
 
 ```javascript
 function sum() {
@@ -480,7 +480,7 @@ sum(1, 2, 3)
 
 #### 剩余参数 rest
 
-- **`...`** 是语法符号，置于最末函数形参之前，用于获取 **多余的实参**
+- `...` 是语法符号，置于最末函数形参之前，用于获取 **多余的实参**
 - 在**函数内部使用**，借助 **`...`** 获取的剩余实参，是一个 **真数组**
 
 - 开发中，建议使用 剩余参数
@@ -489,7 +489,7 @@ sum(1, 2, 3)
 function getSum(a, b, ...rest) {
     console.log(rest)	// 使用的时候不需要加 ...
 }
-getSum(3, 4, 5)	// 输出的是一个数组 [3, 4, 5]
+getSum(3, 4, 5, 6, 7)	// 输出的是一个数组 [5, 6, 7]
 ```
 
 
@@ -519,7 +519,7 @@ console.log(arr3)	// [1, 2, 3, 4, 5, 6]
 箭头函数更适用于那些需要匿名函数的地方：
 
 - 箭头函数属于表达式函数，因此**不存在函数提升**
-- 加括号的函数体返回对象字面量表达式，如例5
+- **加括号**的函数体返回对象字面量表达式，如例5
 - 箭头函数 **没有动态参数 `arguments`**，但 **有剩余参数 `...rest`**
 - 箭头函数不能作为构造函数实例化
 - 箭头函数**不会创建**自己的 **this**
@@ -554,6 +554,7 @@ console.log(fn(1, 2))
 // 5.箭头函数可以直接返回一个对象，右侧对象用小括号()括起来
 const fn = uname => ({ uname: uname })
 console.log(fn('刘德华'))	// {uname: '刘德华'}
+const fn = uname => { uname: uname } // 花括号之间的代码不是有效的JavaScript代码，会抛出SyntaxError
 ```
 
 
@@ -589,7 +590,7 @@ obj.sayHi()
 
 `apply`接受两个参数，第一个参数是`this`的指向，第二个参数是函数接受的参数，以数组的形式传入。
 
-改变`this`指向后原函数会**立即执行**，且此方法只是**临时改变**`this`指向一次。
+改变`this`指向后原函数会<strong style="color:#DD5145">立即执行</strong>，且此方法只是<strong style="color:#DD5145">临时改变`this`指向一次</strong>。
 
 ```javascript
 fn.apply(thisArg, [argsArray])
@@ -616,7 +617,7 @@ console.log(Math.max(...arr))
 
 `call`方法的第一个参数也是`this`的指向，后面传入的是一个参数列表。
 
-跟`apply`一样，改变`this`指向后原函数会**立即执行**，且此方法只是**临时改变**`this`指向一次。
+跟`apply`一样，改变`this`指向后原函数会<strong style="color:#DD5145">立即执行</strong>，且此方法只是<strong style="color:#DD5145">临时改变`this`指向一次</strong>。
 
 ```javascript
 fn.call(thisArg, arg1, arg2, ...)
@@ -629,7 +630,7 @@ fn.call(thisArg, arg1, arg2, ...)
 
 和`call`相似，第一个参数也是`this`的指向，后面传入的也是一个参数列表（可以分多次传入）。
 
-改变`this`指向后**不会立即执行**，而是返回一个**永久改变**`this`指向的函数。
+改变`this`指向后<strong style="color:#9370DB">不会立即执行</strong>，而是返回一个<strong style="color:#9370DB">永久改变`this`指向的函数</strong>。
 
 例如，定时器内部的 this 指向
 

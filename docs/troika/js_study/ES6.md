@@ -4,53 +4,37 @@ ECMAScript5，即ES5，是ECMAScript的第五次修订，于2009年完成标准�
 
 ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也称ES2015
 
-## ES6+ 新增的一些特性
+------
+
 
 1. 字面量增强
-
 2. let 和 const 命令，用来声明变量，两个都有块级作用域。
-
-3. 箭头函数，**`() => {}`**。
-
+3. 函数的扩展，箭头函数，**`() => {}`**。
 4. 模板字符串，**` 反引号`` `**，可以当作普通字符串使用，也可以用来定义多行字符串。用**`${}`**来界定。
-
 5. 解构赋值，允许按照一定模式，从数组和对象中提取值，对变量进行赋值。
-
-7. 扩展运算符 **`...`**，可以将数组或对象里面的值展开，还可以将多个值收集为一个变量。
-
-8. `Iterator`迭代器（遍历器），一种新的遍历机制。
-
-8. **`for of`** 循环，可以遍历数组、Set、Map结构、某些类似数组的对象、对象，以及字符串。
-
-9. 引入 module 模块的概念，import 导入、export 导出。
-
-10. Set 数据结构，类似数组，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
-
-11. Map 数据结构，类似对象，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
-
+6. 扩展运算符 **`...`**，可以将数组或对象里面的值展开，还可以将多个值收集为一个变量。
+7. `Iterator`迭代器（遍历器），一种新的遍历机制。
+8. `for of`循环，可以遍历数组、Set、Map结构、某些类似数组的对象、对象，以及字符串。
+9. Set 数据结构，类似数组，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
+10. Map 数据结构，类似对象，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
+11. Symbol 是 ES6 引入了一种新的原始数据类型，表示独一无二的值。
 12. 将 Promise 对象纳入规范，提供了原生的 Promise 对象，是异步编程的一种解决方案。
-
-13. async、await 搭配 Promise，可以通过编写类似同步的代码来处理异步流程, 提高代码的简洁性和可读性。
-
-    async 用于申明一个 function 是异步的，而 await 用于等待一个异步方法执行完成。
-
+13. Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。
 14. Proxy 代理，监听对象的操作，然后可以做一些相应事情。
-
-15. Symbol，是一种基本类型。Symbol 通过调用 Symbol 函数产生，它接收一个可选的名字参数，该函数返回的 Symbol 是唯一的。
-
-16. Class 类的继承，ES6 中不再像 ES5 一样使用原型链实现继承，而是引入 Class 这个概念。
-
-17. 修饰器 @，Decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
-
-18. ES11新增，可选链（Optional Chaining）
-
-19. 大整数类型`BigInt`
-
-20. 空值合并运算符（Nullish Coalescing Operator）
+15. Reflect 对象与 Proxy 对象一样，也是 ES6 为了操作对象而提供的新 API。
+16. Class 的基本使用，新增的`class`可以看作是构造函数的语法糖。
+17. Class 类的继承，ES6 中不再像 ES5 一样使用原型链实现继承，而是引入 Class 这个概念。
+18. 引入 Module 模块的概念，import 导入、export 导出。
+19. Module 的加载实现
+20. 修饰器 @，Decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
+21. ES8新增 async、await，内置的自动执行器，它就是 Generator 函数的语法糖。
+22. ES11新增，可选链（Optional Chaining）
+23. 大整数类型`BigInt`
+24. 空值合并运算符（Nullish Coalescing Operator）
 
 
 
-## 1.字面量增强
+## 1.:star:字面量增强
 
 **property shorthand**（属性的简写）
 
@@ -104,7 +88,7 @@ console.log(person['say Hello'])
 
 
 
-## 补充知识
+## :memo:补充知识
 
 浏览器会在计算机内存中分配一块内存，专门用来供代码执行的 **栈内存**，称作 **执行环境栈 ECStack**，同时会创建一个 **全局对象 GO**，将内置的属性方法（`isNaN`、`setInterval`、`setTimeout`... ）存放到一块单独的堆内存空间，并且使用 **window** 指向全局对象。
 
@@ -128,7 +112,7 @@ console.log(person['say Hello'])
 
 
 
-## 2.var / let / const 关系
+## 2.:star:var / let / const 区别
 
 ### 2.1 作用域提升的区别
 
@@ -167,7 +151,112 @@ ES6 的代码块级作用域对 let / cosnt / function / class 声明的类型�
 
 
 
-## 3.使用箭头函数需要注意什么？
+## 3.:star:函数的扩展
+
+### 函数的默认值
+
+ES6 之前，不能直接为函数的参数指定默认值，只能采用变通的方法。
+
+```js
+function log(x, y) {
+    y = y || 'World'
+    console.log(x, y)
+}
+
+log('Hello') // Hello World
+log('Hello', 'China') // Hello China
+log('Hello', '') // Hello World
+```
+
+<strong style="color:#DD5145">默认情况下，如果不给函数传参，参数的值将为`undefined`。</strong>
+
+ES6 允许为函数的参数设置默认值，即直接写在参数定义的后面。
+
+```js
+function log(x, y = 'World') {
+    console.log(x, y)
+}
+
+log('Hello') // Hello World
+log('Hello', 'China') // Hello China
+log('Hello', '') // Hello
+```
+
+参数默认值可以与解构赋值的默认值，结合起来使用。
+
+```js
+function foo({ x, y = 5 }) {
+    console.log(x, y)
+}
+
+foo({}) // undefined 5
+foo({x: 1}) // 1 5
+foo({x: 1, y: 2}) // 1 2
+foo() // TypeError: Cannot read property 'x' of undefined
+```
+
+
+
+### 剩余参数 rest
+
+ES6 引入 rest 参数（形式为`...变量名`），用于获取函数的多余参数，这样就不需要使用`arguments`对象了。
+
+rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。
+
+- `...` 是语法符号，剩余参数的值是一个包含所有剩余参数的数组，**并且只能作为最后一个参数**
+- 在**函数内部使用**，借助 **`...`** 获取的剩余实参，是一个 **真数组**
+- 开发中，建议使用 剩余参数
+
+```js
+function getSum(a, b, ...rest) {
+    console.log(rest)	// 使用的时候不需要加 ...
+}
+getSum(3, 4, 5, 6, 7)	// 输出的是一个数组 [5, 6, 7]
+```
+
+
+
+### 严格模式
+
+从 ES5 开始，函数内部可以设定为严格模式。
+
+```js
+function doSomething(a, b) {
+    'use strict';
+    // code
+}
+```
+
+ES2016 做了一点修改，规定只要函数参数使用了**默认值、解构赋值、或者扩展运算符**，那么函数内部就不能显式设定为严格模式，否则会报错。
+
+
+
+### name 属性
+
+函数的`name`属性，返回该函数的函数名。
+
+```js
+function foo() {}
+foo.name // 'foo'
+```
+
+这个属性早就被浏览器广泛支持，但是直到 ES6，才将其写入了标准。
+
+需要注意的是，ES6 对这个属性的行为做出了一些修改。如果将一个匿名函数赋值给一个变量，ES5 的`name`属性，会返回空字符串，而 ES6 的`name`属性会返回实际的函数名。
+
+```js
+var f = function () {}
+
+// ES5
+f.name // ''
+
+// ES6
+f.name // 'f'
+```
+
+
+
+### 箭头函数
 
 1. 使用了箭头函数，this 就不是指向 window，它只会在自己作用域的上一层继承 this（指向是可变的）。
 2. 不能够使用 `arguments` 对象。取而代之使用的是 **`rest`** 参数（即剩余参数 **`...`**）解决。
@@ -177,7 +266,7 @@ ES6 的代码块级作用域对 let / cosnt / function / class 声明的类型�
 
 
 
-## 4.字符串模板
+## 4.:star:字符串模板
 
 使用 **反引号 \` `** 来编写字符串，称之为**模板字符串**，内容拼接变量时，用 `${ expression }` 嵌入动态的内容。
 
@@ -213,7 +302,7 @@ getPersonInfo`${person} is ${age} years old`
 
 
 
-## 5.解构赋值
+## 5.:star:解构赋值
 
 解构赋值是一种快速为变量赋值的简洁语法，本质上仍为变量赋值。
 
@@ -283,7 +372,7 @@ console.log(uname)	// pink老师
 console.log(age)	// 18
 ```
 
-给新的变量名赋值：
+将旧变量名改名为新变量名，并赋值：
 
 ```javascript
 // 旧变量名: 新变量名
@@ -326,7 +415,7 @@ console.log(name)
 
 
 
-## 9.扩展（展开）运算符
+## 6.:star:扩展 (展开) 运算符
 
 展开语法（Spread syntax）：
 
@@ -370,7 +459,7 @@ console.log(a2)
 
 
 
-## 迭代器 Iterator
+## 7.:star:迭代器 Iterator
 
 ### 1.基本概念
 
@@ -395,10 +484,35 @@ console.log(a2)
 - 第二次调用指针对象的`next`方法，指针就指向数据结构的第二个成员
 - 不断调用指针对象的`next`方法，直到它指向数据结构的结束位置
 
-每一次调用`next`方法，都会返回数据结构的当前成员的信息。返回一个包含`value`和`done`两个属性的对象。
+每一次<strong style="color:#DD5145">调用`next`方法</strong>，都会**返回数据结构的当前成员的信息**。返回一个包含`value`和`done`两个属性的对象。
 
 - `value`属性是当前成员的值
-- `done`属性是一个布尔值，表示遍历是否结束
+- `done`属性是一个布尔值，表示遍历是否结束，即是否还有必要再一次调用`next`方法
+
+下面是一个模拟`next`方法返回值的例子。
+
+```js
+const it = makeIterator(['a', 'b'])
+
+it.next() // { value: "a", done: false }
+it.next() // { value: "b", done: false }
+it.next() // { value: undefined, done: true }
+
+function makeIterator(array) {
+  let nextIndex = 0
+  return {
+    next: function() {
+      return nextIndex < array.length ?
+        {value: array[nextIndex++], done: false} :
+        {value: undefined, done: true};
+    }
+  };
+}
+```
+
+上面代码定义了一个`makeIterator`函数，它是一个遍历器生成函数，作用就是返回一个遍历器对象。对数组`['a', 'b']`执行这个函数，就会返回该数组的遍历器对象（即指针对象）`it`。
+
+
 
 ### 3.默认 Iterator 接口
 
@@ -441,8 +555,6 @@ let [first, ...rest] = set
 // first='a'; rest=['b','c']
 ```
 
-
-
 #### （2）扩展运算符
 
 扩展运算符`...`，也会调用默认的`Iterator`接口。
@@ -459,8 +571,6 @@ let arr = ['b', 'c'];
 ```
 
 任何部署了`Iterator`接口的数据结构，都可以转为数组。也就是说，只要某个数据结构部署了`Iterator`接口，就可以对它使用扩展运算符，将其转为数组。
-
-
 
 #### （3）yield*
 
@@ -483,8 +593,6 @@ iterator.next() // { value: 5, done: false }
 iterator.next() // { value: undefined, done: true }
 ```
 
-
-
 #### （4）其他
 
 由于数组的遍历会调用遍历器接口，所以任何接受数组作为参数的场合，其实都调用了遍历器接口。下面是一些例子。
@@ -497,67 +605,96 @@ iterator.next() // { value: undefined, done: true }
 
 
 
+### 5.return()，throw()
+
+遍历器对象除了具有`next()`方法，还可以具有`return()`方法和`throw()`方法。如果你自己写遍历器对象生成函数，那么`next()`方法是必须部署的，`return()`方法和`throw()`方法是否部署是可选的。
+
+`return()`方法的使用场合是，如果`for...of`循环提前退出（通常是因为出错，或者有`break`语句），就会调用`return()`方法。如果一个对象在完成遍历前，需要清理或释放资源，就可以部署`return()`方法。
+
+注意，`return()`方法必须返回一个对象，这是 Generator 语法决定的。
+
+`throw()`方法主要是配合 Generator 函数使用，一般的遍历器对象用不到这个方法。
 
 
 
+## 8.:star:for...of 循环
 
+ES6 借鉴 C++、Java、C# 和 Python 语言，引入了`for...of`循环，作为遍历所有数据结构的统一的方法。
 
+一个数据结构只要部署了`Symbol.iterator`属性，就被视为具有 iterator 接口，就可以用`for...of`循环遍历它的成员。也就是说，`for...of`循环内部调用的是数据结构的`Symbol.iterator`方法。
 
+`for...of`循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如`arguments`对象、DOM NodeList 对象）、后文的 Generator 对象，以及字符串。
 
+### 与其他遍历语法的比较
 
-
-
-## 4.ES6 导出导入模块
-
-导出，通过 export 关键字
+以数组为例，JavaScript 提供多种遍历语法。最原始的写法就是`for`循环。
 
 ```js
-// 默认暴露
-export default {
-    school: 'ATGUIGU',
-    change: function(){
-        console.log("我们可以改变你!!");
-    }
+for (let index = 0; index < myArray.length; index++) {
+  console.log(myArray[index])
 }
 ```
 
-导入，通过 import 关键字（导入的模块是<strong style="color:#DD5145">只读</strong>，只有导出他们的模块才能修改其值）
+------
+
+这种写法比较麻烦，因此数组提供内置的`forEach`方法。
 
 ```js
-// 简便方式导入，只能用于 默认暴露
-import sum from "./example.js"
-// 只导入一个（解构赋值导入）
-import {sum} from "./exportExample.js"
-// 导入多个
-import {sum, multiply, time} from "./exportExample.js"
-// 导入一整个模块
-import * as example from "./exportExample.js"
+myArray.forEach(function (value) {
+  console.log(value)
+})
 ```
 
+这种写法的问题在于，无法中途跳出`forEach`循环，`break`命令或`return`命令都不能奏效。
 
+------
 
-## 5.ES6 怎么写 class
-
-ES6 的 class 可以看作是一个语法糖，它的绝大部分功能 ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法
+`for...in`循环可以遍历数组的<strong style="color:#DD5145">键名</strong>。
 
 ```js
-//定义类
-class Point { 
-    constructor(x,y) { 
-        //构造方法
-        this.x = x; //this关键字代表实例对象
-        this.y = y; 
-    } toString() {
-        return '(' + this.x + ',' + this.y + ')'; 
-    }
+for (let index in myArray) {
+  console.log(myArray[index])
 }
 ```
 
+`for...in`循环有几个缺点。
+
+- 数组的键名是数字，但是`for...in`循环是以字符串作为键名“0”、“1”、“2”等等
+- `for...in`循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键
+- 某些情况下，`for...in`循环会以任意顺序遍历键名
+
+总之，`for...in`循环主要是为<strong style="color:#DD5145">遍历对象</strong>而设计的，<strong style="color:#DD5145">不适用于遍历数组</strong>。
+
+------
+
+`for...of`循环相比上面几种做法，有一些显著的优点。
+
+```js
+for (let value of myArray) {
+  console.log(value)
+}
+```
+
+- 有着同`for...in`一样的简洁语法，但是没有`for...in`那些缺点
+- 不同于`forEach`方法，它可以与`break`、`continue`和`return`配合使用
+- 提供了遍历所有数据结构的统一操作接口
+
+
+
+### forEach、for in、for of 三者区别
+
+- `for...of` 和 `for...in` 是 JavaScript 中的两种循环语句，而`forEach`是数组的一个方法
+
+- `forEach` 它可以遍历一个数组并对数组中的每个元素执行指定操作。
+- `for in`它可以遍历一个对象**自有的**、**继承的**、**可枚举的**、**非 Symbol 的**属性
+- `for of`它可以遍历一个可迭代对象（如数组、字符串、Set 等），并返回数组元素的值。遍历对象需要通过和 `Object.keys()`
+- `for in` 循环出的是 key，`for of` 循环出的是 value
 
 
 
 
-## 7.Set 数据结构
+
+## 9.:star:Set 数据结构
 
 ES6 提供了新的数据结构 **Set（集合）**，它类似于数组，但 <strong style="color:#DD5145">Set 的元素是唯一的</strong>，集合实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
 
@@ -649,7 +786,7 @@ p.running.call({name: 'why'})
 
 
 
-## 8.Map 数据结构
+## 10.:star:Map 数据结构
 
 ES6 提供了 **Map** 数据结构。它类似于对象，也是键值对的集合。而键和值都可以是任意类型，也实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
 
@@ -681,7 +818,7 @@ console.log(map)	// {'F' => 'no', 'T' => 'yes'}
 
 
 
-## Set 和 Map 的区别
+## :memo:Set 和 Map 的区别
 
 如果要用一句来描述，我们可以说 `Set` 是一种叫做集合的数据结构，`Map` 是一种叫做字典的数据结构。
 
@@ -720,18 +857,14 @@ console.log(newArr)   // [12, 43, 23, 68]
 
 
 
-
-
-## Symbol 类型
+## 11.:star:Symbol 类型
 
 JavaScript 的七种基本数据类型：
 
-- 基本类型（值类型）：String、Number、Boolean、Undefined、Null、Symbol
+- 基本类型（值类型）：String、Number、Boolean、Undefined、Null、**Symbol**
 - 引用数据类型：Object（包括 Array、Function）
 
 ES6 新增了一种原始数据类型 Symbol，表示**独一无二的值**。它是 JavaScript 语言的第七种数据类型，一种类似于字符串的数据类型。
-
-
 
 ### 1.为什么需要 Symbol 呢？
 
@@ -743,7 +876,7 @@ ES6 新增了一种原始数据类型 Symbol，表示**独一无二的值**。�
 Symbol 值就是为了解决上面的问题，用来生成一个独一无二的值
 
 - Symbol 值是通过 Symbol 函数来生成，生成后可以作为**属性名**
-- 也就是在 ES6 中，对象的属性名可以使用**字符串**，也可以使用 **Symbol 值**
+- 也就是在 ES6 中，**对象的属性名可以使用字符串，也可以使用 Symbol 值**
 
 
 
@@ -753,6 +886,7 @@ Symbol 值就是为了解决上面的问题，用来生成一个独一无二的�
 
 - Symbol 的 **值是唯一的**，用来解决命名冲突的问题
 - Symbol 值不能与其他数据进行运算
+- Symbol 类型是**不可枚举的**
 - Symbol 定义的对象属性**不能使用 for...in 循环遍历**，但是可以使用 `Reflect.ownKeys` 来获取对象的所有键名
 - 使用 `Symbol()` 方法创建，名字相同的 Symbol 是不同的实体
 
@@ -765,7 +899,7 @@ Symbol 值就是为了解决上面的问题，用来生成一个独一无二的�
 ```js
 // Symbol() 创建
 const s1 = Symbol('chenglun17')
-console.log(s1, typeof s1)	// Symbol() 'symbol'
+console.log(s1, typeof s1)	// Symbol(chenglun17) 'symbol'
 console.log(s1.description)	// chenglun17
 
 const s2 = Symbol('chenglun17')
@@ -789,7 +923,9 @@ console.log(f.description) // 测试
 
 ### 3.Symbol 值作为 key
 
-对象添加 Symbol 类型的属性
+对象添加 Symbol 类型的属性。
+
+`Symbol`类型是不可枚举的，`Object.keys`无法获取到 key，需要通过 `getOwnPropertySymbols` 来获取 Symbol 的 key。
 
 ```js
 const s1 = Symbol()
@@ -815,9 +951,10 @@ Object.defineProperty(obj, s4, {
 })
 
 console.log(obj[s1], obj[s2], obj[s3], obj[s4])
-// 🔴注意：不能通过 .语法获取 console.log(obj.s1)
+// 🟢注意：不能通过 .语法获取 console.log(obj.s1)
 
-// 4.使用 Symbol 作为 key 的属性名，在遍历 / Object.keys 等中是获取不到这些 Symbol 值的🔴
+// 4.使用 Symbol 作为 key 的属性名，在遍历 Object.keys 等中是获取不到这些 Symbol 值的
+// Symbol 类型是不可枚举的🟢
 console.log(Object.keys(obj)) // 返回空数组
 console.log(Object.getOwnPropertyNames(obj)) // 返回空数组
 
@@ -837,24 +974,556 @@ for (const sKey of sKeys) {
 
 
 
-## forEach、for in、for of 三者区别
+## 12.:star:Promise
 
-- `for...of` 和 `for...in` 是 JavaScript 中的两种循环语句，而`forEach`是数组的一个方法
+详见 Promise 学习章节
 
-- forEach 它可以遍历一个数组并对数组中的每个元素执行指定操作。
-- `for in`它可以遍历一个对象的所有可枚举属性，但不能遍历数组。遍历对象属性，返回的是属性名。
-- `for of`它可以遍历一个可迭代对象（如数组、字符串、Set 等），并返回数组元素的值。遍历对象需要通过和 Object.keys()
-- for in 循环出的是 key，for of 循环出的是 value
+## 13.:star:Symbol
 
+详见 Promise 学习章节
 
 
-## 3.ES6 如何转为 ES5
+
+## 1​4​.:star:Proxy 代理
+
+ES6 之前使用`Object.defineProperty`拦截到对象属性是否被访问和修改，但是<strong style="color:#DD5145">每一次只能拦截一个属性，并且只能拦截对象</strong>。
+
+所以 ES6 新增的`Proxy`可以拦截<strong style="color:#DD5145">多种类型的全部属性</strong>。
+
+### 基本概念
+
+Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。
+
+Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。
+
+ES6 原生提供 Proxy 构造函数，用来生成 Proxy 实例。
+
+```js
+let proxy = new Proxy(target, handler)
+```
+
+Proxy 对象的所有用法，都是上面这种形式，不同的只是`handler`参数的写法。
+
+- `new Proxy()`表示生成一个`Proxy`实例
+- `target`参数表示所要拦截的目标对象
+- `handler`参数也是一个对象，用来定制拦截行为
+
+
+
+### Proxy 实例的方法
+
+**`get()`方法**，用于拦截某个属性的**读取操作**，可以接受三个参数，依次为**目标对象、属性名 和 proxy 实例本身**（严格地说，是操作行为所针对的对象），其中最后一个参数可选。
+
+**`set()`方法**，用来拦截某个属性的**赋值操作**，可以接受四个参数，依次为**目标对象、属性名、属性值 和 Proxy 实例本身**，其中最后一个参数可选。
+
+```js
+let obj = {}
+
+let proxy = new Proxy(obj, {
+    get(target, key) {
+        console.log('get')
+        return target[key]		// get需要返回值🟢
+    },
+    set(target, key, value) {
+        console.log('set')
+        target[key] = value
+    }
+})
+```
+
+<strong style="color:#DD5145">只能通过`Proxy`访问</strong>：![](ES6.assets/image-20230601194021733.png)
+
+### has方法
+
+`has()`方法用来拦截`HasProperty`操作，即判断对象是否具有某个属性时，这个方法会生效。
+
+典型的操作就是`in`运算符。
+
+`has()`方法可以接受两个参数，分别是目标对象、需查询的属性名。
+
+
+
+### this 问题
+
+虽然 Proxy 可以代理针对目标对象的访问，但它不是目标对象的透明代理，即不做任何拦截的情况下，也无法保证与目标对象的行为一致。主要原因就是在 Proxy 代理的情况下，目标对象内部的`this`关键字会指向 Proxy 代理。
+
+```js
+let s = new Set()
+
+let proxy = new Proxy(s, {
+    get(target, key) {
+        // 判断，如果是方法，则修正this指向（原来的this指向Proxy）
+        let value = target[key]
+        if (value instanceof Function) {
+            // apply call bind（bind不会立即执行）
+            return value.bind(target) // 现在的this指向Set
+        }
+        return value
+    },
+    set() {
+        console.log('set')
+    }
+})
+```
+
+没有改变 this 指向：![](ES6.assets/image-20230601202803887.png)
+
+改变 this 指向后，执行结果：![](ES6.assets/image-20230601202211243.png)
+
+
+
+## 1​5​.:star:Reflect 对象
+
+**Reflect** 是一个内置的对象，它提供拦截 JavaScript 操作的方法。`Reflect`不是一个函数对象，因此它是不可构造的。
+
+Reflect 可以用于获取目标对象的行为，它与 Object 类似，但是更易读。它的方法与 Proxy 是对应的。
+
+### 1.代替 Object 某些方法
+
+将`Object`对象的一些明显属于语言内部的方法（比如`Object.defineProperty`），放到`Reflect`对象上。
+
+```js
+const obj = {}
+
+Reflect.defineProperty(obj, 'name', {
+    value: 'chenglun17',
+    writable: true,        // 控制属性是否可以修改，默认值是false
+    enumerable: true,      // 控制属性是否可以枚举，默认值是false
+    configurable: true,    // 控制属性是否可以被删除，默认值是false
+})
+
+console.log(obj)
+```
+
+### 2.修改某些`Object`方法的返回结果
+
+修改某些`Object`方法的返回结果，让其变得更合理。
+
+```js
+// 老写法
+try {
+  Object.defineProperty(target, property, attributes)
+  // success
+} catch (e) {
+  // failure
+}
+
+// 新写法
+if (Reflect.defineProperty(target, property, attributes)) {
+  // success
+} else {
+  // failure
+}
+```
+
+### 3.让`Object`操作从命令式变成函数行为
+
+```js
+const obj = { name: 'chenglun17' }
+// 老写法
+'name' in obj // true
+// 新写法
+Reflect.has(obj, 'name') // true
+
+// 老写法
+delete obj.name
+// 新写法
+Reflect.deleteProperty(obj, 'name')
+```
+
+### 4.配合 Proxy 实现拦截
+
+`Reflect.get()` 方法与从 对象 (`target[propertyKey]`) 中读取属性类似，但它是通过一个函数执行来操作的。
+
+ `Reflect.set()` 工作方式就像在一个对象上设置一个属性。
+
+```js
+const obj = { name: 'chenglun17' }
+
+Reflect.set(obj, 'age', 100) // set在一个对象上设置一个属性
+
+console.log(Reflect.get(obj, 'name')) // chenglun17
+```
+
+拦截
+
+```js
+let arr = [1, 2, 3]
+
+let proxy = new Proxy(arr,{
+    get(target, key) {
+        console.log('get', key)
+        return Reflect.get(...arguments)
+    },
+    set(target, key, value) {
+        console.log('set', key, value)
+        return Reflect.set(...arguments)
+    }
+})
+```
+
+结果：![](ES6.assets/image-20230602213525514.png)
+
+
+
+## 1​6​.:star:Class 的基本使用
+
+ES6 新增的`class`可以看作是<strong style="color:#DD5145">构造函数的语法糖</strong>，它的绝大部分功能 ES5 都可以做到，新的`class`写法只是让对象原型的写法更加清晰、更像面向对象编程的语法。
+
+传统的构造函数的写法：
+
+```js
+function Person(name, age) {
+    this.name = name
+    this.age = age
+}
+
+Person.prototype.say = function () {
+    console.log(this.name, this.age)
+}
+
+let obj = new Person('chenglun17', 100)
+console.log(obj)
+```
+
+![](ES6.assets/image-20230601212956082.png)
+
+ES6 的类，完全可以看作构造函数的另一种写法：
+
+```js
+// 定义类
+class Person {
+    // 构造器函数
+    constructor(name, age) {
+        this.name = name
+        this.age = age
+    }
+
+    say() {
+        console.log(this.name, this.age)
+    }
+}
+
+
+let obj = new Person('chenglun17', 100)
+console.log(obj)
+
+console.log(obj.__proto__ === Person.prototype) // true
+console.log(Person === Person.prototype.constructor) // true
+```
+
+![](ES6.assets/image-20230601212918610.png)
+
+
+
+### constructor 方法
+
+`constructor()`方法是类的默认方法，通过`new`命令生成对象实例时，自动调用该方法。一个类必须有`constructor()`方法，如果没有显式定义，一个空的`constructor()`方法会被默认添加。
+
+`constructor()`方法默认返回实例对象（即`this`），完全可以指定返回另外一个对象。
+
+```js
+class Point {
+}
+
+// 等同于
+class Point {
+    constructor() {}
+}
+```
+
+类的数据类型就是函数，类本身就指向构造函数。使用的时候，也是直接对类使用`new`命令，跟构造函数的用法完全一致。
+
+
+
+### 属性表达式
+
+类的属性名，可以采用表达式。
+
+```js
+let methodName = 'getArea';
+
+class Square {
+    constructor(length) {}
+
+    [methodName]() {
+        // ...
+    }
+}
+```
+
+
+
+### 静态方法和属性
+
+静态属性指的是 Class 本身的属性，即`Class.propName`，而不是定义在实例对象（`this`）上的属性。
+
+```js
+// 旧方法
+class Foo {
+}
+
+Foo.prop = 'Foo类的名字'
+Foo.prop // 'Foo类的名字'
+
+Foo.mymethod = function() {
+    console.log('mymehtod')
+}
+Foo.mymethod() // mymethod
+```
+
+目前，只有这种写法可行，因为 ES6 明确规定，Class 内部只有静态方法，没有静态属性。现在有一个[提案](https://github.com/tc39/proposal-class-fields)提供了类的静态属性，写法是在实例属性的前面，加上`static`关键字。
+
+```js
+// 新写法
+class Foo {
+    static myName = 'Foo类的名字'
+    static myMethod = function () {
+        console.log('myMehtod')
+    }
+}
+
+Foo.myName // 'Foo类的名字'
+Foo.myMethod() // mymethod
+```
+
+
+
+## 1​7​.:star:Class 的继承
+
+Class 可以通过`extends`关键字实现继承，让子类继承父类的属性和方法，父类的静态属性和方法也能继承。extends 的写法比 ES5 的原型链继承，要清晰和方便很多。
+
+```js
+class Father {}
+
+class Son extends Father {}
+```
+
+上面示例中，`Father`是父类，`Son`是子类，它通过`extends`关键字，继承了`Father`类的所有属性和方法。但是由于没有部署任何代码，所以这两个类完全一样，等于复制了一个`Father`类。
+
+### super 关键字
+
+`super`这个关键字，既可以当作函数使用，也可以当作对象使用。在这两种情况下，它的用法完全不同。
+
+**第一种情况**，`super`作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次`super()`函数。
+
+> 作为函数时，`super()`只能用在子类的构造函数之中，用在其他地方就会报错。
+
+**第二种情况**，`super`作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+
+```js
+class Father {
+    static myName = 'Foo类的名字'
+    static myMethod = function () {
+        console.log('myMehtod')
+    }
+    
+    constructor(name, age) {
+        this.name = name
+        this.age = age
+    }
+    
+    say() {
+        console.lgo(this.name, this.age)
+    }
+}
+
+class Son extends Father {
+    constructor(name, age, score) {
+        super(name, age) // 构造函数的属性继承，调用父类的constructor方法并执行🟢第一种情况
+        this.score = score
+    }
+    
+    // 重写的say方法会覆盖父类的say方法
+    say() {
+        super.say() // 原型方法的继承，找到父类中的实例，调用父类的say方法🟢第二种情况
+        console.log(this.score)
+    }
+    
+    // 新写一个属于子类的方法
+    getScore() {
+        console.log(this.score)
+    }
+}
+
+let obj = new Son('chenglun17', 18, 100)
+obj.name // chenglun17
+obj.getScore() // 100
+```
+
+
+
+### 类的 prototype 属性和 \__proto__ 属性
+
+大多数浏览器的 ES5 实现之中，每一个对象都有`__proto__`属性，指向对应的构造函数的`prototype`属性。Class 作为构造函数的语法糖，同时有`prototype`属性和`__proto__`属性，因此同时存在两条继承链。
+
+1. 子类的`__proto__`属性，表示构造函数的继承，总是指向父类。
+2. 子类`prototype`属性的`__proto__`属性，表示方法的继承，总是指向父类的`prototype`属性。
+
+```js
+class A {
+}
+
+class B extends A {
+}
+
+B.__proto__ === A // true
+B.prototype.__proto__ === A.prototype // true
+```
+
+
+
+## 18​.:star:Module 语法
+
+### 基本概念
+
+在 ES6 之前，社区制定了一些模块加载方案，最主要的有 CommonJS 和 AMD 两种。前者用于服务器，后者用于浏览器。ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，完全可以取代 CommonJS 和 AMD 规范，成为浏览器和服务器通用的模块解决方案。
+
+模块化：
+
+- 异步加载
+- 私密不漏
+- 重名不怕
+- 依赖不乱
+
+ES6 模块的设计思想是尽量的**静态化**，使得编译时就能确定模块的**依赖关系**，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。
+
+```js
+// CommonJS模块
+let { stat, exists, readfile } = require('fs')
+
+// 等同于
+let _fs = require('fs')
+let stat = _fs.stat
+let exists = _fs.exists
+let readfile = _fs.readfile
+```
+
+### export 和 import
+
+ES6 模块不是对象，而是通过`export`命令显式指定输出的代码，再通过`import`命令输入。
+
+```js
+// ES6模块
+import { stat, exists, readFile } from 'fs'
+```
+
+导出（暴露），通过`export`关键字
+
+```js
+// 默认暴露
+export default {
+    school: 'ATGUIGU',
+    change: function(){
+        console.log("我们可以改变你!!");
+    }
+}
+// 非默认暴露
+export function multiply(x, y) {
+  return x * y
+}
+```
+
+导入，通过`import`关键字（导入的模块是<strong style="color:#DD5145">只读</strong>，只有导出他们的模块才能修改其值）
+
+```js
+// 简便方式导入，可以随便起名，只能用于默认暴露
+import sum from './example.js'
+
+// 只导入一个（解构赋值导入）
+import {sum} from './example.js'
+// 使用 as 关键字，将输入的变量重命名
+import {sum as sumA} from './example.js'
+
+// 导入多个
+import {sum, multiply, time} from './example.js'
+// 导入一整个模块
+import * as example from './example.js'
+```
+
+注意，`import`命令具有提升效果，会提升到整个模块的头部，首先执行。
+
+由于`import`是静态执行，所以不能使用表达式和变量，这些只有在运行时才能得到结果的语法结构。
+
+
+
+## 1​9​.:star:Module 的加载实现
+
+### 1.浏览器加载
+
+默认情况下，浏览器是同步加载 JavaScript 脚本，即渲染引擎遇到`<script>`标签就会停下来，等到执行完脚本，再继续向下渲染。如果是外部脚本，还必须加入脚本下载的时间。
+
+如果脚本体积很大，下载和执行的时间就会很长，因此造成浏览器堵塞，用户会感觉到浏览器“卡死”了，没有任何响应。这显然是很不好的体验，所以浏览器允许脚本异步加载，下面就是两种异步加载的语法：
+
+```html
+<script src="path/to/myModule.js" defer></script>
+<script src="path/to/myModule.js" async></script>
+```
+
+上面代码中，`<script>`标签打开`defer`或`async`属性，脚本就会异步加载。渲染引擎遇到这一行命令，就会开始下载外部脚本，但不会等它下载和执行，而是直接执行后面的命令。
+
+`defer`与`async`的区别是：
+
+- `defer`要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行
+- `async`一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染
+
+一句话，<strong style="color:#DD5145">`defer`是“渲染完再执行”，`async`是“下载完就执行”</strong>。
+
+另外，如果有多个`defer`脚本，会按照它们在页面出现的顺序加载，而多个`async`脚本是不能保证加载顺序的。
+
+### 2.加载规则
+
+浏览器加载 ES6 模块，也使用`<script>`标签，但是要加入`type="module"`属性。
+
+```html
+<script type="module" src="./foo.js"></script>
+```
+
+上面代码在网页中插入一个模块`foo.js`，由于`type`属性设为`module`，所以浏览器知道这是一个 ES6 模块。
+
+
+
+### 3.ES6 模块与 CommonJS 模块的差异
+
+它们有三个重大差异。
+
+- CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+- CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+- CommonJS 模块的`require()`是**同步**加载模块，ES6 模块的`import`命令是**异步**加载，有一个独立的模块**依赖**的解析阶段。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## :star:ES6 如何转为 ES5
 
 使用 babel 转码器，babel 是一个 ES6 转码器，可以将 ES6 代码转为 ES5 代码，以便兼容那些还没支持ES6的平台。
 
 
 
-## 可选链（Optional Chaining）
+
+
+
+
+## :star:可选链（Optional Chaining）
 
 ES11 中新增的一个特性，主要作用于让我们的代码在进行 null 和 undefined 判断时更加清晰和简洁。
 
@@ -882,7 +1551,7 @@ console.log('其他代码')
 
 
 
-## 大整数类型`BigInt`
+## :star:大整数类型`BigInt`
 
 ES11 之前最大表示的安全数字，`max_asfe_integer`
 
@@ -906,7 +1575,7 @@ console.log(bigInt + BigInt(num)) // 900719925474099200n
 
 
 
-## 空值合并运算
+## :star:空值合并运算
 
 ES11 之前
 
@@ -934,6 +1603,7 @@ console.log(bar) // 打印为0 或 空串
 
 
 
-## 参考
+## :page_facing_up:参考
 
-[阮一峰 ECMAScript 6 入门教程](https://es6.ruanyifeng.com/)、[ES6~ES13详解](https://www.bilibili.com/video/BV1zd4y1X7ky/?spm_id_from=333.999.0.0&vd_source=78b42a044f07447d2049c465a76bae26)、[参考文章](https://blog.csdn.net/qq_22182989/article/details/123811497)、[参考文章2](https://blog.csdn.net/aoxi9939/article/details/102038812)、[参考文章3](https://www.cnblogs.com/theblogs/p/10575845.html)
+[阮一峰 ECMAScript 6 入门教程](https://es6.ruanyifeng.com/)、[参考视频](https://www.bilibili.com/video/BV1zd4y1X7ky/?spm_id_from=333.999.0.0&vd_source=78b42a044f07447d2049c465a76bae26)、[参考视频2](https://www.bilibili.com/video/BV1w8411s7g3/?vd_source=78b42a044f07447d2049c465a76bae26)、[参考文章](https://blog.csdn.net/qq_22182989/article/details/123811497)、[参考文章2](https://blog.csdn.net/aoxi9939/article/details/102038812)、[参考文章3](https://www.cnblogs.com/theblogs/p/10575845.html)
+
