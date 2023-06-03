@@ -804,7 +804,7 @@ str.charCodeAt(index)
 "ABC".charCodeAt(3) // NaN
 ```
 
-![](JS_Built-inObject.assets/e850352ac65c103880a07b53bc119313b17e8941)
+![](JS_Built-inObject.assets/ASCII码.png)
 
 
 
