@@ -39,6 +39,7 @@ module.exports = {
                 text: '主流框架', link: '/frame/', items: [
                     { text: 'Vue2.x', link: '/frame/vue_study/' },
                     { text: 'Vue3', link: '/frame/vue3_study/' },
+                    { text: 'Vue面试相关', link: '/frame/VueInterview/' },
                     { text: 'React', link: '/frame/react_study/' }
                 ]
             },
@@ -140,6 +141,8 @@ module.exports = {
                         "/troika/js_study/JS_Senior.md",
                         "/troika/js_study/JS_WebAPI.md",
                         "/troika/js_study/ES6.md",
+                        "/troika/js_study/Others.md",
+                        "/troika/js_study/OtherFunctions.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -241,6 +244,15 @@ module.exports = {
                         "/frame/vue3_study/VueUse.md",
                         "/frame/vue3_study/Optimization.md",
                         "/frame/vue3_study/OtherQuestions.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                {
+                    title: 'Vue系列面试相关',
+                    path: '/frame/VueInterview/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/frame/VueInterview/Interview.md",
                     ],
                     initialOpenGroupIndex: 0
                 },

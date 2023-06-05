@@ -1,6 +1,6 @@
 # JavaScript 基础
 
-## 字面量
+## :star:字面量
 
 字面量（literal）是在计算机中描述事或物。
 
@@ -47,7 +47,7 @@ function myFunction(a, b) { return a * b;}
 
 
 
-## 数据类型
+## :star:数据类型
 
 JavaScript 中有 7 种数据类型：
 
@@ -69,7 +69,7 @@ JavaScript 拥有动态类型，这意味着相同的变量可用作不同的类
 
 
 
-## 类型转换
+## :star:类型转换
 
 ### Boolean 转换
 
@@ -83,8 +83,9 @@ JavaScript 拥有动态类型，这意味着相同的变量可用作不同的类
 
 - <strong style="color:#DD5145">任何数据 + 字符串 结果都为字符串</strong>
 - 减法 -（像大多数数学运算一样）只能用与数字，它会使空字符串 " " 转换为 0
-- null 经过数字转换之后会变成 0
-- undefined 经过数字转换之后会变成 NaN
+- `null` 经过数字转换之后会变成 0
+- `""` (空串) 经过数字转换之后会变成 0
+- `undefined` 经过数字转换之后会变成 `NaN`
 - **+** 号为正号解析可以转换成数字型
 
 
@@ -99,7 +100,7 @@ JavaScript 拥有动态类型，这意味着相同的变量可用作不同的类
 
 
 
-## 运算符
+## :star:运算符
 
 ### 1.赋值运算符
 
@@ -154,11 +155,9 @@ console.log(true || 66)		// true
 
 **基本类型**通过它们的**值（value）**进行比较，而**对象**通过它们的**引用（reference）**进行比较。JavaScript 检查对象是否具有对内存中相同位置的引用。
 
-#### 等于操作符
+#### 等于操作符（==）
 
-等于操作符，用两个等于号（ == ）表示，如果操作数相等，则会返回 `true`。
-
-等于操作符（==）在比较中会**先进行类型转换**，再确定操作数是否相等。
+等于操作符（==）在比较中会**先进行类型转换**，再确定操作数是否相等，如果操作数相等，则会返回 `true`。
 
 - 如果任一操作数是布尔值，则将其转换为数值再比较是否相等
 
@@ -188,9 +187,9 @@ let result1 = (obj1 == obj2 ) // false
 
 > 两个都为引用类型，则比较它们是否指向同一个对象
 
-#### 全等操作符
+#### 全等操作符（===）
 
-全等操作符，用 3 个等于号（ === ）表示，只有两个操作数在**不转换类型**的前提下相等才返回 `true`。即**类型相同，值也需相同**。
+全等操作符，只有两个操作数在**不转换类型**的前提下相等才返回 `true`。即**类型相同，值也需相同**。
 
 ```js
 let result1 = ("55" === 55) // false，不相等，因为数据类型不同
@@ -206,7 +205,7 @@ let result2 = (undefined === undefined)  // true
 
 
 
-## 语句
+## :star:语句
 
 ### 条件语句
 
@@ -267,7 +266,7 @@ while (条件);
 
 
 
-## 对象
+## :star:对象
 
 对象是一种数据类型，一种无序的数据的集合，可以详细的描述某个事物。
 
@@ -306,11 +305,11 @@ obj.age = 18
 
 
 
-### 2.使用对象
+### 2.访问对象
 
 对象由属性（静态）和方法（即函数，动态）组成。对象里面可以存储任何数据类型。
 
-<strong style="color:tomato">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
+<strong style="color:#DD5145">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
 
 当我们使用括号语法时（`[]`），JavaScript 会解释语句。它首先看到第一个开始括号 `[` 并继续前进直到找到结束括号 `]`。只有这样，它才会计算语句的值。
 
@@ -326,8 +325,8 @@ obj.age = 18
 对象名[变量名]
 ```
 
-- 使用**点语法**访问属性：**`object.property === object['property']`**
-- 使用**括号语法**访问属性：**`object[property]`**，如果是变量则不需要加引号
+- 使用<strong style="color:#DD5145">点语法</strong>访问属性：**`object.property === object['property']`**
+- 使用<strong style="color:#DD5145">括号语法</strong>访问属性：**`object[property]`**，如果是变量则不需要加引号
 - 对象解构：**`const { property } = object`**
 
 
@@ -354,9 +353,19 @@ for (let k in obj) {
 obj.speak()
 ```
 
+### 4.对象转换为字符串
+
+```js
+String( {} )		// 返回 '[object Object]'
+String( {a: 1} )	// 返回 '[object Object]'
+String( {a: '1'} )	// 返回 '[object Object]'
+```
+
+<strong style="color:tomato">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
 
 
-## 数组对象
+
+## :star:数组对象
 
 ### 1.创建数组
 
@@ -458,7 +467,7 @@ console.log(arr.join(''))	// red颜色blue颜色green颜色
 
 
 
-## 字符串对象
+## :star:字符串对象
 
 ### 1.字符串的不可变
 
@@ -513,7 +522,7 @@ str.split('', 3) // 返回 ['h', 'e', 'l']
 
 
 
-## 日期对象
+## :star:日期对象
 
 Date（） 是一个构造函数，所有需要实例化后才能使用，必须使用 new 来调用创建我们的日期对象
 
@@ -587,7 +596,7 @@ console.log(Date.now())
 
 
 
-## 函数
+## :star:函数
 
 函数是由事件驱动的或者当它被调用时执行的可重复使用的代码块。
 
@@ -654,16 +663,30 @@ let funcName = new Function('arg1', 'arg2', 'arg3', ..., '函数体')
 
 ### 立即执行函数（IIFE）
 
-立即执行函数：Immediately Invoked Function Expression (IIFE)
+立即执行函数（Immediately Invoked Function Expression，IIFE）是一个在定义时就会立即执行的 JavaScript 函数。
 
-防止变量污染，减少变量名冲突
+目的：<strong style="color:#DD5145">防止变量污染，减少变量名冲突</strong>。
+
+它是一种设计模式，也被称为自执行匿名函数，主要包含两部分：
+
+1. 第一部分是一个具有词法作用域的匿名函数，并且用**圆括号运算符 `()`** 运算符闭合起来。这样不但阻止了外界访问 IIFE 中的变量，而且不会污染全局作用域。
+2. 第二部分创建了一个立即执行函数表达式 `()`，通过它，JavaScript 引擎将立即执行该函数。
 
 ```javascript
-// 方式一（第二个小括号相当于调用函数，其小括号里面的参数为形参）
-;(function () {}) ();
-// 例如：
-;(function () {
-    console.log(22)
+// 方式一，第二个小括号相当于调用函数，其小括号里面的参数为形参
+(function () {
+  // 初始化代码
+  let firstVariable;
+  let secondVariable;
+}) ();
+// firstVariable 和 secondVariable 变量在函数执行后会被丢弃
+
+(() => {
+  // …
+}) ();
+
+(async () => {
+  // …
 }) ();
 
 // 方式二
@@ -674,6 +697,8 @@ let funcName = new Function('arg1', 'arg2', 'arg3', ..., '函数体')
 ```
 
 > 多个立即执行函数要用 **分号`;`**隔开，不然会报错
+
+
 
 ### 回调函数（callback）
 
@@ -701,7 +726,7 @@ setTimeout(A, 1000)
 
 
 
-## 作用域
+## :star:作用域
 
 作用域（scope）是可访问变量的集合，规定了变量能够被访问的 “范围”，离开这个 “范围” 变量便不能被访问。
 
@@ -742,7 +767,7 @@ setTimeout(A, 1000)
 
 
 
-## 变量提升
+## :star:变量提升
 
 把所有 **var** 声明的变量提升到当前作用域的最前面，<strong style="color:#DD5145">只提升声明，不提升赋值</strong>，let / const 声明的变量不存在变量提升。
 
@@ -770,7 +795,7 @@ num = 10  // 变量声明会提升，但是赋值不会提升
 
 
 
-## 严格模式
+## :star:严格模式
 
 JavaScript 严格模式（strict mode）即在严格的条件下运行。
 
@@ -799,7 +824,7 @@ function myFunction() {
 
 
 
-## 事件
+## :star:事件
 
 HTML 事件是发生在 HTML 元素上的事情。
 
@@ -809,7 +834,7 @@ HTML 事件是发生在 HTML 元素上的事情。
 
 
 
-## this 关键字
+## :star:this 关键字
 
 面向对象语言中 this 表示当前对象的一个引用。但在 JavaScript 中 this 不是固定不变的，它会随着执行环境的改变而改变。
 
@@ -879,7 +904,7 @@ obj.tool()
 
 
 
-## void 关键字
+## :star:void 关键字
 
 **void** 是 JavaScript 中非常重要的关键字，该操作符指定要计算一个表达式但是不返回值。
 
@@ -910,7 +935,7 @@ javascript:void(func())
 
 
 
-## 正则表达式
+## :star:正则表达式
 
 
 正则表达式（Regular Expression，regex、regexp或RE）使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式。
@@ -950,7 +975,7 @@ regObj.exec(被检测的字符串)
 
 
 
-## 元字符
+## :star:元字符
 
 #### 1.边界符
 
@@ -1031,7 +1056,7 @@ replace（） 替换，**`字符串.replace(/正则表达式/, '替换文本')`*
 
 
 
-## 错误提示
+## :x:错误提示
 
 `ReferenceError`：
 

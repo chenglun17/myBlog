@@ -1,6 +1,6 @@
 # JavaScript 内置对象
 
-## 1.Object
+## 1.:star:Object
 
 `Object` 是 JavaScript 的一种数据类型。它用于存储各种键值集合和更复杂的实体。可以通过 `Object()` 构造函数或者使用对象字面量的方式创建对象。
 
@@ -68,7 +68,7 @@ console.log(Object.entries(100)) // []
 
 
 
-## defineProperty
+## :star:defineProperty
 
 `Object.defineProperty()` 静态方法会直接在一个对象上定义一个新属性，或修改其现有属性，并返回此对象。
 
@@ -316,7 +316,7 @@ console.log(obj) // {b: 3, c: 5}
 
 
 
-## 2.Array
+## 2.:star:Array
 
 创建数组建议使用**字面量创建**，不用 Array 构造函数创建。
 
@@ -356,7 +356,7 @@ console.log(obj) // {b: 3, c: 5}
 
 [参考文章](https://blog.csdn.net/weixin_44337386/article/details/126142501)、[参考文章2](https://blog.csdn.net/rambler_designer/article/details/118365562)
 
-**map（）**可以遍历数组并处理数据，并且**返回新的数组**，迭代数组，**不会对空数组进行检测**。
+**map（）**可以遍历数组并处理数据，并且**返回新的数组**，**不会对空数组进行检测**。
 
 - map 也称为 **映射**，指两个元素的集之间相互 “对应” 的关系
 - map 有返回值，所有 callback 需要 **return**，否则默认返回 **undefined**
@@ -429,7 +429,7 @@ Array.filter(function (ele, index) {
 
 ### splice方法
 
-`splice`方法通过移除或者替换已存在的元素和/或添加新元素就地改变原数组的内容，<strong style="color:#DD5145">返回删除内容</strong>。
+`splice`方法通过**删除**、**替换**已存在的元素、或**添加**新元素<strong style="color:#DD5145">修改原数组的内容</strong>，<strong style="color:#DD5145">返回删除内容</strong>。
 
 - `splice(index)`：从元素下标 index 开始，**删除**之后**所有元素**
 - `splice(index, howmany)`：**删除**元素，index 为起始位置，howmany 为删除的个数，若 howmany 小于等于 0，则不删除
@@ -440,7 +440,7 @@ Array.filter(function (ele, index) {
 
 ### slice方法
 
-**`slice()`** 方法返回一个新的数组对象，这一对象是一个由 `start` 和 `end` 决定的原数组的浅拷贝（包括 `start`，不包括 `end`），其中 `start` 和 `end` 代表了数组元素的索引。**原始数组不会被改变**。
+**`slice()`** 方法**返回一个新的数组对象**，这一对象是一个由 `start` 和 `end` 决定的原数组的浅拷贝（包括 `start`，不包括 `end`），其中 `start` 和 `end` 代表了数组元素的索引。**原始数组不会被改变**。
 
 ```js
 slice()
@@ -520,7 +520,7 @@ console.log(res)
 查找元素，返回符合测试条件的**第一个数组元素值**，如果没有符号条件的则返回 undefined。
 
 - find() 对于空数组，函数是不会执行的。
-- find() 并没有改变数组的原始值。
+- find() **不会改变原数组**。
 
 语法：
 
@@ -660,7 +660,7 @@ console.log(arr.flat(Infinity)) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 
-## 3.String
+## 3.:star:String
 
 1. [length()](#length方法)：返回数组长度
 2. [split()](#split方法)：
@@ -683,7 +683,7 @@ String({a:1})	// 返回 '[object Object]'
 String({a:'1'})	// 返回 '[object Object]'
 ```
 
-<strong style="color:tomato">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
+<strong style="color:#DD5145">注意</strong>：在 JavaScript 中，所有对象的 keys 都是 **字符串**（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
 
 ### length方法
 
@@ -861,9 +861,61 @@ padEnd(targetLength, padString)
 
 
 
-## 4.Number
+## 4.:star:Number
 
-`new Number()` 是一个内建的函数构造器。虽然它看着像是一个 number，但它实际上并不是一个真实的 number：它有一堆额外的功能并且它是一个**对象**。
+`new Number()` 是一个内建的函数构造器。虽然它看着像是一个 number，但它实际上并不是一个真实的 number：它有一堆额外的功能并且它是一个<strong style="color:#DD5145">对象</strong>。
+
+### isNaN方法
+
+在 JavaScript 中，`NaN` 最特殊的地方就是，我们不能使用相等运算符（`==` 和 `===`）来判断一个值是否是 `NaN`，
+
+因为 `NaN == NaN` 和 `NaN === NaN` 都会返回 `false`。所以必须要有一个判断值是否是 `NaN` 的方法。
+
+> 全局属性 **`NaN`** 是一个表示**非数字**的值。
+
+`Number.isNaN()` 方法<strong style="color:#DD5145">并且检查传递的值是否为 `Number`并且检查是否等价于 `NaN`</strong>。它是原来的全局 `isNaN()` 的更稳妥的版本。
+
+```js
+Number.isNaN(value)
+
+Number.isNaN(NaN)         // true
+Number.isNaN(Number.NaN)  // true
+Number.isNaN(0 / 0)       // true
+
+
+Number.isNaN('NaN')       // false，字符串 "NaN" 不能被换成数字，返回 NaN。
+Number.isNaN(undefined)   // false
+Number.isNaN({})          // false
+Number.isNaN("blabla")    // false
+
+Number.isNaN(true)        // false
+Number.isNaN(null)        // false
+Number.isNaN(37)          // false
+Number.isNaN('37')        // false
+```
+
+和全局函数 `isNaN()` 相比，<strong style="color:#DD5145">`Number.isNaN()` 不会自行将参数转换成数字</strong>，只有在参数是值为 `NaN` 的数字时，才会返回 `true`。
+
+```js
+isNaN(value)      // 会自动将 value 转换为数字型
+
+isNaN(NaN)        // true
+isNaN(Number.NaN) // true
+isNaN(0 / 0)      // true
+
+isNaN('NaN')      // true
+isNaN(undefined)  // true：undefined 经过数字转换之后会变成 NaN
+isNaN({})         // true
+isNaN("blabla")   // true: "blabla" 尝试转换成数字，但是转换失败，返回 NaN
+
+
+isNaN(true)       // false：true 经过数字转换之后会变成 1
+isNaN(null)       // false：null 经过数字转换之后会变成 0
+isNaN(37)         // false
+isNaN('37')       // false：'37' 可以被转换成数值 37
+```
+
+
 
 ### toFixed 方法
 
@@ -883,15 +935,20 @@ toFixed（）设置保留小数位数的长度
 
 
 
-## 5.eval()
+## 5.:star:eval()
 
-**`eval()`** 函数会将传入的字符串当做 JavaScript 代码进行执行。
+**`eval()`** 函数会将传入的**字符串**当做 JavaScript 代码进行执行。
+
+```js
+eval(new String("2 + 2")); // 返回了包含"2 + 2"的字符串对象
+eval("2 + 2");             // returns 4
+```
 
 MDN官方文档建议：[永远不要使用 `eval`！](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/eval#永远不要使用_eval！)
 
 
 
-## 6.parseInt
+## 6.:star:parseInt
 
 解析一个字符串并返回指定基数的十进制整数 或 NaN，`radix` 是 2-36 之间的整数，表示被解析字符串的基数。
 
@@ -914,7 +971,7 @@ parseInt(string, radix)
 
 
 
-## 7.Math
+## 7.:star:Math
 
 **Math** 是一个内置对象，它拥有一些数学常数属性和数学函数方法。Math 不是一个函数对象，Math 不是一个构造器。Math 的所有属性与方法都是静态的。
 
@@ -949,3 +1006,45 @@ function getRandomInt(min, max) {
 }
 ```
 
+
+
+## 8.:star:JSON
+
+### JSON.parse()
+
+`JSON.parse()` 方法用来<strong style="color:#DD5145">将 JSON 字符串解析为 JavaScript 值</strong>。提供可选的 **reviver** 函数用以在返回之前对所得到的对象执行变换 (操作)。
+
+```js
+JSON.parse(text[, reviver])
+```
+
+- `text`，要被解析成 JavaScript 值的字符串
+- `reviver`(可选)，转换器，如果传入该参数 (函数)，可以用来修改解析生成的原始值，调用时机在 parse 函数返回之前
+
+```js
+// 将 数字 字符串化为有效的 JSON，然后将 JSON 字符串解析为 JavaScript 值：
+const jsonNumber = JSON.stringify(4) // '4'
+JSON.parse(jsonNumber) // 4
+
+// 将 数组值 字符串化为有效的 JSON，然后将 JSON 字符串解析为 JavaScript 值：
+const jsonArray = JSON.stringify([1, 2, 3]) // '[1, 2, 3]'
+JSON.parse(jsonArray) // [1, 2, 3]
+
+// 将 对象 字符串化为有效的 JSON，然后将 JSON 字符串解析为 JavaScript 值：
+const jsonArray = JSON.stringify({ name: "Lydia" }) // '{"name":"Lydia"}'
+JSON.parse(jsonArray) // { name: 'Lydia' }
+```
+
+
+
+### JSON.stringify()
+
+`JSON.stringify()` 方法<strong style="color:#DD5145">将一个 JavaScript 对象或值转换为 JSON 字符串</strong>，如果指定了一个 replacer 函数，则可以选择性地替换值，或者指定的 replacer 是数组，则可选择性地仅包含数组指定的属性。
+
+```js
+JSON.stringify(value[, replacer [, space]])
+```
+
+- `value`，将要序列化成 一个 JSON 字符串的值
+- `replacer`
+- `space`

@@ -126,29 +126,29 @@ promise.then(result => {···})
 
 ### 2.1 Promise.resolve
 
-**Promise.resolve 方法**：**(value) => { }**
+Promise.resolve 方法：**(value) => { }**
 
-value：**成功的数据** 或 **promise 对象**
+- value：**成功的数据** 或 **promise 对象**
 
 resolve( ) 方法将现有对象转换成 Promise对象，该实例的状态为 fulfilled
 
 说明：**返回一个成功/失败的 promise 对象**
 
 ```javascript
-let p1 = Promise.resolve("zimo")  // 返回成功的Promise
-let p2 = Promise.resolve(new Promise((resolve,reject)=>{
-	// resolve("zimo123")
-	reject("zimo123")  // 错误的结果需要catch捕获否则报错
+let p1 = Promise.resolve('chenglun17')  // 返回成功的Promise
+let p2 = Promise.resolve(new Promise((resolve, reject) => {
+	// resolve('ok')
+	reject('error')  // 错误的结果需要catch捕获否则报错
 }))
-console.log(p1);
-console.log(p2);
+console.log(p1) // 返回 Promise {<fulfilled>: 'chenglun17'}
+console.log(p2) // 返回 Promise {<rejected>: 'error'}
 p2.catch(reason =>{
-	console.log(reason);
+	console.log(reason)
 })
 ```
 
-> 1. 如果传入的参数为 非Promise类型的对象, 则返回的结果**永远为成功**的 Promise对象
-> 2. 如果传入的参数为 Promise对象, 则 Promise对象的状态决定了 p2 执行 resolve 还是 rejected
++ 如果传入的参数为<strong style="color:#DD5145">非Promise类型的对象</strong>，则返回的结果**永远为成功**的 Promise对象
++ 如果传入的参数为 Promise对象，则 Promise对象的状态决定了 p2 执行 resolve 还是 rejected
 
 
 
@@ -156,23 +156,24 @@ p2.catch(reason =>{
 
 **Promise.reject 方法**：**(reason) => { }**
 
-reason：**失败的原因**
+- reason：**失败的原因**
 
 reject( ) 方法返回一个新的Promise实例，该实例的状态为rejected
 
 说明：**返回一个失败的 promise 对象**
 
 ```javascript
-let p = Promise.reject('zimo')
-let p2 = Promise.reject(new Promise((resolve, reject)=>{
-    resolve("ok")
+let p1 = Promise.reject('chenglun17')
+let p2 = Promise.reject(new Promise((resolve, reject) => {
+    resolve('ok')
+    // reject('error')
 }))
-console.log(p);
-console.log(p2);
+console.log(p1)
+console.log(p2)
 ```
 
-> 1. 如果传入的参数为 非Promise类型的对象, 则new Promise返回的结果**永远为失败**的 Promise对象
-> 2. 如果传入的参数为 Promise对象, 则 Promise对象的状态决定了 p2 执行 resolve 还是 rejected
+- 如果传入的参数为<strong style="color:#DD5145">非Promise类型的对象</strong>，则返回的结果**永远为失败**的 Promise对象
+- 如果传入的参数为 Promise对象，则 Promise对象的状态决定了 p2 执行 resolve 还是 rejected
 
 
 

@@ -1,7 +1,5 @@
 # 	JavaScript Web API
 
-[参考文章](https://blog.csdn.net/qq_52736131/article/details/123563321)
-
 作用：使用JS去操作HTML和浏览器
 
 组成部分:
@@ -9,7 +7,7 @@
 - DOM（Document Object Model，文档对象模型）
 - BOM（Browser Object Model，浏览器对象模型）
 
-## 📕 DOM 
+## :closed_book:DOM
 
 DOM（Document Object Model ，文档对象模型）一种用于操作XML，HTML文档的**应用编程接口**。
 
@@ -17,11 +15,11 @@ DOM（Document Object Model ，文档对象模型）一种用于操作XML，HTML
 
 
 
-## DOM 树
+## :star:DOM 树
 
 
 
-## Document 对象
+## :star:Document 对象
 
 ### 1.获取 DOM 节点
 
@@ -180,7 +178,7 @@ element.innerText
 
 
 
-## 操作元素属性
+## :star:操作元素属性
 
 ### 1.操作元素常用属性
 
@@ -277,7 +275,7 @@ classList.contains('类名')
 
 
 
-## 事件
+## :star:事件
 
 ### 1.事件绑定（监听）
 
@@ -430,7 +428,7 @@ btn.removeEventListener('click', fn)
 
 
 
-## 事件流
+## :star:事件流
 
 事件流指的是事件完整执行过程中的流动路径，分为**事件捕获阶段**、**目标阶段**、**冒泡阶段**。
 
@@ -480,7 +478,7 @@ DOM.addEventListener(事件类型, 事件处理函数, 是否使用捕获机制)
 
 
 
-## 其他事件
+## :star:其他事件
 
 ### 1.页面加载事件
 
@@ -594,7 +592,7 @@ window.addEventListener('resize', function () {
 
 
 
-## 📘 BOM 
+## :blue_book:BOM
 
 BOM（Browser Object Model，浏览器对象模型）是为了控制浏览器的行为而出现的接口。
 
@@ -602,7 +600,7 @@ BOM（Browser Object Model，浏览器对象模型）是为了控制浏览器的
 
 
 
-## window 对象
+## :star:window 对象
 
 - window 对象是一个全局对象，也可以说是 JavaScript 中的顶级对象
 - 像 document、alert()、console.log() 等都是 window 的属性，基本 BOM 的属性和方法都是 window 的
@@ -683,7 +681,7 @@ BOM（Browser Object Model，浏览器对象模型）是为了控制浏览器的
 
 
 
-## 浏览器弹窗
+## :star:浏览器弹窗
 
 可以在 JavaScript 中创建三种消息框：警告框、确认框、提示框。
 
@@ -733,7 +731,7 @@ window.prompt("sometext","defaultvalue")
 
 
 
-## Web Storage
+## :star:Web Storage
 
 本地存储只能存储 **字符串数据类型**，将 **复杂数据类型** 转换为 **JSON字符串**，存储到本地存储中。
 
@@ -832,7 +830,7 @@ JSON.parse(null) // 结果依然是null
 
 
 
-## 定时器
+## :star:定时器
 
 ### 1.间歇函数
 
@@ -881,3 +879,9 @@ clearTimeout(timerId)
 - `setTimeout` 函数是一种异步定时器，它只会在经过指定的时间后执行一次。
 - `setInterval` 函数也是一种定时器，但它会按照指定的时间间隔重复执行。
 - 两者的区别在于执行次数，setTimeout <strong style="color:#DD5145">只执行一次</strong>，setInterval <strong style="color:#DD5145">会反复执行</strong>。
+
+
+
+## :page_facing_up:参考
+
+[参考文章](https://blog.csdn.net/qq_52736131/article/details/123563321)

@@ -10,11 +10,11 @@ ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也�
 1. 字面量增强
 2. let 和 const 命令，用来声明变量，两个都有块级作用域。
 3. 函数的扩展，箭头函数，**`() => {}`**。
-4. 模板字符串，**` 反引号`` `**，可以当作普通字符串使用，也可以用来定义多行字符串。用**`${}`**来界定。
+4. 模板字符串，**` 反引号`` `**，可以当作普通字符串使用，也可以用来定义多行字符串。用 **`${}`** 来界定。
 5. 解构赋值，允许按照一定模式，从数组和对象中提取值，对变量进行赋值。
 6. 扩展运算符 **`...`**，可以将数组或对象里面的值展开，还可以将多个值收集为一个变量。
-7. `Iterator`迭代器（遍历器），一种新的遍历机制。
-8. `for of`循环，可以遍历数组、Set、Map结构、某些类似数组的对象、对象，以及字符串。
+7. **`Iterator`** 迭代器（遍历器），一种新的遍历机制。
+8. **`for of`** 循环，可以遍历数组、Set、Map结构、某些类似数组的对象、对象，以及字符串。
 9. Set 数据结构，类似数组，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
 10. Map 数据结构，类似对象，但所有的数据都是唯一的，没有重复的值。它本身是一个构造函数。
 11. Symbol 是 ES6 引入了一种新的原始数据类型，表示独一无二的值。
@@ -22,14 +22,14 @@ ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也�
 13. Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。
 14. Proxy 代理，监听对象的操作，然后可以做一些相应事情。
 15. Reflect 对象与 Proxy 对象一样，也是 ES6 为了操作对象而提供的新 API。
-16. Class 的基本使用，新增的`class`可以看作是构造函数的语法糖。
+16. Class 的基本使用，新增的 **`class`** 可以看作是构造函数的语法糖。
 17. Class 类的继承，ES6 中不再像 ES5 一样使用原型链实现继承，而是引入 Class 这个概念。
-18. 引入 Module 模块的概念，import 导入、export 导出。
+18. 引入 Module 模块的概念，**`import`** 导入、**`export`** 导出。
 19. Module 的加载实现
 20. 修饰器 @，Decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
 21. ES8新增 async、await，内置的自动执行器，它就是 Generator 函数的语法糖。
 22. ES11新增，可选链（Optional Chaining）
-23. 大整数类型`BigInt`
+23. 大整数类型 **`BigInt`**
 24. 空值合并运算符（Nullish Coalescing Operator）
 
 
@@ -116,9 +116,14 @@ console.log(person['say Hello'])
 
 ### 2.1 作用域提升的区别
 
-- `var` 是**全局变量**，存在变量提升（作用域提升），可以先使用在声明，也可以**重复声明**，但`let`、`const`<strong style="color:#DD5145">不允许重复声明变量</strong>。
-- 通过 `let` 和 `const` 关键字声明的变量也会提升（有争议），但是和 `var` 不同，它们不会被**初始化**。在我们声明（初始化）之前是不能访问它们的。这个行为被称之为<strong style="color:#DD5145">暂时性死区（Temporal Dead Zone，TDZ）</strong>。
+- `var` 是**全局变量**，存在变量提升（作用域提升），可以先使用再声明，也可以**重复声明**，但`let`、`const`<strong style="color:#DD5145">不允许重复声明变量</strong>。
+
+- 通过 `let` 和 `const` 关键字声明的变量也会提升（有争议），但是和 `var` 不同，它们不会被**初始化**。
+
+  在我们声明（初始化）之前是不能访问它们的，这个行为被称之为<strong style="color:#DD5145">暂时性死区（Temporal Dead Zone，TDZ）</strong>。
+
 - `let` 必须先声明再使用，可以重新赋值。
+
 - `const` 定义的是常量，不能修改，如果定义的是对象，可以修改对象内部的数据。且**声明之后必须赋值**，否则会报错。
 
 ```js
@@ -688,7 +693,7 @@ for (let value of myArray) {
 - `forEach` 它可以遍历一个数组并对数组中的每个元素执行指定操作。
 - `for in`它可以遍历一个对象**自有的**、**继承的**、**可枚举的**、**非 Symbol 的**属性
 - `for of`它可以遍历一个可迭代对象（如数组、字符串、Set 等），并返回数组元素的值。遍历对象需要通过和 `Object.keys()`
-- `for in` 循环出的是 key，`for of` 循环出的是 value
+- `for in` 循环出的是 **key**，`for of` 循环出的是 **value**
 
 
 
@@ -696,7 +701,7 @@ for (let value of myArray) {
 
 ## 9.:star:Set 数据结构
 
-ES6 提供了新的数据结构 **Set（集合）**，它类似于数组，但 <strong style="color:#DD5145">Set 的元素是唯一的</strong>，集合实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
+ES6 提供了新的数据结构 **Set（集合）**，它类似于<strong style="color:#DD5145">数组</strong>，但 <strong style="color:#DD5145">Set 的元素是唯一的</strong>，集合实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
 
 MDN 官方文档定义：
 
@@ -788,7 +793,7 @@ p.running.call({name: 'why'})
 
 ## 10.:star:Map 数据结构
 
-ES6 提供了 **Map** 数据结构。它类似于对象，也是键值对的集合。而键和值都可以是任意类型，也实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
+ES6 提供了 **Map** 数据结构。它类似于对象，也是<strong style="color:#DD5145">键值对</strong>的集合。而键和值都可以是<strong style="color:#DD5145">任意类型</strong>，甚至可以是函数，也实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
 
 ### Map 的属性和方法
 
@@ -1483,7 +1488,7 @@ import * as example from './example.js'
 
 
 
-### 3.ES6 模块与 CommonJS 模块的差异
+### 3.ES6 与 CommonJS 模块的差异
 
 它们有三个重大差异。
 
@@ -1527,6 +1532,12 @@ import * as example from './example.js'
 
 ES11 中新增的一个特性，主要作用于让我们的代码在进行 null 和 undefined 判断时更加清晰和简洁。
 
+可选链运算符（**`?.`**）允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效。
+
+可选链运算符`?.` 运算符的功能类似于 `.` 链式运算符，不同之处在于，在引用为空 (nullish ) (`null` 或者 `undefined`) 的情况下不会引起错误，该表达式短路返回值是 `undefined`。
+
+与函数调用一起使用时，如果给定的函数不存在，则返回 `undefined`。
+
 ```js
 const info = {
     name: 'chenglun17',
@@ -1538,7 +1549,8 @@ const info = {
     // }
 }
 
-console.log(info.friend.girlfriend.name) // TypeError：Cannot read property 'girlfriend' of undefined
+console.log(info.friend.girlfriend.name)
+// TypeError：Cannot read property 'girlfriend' of undefined
 
 if(info && info.friend && info.friend.girlfrend){
     console.log(info.friend.girlfriend.name)
@@ -1557,8 +1569,8 @@ ES11 之前最大表示的安全数字，`max_asfe_integer`
 
 ```js
 const maxInt = Number.MAX_SAFE_INTEGER
-console.log(maxInt) // 9007199254740991
-console.log(maxInt + 1) // 9007199254740992
+console.log(maxInt) 	// 9007199254740991
+console.log(maxInt + 1)  // 9007199254740992
 console.log(maxInt + 2) // 结果与上面一样，也是9007199254740992
 ```
 
