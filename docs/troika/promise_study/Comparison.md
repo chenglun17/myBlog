@@ -1,6 +1,6 @@
 # 七、异步方案的比较
 
-异步解决方案的发展历程：回调函数 --- Promise --- Generator --- async / await
+异步解决方案的发展历程：回调函数 --- Promise --- Generator --- async / await。
 
 后三种方案是为解决传统的回调函数而提出的。而`async/await`又是`Generator`函数的语法糖。
 

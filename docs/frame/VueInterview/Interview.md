@@ -1,6 +1,6 @@
-# 面试相关
+# Vue2 面试相关
 
-## 1.动态给 vue 的 data 添加新属性时会发生什么？怎样解决？
+## 1.:star:Vue中给对象添加新的属性，界面不刷新？
 
 ### 1.产生的问题
 
@@ -34,13 +34,15 @@ Object.defineProperty(obj, 'foo', {
 
 `Vue` 不允许在已经创建的实例上动态添加新的响应式属性，若想实现数据与视图同步更新，可采取下面三种解决方案：
 
-- `Vue.set()`
-- `Object.assign()`
-- `$forcecUpdated()`
+- <strong style="color:#DD5145">`Vue.set()`</strong>
+- <strong style="color:#DD5145">`Object.assign()`</strong>
+- <strong style="color:#DD5145">`$forcecUpdated()`</strong>
 
 #### Vue.set()
 
-`Vue.set(target, propertyName/index, value)`
+`Vue.set(target, propertyName/index, value)` 或
+
+`vm.$set (target, propertyName/index, value)`
 
 参数：
 
@@ -78,17 +80,15 @@ PS：仅仅影响实例本身和插入插槽内容的子组件，而不是所有
 
 PS：`vue3`是用过`proxy`实现数据响应式的，直接动态添加新属性仍可以实现数据响应式
 
-### 参考
-
 [参考文章](https://vue3js.cn/interview/)
 
 
 
-## 2.你知道 vue 中 key 的原理吗？说说你对它的理解
+## 2.:star:你知道 Vue 中 key 的原理吗？说说你对它的理解
 
 ### 1.虚拟DOM中key的作用？
 
-- key 是虚拟DOM对象的标识，当数据发生变化时，Vue 会根据【新数据】生成【新的虚拟DOM】, <br>随后 Vue 进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
+- key 是虚拟 DOM 对象的标识，当数据发生变化时，Vue 会根据新数据生成新的虚拟DOM, <br>随后 Vue 进行 新虚拟DOM 与 旧虚拟DOM 的差异比较，比较规则如下：
 
 **对比规则：**
 
@@ -99,7 +99,7 @@ PS：`vue3`是用过`proxy`实现数据响应式的，直接动态添加新属�
 2. 旧虚拟DOM中未找到与新虚拟DOM相同的key
    - 创建新的真实DOM，随后渲染到到页面。
 
-### 2.用index作为key可能会引发的问题？
+### 2.用 index 作为 key 可能会引发的问题？
 
 1. 若对数据进行：逆序添加、逆序删除等破坏顺序操作:
    - 会产生没有必要的真实DOM更新 ==> 界面效果没问题, 但**效率低**。
@@ -107,14 +107,14 @@ PS：`vue3`是用过`proxy`实现数据响应式的，直接动态添加新属�
 2. 如果结构中还包含**输入类的DOM**：
    - 会产生**错误DOM更新** ==> 界面有问题。
 
-### 3.开发中如何选择key?
+### 3.开发中如何选择 key?
 
 1. 最好使用每条数据的**唯一标识**作为key, 比如id、手机号、身份证号、学号等唯一值。
 2. 如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，使用index作为key是没有问题的。
 
 
 
-## 3.vue 权限管理该怎么做？如果控制到按钮级别的权限怎么做？
+## 3.:star:vue 权限管理该怎么做？如果控制到按钮级别的权限怎么做？
 
 ### 1.什么是权限管理
 
@@ -326,7 +326,7 @@ export default {
 
 
 
-## 4.你有写过自定义指令吗？自定义指令的应用场景有哪些？
+## 4.:star:你有写过自定义指令吗？自定义指令的应用场景有哪些？
 
 ### 什么是指令
 
@@ -370,15 +370,117 @@ export default {
 - 图片懒加载
 - 一键 Copy的功能
 
-
-
-## 参考
-
 [参考文章](https://juejin.cn/post/6844903826693029895)
 
 
 
 
 
+## 5.:star:对 MVC、MVP 和 MVVM 的理解
 
+
+
+### MVC
+
+前端的 MVC 与后端类似，具备 **M（Model）模型**，**V（View）视图**，**C（Controller）控制器**：
+
+- Model：负责封装和处理数据，与后端数据进行同步。
+- View：负责展示数据，将 Model 中的数据可视化出来。
+- Controller：负责业务逻辑，根据用户行为对 Model 数据进行修改。
+
+![](Interview.assets/image-20230607212113803.png)
+
+
+
+### MVP
+
+MVP 模式虽然前端开发并不常见，但是安卓等原生开发中，还是有使用。
+
+MVP 月 MVC 很相似，P（Presenter），可以理解为一个中间人，它负责 View 和 Model 之间的数据流动，防止 View 和 Model 之间直接交流。
+
+![](Interview.assets/image-20230607212736209.png)
+
+
+
+### MVVM
+
+[MVVM](https://blog.csdn.net/jiahao1186/article/details/121915711)，是 Model-View-ViewModel 的简写，是 M-V-VM 三部分组成。它本质上就是 MVC 的改进版。
+
+- **M：模型（Model）**，准备数据，当前页面渲染时所依赖的数据源。
+- **V：视图（View）**，展示页面，当前页面所渲染的 DOM 结构。
+- **VM：视图模型（ViewModel）**，Vue实例对象（vm），用于视图和模型（即数据）的转换。
+  - DOM 监听器，监听页面 DOM 节点的变化，当页面 DOM 节点发送改变时，数据也会发生改变
+  - 数据绑定，当 Model 数据发生改变时，视图界面也会发生改变
+
+![](Interview.assets/MVVM模型.png)
+
+
+
+MVVM 的核心思想：<strong style="color:#DD5145">关注 Model（即数据）的变化</strong>。让 MVVM 框架利用自己的机制自动更新 DOM（即View视图），也就是所谓的**数据-视图**分离。
+
+- ViewModel 通过实现一套**数据响应式机制**，自动响应 Model 中的数据变化。
+  - 主要职责：数据变化后更新视图，视图变化后更新数据
+- 同时 ViewModel 会实现一套更新策略，自动将**数据变化**转换为**视图更新**。
+- 通过**事件监听**响应 View 中用户交互修改 Model 中数据。
+- 在 ViewModel 中就减少了大量 DOM 操作的代码。
+
+MVVM 在保持 View 和 Model 低耦合的同时，还减少了维护它们关系的代码，使开发者更专注与于业务逻辑。
+
+
+
+### 双向数据绑定
+
+- View 中数据变化将自动更新到 Model 上，反之，Model 中数据变化也会自动更新到视图（view）上
+- ViewModel 就是 View 和 Model 的桥梁
+- ViewModel 负责把 Model 的数据同步到 View 显示出来，还负责把 View 的修改同步回到 Model
+
+
+
+### 总结
+
+- 这三者都是框架模式，它们设计的目的都是为了解决 Model 和 View 的耦合问题
+
+
+
+## 6.:star:v-if 和 v-for 为什么不建议一起使用？
+
+`v-if`指令用于条件性地渲染一块内容。这块内容只会在指令的表达式返回 `true`值的时候被渲染。
+
+`v-for`指令基于一个数组来渲染一个列表。
+
+```vue
+<Modal v-if="isShow" />
+
+<li v-for="item in items" :key="item.id">
+    {{ item.label }}
+</li>
+```
+
+注意：
+
+- 不要把 `v-if` 和 `v-for` 同时用在同一个元素上，带来性能方面的浪费
+
+  <strong style="color:#DD5145">`v-for`优先级是比`v-if`高</strong>，导致每循环一次就会去`v-if`一次，而`v-if`是通过创建和销毁 DOM 元素来控制元素的显示与隐藏，所以就会不停的去创建和销毁元素，造成页面卡顿，性能下降。
+
+解决方法：
+
+- 若要避免出现这种情况，则在外层嵌套`template`（页面渲染不生成`DOM`节点），在这一层进行`v-if`判断，然后在内部进行`v-for`循环
+
+```vue
+<template v-if="isShow">
+    <p v-for="item in items">
+</template>
+```
+
+- 如果条件出现在循环内部，可通过计算属性`computed`提前过滤掉那些不需要显示的项
+
+```js
+computed: {
+    items: function() {
+      return this.list.filter(function (item) {
+        return item.isShow
+      })
+    }
+}
+```
 

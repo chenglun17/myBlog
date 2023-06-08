@@ -43,3 +43,35 @@ console.log('script end')	// 4.直接打印，全局代码执行完毕
 - 异步中先执行宏任务，再执行微任务
 
 [参考文章](https://juejin.cn/post/7062155174436929550#heading-12)
+
+## 第二道题目
+
+```js
+const myPromise = Promise.resolve(Promise.resolve("Promise!"));
+
+function funcOne() {
+	myPromise.then(res => res).then(res => console.log(res));
+	setTimeout(() => console.log("Timeout!"), 0);
+	console.log("Last line!");
+}
+
+async function funcTwo() {
+	const res = await myPromise;
+	console.log(await res);
+	setTimeout(() => console.log("Timeout!"), 0);
+	console.log("Last line!");
+}
+
+funcOne();
+funcTwo();
+```
+
+首先，我们调用 `funcOne`。在函数 `funcOne` 的第一行，我们调用`myPromise` promise *异步操作*。当 JS 引擎在忙于执行 promise，它继续执行函数 `funcOne`。下一行 *异步操作* `setTimeout`，其回调函数被 Web API 调用。 (详情请参考我关于 event loop 的文章.)
+
+promise 和 timeout 都是异步操作，函数继续执行当 JS 引擎忙于执行 promise 和 处理 `setTimeout` 的回调。相当于 `Last line!` 首先被输出， 因为它不是异步操作。执行完 `funcOne` 的最后一行，promise 状态转变为 resolved，`Promise!` 被打印。然而，因为我们调用了 `funcTwo()`，调用栈不为空，`setTimeout` 的回调仍不能入栈。
+
+我们现在处于 `funcTwo`，先 *awaiting* myPromise。通过 `await` 关键字， 我们暂停了函数的执行直到 promise 状态变为 resolved (或 rejected)。然后，我们输出 `res` 的 awaited 值（因为 promise 本身返回一个 promise）。 接着输出 `Promise!`。
+
+下一行就是 *异步操作* `setTimeout`，其回调函数被 Web API 调用。
+
+我们执行到函数 `funcTwo` 的最后一行，输出 `Last line!`。现在，因为 `funcTwo` 出栈，调用栈为空。在事件队列中等待的回调函数（`() => console.log("Timeout!")` from `funcOne`, and `() => console.log("Timeout!")` from `funcTwo`）以此入栈。第一个回调输出 `Timeout!`，并出栈。然后，第二个回调输出 `Timeout!`，并出栈。得到结果 `Last line! Promise! Promise! Last line! Timeout! Timeout!`

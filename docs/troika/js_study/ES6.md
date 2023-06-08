@@ -20,11 +20,11 @@ ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也�
 11. Symbol 是 ES6 引入了一种新的原始数据类型，表示独一无二的值。
 12. 将 Promise 对象纳入规范，提供了原生的 Promise 对象，是异步编程的一种解决方案。
 13. Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同。
-14. Proxy 代理，监听对象的操作，然后可以做一些相应事情。
+14. [Proxy 代理](#proxy代理)，监听对象的操作，然后可以做一些相应事情。
 15. Reflect 对象与 Proxy 对象一样，也是 ES6 为了操作对象而提供的新 API。
-16. Class 的基本使用，新增的 **`class`** 可以看作是构造函数的语法糖。
+16. [Class 的基本使用](#class的基本使用)，新增的 **`class`** 可以看作是构造函数的语法糖。
 17. Class 类的继承，ES6 中不再像 ES5 一样使用原型链实现继承，而是引入 Class 这个概念。
-18. 引入 Module 模块的概念，**`import`** 导入、**`export`** 导出。
+18. 引入 [Module 模块](#module语法) 的概念，**`import`** 导入、**`export`** 导出。
 19. Module 的加载实现
 20. 修饰器 @，Decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
 21. ES8新增 async、await，内置的自动执行器，它就是 Generator 函数的语法糖。
@@ -983,19 +983,19 @@ for (const sKey of sKeys) {
 
 详见 Promise 学习章节
 
-## 13.:star:Symbol
+## 13.:star:Generator
 
 详见 Promise 学习章节
 
 
 
-## 1​4​.:star:Proxy 代理
+## :star:Proxy代理
 
 ES6 之前使用`Object.defineProperty`拦截到对象属性是否被访问和修改，但是<strong style="color:#DD5145">每一次只能拦截一个属性，并且只能拦截对象</strong>。
 
 所以 ES6 新增的`Proxy`可以拦截<strong style="color:#DD5145">多种类型的全部属性</strong>。
 
-### 基本概念
+### 1.基本概念
 
 Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。
 
@@ -1015,11 +1015,15 @@ Proxy 对象的所有用法，都是上面这种形式，不同的只是`handler
 
 
 
-### Proxy 实例的方法
+### 2.Proxy 实例的方法
 
-**`get()`方法**，用于拦截某个属性的**读取操作**，可以接受三个参数，依次为**目标对象、属性名 和 proxy 实例本身**（严格地说，是操作行为所针对的对象），其中最后一个参数可选。
+**`get()`方法**，用于拦截某个属性的**读取操作**，可以接受三个参数，
 
-**`set()`方法**，用来拦截某个属性的**赋值操作**，可以接受四个参数，依次为**目标对象、属性名、属性值 和 Proxy 实例本身**，其中最后一个参数可选。
+- 依次为**目标对象、属性名 和 proxy 实例本身**（严格地说，是操作行为所针对的对象），其中最后一个参数可选。
+
+**`set()`方法**，用来拦截某个属性的**修改操作**，可以接受四个参数，
+
+- 依次为**目标对象、属性名、属性值 和 Proxy 实例本身**，其中最后一个参数可选。
 
 ```js
 let obj = {}
@@ -1038,7 +1042,7 @@ let proxy = new Proxy(obj, {
 
 <strong style="color:#DD5145">只能通过`Proxy`访问</strong>：![](ES6.assets/image-20230601194021733.png)
 
-### has方法
+### 3.has方法
 
 `has()`方法用来拦截`HasProperty`操作，即判断对象是否具有某个属性时，这个方法会生效。
 
@@ -1048,9 +1052,11 @@ let proxy = new Proxy(obj, {
 
 
 
-### this 问题
+### 4.this 问题
 
-虽然 Proxy 可以代理针对目标对象的访问，但它不是目标对象的透明代理，即不做任何拦截的情况下，也无法保证与目标对象的行为一致。主要原因就是在 Proxy 代理的情况下，目标对象内部的`this`关键字会指向 Proxy 代理。
+虽然 Proxy 可以代理针对目标对象的访问，但它不是目标对象的透明代理，即不做任何拦截的情况下，也无法保证与目标对象的行为一致。
+
+主要原因就是在 Proxy 代理的情况下，目标对象内部的`this`关键字会**指向 Proxy 代理**。
 
 ```js
 let s = new Set()
@@ -1171,7 +1177,7 @@ let proxy = new Proxy(arr,{
 
 
 
-## 1​6​.:star:Class 的基本使用
+## :star:Class的基本使用
 
 ES6 新增的`class`可以看作是<strong style="color:#DD5145">构造函数的语法糖</strong>，它的绝大部分功能 ES5 都可以做到，新的`class`写法只是让对象原型的写法更加清晰、更像面向对象编程的语法。
 
@@ -1221,7 +1227,7 @@ console.log(Person === Person.prototype.constructor) // true
 
 
 
-### constructor 方法
+### 1.constructor 方法
 
 `constructor()`方法是类的默认方法，通过`new`命令生成对象实例时，自动调用该方法。一个类必须有`constructor()`方法，如果没有显式定义，一个空的`constructor()`方法会被默认添加。
 
@@ -1241,7 +1247,7 @@ class Point {
 
 
 
-### 属性表达式
+### 2.属性表达式
 
 类的属性名，可以采用表达式。
 
@@ -1259,7 +1265,7 @@ class Square {
 
 
 
-### 静态方法和属性
+### 3.静态属性和方法
 
 静态属性指的是 Class 本身的属性，即`Class.propName`，而不是定义在实例对象（`this`）上的属性。
 
@@ -1291,6 +1297,35 @@ class Foo {
 Foo.myName // 'Foo类的名字'
 Foo.myMethod() // mymethod
 ```
+
+
+
+### 4.私有属性和方法
+
+ES2022正式为`class`添加了私有属性，方法是在属性名之前使用`#`表示。
+
+```js
+class IncreasingCounter {
+  #count = 0
+  get value() {
+    console.log('Getting the current value!')
+    return this.#count
+  }
+  increment() {
+    this.#count++
+  }
+}
+```
+
+上面代码中，`#count`就是私有属性，只能在类的内部使用（`this.#count`）。如果在类的外部使用，就会报错。
+
+```js
+const counter = new IncreasingCounter();
+counter.#count // 报错
+counter.#count = 42 // 报错
+```
+
+
 
 
 
@@ -1378,9 +1413,9 @@ B.prototype.__proto__ === A.prototype // true
 
 
 
-## 18​.:star:Module 语法
+## :star:Module语法
 
-### 基本概念
+### 1.基本概念
 
 在 ES6 之前，社区制定了一些模块加载方案，最主要的有 CommonJS 和 AMD 两种。前者用于服务器，后者用于浏览器。ES6 在语言标准的层面上，实现了模块功能，而且实现得相当简单，完全可以取代 CommonJS 和 AMD 规范，成为浏览器和服务器通用的模块解决方案。
 
@@ -1404,7 +1439,7 @@ let exists = _fs.exists
 let readfile = _fs.readfile
 ```
 
-### export 和 import
+### 2.export 和 import
 
 ES6 模块不是对象，而是通过`export`命令显式指定输出的代码，再通过`import`命令输入。
 
@@ -1417,11 +1452,8 @@ import { stat, exists, readFile } from 'fs'
 
 ```js
 // 默认暴露
-export default {
-    school: 'ATGUIGU',
-    change: function(){
-        console.log("我们可以改变你!!");
-    }
+export default function sum(x, y) {
+    return x + y
 }
 // 非默认暴露
 export function multiply(x, y) {
@@ -1441,14 +1473,46 @@ import {sum} from './example.js'
 import {sum as sumA} from './example.js'
 
 // 导入多个
-import {sum, multiply, time} from './example.js'
+import {sum, multiply} from './example.js'
+
 // 导入一整个模块
 import * as example from './example.js'
 ```
 
-注意，`import`命令具有提升效果，会提升到整个模块的头部，首先执行。
+注意，`import`命令**具有提升效果**，会提升到整个模块的头部，首先执行。
 
 由于`import`是静态执行，所以不能使用表达式和变量，这些只有在运行时才能得到结果的语法结构。
+
+### 3.全部导入
+
+使用符号 `*`，我们引入文件中的所有值，包括默认和具名。如果我们有以下文件：
+
+```js
+// info.js
+export const name = "Lydia"
+export const age = 21
+export default "I love JavaScript"
+export default function sum(x) {
+	return x + x
+}
+
+// index.js
+import * as info from "./info"
+console.log(info)
+```
+
+将会输出以下内容：
+
+```js
+{
+    default: "I love JavaScript",
+    default: function sum(x) { return x + x },
+    name: "Lydia",
+    age: 21
+}
+```
+
+
 
 
 
@@ -1510,7 +1574,9 @@ import * as example from './example.js'
 
 
 
+## 21.:star:async 和 await
 
+详见 Promise 学习章节
 
 
 

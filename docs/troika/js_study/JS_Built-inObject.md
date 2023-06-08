@@ -29,17 +29,9 @@ Object.assign(obj2, obj) // 返回 {name: '佩奇', age: 6}
 
 
 
-### frerzze方法
-
-`Object.freeze()` 静态方法可以使一个对象被**冻结**。冻结对象可以防止扩展，并使现有的属性不可写入和不可配置。
-
-被冻结的对象不能再被更改：不能添加新的属性，不能移除现有的属性，不能更改它们的可枚举性、可配置性、可写性或值，对象的原型也不能被重新指定。
-
-
-
 ### entries方法
 
-`Object.entries()` 静态方法返回一个数组，包含给定对象自有的**可枚举**字符串键属性的**键值对**。
+`Object.entries()` 静态方法**返回一个数组**，包含给定对象自有的**可枚举**字符串键属性的**键值对**。
 
 一个由给定对象自有的可枚举字符串键属性的键值对组成的数组。每个键值对都是一个包含两个元素的数组：第一个元素是属性的键（始终是字符串），第二个元素是属性值。
 
@@ -68,7 +60,35 @@ console.log(Object.entries(100)) // []
 
 
 
-## :star:defineProperty
+### frerzze方法
+
+`Object.freeze()` 静态方法可以**冻结一个对象**。冻结对象可以防止扩展，并使现有的属性不可写入和不可配置。
+
+被冻结的对象不能再被更改：不能添加新的属性，不能删除现有的属性，不能更改它们的可枚举性、可配置性、可写性或值，对象的原型也不能被重新指定。
+
+```js
+Object.freeze(obj)
+```
+
+然而，它仅是对对象进行 <strong style="color:#DD5145">浅冻结</strong>，意味着只有 对象中的直接属性被冻结。如果属性是另一个 object，内层属性没有被冻结，仍然可以被修改。
+
+
+
+### seal方法
+
+`Object.seal()` 静态方法可以**密封一个对象**。密封一个对象会阻止其扩展并且使得现有属性不可配置。
+
+密封对象有一组固定的属性：**不能添加**新属性、**不能删除**现有属性、**不能更改**其可枚举性和可配置性、**不能重新分配**其原型。<strong style="color:#DD5145">但是只要现有属性的值是可写的，它们仍然可以更改</strong>。
+
+`seal()` 返回传入的同一对象。
+
+```js
+Object.seal(obj)
+```
+
+
+
+## 1.:star:defineProperty
 
 `Object.defineProperty()` 静态方法会直接在一个对象上定义一个新属性，或修改其现有属性，并返回此对象。
 
@@ -150,7 +170,9 @@ console.log(obj.b) // Runs the getter, which yields a + 1 (which is 1)
 
 ### setter
 
-在 JavaScript 中，如果试着改变一个属性的值，那么对应的 setter 将被执行。setter 经常和 getter 连用以创建一个伪属性。不可能在具有真实值的属性上同时拥有一个 setter 器。
+在 JavaScript 中，如果试着改变一个属性的值，那么对应的 setter 将被执行。
+
+setter 经常和 getter 连用以创建一个伪属性。不可能在具有真实值的属性上同时拥有一个 setter 器。
 
 **`set`** 语法将对象属性绑定到<strong style="color:#DD5145">修改该属性</strong>时被调用的函数。它还可以在类中应用。
 
@@ -636,7 +658,7 @@ Array.from(object, mapFunction, thisValue)
 
 ### flat方法
 
-会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
+会按照一个可指定的**深度递归**遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
 
 语法：
 
@@ -645,13 +667,15 @@ Array.flat(depth)
 ```
 
 - depth 可选，如果是`Infinity`就意味着不管你嵌套了多少个数组都能转为一维
-- 如果不写参数，就默认减少最外的多维数组，如果参数写成**数字**，意味着减少多少层 [ ]
+- 如果不写参数，默认值为 1，如果参数写成**数字**，意味着减少多少层 [ ]
 
-注意：**`flat()`会跳过空位**
+注意：<strong style="color:#DD5145">`flat()`会跳过空位</strong>
 
 ```js
 let arr = [[1, 2, 3], 4, 5, 6, [[7, 8, 9]]]
 console.log(arr.flat(Infinity)) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+console.log(arr.flat()) // [1, 2, 3, 4, 5, 6, [7, 8, 9]]
 ```
 
 
@@ -871,30 +895,10 @@ padEnd(targetLength, padString)
 
 因为 `NaN == NaN` 和 `NaN === NaN` 都会返回 `false`。所以必须要有一个判断值是否是 `NaN` 的方法。
 
-> 全局属性 **`NaN`** 是一个表示**非数字**的值。
+> - 全局属性 **`NaN`** 是一个表示**非数字**的值，用于指出数字类型中的错误情况。
+> - <strong style="color:#DD5145">`typeof NaN`的返回值是 "number"</strong>。
 
-`Number.isNaN()` 方法<strong style="color:#DD5145">并且检查传递的值是否为 `Number`并且检查是否等价于 `NaN`</strong>。它是原来的全局 `isNaN()` 的更稳妥的版本。
-
-```js
-Number.isNaN(value)
-
-Number.isNaN(NaN)         // true
-Number.isNaN(Number.NaN)  // true
-Number.isNaN(0 / 0)       // true
-
-
-Number.isNaN('NaN')       // false，字符串 "NaN" 不能被换成数字，返回 NaN。
-Number.isNaN(undefined)   // false
-Number.isNaN({})          // false
-Number.isNaN("blabla")    // false
-
-Number.isNaN(true)        // false
-Number.isNaN(null)        // false
-Number.isNaN(37)          // false
-Number.isNaN('37')        // false
-```
-
-和全局函数 `isNaN()` 相比，<strong style="color:#DD5145">`Number.isNaN()` 不会自行将参数转换成数字</strong>，只有在参数是值为 `NaN` 的数字时，才会返回 `true`。
+`isNaN()`方法通过 Number 方法<strong style="color:#DD5145">把参数转换成数字类型，若转换成功，则返回`false`</strong>，反之返回`true`。注意它只是判断参数是否能转成数字，不能用来判断是否严格等于NaN。
 
 ```js
 isNaN(value)      // 会自动将 value 转换为数字型
@@ -913,7 +917,34 @@ isNaN(true)       // false：true 经过数字转换之后会变成 1
 isNaN(null)       // false：null 经过数字转换之后会变成 0
 isNaN(37)         // false
 isNaN('37')       // false：'37' 可以被转换成数值 37
+isNaN('')         // false
 ```
+
+`Number.isNaN()`方法用来判断一个值是否严格等于NaN。<strong style="color:#DD5145">它会先判断值是否为数字类型，若不是直接返回 false，若是数字类型则继续判断是否NaN</strong>，只有在参数是值为 `NaN` 的数字时，才会返回 `true`。
+
+```js
+Number.isNaN(value)
+
+Number.isNaN(NaN)         // true
+Number.isNaN(Number.NaN)  // true
+Number.isNaN(0 / 0)       // true
+
+
+Number.isNaN('NaN')       // false，字符串 'NaN' 不会被隐式转换成数字，返回 NaN。
+Number.isNaN(undefined)   // false
+Number.isNaN({})          // false
+Number.isNaN("blabla")    // false
+
+Number.isNaN(true)        // false
+Number.isNaN(null)        // false
+Number.isNaN(37)          // false
+Number.isNaN('37')        // false
+Number.isNaN('')          // false
+```
+
+和全局函数 `isNaN()` 相比，<strong style="color:#DD5145">`Number.isNaN()` 不会自行将参数转换成数字</strong>，只有在参数是值为 `NaN` 的数字时，才会返回 `true`。
+
+它是全局 `isNaN()` 的更稳妥的版本。`isNaN()`是 ES5 的方法，`Number.isNaN()`是 ES6 的方法。
 
 
 

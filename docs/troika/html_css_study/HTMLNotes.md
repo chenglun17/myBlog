@@ -4,6 +4,20 @@
 
 HTML（**H**yper**T**ext **M**arkup **L**anguage，超文本标记语言）是用来描述网页的一种语言，它不是一种编程语言，而是一种**标记**语言。
 
+
+
+##  script 标签中 defer 和 async 的区别？
+
+- **`<script>`** ：会阻碍 HTML 解析，只有加载好并执行完，脚本才会继续解析 HTML。
+- **`<script async>`**：异步加载，可能会阻断 HTML 的解析。
+- **`<script defer>`**：异步加载，元素解析完成之后执行。
+
+![](HTMLNotes.assets/defer和async的区别.png)
+
+[参考文章](https://juejin.cn/post/6894629999215640583)
+
+
+
 ## HTML 标签
 
 [参考文章](https://blog.csdn.net/shengyin714959/article/details/125009120)、[参考文章2](https://blog.csdn.net/qq_56884023/article/details/124481401)、[参考文章3](https://blog.csdn.net/qq_38490457/article/details/108672791)、[MDN文档](https://developer.mozilla.org/zh-CN/)
@@ -213,3 +227,6 @@ a 标签，也是**行内元素**，不是块级元素
 `log<sub>10</sub>10`:设置下标
 
 ![](HTMLNotes.assets/sup+sub.png)
+
+
+

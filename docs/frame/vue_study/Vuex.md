@@ -14,7 +14,7 @@ Vue组件间通信方式：
 
 
 
-## 理解 Vuex
+## :star:理解 Vuex
 
 **1.Vuex是什么？**
 
@@ -35,7 +35,7 @@ Vue组件间通信方式：
 
 
 
-## Vuex 工作原理
+## :star:Vuex 工作原理
 
 - Vuex 由三个组件构成：<strong style="color:#9370DB">State</strong>（状态即数据），<strong style="color:#DC143C">Mutations</strong>（修改，加工维护），<strong style="color:orange">Actions</strong>（动作）
 - Vuex 中数据存储在 **state**，通过 **store** 来调用 <strong style="color:#3AB882">dispatch</strong> 和 <strong style="color:#3AB882">commit</strong> 
@@ -53,7 +53,7 @@ Vue组件间通信方式：
 
 
 
-## 搭建 vuex 环境
+## :star:搭建 vuex 环境
 
 1. 下载安装 vuex
 
@@ -102,7 +102,7 @@ new Vue({
 })
 ```
 
-## 核心概念
+## :star:核心概念
 
 vuex 的核心思想：组件数据统一管理（统一存储，统一修改）
 
@@ -306,7 +306,7 @@ computed: {
 
 
 
-## 辅助函数（四个map方法）
+## :star:辅助函数（四个map方法）
 
 **提前引入：**
 
@@ -368,7 +368,7 @@ methods:{
 
 
 
-## 模块化&命名空间
+## :star:模块化&命名空间
 
 1. 目的：让代码更好维护，让多种数据分类更加明确
 
@@ -443,6 +443,6 @@ methods:{
 
 
 
-## 参考
+## :page_facing_up:参考
 
 [Vuex Github地址](https://github.com/vuejs/vuex)、[参考文章](https://blog.csdn.net/qq_56989560/article/details/124706021)、[参考文章](https://devpress.csdn.net/viewdesign/63ff2b5b986c660f3cf90b93.html)、[参考文章](https://blog.csdn.net/jiangjunyuan168/article/details/122640925)、[参考文章](https://blog.csdn.net/qq_41820577/article/details/100530155)

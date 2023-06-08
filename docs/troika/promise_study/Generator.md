@@ -83,8 +83,6 @@ AutoRun(gen)
 
 
 
-------
-
 `yield`表达式与`return`语句既有相似之处，也有区别，相似之处在于，都能返回紧跟在语句后面的那个表达式的值。
 
 - 区别在于每次遇到`yield`，函数暂停执行，下一次再从该位置继续向后执行，而`return`语句不具备位置记忆的功能。
@@ -93,19 +91,21 @@ AutoRun(gen)
 
 
 
-## next 方法的参数
+## next 方法
 
-`yield`表达式本身没有返回值，或者说总是返回`undefined`。`next`方法可以带一个参数，该参数就会被当作上一个`yield`表达式的返回值。
+`yield`表达式本身没有返回值，或者说总是返回`undefined`。
+
+`next`方法可以带一个参数，该参数就会被当作上一个`yield`表达式的返回值。
 
 ```js
 function* f() {
   for(var i = 0; true; i++) {
-    var reset = yield i;
-    if(reset) { i = -1; }
+    var reset = yield i
+    if(reset) { i = -1 }
   }
 }
 
-var g = f();
+var g = f()
 
 g.next() // { value: 0, done: false }
 g.next() // { value: 1, done: false }

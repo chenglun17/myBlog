@@ -1,6 +1,6 @@
 # 逻辑复用
 
-## 1.mixin 混合
+## 1.:star:mixin 混合
 
 功能：可以把多个组件共用的配置提取（抽离）成一个 **混合（混入）对象**
 
@@ -46,7 +46,7 @@ export default mixin = {
 
 
 
-## 2.plugin 插件
+## 2.:star:plugin 插件
 
 功能：用于增强 Vue
 
@@ -131,7 +131,7 @@ Vue.use(myPlugins, {
 
 
 
-## 3.自定义指令
+## 3.:star:自定义指令
 
 ### 局部指令
 
@@ -177,4 +177,4 @@ Vue.directive('fbind', {
 
 
 
-## 4.过滤器（Vue3已弃用）
+## 4.:star:过滤器（Vue3已弃用）

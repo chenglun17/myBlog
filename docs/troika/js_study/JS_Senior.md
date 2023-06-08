@@ -54,7 +54,7 @@ JavaScript 中运行任何的代码都是在执行上下文中运行的。
 
 执行上下文有三种类型，分别是：全局执行上下文、函数执行上下文、`eval`函数执行上下文：
 
-**全局执行上下文：**
+**1.全局执行上下文：**
 
 - 它是默认的、最基础的执行上下文，程序执行就存在的
 - 不在任何函数中的代码都位于**全局执行上下文**中
@@ -65,13 +65,13 @@ JavaScript 中运行任何的代码都是在执行上下文中运行的。
 - 创建一个全局对象，在浏览器中这个全局对象就是 window 对象
 - 将 this 指向这个全局对象，也就是说在全局执行上下文中 this 指向的是 window。
 
-**函数执行上下文：**
+**2.函数执行上下文：**
 
 - 每次调用函数（包括多次调用同一个函数）时，都会为该函数创建一个新的执行上下文
 - 每个函数都拥有自己的执行上下文，但是只有在**函数被调用时才会被创建**
 - 一个程序中可以存在 **任意数量的函数执行上下文**
 
-**eval 函数执行上下文：**
+**3.eval 函数执行上下文：**
 
 由于 `eval` 函数 使用的比较少，所以我们主要讨论其它两种。
 
@@ -85,7 +85,9 @@ JavaScript 中运行任何的代码都是在执行上下文中运行的。
 2. 主线程之外，还存在一个**任务队列**（Task Queue），**异步任务** 放入任务队列中
 3. 一旦执行栈中的所有 **同步任务执行完毕**，系统就会按次序读取 **任务队列** 在的 **异步任务**，于是被读取的异步任务结束等待状态，进入执行栈，开始执行
 
-------
+
+
+### 3.拓展
 
 浏览器会在计算机内存中分配一块内存，专门用来供代码执行的 **栈内存**，称作 **执行环境栈 ECStack**，同时会创建一个 **全局对象 GO**，将内置的属性方法（`isNaN`、`setInterval`、`setTimeout`... ）存放到一块单独的堆内存空间，并且使用 **window** 指向全局对象。
 
@@ -143,7 +145,9 @@ JavaScript 中运行任何的代码都是在执行上下文中运行的。
 
 - 实际上如果同时存在两个 script 代码块，会首先在执行第一个 script 代码块中的同步代码，如果这个过程中创建了微任务并进入了微任务队列，第一个 script 同步代码执行完之后，会首先去**清空微任务队列**，再去开启第二个 script 代码块的执行。所以这里应该就可以理解 script（整体代码块）为什么会是宏任务。
 
-事件循环，宏任务，微任务的关系如图所示：
+
+
+**事件循环，宏任务，微任务的关系如图所示：**
 
 它的执行机制是：
 
@@ -193,14 +197,15 @@ JavaScript 中运行任何的代码都是在执行上下文中运行的。
 - 如果减少一个引用次数就减1 
 - 如果引用次数为0，则释放内存
 
-> 存在问题：**嵌套引用（循环引用）**，如果两个对象相互引用，尽管他们已不再使用，垃圾回收器不会进行回收，导致内存泄露。
->
+存在问题：**嵌套引用（循环引用）**，如果两个对象相互引用，尽管他们已不再使用，垃圾回收器不会进行回收，导致内存泄露。
+
+
 
 <strong style="color:#DD5145">2.标记清除法（Mark-Sweep）</strong>
 
 核心思想：**可达性（Reachability）**，从**根对象（Root Object）**开始扫描，能查找到的就是需要使用的，查找不到的就是要被回收的。
 
-在 JavaScript 中根对象（Root Object）就是 window（Global Object）。
+在 JavaScript 中根对象（Root Object）就是 window（Global Object）
 
 现代浏览器通用算法：
 
@@ -209,6 +214,8 @@ JavaScript 中运行任何的代码都是在执行上下文中运行的。
 - 那些**无法**由根部出发触及到的对象**被标记**为不再使用，稍后进行**回收**
 
 > 可以很好的解决循环引用问题
+
+
 
 <strong style="color:#DD5145">3.标记整理法（Mark-Compact）</strong>
 
@@ -233,11 +240,15 @@ JavaScript 是支持函数式编程，函数可以作为另外一个函数的参
 
 - 因为 JavaScript 中有大量的设计来源与 Scheme
 
+------
+
 在 MDN 文档中对 JavaScript 闭包的解释：
 
 - **闭包（closure）**是一个函数以及其捆绑的周边环境状态（**lexical environment**，**词法环境**）的引用的组合
-- 换而言之，闭包让开发者可以从内部函数访问外部函数的作用域
+- 换而言之，<strong style="color:#DD5145">闭包让开发者可以从内部函数访问外部函数的作用域</strong>
 - 在 JavaScript 中，闭包会随着函数的创建而被同时创建
+
+------
 
 理解与总结：
 
@@ -284,7 +295,7 @@ JavaScript 是支持函数式编程，函数可以作为另外一个函数的参
 
 ### 3.浏览器闭包的优化
 
-如果在执行过程中某些变量没有用被使用到，那么浏览器将会在运行的时候自动释放掉。
+如果在执行过程中**某些变量没有用被使用到**，那么浏览器将会在运行的时候**自动释放掉**。
 
 ```js
 function foo() {
@@ -342,6 +353,43 @@ delete object[property]
 
 
 
+### new 运算符
+
+在`JavaScript`中，`new`操作符用于创建一个给定构造函数的实例对象。
+
+```js
+function Person(name, age){
+    this.name = name
+    this.age = age
+}
+
+Person.prototype.sayName = function () {
+    console.log(this.name)
+}
+
+const person1 = new Person('Tom', 20)
+console.log(person1)  // Person {name: "Tom", age: 20}
+t.sayName() // 'Tom'
+```
+
+从上面可以看到：
+
+- `new` 通过构造函数 `Person` 创建出来的实例可以访问到构造函数中的属性
+- `new` 通过构造函数 `Person` 创建出来的实例可以访问到构造函数原型链中的属性（即实例与构造函数通过原型链连接了起来）
+
+
+
+`new`关键字主要做了以下的工作：
+
+- 创建一个新的对象`obj`
+- 将对象与构建函数通过原型链连接起来
+- 将构建函数中的`this`绑定到新建的对象`obj`上
+- 根据构建函数返回类型作判断，如果是原始值则被忽略，如果是返回对象，需要正常处理
+
+![](JS_Senior.assets/newOperator.png)
+
+
+
 ## :star:深入对象
 
 前面 JavaScript 基础阶段，我们知道了创建对象的三种方法：
@@ -371,7 +419,7 @@ const peppa = new Pig('佩奇', 6)
 
 - 使用 **new 关键字** 调用函数的行为被称为 **实例化**
 - 实例化构造函数时，若没有参数，则可以省略（）
-- 构造函数内部 return 返回的值无效，**无需写 return**，默认返回值即为新创建的对象
+- <strong style="color:#DD5145">构造函数内部 return 返回的值无效，无需写 return</strong>，默认返回值即为 **new 创建的对象**
 - new Object（）、new Date（）也是实例化构造函数
 
 **实例化过程：**
@@ -405,11 +453,11 @@ const peppa = new Pig('佩奇', 6)
 
 - 为构造函数传入参数，创建结构相同但值 **不同的对象**
 - 构造函数创建的实例对象 **彼此独立** 互不影响
-- 它是通过 **prototype** 原型对象添加的，**所有的实例对象**都能够继承调用
+- 它是通过 **prototype** 原型对象添加的，<strong style="color:#DD5145">所有的实例对象</strong>都能够继承调用
 
 **2. 构造函数中**的属性和方法被称为 <strong style="color:#DD5145">静态成员</strong>（静态属性和静态方法）
 
-- 静态成员只能 **构造函数访问** ，不能被实例使用
+- 静态成员 <strong style="color:#DD5145">只能构造函数访问</strong> ，不能被实例使用
 - 静态方法中的 this 指向构造函数，在构造函数本身上定义的方法，只能通过构造函数本身调用
 - 静态方法直接用**类名.方法名**去调用
 
@@ -582,6 +630,112 @@ obj.sayHi()
 
 
 
+## :star:this 关键字
+
+面向对象语言中 this 表示当前对象的一个引用。但在 JavaScript 中 this 不是固定不变的，是可以根据上下文（执行时环境）的改变而改变的。this 的指向在函数定义的时候是不能确定的，只有函数执行的时候才能确定 this 的指向。
+
+- this 总是指向函数的直接调用者，又称为函数上下文
+- this 指向的永远只可能是对象
+- 在事件中，this 指向触发这个事件的对象
+- 在方法中，this 表示该方法所属的对象
+- 如果单独使用，this 表示全局对象
+
+
+
+### 1.普通函数 this 指向
+
+- 谁调用，this 的值指向谁
+- 普通函数**没有明确调用者**时，this 指向全局对象 window
+- **严格模式**下没有调用者时，this 指向 undefined
+
+```js
+function foo () {
+    console.log(this) // this指向的是window
+}
+
+foo()
+```
+
+
+
+### 2.构造函数 this 指向
+
+- 在构造函数中，this 指向 new 出来的实例对象
+
+```js
+function Foo() {
+    this.name = 'chenglun17'
+    this.sayName = function () {
+        console.log(this) // 指向的是a实例
+    }
+}
+
+ var a = new Foo()
+
+ a.sayName()
+```
+
+
+
+
+
+### 3.箭头函数 this 指向
+
+- <strong style="color:#DD5145">箭头函数中自身不存在 this，但会继承上一级作用域的 this</strong>
+
+不推荐使用箭头函数：
+
+- 在**DOM事件回调函数**中，需要DOM对象的 this
+- **基于原型的面向对象**需要 this
+- **构造函数、原型函数、字面量对象中函数、DOM事件函数**
+
+
+
+### 4.回调函数 this 指向
+
+在回调函数调用时 this 的执行上下文并<strong style="color:#3EAF7C">不是回调函数定义时的上下文</strong>，<strong style="color:#DD5145">而是调用它的函数所在的上下文</strong>。
+
+```js
+function createData(callback){
+    callback()
+}
+var obj ={
+    data:100,
+    tool:function(){
+        // let self = this			// 这里的this指向obj，然后当一个变量去使用
+        createData(function(n){
+            console.log(this,1111)  // window 1111
+        })
+    }
+}
+obj.tool()
+```
+
+分析：
+
+> this指向是 **离它最近的或者嵌套级别的 function/方法的调用者**
+>
+> 这里离它最近的function是`function(n)`，会回到上面的callback()中，这时候调用者就不是obj而是window
+>
+> 全局环境就是在`<script></script>`里面，这里的this始终指向的是window对象
+
+解决方法：
+
+- 箭头函数
+- `let self = this`
+
+
+
+### 5.this 的优先级
+
+this 存在很多使用场景，当多个场景同时出现时，就要根据优先级来判断 this 的指向。
+
+优先级：「new 绑定 > 显示绑定 > 隐式绑定 > 默认绑定」
+
+[参考文章](https://blog.csdn.net/qq_49002903/article/details/109368569)
+
+
+
 ## :star:改变 this 指向
 
 三种方法动态指定普通函数中 this 的指向，apply()、call()、bind()。
@@ -613,6 +767,8 @@ console.log(max)
 console.log(Math.max(...arr))
 ```
 
+
+
 ### 2.call()
 
 `call`方法的第一个参数也是`this`的指向，后面传入的是一个参数列表。
@@ -625,6 +781,8 @@ fn.call(thisArg, arg1, arg2, ...)
 // arg1, arg2：传递的其他参数
 // 返回值就是函数的返回值，因为它就是调用函数
 ```
+
+
 
 ### 3.bind()
 
@@ -652,6 +810,13 @@ fun()
 
 
 
+### 三者区别
+
+ 共同点：第一个参数都为改变 this 的指针。若第一参数为 null / undefined，this 默认指向 window。
+
+- call、apply 可以自动执行，bind 不会自动执行，需要手动调用
+- call、bind 都有无数个参数，apply 只有两个参数，而且第二个参数为数组
+
 
 
 
@@ -664,7 +829,7 @@ fun()
 
 - 构造函数通过在 **原型对象** 上挂载函数，可以实现**共享**，更加**节省内存**
 - javaScript 规定，每一个**构造函数**都有一个 **prototype 属性（原型对象）**，指向另一个对象
-- 重点: <strong style="color:#DD5145">【构造函数】和【原型对象】 中的【this】都指向【实例化的对象】</strong>
+- 重点: <strong style="color:#DD5145">构造函数 和 原型对象 中的 this 都指向 实例化的对象</strong>
 
 ```javascript
 // 1.公共的属性 写到 构造函数里面
@@ -672,12 +837,15 @@ function Star(uname, age) {
       this.uname = uname
       this.age = age
     }
+
 // 2.公共的方法 写到 原型对象身上，节约了内存
 Star.prototype.sing = function () {
     console.log('唱歌')
 }
+
 const ldh = new Star('刘德华', 55)
 const zxy = new Star('张学友', 58)
+
 console.log(ldh === zxy)  // false
 console.log(ldh.sing === zxy.sing)	// true
 ```

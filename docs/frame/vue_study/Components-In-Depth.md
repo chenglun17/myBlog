@@ -2,7 +2,7 @@
 
 
 
-## 1.模块化与组件化
+## 1.:star:模块化与组件化
 
 ### 定义
 
@@ -41,7 +41,7 @@
 - **`<school></school>`**
 - **`<school/>`**
 
-## 2.非单文件组件
+## 2.:star:非单文件组件
 
 一个文件中包含有 n 个组件
 
@@ -110,13 +110,13 @@
 
 
 
-## 3.单文件组件
+## 3.:star:单文件组件
 
 一个文件中只包含有1个组件
 
 
 
-## ref 属性
+## 4.:star:ref 属性
 
 <strong style="color:tomato">用来获取DOM元素 或 组件实例对象</strong>：
 
@@ -161,7 +161,7 @@
 
 
 
-## props
+## 5.:star:props
 
 props：让组件接收外部传过来的数据 ，<strong style="color:#DD5145">只读属性，单向数据流（props是单向绑定的）</strong>
 
@@ -213,7 +213,7 @@ props：让组件接收外部传过来的数据 ，<strong style="color:#DD5145"
 
 
 
-## 自定义事件
+## 6.:star:自定义事件
 
 1. 一种组件间通信的方式，适用于：<strong style="color:#DD5145">子组件 ===> 父组件</strong>。
 
@@ -221,54 +221,58 @@ props：让组件接收外部传过来的数据 ，<strong style="color:#DD5145"
 
 3. **绑定**自定义事件：
 
-   - 第一种方式，在父组件中：**`@自定义事件名="回调函数"`**
+   - 第一种方式，在父组件中
 
-     ```html
-     <template>
-         <div class="box">
-             <Student @myenv="onMyenv"/> 
-         </div>
-     </template>
-     
-     <script>
-         methods() {
-             onMyenv(e){
-                 console.log(e)
-             }
-         }
-     </script>
-     ```
+     语法：**`@自定义事件名="回调函数"`**
+
+   ```html
+   <template>
+       <div class="box">
+           <Student @myenv="onMyenv"/> 
+       </div>
+   </template>
+   
+   <script>
+       methods() {
+           onMyenv(e){
+               console.log(e)
+           }
+       }
+   </script>
+   ```
 
    - 第二种方式，在父组件中，使用 `ref`、`$on`（更加灵活）：
 
-     ```vue
-     <template>
-     	<div class="box">
-     		<!-- 通过父组件给子组件绑定一个自定义事件实现：子给父传递数据（第二种写法，使用 ref） -->
-         	<Student ref="demo" @click="test"/> 
-         </div>
-     </template>
-     
-     <script>
-         ...
-         methods: {
-             test() {
-                 // 业务逻辑
-             }
-         },
-     	mounted() {
-             this.$refs.demo.$on('atguigu', this.test)
-             // 让这个方法只执行一次
-             // this.$refs.demo.$once("atguigu", this.test);
-     	}
-     </script>
-     ```
+   ```vue
+   <template>
+   	<div class="box">
+   		<!-- 通过父组件给子组件绑定一个自定义事件实现：子给父传递数据（第二种写法，使用 ref） -->
+       	<Student ref="demo" @click="test"/> 
+       </div>
+   </template>
+   
+   <script>
+       ...
+       methods: {
+           test() {
+               // 业务逻辑
+           }
+       },
+   	mounted() {
+           this.$refs.demo.$on('atguigu', this.test)
+           // 让这个方法只执行一次
+           // this.$refs.demo.$once("atguigu", this.test)
+   	}
+   </script>
+   ```
 
    - 若想让自定义事件**只触发一次**，可以使用 **once 修饰符**，或 **\$once 方法**
 
    
 
-4. **触发**自定义事件：（子组件中）**`this.$emit ('自定义事件名', 传递的数据)`**
+4. **触发**自定义事件（子组件中）
+
+   语法：**`this.$emit ('自定义事件名', 传递的数据)`**
 
    ```vue
    <template>
@@ -338,7 +342,7 @@ vue2.x
 
 
 
-## 插槽（slot）
+## 7.:star:插槽（slot）
 
 一种**组件间通信的方式**，适用于 <strong style="color:#DD5145">父组件 ===> 子组件</strong>。
 
@@ -456,7 +460,7 @@ vue2.x
 </script>
 ```
 
-## 全局事件总线
+## 8.:star:全局事件总线
 
 全局事件总线（GlobalEventBus）一种组件间通信的方式，适用于<strong style="color:#DD5145">任意组件间通信</strong>，本质是自定义事件。
 
@@ -517,7 +521,7 @@ vue2.x
 
 
 
-## 消息订阅与发布
+## 9.:star:消息订阅与发布
 
 **消息订阅与发布（pubsub）** 是一种组件间通信的方式，适用于<strong style="color:#DD5145">任意组件间通信</strong>。
 
@@ -576,7 +580,7 @@ vue2.x
 
 
 
-## $nextTick
+## 10.:star:$nextTick
 
 <strong style="color:#DD5145">nextTick</strong> 表示 **下一轮**，是一个**生命周期钩子**，可以指定回调，当修改数据后，Vue并不会立刻重新解析模板，只有将代码全读完之后才会解析模板，然后再调用 nextTick 中的函数并又一次解析模板。
 
@@ -598,7 +602,7 @@ vue2.x
 
 
 
-## 过渡与动画
+## 11.:star:过渡与动画
 
 Vue 封装的过度与动画：在插入、更新或移除DOM元素时，在合适的时候给元素添加**样式类名**
 
@@ -655,7 +659,7 @@ css代码
 
 
 
-## WebStorage
+## 12.:star:WebStorage
 
 存储内容大小一般支持 5MB 左右（不同浏览器可能还不一样） 
 

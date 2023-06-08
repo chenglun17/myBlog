@@ -123,10 +123,12 @@ module.exports = {
                         "/troika/html_css_study/CSSNotes.md",
                         "/troika/html_css_study/BoxModel.md",
                         "/troika/html_css_study/Display.md",
+                        "/troika/html_css_study/Position.md",
                         "/troika/html_css_study/Div.md",
                         "/troika/html_css_study/CssSelector.md",
                         "/troika/html_css_study/flexLayout.md",
                         "/troika/html_css_study/transform.md",
+                        "/troika/html_css_study/BFC.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -253,6 +255,7 @@ module.exports = {
                     sidebarDepth: 2,
                     children: [
                         "/frame/VueInterview/Interview.md",
+                        "/frame/VueInterview/vue3Interview.md",
                     ],
                     initialOpenGroupIndex: 0
                 },

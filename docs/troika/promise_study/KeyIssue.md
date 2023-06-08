@@ -4,7 +4,7 @@
 
 改变 Promise **的状态的3种方法**：
 
-1. `resolve(value)`：如果当前是 pending 就会变为 resolved
+1. `resolve(value)`：如果当前是 pending 就会变为 resolved（fulfilled）
 2. `reject(reason)`：如果当前是 pending 就会变为 rejected
 3. `抛出异常`：如果当前是 pending 就会变为 rejected
 

@@ -1,6 +1,6 @@
 # Vue CLI 脚手架
 
-## 创建一个项目
+## :star:创建一个项目
 
 [参考文章](https://blog.csdn.net/James_liPeng/article/details/85329677)、[参考文章](https://huaweicloud.csdn.net/638eab63dacf622b8df8d01d.html)、[参考文章](https://blog.csdn.net/weixin_47127256/article/details/125766037)
 
@@ -34,7 +34,7 @@ npm run serve
 
 
 
-## 脚手架文件结构
+## :star:脚手架文件结构
 
 ```markdown
 .文件目录
@@ -61,7 +61,7 @@ npm run serve
 └── vue.config.js: vue配置文件
 ```
 
-## render 函数
+## :star:render 函数
 
 ```javascript
 import Vue from 'vue'
@@ -80,18 +80,21 @@ new Vue({
 })
 ```
 
-## 不同版本的 Vue
 
-> 1. vue.js 与 vue.runtime.xxx.js 的区别：
->    - **vue.js** 是**完整版**的 Vue，包含：**核心功能** + **模板解析器**
->    - **vue.runtime.xxx.js** 是**运行版**的 Vue，只包含核心功能，没有模板解析器
->
-> 2. 因为 vue.runtime.xxx.js **没有模板解析器**，所以不能使用 **template 配置项**，<br>需要使用 **render 函数** 接收到的 **createElement 函数** 去指定具体内容
 
-## vue.config.js 配置文件
+## :star:不同版本的 Vue
 
-> - **vue inspect > output.js** 可以查看到Vue脚手架的默认配置
-> - 使用 **vue.config.js** 可以对脚手架进行个性化定制，和 package.json 同级目录，详见 [配置参考 | Vue CLI](https://cli.vuejs.org/zh/config/#vue-config-js)
+1. vue.js 与 vue.runtime.xxx.js 的区别：
+   - **vue.js** 是**完整版**的 Vue，包含：**核心功能** + **模板解析器**
+   - **vue.runtime.xxx.js** 是**运行版**的 Vue，只包含核心功能，没有模板解析器
+2. 因为 vue.runtime.xxx.js **没有模板解析器**，所以不能使用 **template 配置项**，<br>需要使用 **render 函数** 接收到的 **createElement 函数** 去指定具体内容
+
+
+
+## :star:vue.config.js 配置文件
+
+- **vue inspect > output.js** 可以查看到Vue脚手架的默认配置
+- 使用 **vue.config.js** 可以对脚手架进行个性化定制，和 package.json 同级目录，详见 [配置参考 | Vue CLI](https://cli.vuejs.org/zh/config/#vue-config-js)
 
 ```javascript
 module.exports = {

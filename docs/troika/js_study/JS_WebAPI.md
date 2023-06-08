@@ -7,7 +7,7 @@
 - DOM（Document Object Model，文档对象模型）
 - BOM（Browser Object Model，浏览器对象模型）
 
-## :closed_book:DOM
+## :closed_book: DOM
 
 DOM（Document Object Model ，文档对象模型）一种用于操作XML，HTML文档的**应用编程接口**。
 
@@ -592,7 +592,7 @@ window.addEventListener('resize', function () {
 
 
 
-## :blue_book:BOM
+## :blue_book: BOM
 
 BOM（Browser Object Model，浏览器对象模型）是为了控制浏览器的行为而出现的接口。
 
