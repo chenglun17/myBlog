@@ -2,7 +2,7 @@
 
 
 
-## 1.安装与配置
+## 1.:star:安装与配置
 
 配置 name 和 email（Git Bash中操作）
 
@@ -15,7 +15,7 @@ git config user.name	# 查看用户名
 git config user.email	# 查看邮箱
 ```
 
-## 2.提交操作
+## 2.:star:提交操作
 
 ```sh
 git init	# 初始化一个版本库
@@ -60,7 +60,60 @@ git mv 1.txt 2.txt # 1.txt 重命名为 2.txt
 
 
 
-##  2.分支操作
+## 3.:star:版本穿梭
+
+```sh
+git status	# 查看本地库状态
+git diff	# 查看修改内容，顾名思义就是查看difference
+git reflog	# 查看当前版本库的提交历史
+git log		# 查看版本详细信息，会按时间先后顺序列出所有的提交，最近的更新排在最上面
+```
+
+首先，Git 必须知道当前是哪个版本，在 Git 中，用`HEAD`表示当前版本，上一个版本就是`HEAD^`，上上一个版本就是`HEAD^^`，当然往上100个版本写100个`^`比较容易数不过来，所以写成`HEAD~100`。
+
+- `--soft`：不删除工作空间改动代码，撤销 commit，不撤销 git add .
+
+- `--hard`：删除工作空间改动代码，撤销 commit，撤销 git add .
+
+### reset 命令
+
+`rest`命令会<strong style="color:#DD5145">强行覆盖</strong>当前版本和要回退的版本之间的其他版本（不太建议）。
+
+```sh
+git reset --hard 版本号/<commit-hash>	# 版本穿梭，回到某一个版本
+
+# 此时执行commit后，还没执行push时，想要撤销这次的commit，该怎么办？
+# 撤销暂存区add的内容（回退到上次提交，并清除本地提交的代码）
+git reset --hard HEAD^
+# 仅仅只是撤销commit（回退到上次提交，但不清除本地提交的代码）
+git reset --soft HEAD^
+
+# 如果控制台出现More?，则将命令改成 git reset --soft HEAD^^即可）
+git reset HEAD~	# HEAD代表：上一次提交
+```
+
+**reset 命令只能回滚最新的提交，无法满足保留最后一次提交，只回滚之前的某次提交**
+
+![](GitBasicUse.assets/reset.png)
+
+### revert 命令
+
+在当前版本的基础上新增一个版本，不影响以前的代码。
+
+```sh
+git log		# 查看版本详细信息
+git revert -n (版本号)
+```
+
+
+
+![](GitBasicUse.assets/revert.png)
+
+
+
+
+
+##  4.:star:分支管理
 
 git 在存储文件时，每一次代码的提交都会创建一个与之对应的节点，git 就是通过一个一个的节点来记录代码的状态的。
 
@@ -92,7 +145,9 @@ git branch -D <name>	# 对于未有合并的分支是无法删除的，如果想
 >
 > 因为`git checkout`除了可以操作分支，它还可以操作文件。这条命令可以重写工作区，是一个很危险的命令
 
-## 3.合并操作
+
+
+### 合并操作
 
 ```sh
 git merge <name>		# 合并分支，把指定的分支合并到当前分支上
@@ -105,62 +160,9 @@ git rebase 分支名/节点哈希值
 
 
 
-## 4.回退操作
-
-### reset
-
-该命令会强行覆盖当前版本和要回退的版本之间的其他版本（不太建议）。
-
-```sh
-git status	# 查看本地库状态
-git diff	# 查看修改内容
-git reflog	# 查看历史记录
-git log		# 查看版本详细信息
-
-git reset --hard 版本号/<commit-hash>	# 版本穿梭，回到某一个版本
-
-# 此时执行commit后，还没执行push时，想要撤销这次的commit，该怎么办？
-# 撤销暂存区add的内容（回退到上次提交，并清除本地提交的代码）
-git reset --hard HEAD^
-# 仅仅只是撤销commit（回退到上次提交，但不清除本地提交的代码）
-git reset --soft HEAD^
-
-# 如果控制台出现More?，则将命令改成 git reset --soft HEAD^^即可）
-git reset HEAD~	# HEAD代表：上一次提交
-```
-
-参数说明：
-
-**reset 命令只能回滚最新的提交，无法满足保留最后一次提交只回滚之前的某次提交**
-
-- `HEAD^`：表示上一个版本（上一次的commit），也可以写成`HEAD~1`，几个^ 代表几次提交，如果回滚两次就是`HEAD^^`。如果你进行了2次commit，想全部撤回，可以使用`HEAD~2`。
-
-- `--soft`：不删除工作空间改动代码，撤销commit，不撤销 git add .
-
-- `--hard`：删除工作空间改动代码，撤销commit，撤销 git add .
-
-- `--mixed`：此为默认方式
-
-  如果不指定 reset 的模式，默认使用 -mixed 模式，即 git reset --mixed HEAD^ 和 git reset HEAD^ 效果是一样的，不带任何参数的 git reset，即时这种方式，它回退到某个版本， 只保留源码，回退 commit 和 add 信息
-
-![](GitBasicUse.assets/reset.png)
-
-### revert
-
-在当前版本的基础上新增一个版本，不影响以前的代码。
-
-```sh
-git log		# 查看版本详细信息
-git revert -n (版本号)
-```
 
 
-
-![](GitBasicUse.assets/revert.png)
-
-
-
-## 5.远程库操作
+## 5.:star:远程库操作
 
 ```bash
 git remote		# 列出当前的关联的远程库

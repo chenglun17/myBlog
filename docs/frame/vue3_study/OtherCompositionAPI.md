@@ -81,55 +81,53 @@
 
 ## 5.provide 与 inject
 
-<img src="OtherCompositionAPI .assets/provide与inject.png" alt="provide与inject" style="zoom:80%;" />
+![](OtherCompositionAPI.assets/provide与inject.png)
 
-- 作用：实现 <strong style="color:#DD5145">祖先与后代组件间</strong> 通信，顶层组件向任意的底层组件传递数据和方法，实现 <strong style="color:#DD5145">跨层组件通信</strong>
+作用：实现 <strong style="color:#DD5145">祖先与后代组件间</strong> 通信，顶层组件向任意的底层组件传递数据和方法，实现 <strong style="color:#DD5145">跨层组件通信</strong>。
 
-- 套路：父组件（顶层组件）通过**`provide`** 函数来提供数据，后代组件（底层组件）通过**`inject`** 函数来获取数据
+套路：父组件（顶层组件）通过`provide` 函数来提供数据，后代组件（底层组件）通过`inject` 函数来获取数据。
 
-- 语法：
+语法：顶层组件可以向底层组件传递**方法**，底层组件调用方法修改顶层组件中的数据（遵守谁的数据谁负责修改）
 
-  顶层组件：
+- 顶层组件：
 
-  ```js
-  proviede('key', 顶层组件的数据)	// 传递静态数据
-  proviede('key-ref', ref对象)	    // 传递ref对象（实现传递过程中保持数据的响应式）
-  provide('key-method', 方法名)	   // 传递方法
-  ```
+```js
+proviede('key', 顶层组件的数据)	// 传递静态数据
+proviede('key-ref', ref对象)	    // 传递ref对象（实现传递过程中保持数据的响应式）
+provide('key-method', 方法名)	   // 传递方法
+```
 
-  > 顶层组件可以向底层组件传递**方法**，底层组件调用方法修改顶层组件中的数据（遵守谁的数据谁负责修改）
+- 底层组件：
 
-  底层组件：
+```js
+const message = inject('key')
+```
 
-  ```js
-  const message = inject('key')
-  ```
+具体写法：
 
-- 具体写法：
+1. 祖先组件中：
 
-  1. 祖先组件中：
+```js
+import { provide } from 'vue'
+setup () {
+	......
+    let car = reactive({name:'奔驰',price:'40万'})
+    provide('car',car)
+    ......
+}
+```
 
-  ```js
-  import { provide } from 'vue'
-  setup () {
-  	......
-      let car = reactive({name:'奔驰',price:'40万'})
-      provide('car',car)
-      ......
-  }
-  ```
+2. 后代组件中
 
-  2. 后代组件中
-
-  ```js
-  import { inject } from 'vue'
-  setup (props, context) {
-  	......
-      const car = inject('car')
-      return {car}
-  	......
-  }
-  ```
+```js
+import { inject } from 'vue'
+setup (props, context) {
+	......
+    const car = inject('car')
+    return {car}
+	......
+}
+```
 
 
 

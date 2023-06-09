@@ -1,6 +1,6 @@
 # Web Socket
 
-## 1. 什么是 WebSocket
+## 1.:star:什么是 WebSocket
 
 WebSocket 是 HTML5 下的一种<strong style="color:#DD5145">网络通信协议</strong>，一种在单个 TCP 连接上进行<strong style="color:#DD5145">全双工通信</strong>的协议。（本质上是一个基于 TCP 的协议）
 
@@ -13,7 +13,7 @@ WebSocket 是 HTML5 下的一种<strong style="color:#DD5145">网络通信协议
 - WebSocket 是一个**持久化**的协议
 - WebSocket 目前支持两种统一资源标志符`ws`和`wss（加密）`，类似于 HTTP 和 HTTPS。
 
-## 2. WebSocket 的特点
+## 2.:star:WebSocket 的特点
 
 - 是真正的全双工方式，建立连接后客户端与服务器端是完全平等的，可以互相主动请求。而HTTP长连接基于HTTP，是传统的客户端对服务器发起请求的模式。
 - HTTP长连接中，每次数据交换除了真正的数据部分外，服务器和客户端还要大量交换HTTP header，信息交换效率很低。Websocket 协议通过第一个request建立了TCP连接之后，之后交换的数据都不需要发送 HTTP header就能交换数据，这显然和原有的 HTTP 协议有区别所以它需要对服务器和客户端都进行升级才能实现（主流浏览器都已支持HTML5）
@@ -27,7 +27,7 @@ WebSocket 是 HTML5 下的一种<strong style="color:#DD5145">网络通信协议
 - 我们都知道轮询的效率低，非常浪费资源（因为必须不停连接，或者 HTTP 连接始终打开）, 因此 WebSocket 应运而生。
 - WebSocket 不是用来代替 HTTP 的，它是用来解决实时通信的业务。若业务不需要实时性，那就没必要使用 WebSocket。
 
-## 3. WebSocket 与 HTTP 的关系
+## 3.:star:WebSocket 与 HTTP 的关系
 
 **相同点：**
 
@@ -45,19 +45,19 @@ WebSocket 是 HTML5 下的一种<strong style="color:#DD5145">网络通信协议
 
 ![](WebSocket.assets/image-20230520205820817.png)
 
-## 4. WebSocket 的方法
+## 4.:star:WebSocket 的方法
 
 - ws.send() - 向服务器发送数据
 - ws.close() - 关闭连接
 
-## 5. WebSocket 的事件
+## 5.:star:WebSocket 的事件
 
 - open - ws.onopen - 建立连接时触发
 - message - ws.onclose - 连接关闭时触发
 - error - ws.onerror - 通信发生错误时触发
 - message - ws.onmessage - 客户端接受服务端数据时触发
 
-## 6. WebSocket.readyState
+## 6.:star:WebSocket.readyState
 
 - readyState 属性返回实例对象的当前状态，共有四种状态
 - 0 - 表示正在连接
@@ -90,7 +90,7 @@ ws.onclose = function（）{
 }
 ```
 
-## 7.WebSocket 的使用
+## 7.:star:WebSocket 的使用
 
 ### 客户端搭建
 
@@ -106,7 +106,7 @@ ws 是一个 websocket 库，可以用了创建服务器。
 
 
 
-## 参考
+## :page_facing_up:参考
 
 [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)、[参考文章](https://blog.csdn.net/weixin_48845614/article/details/126634761)、[参考文章2](https://blog.csdn.net/sinat_36422236/article/details/85051547)、[参考文章3](https://blog.csdn.net/qq_54773998/article/details/123863493)
 

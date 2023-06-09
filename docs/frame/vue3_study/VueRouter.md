@@ -1,4 +1,4 @@
-# 九、VueRouter
+# 九、Vue3路由
 
 安装
 
@@ -8,7 +8,7 @@ npm install vue-router@4
 
 ## vue2和vue3的路由区别
 
-[参考文章](https://blog.csdn.net/qq_44880095/article/details/129036946)
+
 
 Vue2 中的 **new Router** 变成 Vue3 中的 **createRouter**
 
@@ -21,7 +21,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-const routes = [ ...xxx ]
+const routes = [ ... ]
 
 const router = new VueRouter({
 	mode: 'history',
@@ -31,7 +31,7 @@ const router = new VueRouter({
 export default router
 ```
 
-### vue3的引用方式
+### vue3 的引用方式
 
 **`router/index.js`**中定义
 
@@ -90,8 +90,6 @@ app.mount('#app')
 - `"abstract"`: `createMemoryHistory()`
 
 ## 导航守卫
-
-[参考文章](https://blog.csdn.net/qq_45466204/article/details/122884150)
 
 ### 全局路由守卫
 
@@ -244,3 +242,8 @@ const router = new VueRouter({
 export default router
 ```
 
+
+
+## :page_facing_up:参考
+
+[参考文章](https://blog.csdn.net/qq_44880095/article/details/129036946)、[参考文章](https://blog.csdn.net/weixin_42974827/article/details/126560362?spm=1001.2014.3001.5502)、[参考文章](https://blog.csdn.net/qq_45466204/article/details/122884150)

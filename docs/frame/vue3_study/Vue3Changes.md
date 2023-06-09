@@ -1,6 +1,6 @@
 # 六、Vue3 的一些改变
 
-## 1.:star:全局API的转移
+## :star:全局API的转移
 
 - Vue 2.x 有许多全局 API 和配置。
 
@@ -35,7 +35,7 @@
     | Vue.use                                   | app.use                                     |
     | Vue.prototype                             | app.config.globalProperties                 |
 
-## 2.:star:其他改变
+## :star:其他改变
 
 - data选项应始终被声明为一个函数。
 
@@ -99,9 +99,9 @@
 
 
 
-## 3.:star:Proxy 替代 defineProperty
+## :star:Proxy 替代 defineProperty
 
-### Object.defineProperty
+**Object.defineProperty**
 
 定义：`Object.defineProperty()` 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
 
@@ -113,7 +113,7 @@
 - 数组`API`方法无法监听到
 - 需要对每个属性进行遍历监听，如果嵌套对象，需要深层监听，造成性能问题
 
-### Proxy
+**Proxy**
 
 `Proxy`的监听是针对一个对象的，那么对这个对象的所有操作会进入监听操作，这就完全可以代理所有属性了。
 

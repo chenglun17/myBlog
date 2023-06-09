@@ -303,7 +303,7 @@ module.exports = {
                         "/others/git_study/GitBasicUse.md",
                         "/others/git_study/OperationProcess.md",
                         "/others/git_study/Problem.md",
-                        "/others/git_study/InterviewQuestions.md",
+                        "/others/git_study/Interview.md",
                     ],
                     initialOpenGroupIndex: 0
                 },

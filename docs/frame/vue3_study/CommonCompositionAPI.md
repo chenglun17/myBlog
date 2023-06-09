@@ -2,8 +2,6 @@
 
 # 二、常用 Composition API
 
-官方文档: https://v3.cn.vuejs.org/guide/composition-api-introduction.html
-
 Vue 的组件可以分为两种风格：**选项式API（Options API）** 和 **组合式API（Composition API）**
 
 ```vue
@@ -34,54 +32,110 @@ Vue 的组件可以分为两种风格：**选项式API（Options API）** 和 **
 
 
 
-## 1.拉开序幕的 setup
+## :star:拉开序幕的 setup
 
-1. 理解：Vue3.0中一个新的配置项，值为一个函数。它会在Vue实例创建完成前被调用，<strong style="color:#DD5145">故setup函数中没有this指针</strong>
+### 基本概念
 
-2. setup 是所有<strong style="color:#DD5145">Composition API（组合式API，即内置函数）</strong>的<i style="color:#bfa;font-weight:bold">“ 表演的舞台 ”</i>。
+1. setup 是 Vue3 中一个新的配置项，值为一个函数。
 
-3. 组件中所用到的数据(data)、方法(methods)、计算属性(computed)等等，均要配置在 setup 函数中，这样就可以对业务进行集中处理
+2. setup 是所有<strong style="color:#DD5145">Composition API（组合式API，即内置函数）</strong>的<i style="color:#3AB882;font-weight:bold">“表演的舞台 ”</i>。
+
+3. 组件中所用到的数据(data)、方法(methods)、计算属性(computed) 等等，均要配置在 setup 函数中，就可以对业务进行集中处理。
 
 4. setup 函数的两种返回值：
 
-> 1. 若返回一个对象，则对象中的属性、方法，在模板中均可以直接使用。（重点关注！）
-> 2. <span style="color:#aad">若返回一个渲染函数：则可以自定义渲染内容。（了解）</span>
->
-> 必须以**对象的形式**通过 **return** 返回出去
+   - <strong style="color:#9370DB">若返回一个对象，则对象中的属性、方法，在模板中均可以直接使用。（重点关注！）</strong>
 
-5. 注意点：
+   - 若返回一个渲染函数：则可以自定义渲染内容。（了解）
 
-> 1. 尽量不要与Vue2.x配置混用
->
->    - Vue2.x配置（data、methos、computed...）中<strong style="color:#DD5145">可以访问到</strong> setup 中的属性、方法。
->    - 但在 setup 中<strong style="color:#DD5145">不能访问到</strong> Vue2.x配置（data、methos、computed...）。
->    - 如果有重名，setup优先。
->
-> 2. setup 不能是一个<strong style="color:#DD5145">async函数</strong>，因为返回值不再是 return 的对象, 而是 promise, 模板看不到 return 对象中的属性。
->
->    （**后期也可以返回一个`Promise`实例，但需要`Suspense`和`异步组件`的配合**）
->
-> 3. setup 选择执行时机是在 **beforeCreate** 钩子之前，**自动执行**
+   ```js
+   import {h} from 'vue'
+   ...
+   setup() {
+       ...
+       return () => h('h1','学习')
+   }
+   ```
+
+必须以**对象的形式**通过 **return** 返回出去
 
 
 
-## setup 的两个注意点
+### setup 的几个注意点
 
-1. setup 执行的时机
+**1.setup 执行的时机**
 
-   在 **beforeCreate** 之前执行一次，this是 undefined。
+- 在 **beforeCreate** 之前自动执行一次，this 是 undefined，<strong style="color:#DD5145">故 setup 函数中没有 this 指针</strong>。
 
-2. setup 的两个参数
+**2.setup 的两个参数**
 
-   - <strong style="color:orange">props</strong>：值为对象，包含 组件外部传递过来，且组件内部声明接收了的属性。
-   - <strong style="color:orange">context</strong>：上下文对象
-     - attrs：值为对象，包含：组件外部传递过来，但没有在 props 配置中声明的属性，相当于 `this.$attrs`。
-     - slots：收到的插槽内容，相当于 `this.$slots`。
-     - emit：触发自定义事件的函数，相当于 `this.$emit`。
+- <strong style="color:#DD5145">props</strong>：值为对象，包含 组件外部传递过来，且组件内部声明接收了的属性。
+
+在父组件中给子组件传递数据
+
+```js
+<Demo msg="你好啊" name="chenglun17" />
+```
+
+在子组件中接收
+
+```js
+props:['msg','name'], // 需要声明一下接受到了，否则会报警告
+setup(props){
+    console.log(props)
+}
+```
+
+- <strong style="color:#DD5145">context</strong>：上下文对象
+  
+  - **attrs**：值为对象，包含：组件外部传递过来，但没有用 props 接收，相当于 `this.$attrs` 
+  
+    父子组件通信过程中，父组件把数据传递过来，如果子组件没有用 props 进行接收，就会出现在 attrs 中，而 vm 中没有
+  
+    如果用 props 接收了，则会出现在vm上而attrs中没有
+  
+  - **emit**：触发自定义事件的函数，相当于 `this.$emit` 
+  
+  在父组件中给子组件绑定一个事件
+  
+  ```js
+  <Demo @hello="showHelloMsg">
+  ```
+  
+  在子组件中触发事件并且可以传值过去
+  
+  ```js
+  emits:['hello'], // 要声明接收到了hello事件，否则会报警告
+  context.emit('hello', 666)
+  ```
+  
+  - **slots**：收到的插槽内容，相当于 `this.$slots` 
+  
+  ```vue
+  <Demo>
+  	<template v-slot:qwe>
+  		<span>你好</span>
+  	</template>
+  </Demo>
+  ```
+  
+  vue3 里面具名插槽用 `v-slot`
+
+**3.setup 不能是一个<strong style="color:#DD5145">async函数</strong>**
+
+因为返回值不再是 return 的对象，而是 promise，模板看不到 return 对象中的属性。
+
+（**后期也可以返回一个`Promise`实例，但需要`Suspense`和`异步组件`的配合**）
+
+**尽量不要与 Vue2 配置混用**
+
+- Vue2 配置（data、methos、computed...）中<strong style="color:#DD5145">可以访问到</strong> setup 中的属性、方法。
+- 但在 setup 中<strong style="color:#DD5145">不能访问到</strong> Vue2 配置（data、methos、computed...）。
+- 如果有重名，setup 优先。
 
 
 
-## \<script setup> 语法糖
+### \<script setup> 语法糖
 
 原始写法
 
@@ -116,78 +170,146 @@ Vue 的组件可以分为两种风格：**选项式API（Options API）** 和 **
 
 
 
-##  3.ref 函数
+##  :star:ref 与 reactive
 
-- 作用：<strong style="color:orange">定义一个响应式的数据</strong>
+### ref 函数
 
-- 语法：
+作用：<strong style="color:orange">定义一个响应式的数据</strong>，为数据添加响应式状态，接收的数据可以是基本类型或对象类型。
 
-  ```js
-  // 引入
-  import { ref } from 'vue'
-  // 执行函数 传入参数 变量接收
-  const xxx = ref(initValue)
-  ```
+- 基本类型数据：响应式依然是靠 **`Object.defineProperty()`** （数据劫持）的```get```与```set```完成的。
+- 对象类型数据：内部 <i style="color:#3AB882;font-weight:bold">“求助 ”</i> 了Vue3.0中的一个新函数 —— **`reactive`** 函数。
 
-> - 创建一个包含响应式数据的<strong style="color:#DD5145">引用对象（reference对象，简称ref对象）</strong>。
-> - **`RefImpl（reference implement）`** 引用对象
-> - js 脚本区域中操作数据： **`xxx.value`**
-> - 模板中读取数据: 不需要**`.value`**，解析时自动追踪 value，直接：**`<div>{{xxx}}</div>`**
+语法：创建一个包含响应式数据的<strong style="color:#DD5145">引用对象（reference对象，简称ref对象）</strong> **`RefImpl（reference implement）`**
 
-- 备注：
+```js
+// 引入
+import { ref } from 'vue'
+// 执行函数 传入参数 变量接收
+const xxx = ref(initValue)
+```
 
-  > - 接收的数据可以是：基本类型、或对象类型。
-  > - **基本类型** 的数据：响应式依然是靠**`Object.defineProperty()`**（数据劫持）的```get```与```set```完成的。
-  > - **对象类型** 的数据：内部 <i style="color:#bfa;font-weight:bold">“求助 ”</i> 了Vue3.0中的一个新函数—— **`reactive`**函数。
+- **参数可以传递任意数据类型**，传递对象类型时也能保持深度响应式，所以适用性更广
+- js 脚本区域中操作数据：**`xxx.value`**
+- 模板中读取数据: 不需要 **`.value`**，解析时自动追踪 value，直接：**`<div>{{xxx}}</div>`**
 
 
 
-## 4.reactive 函数
+### reactive 函数
 
-- 作用: <strong style="color:orange">定义一个 “对象类型” 的响应式数据</strong>（不能处理简单类型的数据，要用**`ref`**函数）
+作用：<strong style="color:orange">定义一个“对象类型”响应式数据</strong>，为对象添加响应式状态（不能处理简单类型的数据，要用**`ref`**函数）
 
-- 语法：接收一个对象（或数组）类型的参数，返回一个<strong style="color:#DD5145">代理对象（Proxy的实例对象，简称proxy对象）</strong>
+语法：接收一个对象（或数组）类型的参数，返回一个<strong style="color:#DD5145">代理对象（Proxy的实例对象，简称proxy对象）</strong>
 
-  ```js
-  // 引入
-  import { reactive } from 'vue'
-  // 执行函数 传入参数 变量接收
-  const 代理对象 = reactive(源对象)
-  ```
+```js
+// 引入
+import { reactive } from 'vue'
+// 执行函数 传入参数 变量接收
+const 代理对象 = reactive(源对象)
+```
 
 - reactive 定义的响应式数据是 <strong style="color:#DD5145">"深层次的"</strong>。
-
+- 参数只能传入对象类型
+- 获取数据值的时候直接获取，不需要加.value
 - 内部基于 ES6 的 Proxy 实现，通过代理对象操作源对象内部数据进行操作。
 
 
 
-## 5.ref 与 reactive 的区
+### ref 与 reactive 的区别
 
-1. 从定义数据角度对比：
+1.从定义数据角度对比：
 
-> - ref 用来定义：<strong style="color:#DD5145">基本类型数据</strong>。
->
-> - reactive 用来定义：<strong style="color:#DD5145">对象（或数组）类型数据</strong>。
->
->   备注：**`ref`** 也可以用来定义对象（或数组）类型数据, 它内部会自动通过**`reactive`**转为<strong style="color:#DD5145">代理对象</strong>。
+- ref 用来定义：<strong style="color:#DD5145">基本类型数据</strong>
+- reactive 用来定义：<strong style="color:#DD5145">对象（或数组）类型数据</strong>
 
-2. 从原理角度对比：
+`ref` 也可以用来定义对象（或数组）类型数据，它内部会自动通过 `reactive` 转为<strong style="color:#DD5145">代理对象</strong>。
 
-> -  ref 通过``Object.defineProperty()``的```get```与```set```来实现响应式（数据劫持）。
-> -  reactive 通过使用 <strong style="color:#DD5145">Proxy</strong> 来实现响应式（数据劫持）, 并通过 <strong style="color:#DD5145">Reflect</strong> 操作<strong style="color:orange">源对象</strong>内部的数据。
+2.从原理角度对比：
 
-3. 从使用角度对比：
+-  ref 通过``Object.defineProperty()``的```get```与```set```来实现响应式（数据劫持）。
+-  reactive 通过使用 <strong style="color:#DD5145">Proxy</strong> 来实现响应式（数据劫持）, 并通过 <strong style="color:#DD5145">Reflect</strong> 操作<strong style="color:orange">源对象</strong>内部的数据。
 
-> -  ref 定义的数据：操作数据 <strong style="color:#DD5145">需要</strong>```.value```，读取数据时从模板中直接读取 <strong style="color:#DD5145">不需要</strong>```.value```。
-> -  reactive 定义的数据：操作数据与读取数据 <strong style="color:#DD5145">均不需要</strong>```.value```。
+3.从使用角度对比：
 
-## 6.Vue3.0中的响应式原理
+-  ref 定义的数据：操作数据 <strong style="color:#DD5145">需要</strong>```.value```，读取数据时从模板中直接读取 <strong style="color:#DD5145">不需要</strong>```.value```。
+-  reactive 定义的数据：操作数据与读取数据 <strong style="color:#DD5145">均不需要</strong>```.value```。
+
+
+
+## :star:toRef 与 toRefs
+
+### toRef
+
+作用：为源响应式对象上的属性新建一个ref，从而保持对其源对象属性的响应式连接。
+
+toRef 是指向了那个对象，而 ref 是 new 了一个对象（会失去响应式）
+
+语法：
+
+```js
+const name = toRef(person, 'name')
+```
+
+- 接收两个参数：源响应式对象和属性名，返回一个 ref 数据
+- 获取数据值的时候需要加 .value
+- toRef 后的 ref 数据如果是复杂类型数据时，不是原始数据的拷贝，而是引用，改变结果数据的值也会同时改变原始数据
+
+应用:   要将响应式对象中的某个属性单独提供给外部使用时。
+
+
+
+### toRefs
+
+作用：将响应式对象转换为结果对象，其中结果对象的每个属性都是指向原始对象相应属性的ref。
+
+常用于ES6的解构赋值操作，因为在对一个响应式对象直接解构时解构后的数据将不再有响应式，而使用toRefs可以方便解决这一问题。
+
+语法：
+
+```js
+import { defineComponent, toRefs } from 'vue'
+
+export default defineComponent({
+  props: [title],
+  
+  setup (props) {
+    // 使用了解构赋值语法创建了变量myTitle
+    const { myTitle } = toRefs(props)
+
+    console.log(myTitle.value)
+  }
+})
+
+```
+
+- 获取数据值的时候需要加 .value
+- toRefs 后的 ref 数据如果是复杂类型数据时，不是原始数据的拷贝，而是引用，改变结果数据的值也会同时改变原始数据
+- 作用其实和 toRef 类似，只不过 toRef 是对一个个属性手动赋值，而 toRefs 是自动解构赋值
+
+
+
+### ref、toRef  和 toRefs 区别
+
+- ref、toRef、toRefs 都可以将某个对象中的属性变成响应式数据
+- ref 的本质是拷贝，修改响应式数据，不会影响到原始数据，视图会更新
+- toRef、toRefs 的本质是引用，修改响应式数据，会影响到原始数据，视图会更新
+- toRef 一次仅能设置一个数据，接收两个参数，第一个参数是哪个对象，第二个参数是对象的哪个属性
+- toRefs 接收 一个对象作为参数，它会遍历对象身上的所有属性，然后挨个调用 toRef 执行
+
+
+
+
+
+
+
+
+
+## :star:Vue3.0中的响应式原理
 
 ### vue2.x的响应式
 
 - 实现原理：
 
-  - 对象类型：通过**`Object.defineProperty()`**对属性的读取、修改进行拦截（<strong style="color:#DD5145">数据劫持</strong>）。
+  - 对象类型：通过 **`Object.defineProperty()`** 对属性的读取、修改进行拦截（<strong style="color:#DD5145">数据劫持</strong>）。
 
   - 数组类型：通过重写更新数组的一系列方法来实现拦截。（对数组的变更方法进行了包裹）。
 
@@ -218,15 +340,11 @@ Vue 的组件可以分为两种风格：**选项式API（Options API）** 和 **
 
 - 实现原理: 
 
-  - 通过 <strong style="color:orange">Proxy（代理）</strong>：拦截对象中任意属性的变化，包括：属性值的读写、属性的添加、属性的删除等。
+  - 通过 <strong style="color:orange">Proxy（代理）</strong>：拦截对象中任意属性的变化，包括属性值的读写、属性的添加、删除等。
 
   - 通过 <strong style="color:orange">Reflect（反射）</strong>：对源对象的属性进行操作。
 
-  - MDN文档中描述的Proxy与Reflect：
-
-    - Proxy：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy
-
-    - Reflect：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect
+  - MDN文档中描述的[Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)与[Reflect](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect)：
 
     ```js
     new Proxy(data, {
@@ -251,7 +369,7 @@ Vue 的组件可以分为两种风格：**选项式API（Options API）** 和 **
 
 
 
-## 7.计算属性与监听属性
+## :star:计算属性与监听属性
 
 ### 1.computed 函数
 
@@ -283,7 +401,7 @@ Vue 的组件可以分为两种风格：**选项式API（Options API）** 和 **
               person.lastName = nameArr[1]
           }
       })
-  }课程笔记在线版 wekenw.gitee.io
+  }
   ```
 
 ### 2.watch 函数
@@ -343,9 +461,9 @@ watch(() => person.job, (newValue, oldValue) => {
 
 - watch 的套路是：既要指明监视的属性，也要指明监视的回调。
 
-- watchEffect 的套路是：<strong style="color:#DD5">不用指明监视哪个属性，监视的回调中用到了哪个属性，那就监视哪个属性</strong>。
+- watchEffect 的套路是：<strong style="color:#3AB882">不用指明监视哪个属性，监视的回调中用到了哪个属性，那就监视哪个属性</strong>。
 
-- <strong style="color:#aad">watchEffect 与 computed</strong>：
+- <strong style="color:#9370DB">watchEffect 与 computed</strong>：
 
   - 但 computed 注重的计算出来的值（回调函数的返回值），所以必须要写返回值。
   - 而 watchEffect 更注重的是<strong style="color:#DD5145">过程</strong>（回调函数的函数体），所以<strong style="color:#DD5145">不用写返回值</strong>。
@@ -361,63 +479,63 @@ watch(() => person.job, (newValue, oldValue) => {
   })
   ```
 
-### 4.watch和watchEffect的对比
-
-[参考文章](https://blog.csdn.net/m0_51969330/article/details/123673334)
+### 4.watch和watchEffect的区别
 
 **watch：**
 
-> - **`watch`**显式指定依赖数据，依赖数据更新时执行回调函数
->
-> - 具有一定的惰性lazy 第一次页面展示的时候不会执行，只有数据变化的时候才会执行
->
->   设置`immediate: true`时可以变为非惰性，页面首次加载就会执行
->
-> - 监视ref定义的响应式数据时可以获取到原值
->
-> - **既要指明监视的属性，也要指明监视的回调**
+- `watch`显式指定依赖数据，依赖数据更新时执行回调函数
+
+- 具有一定的惰性lazy 第一次页面展示的时候不会执行，只有数据变化的时候才会执行
+
+  设置`immediate: true`时可以变为非惰性，页面首次加载就会执行
+
+- 监视ref定义的响应式数据时可以获取到原值
+
+- **既要指明监视的属性，也要指明监视的回调**
 
 **watchEffect：**
 
-> - **`watchEffect`**自动收集依赖数据，依赖数据更新时重新执行自身
-> - 立即执行，没有惰性，页面的首次加载就会执行
-> - 无法获取到原值，只能得到变化后的值
-> - **不用指明监视哪个属性，监视的回调中用到哪个属性就监视哪个属性**
+- `watchEffect`自动收集依赖数据，依赖数据更新时重新执行自身
+- 立即执行，没有惰性，页面的首次加载就会执行
+- 无法获取到原值，只能得到变化后的值
+- **不用指明监视哪个属性，监视的回调中用到哪个属性就监视哪个属性**
 
 
 
-## 8.生命周期
+## :star:生命周期
 
 ### Vue2生命周期
 
-<img src="CommonCompositionAPI.assets/vue2生命周期.png" alt="vue2生命周期" style="zoom:50%;" />
+![](CommonCompositionAPI.assets/vue2生命周期.png)
 
 ### Vue3生命周期
 
 ![vue3生命周期](CommonCompositionAPI.assets/vue3生命周期.png)
 
-### 组合式API
+### 生命周期函数
 
 - Vue3.0 中可以继续使用 Vue2.x 中的生命周期钩子，但有有两个被更名：
-  - ```beforeDestroy```改名为 **`beforeUnmount`**
-  - ```destroyed```改名为 **`unmounted`**
+  - ```beforeDestroy``` 改名为 `beforeUnmount`
+  - ```destroyed``` 改名为 `unmounted`
 - Vue3.0 也提供了 Composition API 形式的生命周期钩子，与 Vue2.x 中钩子对应关系如下：
 
-| 选项式API                                                    | 组合式API                                              |
-| ------------------------------------------------------------ | ------------------------------------------------------ |
-| <strong style="color:#DD5145">beforeCreate / create</strong> | <strong style="color:#DD5145">setup</strong>           |
-| beforeMount                                                  | onBeforeMount                                          |
-| mounted                                                      | onMounted                                              |
-| beforeUpdate                                                 | onBeforeUpdate                                         |
-| updated                                                      | onUpdated                                              |
-| <strong style="color:#DD5145">beforeUnmount</strong>         | <strong style="color:#DD5145">onBeforeUnmount</strong> |
-| <strong style="color:#DD5145">unmounted</strong>             | <strong style="color:#DD5145">onUnmounted</strong>     |
+| 选项式API（Vue2）                                            | 组合式API（Vue3）                                      | 说明           |
+| ------------------------------------------------------------ | ------------------------------------------------------ | -------------- |
+| <strong style="color:#DD5145">beforeCreate / created</strong> | <strong style="color:#DD5145">setup</strong>           | 创建实例前/后  |
+| beforeMount                                                  | onBeforeMount                                          | DOM挂载前调用  |
+| mounted                                                      | onMounted                                              | DOM挂载后调用  |
+| beforeUpdate                                                 | onBeforeUpdate                                         | 数据更新前调用 |
+| updated                                                      | onUpdated                                              | 数据更新后调用 |
+| <strong style="color:#DD5145">beforeUnmount</strong>         | <strong style="color:#DD5145">onBeforeUnmount</strong> | 组件销毁前调用 |
+| <strong style="color:#DD5145">unmounted</strong>             | <strong style="color:#DD5145">onUnmounted</strong>     | 组件销毁后调用 |
 
-> - 生命周期函数可以执行多次，多次执行时传入的回调会<strong style="color:#DD5145">在时机成熟时依次执行</strong>
-> - setup 是最先执行的，然后是 组合式API 中钩子，最后是 选项式API 中钩子
-> - setup 选择执行时机是在 **beforeCreate** 钩子之前，**自动执行**
+- 生命周期函数可以执行多次，多次执行时传入的回调会<strong style="color:#DD5145">在时机成熟时依次执行</strong>
+- setup 是最先执行的，然后是 组合式API 中钩子，最后是 选项式API 中钩子
+- setup 选择执行时机是在 **beforeCreate** 钩子之前，**自动执行**
 
-使用前必须引用**`import { onBeforeMount } from 'vue'`**，引入之后就可以在`setup()`里面写了（前者为配置项形式，与setup同级）
+使用前必须引用`import { onBeforeMount } from 'vue'`，引入之后就可以在`setup()`里面写了（前者为配置项形式，与setup同级）：
+
+setup 是最先执行的，然后是 组合式API 中钩子，最后是 选项式API 中钩子。
 
 ```js
 // vue2.x 中的生命周期钩子
@@ -437,34 +555,17 @@ setup() {
 }
 ```
 
-> setup 是最先执行的，然后是 组合式API 中钩子，最后是 选项式API 中钩子
 
-## 9.自定义 hook 函数
 
-- 什么是hook？—— <strong style="color:#DD5145">本质是一个函数</strong>，把 setup 函数中使用的 Composition API 进行了封装。
+## :star:自定义 hook 函数
+
+- 什么是 hook？—— <strong style="color:#DD5145">本质是一个函数</strong>，把 setup 函数中使用的 Composition API 进行了封装。
 
 - 类似于 vue2.x 中的 mixin。
 
 - 自定义 hook 的优势：<strong style="color:#DD5145">复用代码</strong>，让 setup 中的逻辑更清楚易懂。
 
 
-
-## 10.toRef
-
-- 作用：创建一个 ref 对象，其 value 值指向另一个对象（响应式对象）中的某个属性。
-
-  toRef 是指向了那个对象，而 ref 是new了一个对象（会失去响应式）
-
-- 语法：处理一个对象里面的一个属性
-
-  ```js
-  const name = toRef(person, 'name')
-  ```
-
-- 应用:   要将响应式对象中的某个属性单独提供给外部使用时。
-
-
-- 扩展：```toRefs``` 与```toRef```功能一致，但可以批量创建多个 ref 对象，语法：**`toRefs(person)`**
 
 
 
@@ -474,10 +575,10 @@ props 父传子通信
 
 基本思想：
 
-> - 父组件中给子组件绑定属性
-> - 子组件内部通过 **`props`** 选项接收
->
-> 父传子的过程中通过 **`defineProps({属性名: 类型})`**接收 props
+- 父组件中给子组件绑定属性
+- 子组件内部通过 **`props`** 选项接收
+
+父传子的过程中通过 **`defineProps({属性名: 类型})`**接收 props
 
 ```js
 export default {
@@ -650,7 +751,7 @@ setup 语法糖下
 </template>
 ```
 
-默认情况下在 \<script setup> 语法糖下组件内部的属性和方法是不开放给父组件访问的，可以通过 <strong style="color:#DD5145">defineExpose</strong> 编译宏**抛出**那些属性和方法允许访问
+默认情况下在 \<script setup> 语法糖下组件内部的属性和方法是**不开放给父组件访问的**，可以通过 <strong style="color:#DD5145">defineExpose</strong> 编译宏**抛出**那些属性和方法允许访问
 
 ```vue
 <script setup>
@@ -667,3 +768,9 @@ setup 语法糖下
 
 > 1. 获取模板引用的时机是什么？--- 组件挂载完毕之后
 > 2. defineExpose 编译宏的作用是什么？--- 显示暴露组件内部的属性和方法
+
+
+
+## :page_facing_up:参考
+
+[官方文档](https://cn.vuejs.org/)、[参考文章](https://blog.csdn.net/m0_51969330/article/details/123673334)、[参考文章](https://blog.csdn.net/u010059669/article/details/112287552)
