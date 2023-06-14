@@ -21,7 +21,17 @@ DOM（Document Object Model ，文档对象模型）一种用于操作XML，HTML
 
 ## :star:Document 对象
 
-### 1.获取 DOM 节点
+### 1.实例属性
+
+`Document.documentElement` 是一个会返回文档对象（[`document`](https://developer.mozilla.org/zh-CN/docs/Web/API/Document)）的根元素的只读属性（如 HTML 文档的 `html` 元素）。
+
+```js
+const element = document.documentElement
+```
+
+
+
+### 2.获取 DOM 节点
 
 | `方法`                                  | `描述`                                                       |
 | :-------------------------------------- | :----------------------------------------------------------- |
@@ -66,7 +76,7 @@ document.getElementByClassName('类名')
 
 
 
-### 2.操作 DOM 节点
+### 3.操作 DOM 节点
 
 DOM 树里每一个内容都称之为节点
 
@@ -568,13 +578,13 @@ window.scrollTo(0, 1000)
 
 会在窗口尺寸改变的时候触发事件
 
-事件名：**resize**
+事件名：`resize`
 
 ```javascript
 // 检测屏幕宽度
 window.addEventListener('resize', function () {
-    let w = document.documentElement.clientWidth
-    console.log(w)
+    let htmlWidth = document.documentElement.clientWidth
+    console.log(htmlWidth)
 })
 ```
 

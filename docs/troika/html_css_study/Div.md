@@ -32,6 +32,7 @@
     width: 300px;
     height: 300px;
     background-color: orange;
+    
     position: absolute;	// 子绝父相
     top: 0;
     bottom: 0;
@@ -48,6 +49,7 @@
     width: 300px;
     height: 300px;
     background-color: orange;
+    
     position: absolute;	// 子绝父相
     top: 50%;
     left: 50%;
@@ -62,6 +64,7 @@
     width: 600px;
     height: 600px;
     background-color: #999;
+    
     display: flex;
     justify-content: center;
     align-items: center;

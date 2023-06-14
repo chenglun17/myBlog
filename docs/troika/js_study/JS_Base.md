@@ -75,7 +75,12 @@ JavaScript 拥有动态类型，这意味着相同的变量可用作不同的类
 
 只有 7 种 [falsy](https://developer.mozilla.org/zh-CN/docs/Glossary/Falsy) 值：`''`(空字符串)、`0`、`-0`、`undefined`、`null`、`false`、`NaN`。
 
-`Function`构造函数，比如 `new Number`，任何对象、`[]`(空数组)，字符串`"false"`，都是 [truthy](https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy)。
+以下情况都是 [truthy](https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy) 值：
+
+- `Function`构造函数，比如 `new Number`
+- 任何对象、包括空对象`{}`
+- 空数组`[]`
+- 非空字符串`"false"`
 
 
 

@@ -121,14 +121,16 @@ module.exports = {
                     children: [
                         "/troika/html_css_study/HTMLNotes.md",
                         "/troika/html_css_study/CSSNotes.md",
+                        "/troika/html_css_study/CSSPreprocessor.md",
                         "/troika/html_css_study/BoxModel.md",
-                        "/troika/html_css_study/Display.md",
                         "/troika/html_css_study/Position.md",
                         "/troika/html_css_study/Div.md",
                         "/troika/html_css_study/CssSelector.md",
                         "/troika/html_css_study/flexLayout.md",
                         "/troika/html_css_study/transform.md",
                         "/troika/html_css_study/BFC.md",
+                        "/troika/html_css_study/MediaQuery.md",
+                        "/troika/html_css_study/MobileAda.md",
                     ],
                     initialOpenGroupIndex: 0
                 },

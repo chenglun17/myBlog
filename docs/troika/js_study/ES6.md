@@ -28,13 +28,14 @@ ECMAScript6，即ES6，是ECMAScript的第六次修订，于2015年完成，也�
 19. Module 的加载实现
 20. 修饰器 @，Decorator是一个函数，用来修改类、方法的行为。修饰器本质就是编译时执行的函数。
 21. ES8新增 async、await，内置的自动执行器，它就是 Generator 函数的语法糖。
-22. ES11新增，可选链（Optional Chaining）
-23. 大整数类型 **`BigInt`**
-24. 空值合并运算符（Nullish Coalescing Operator）
+22. ES10新增 `flat` 和 `flatMap`
+23. ES11新增，可选链（Optional Chaining）
+24. 大整数类型 **`BigInt`**
+25. 空值合并运算符（Nullish Coalescing Operator）
 
 
 
-## 1.:star:字面量增强
+## :star:字面量增强
 
 **property shorthand**（属性的简写）
 
@@ -112,7 +113,7 @@ console.log(person['say Hello'])
 
 
 
-## 2.:star:var / let / const 区别
+## :star:var / let / const 区别
 
 ### 2.1 作用域提升的区别
 
@@ -122,7 +123,7 @@ console.log(person['say Hello'])
 
   在我们声明（初始化）之前是不能访问它们的，这个行为被称之为<strong style="color:#DD5145">暂时性死区（Temporal Dead Zone，TDZ）</strong>。
 
-- `let` 必须先声明再使用，可以重新赋值。
+- `let` 和`const`必须先声明再使用，其中`let`可以重新赋值。
 
 - `const` 定义的是常量，不能修改，如果定义的是对象，可以修改对象内部的数据。且**声明之后必须赋值**，否则会报错。
 
@@ -156,7 +157,7 @@ ES6 的代码块级作用域对 let / cosnt / function / class 声明的类型�
 
 
 
-## 3.:star:函数的扩展
+## :star:函数的扩展
 
 ### 函数的默认值
 
@@ -271,7 +272,7 @@ f.name // 'f'
 
 
 
-## 4.:star:字符串模板
+## :star:字符串模板
 
 使用 **反引号 \` `** 来编写字符串，称之为**模板字符串**，内容拼接变量时，用 `${ expression }` 嵌入动态的内容。
 
@@ -307,7 +308,7 @@ getPersonInfo`${person} is ${age} years old`
 
 
 
-## 5.:star:解构赋值
+## :star:解构赋值
 
 解构赋值是一种快速为变量赋值的简洁语法，本质上仍为变量赋值。
 
@@ -420,7 +421,7 @@ console.log(name)
 
 
 
-## 6.:star:扩展 (展开) 运算符
+## :star:扩展 (展开) 运算符
 
 展开语法（Spread syntax）：
 
@@ -464,11 +465,11 @@ console.log(a2)
 
 
 
-## 7.:star:迭代器 Iterator
+## :star:迭代器 Iterator
 
 ### 1.基本概念
 
-迭代器（遍历器）`Iterator`是一种**遍历机制**。它是一种**接口**，为各种**不同的数据结构**提供**统一的访问机制**。
+迭代器（遍历器）`Iterator`是一种**遍历机制**。它是一种**接口**，为**不同的数据结构**提供**统一的访问机制**。
 
 任何数据结构只要部署 `Iterator` 接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。
 
@@ -489,7 +490,7 @@ console.log(a2)
 - 第二次调用指针对象的`next`方法，指针就指向数据结构的第二个成员
 - 不断调用指针对象的`next`方法，直到它指向数据结构的结束位置
 
-每一次<strong style="color:#DD5145">调用`next`方法</strong>，都会**返回数据结构的当前成员的信息**。返回一个包含`value`和`done`两个属性的对象。
+每一次<strong style="color:#DD5145">调用`next`方法</strong>，都会**返回数据结构的当前成员的信息**，包含`value`和`done`两个属性的对象。
 
 - `value`属性是当前成员的值
 - `done`属性是一个布尔值，表示遍历是否结束，即是否还有必要再一次调用`next`方法
@@ -497,22 +498,22 @@ console.log(a2)
 下面是一个模拟`next`方法返回值的例子。
 
 ```js
+function makeIterator(array) {
+    let nextIndex = 0
+    return {
+        next: function() {
+            return nextIndex < array.length ?
+                {value: array[nextIndex++], done: false} :
+            {value: undefined, done: true};
+        }
+    }
+}
+
 const it = makeIterator(['a', 'b'])
 
 it.next() // { value: "a", done: false }
 it.next() // { value: "b", done: false }
 it.next() // { value: undefined, done: true }
-
-function makeIterator(array) {
-  let nextIndex = 0
-  return {
-    next: function() {
-      return nextIndex < array.length ?
-        {value: array[nextIndex++], done: false} :
-        {value: undefined, done: true};
-    }
-  };
-}
 ```
 
 上面代码定义了一个`makeIterator`函数，它是一个遍历器生成函数，作用就是返回一个遍历器对象。对数组`['a', 'b']`执行这个函数，就会返回该数组的遍历器对象（即指针对象）`it`。
@@ -521,24 +522,20 @@ function makeIterator(array) {
 
 ### 3.默认 Iterator 接口
 
-`Iterator` 接口的目的，就是为所有数据结构，提供了一种统一的访问机制，即`for...of`循环（详见下文）。
+`Iterator` 接口为所有数据结构，提供了一种统一的访问机制，即`for...of`循环（详见下文）。
 
 当使用`for...of`循环遍历某种数据结构时，该循环会自动去寻找 `Iterator` 接口。
 
-一种数据结构只要部署了 `Iterator` 接口，我们就称这种数据结构是 “可遍历的”（iterable）。
-
 ES6 规定，默认的 Iterator 接口部署在数据结构的`Symbol.iterator`属性，或者说，一个数据结构只要具有`Symbol.iterator`属性，就可以认为是 “可遍历的”。
-
-ES6 的有些数据结构原生具备 `Iterator` 接口（比如数组），即不用任何处理，就可以被`for...of`循环遍历。原因在于，这些数据结构原生部署了`Symbol.iterator`属性（详见下文），另外一些数据结构没有（比如对象）。
 
 原生具备`Iterator`接口的数据结构如下：
 
 - String、Array、Map、Set
-- TypedArray
+- TypedArray，字符串是一个类似数组的对象，也原生具有`Iterator`接口
 - 函数的 arguments 对象
 - NodeList 对象
 
-> 字符串是一个类似数组的对象，也原生具有`Iterator`接口
+<strong style="color:#DD5145">对象默认不是可迭代的</strong>
 
 
 
@@ -622,7 +619,7 @@ iterator.next() // { value: undefined, done: true }
 
 
 
-## 8.:star:for...of 循环
+## :star:for...of 循环
 
 ES6 借鉴 C++、Java、C# 和 Python 语言，引入了`for...of`循环，作为遍历所有数据结构的统一的方法。
 
@@ -699,7 +696,7 @@ for (let value of myArray) {
 
 
 
-## 9.:star:Set 数据结构
+## :star:Set 数据结构
 
 ES6 提供了新的数据结构 **Set（集合）**，它类似于<strong style="color:#DD5145">数组</strong>，但 <strong style="color:#DD5145">Set 的元素是唯一的</strong>，集合实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
 
@@ -709,7 +706,7 @@ MDN 官方文档定义：
 - **`Set`** 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用
 - 另外，`NaN` 和 `undefined` 都可以被存储在 Set 中，`NaN` 之间被视为相同的值（`NaN` 被认为是相同的，尽管 `NaN !== NaN`）
 
-### Set 的属性和方法
+### 1.Set 的属性和方法
 
 - `size`：返回集合中元素个数
 - `add(value)`：添加一个新元素 value，返回 Set 对象本身
@@ -726,7 +723,7 @@ const set = new Set([1, 1, 2, 3, 4])
 console.log(set) 	// 返回{1, 2, 3, 4}
 ```
 
-### 遍历 Set
+### 2.遍历 Set
 
 `Set`实例遍历的方法有如下：
 
@@ -736,7 +733,7 @@ console.log(set) 	// 返回{1, 2, 3, 4}
 - forEach()：使用回调函数遍历每个成员
 - Set 也是支持`for of`的遍历的
 
-### WeakSet
+### 3.WeakSet
 
 和 Set 类似的另外一个数据结构称为 WeakSet，也是内部元素不能重复的数据结构。
 
@@ -758,13 +755,13 @@ weakSet.add(Symbol())
 
 由于上面这个特点，WeakSet 的成员是不适合引用的，因为它会随时消失，因此 ES6 规定 <strong style="color:#DD5145">WeakSet 不可遍历</strong>。
 
-### WeakSet 常用方法
+### 4.WeakSet 常用方法
 
 - `add(value)`：添加一个新元素 value，返回 WeakSet 对象本身
 - `delete(value)`：删除集合中的元素，返回 boolean 值
 - `has(value)`：检测集合中是否包含某个元素，返回 boolean 值
 
-### WeakSet 应用场景
+### 5.WeakSet 应用场景
 
 ```js
 const personSet = new WeakSet()
@@ -791,7 +788,7 @@ p.running.call({name: 'why'})
 
 
 
-## 10.:star:Map 数据结构
+## :star:Map 数据结构
 
 ES6 提供了 **Map** 数据结构。它类似于对象，也是<strong style="color:#DD5145">键值对</strong>的集合。而键和值都可以是<strong style="color:#DD5145">任意类型</strong>，甚至可以是函数，也实现了 iterator 接口，所以可以使用 **扩展运算符 ...** 和 **for...of** 进行遍历。
 
@@ -862,7 +859,7 @@ console.log(newArr)   // [12, 43, 23, 68]
 
 
 
-## 11.:star:Symbol 类型
+## :star:Symbol 类型
 
 JavaScript 的七种基本数据类型：
 
@@ -975,15 +972,23 @@ for (const sKey of sKeys) {
 
 
 
-### Symbol.iterator方法
+### 4.Symbol.iterator
+
+对象的`Symbol.iterator`属性，指向该对象的默认遍历器方法。
+
+对象进行`for...of`循环时，会调用`Symbol.iterator`方法，返回该对象的默认遍历器，详细介绍参见 迭代器 iterator 和 for...of 循环。
 
 
 
-## 12.:star:Promise
+
+
+
+
+## :star:Promise-
 
 详见 Promise 学习章节
 
-## 13.:star:Generator
+## :star:Generator-
 
 详见 Promise 学习章节
 
@@ -1083,7 +1088,7 @@ let proxy = new Proxy(s, {
 
 
 
-## 1​5​.:star:Reflect 对象
+## :star:Reflect 对象
 
 **Reflect** 是一个内置的对象，它提供拦截 JavaScript 操作的方法。`Reflect`不是一个函数对象，因此它是不可构造的。
 
@@ -1127,7 +1132,7 @@ if (Reflect.defineProperty(target, property, attributes)) {
 }
 ```
 
-### 3.让`Object`操作从命令式变成函数行为
+### 3.让`Object`操作从命令式变成函数式
 
 ```js
 const obj = { name: 'chenglun17' }
@@ -1229,7 +1234,9 @@ console.log(Person === Person.prototype.constructor) // true
 
 ### 1.constructor 方法
 
-`constructor()`方法是类的默认方法，通过`new`命令生成对象实例时，自动调用该方法。一个类必须有`constructor()`方法，如果没有显式定义，一个空的`constructor()`方法会被默认添加。
+`constructor()`方法是类的默认方法，通过`new`命令生成对象实例时，自动调用该方法。
+
+一个类必须有`constructor()`方法，如果没有显式定义，一个空的`constructor()`方法会被默认添加。
 
 `constructor()`方法默认返回实例对象（即`this`），完全可以指定返回另外一个对象。
 
@@ -1329,7 +1336,7 @@ counter.#count = 42 // 报错
 
 
 
-## 1​7​.:star:Class 的继承
+## :star:Class 的继承
 
 Class 可以通过`extends`关键字实现继承，让子类继承父类的属性和方法，父类的静态属性和方法也能继承。extends 的写法比 ES5 的原型链继承，要清晰和方便很多。
 
@@ -1516,7 +1523,7 @@ console.log(info)
 
 
 
-## 1​9​.:star:Module 的加载实现
+## :star:Module 的加载实现
 
 ### 1.浏览器加载
 
@@ -1574,13 +1581,9 @@ console.log(info)
 
 
 
-## 21.:star:async 和 await
+## :star:async 和 await-
 
 详见 Promise 学习章节
-
-
-
-
 
 
 
@@ -1590,7 +1593,9 @@ console.log(info)
 
 
 
+## :star:flat 和 flatMap-
 
+详见 JavaScript 内置对象章节
 
 
 
@@ -1598,9 +1603,9 @@ console.log(info)
 
 ES11 中新增的一个特性，主要作用于让我们的代码在进行 null 和 undefined 判断时更加清晰和简洁。
 
-可选链运算符（**`?.`**）允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效。
+可选链运算符 <strong style="color:#DD5145;font-size:20px">?.</strong> 允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效。
 
-可选链运算符`?.` 运算符的功能类似于 `.` 链式运算符，不同之处在于，在引用为空 (nullish ) (`null` 或者 `undefined`) 的情况下不会引起错误，该表达式短路返回值是 `undefined`。
+可选链运算符`?.` 运算符的功能类似于 `.` 链式运算符，不同之处在于，在引用为空 (nullish ) (`null` 或者 `undefined`) 的情况下不会引起错误，该表达式短路<strong style="color:#DD5145">返回值是 `undefined`</strong>。
 
 与函数调用一起使用时，如果给定的函数不存在，则返回 `undefined`。
 

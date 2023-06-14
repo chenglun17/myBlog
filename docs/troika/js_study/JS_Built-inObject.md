@@ -4,36 +4,71 @@
 
 `Object` 是 JavaScript 的一种数据类型。它用于存储各种键值集合和更复杂的实体。可以通过 `Object()` 构造函数或者使用对象字面量的方式创建对象。
 
-### 三个常用的静态方法
+### keys 和 values
 
 静态方法只有构造函数可 Object 可以调用
 
-- **`Object.keys`** 静态方法，返回一个由给定对象自身的**可枚举 (enumerable)** 字符串键属性名组成的**数组**
+- `Object.keys` 静态方法，返回一个由给定对象自身的**可枚举 (enumerable)** 字符串键属性名组成的**数组**
 
-- `Object.values` 静态方法，返回一个由给定对象自身的可枚举字符串键属性值组成的数组
+- `Object.values` 静态方法（ES8），返回一个由给定对象自身的**可枚举字符串键属性值**组成的数组
 
-- **`Object.assign`** 静态方法，用于对象拷贝（**浅拷贝**）、给对象添加属性
-
-  `Object.assign(拷贝的对象，原始对象)` 使用场景：给对象**添加属性** 
 
 ```javascript
 const obj = { name: '佩奇', age: 6}
 
 Object.keys(obj) // 返回 ['name', 'age']
-
 Object.values(obj) // 返回 ['佩奇', 6]
 
 const obj2 = {}
 Object.assign(obj2, obj) // 返回 {name: '佩奇', age: 6}
 ```
 
+传入数组会返回数组本身：
+
+```js
+Object.assign(['abc', 'cba', 'nba']) // ['abc', 'cba', 'nba']
+```
+
+在基本类型中使用 Object.values()：
+
+```js
+// 字符串具有索引作为可枚举的自有属性
+Object.values("foo") // ['f', 'o', 'o']
+
+// 其他基本类型没有自有属性
+Object.values(100) // []
+```
+
+
+
+### assign方法
+
+`Object.assign()` 静态方法将一个或者多个源对象中所有可枚举的自有属性复制到目标对象，并返回修改后的目标对象。
+
+用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）
+
+用于对象拷贝（<strong style="color:#DD5145">浅拷贝</strong>）、给对象添加属性、
+
+```js
+Object.assign(target, ...sources)
+```
+
+- target，需要应用源对象属性的目标对象，修改后将作为返回值
+- sources，一个或多个包含要应用的属性的源对象
+
+备注： `Object.assign()` 不会在源对象值为 `null` 或 `undefined` 时抛出错误。
+
 
 
 ### entries方法
 
-`Object.entries()` 静态方法**返回一个数组**，包含给定对象自有的**可枚举**字符串键属性的**键值对**。
+`Object.entries()` 静态方法返回一个数组，由给定对象自有的**可枚举字符串键属性的键值对**组成的数组。
 
-一个由给定对象自有的可枚举字符串键属性的键值对组成的数组。每个键值对都是一个包含两个元素的数组：第一个元素是属性的键（始终是字符串），第二个元素是属性值。
+```js
+Object.entries(obj)
+```
+
+每个键值对都是一个包含两个元素的数组：第一个元素是属性的键（始终是字符串），第二个元素是属性值。
 
 ```js
 const obj = { foo: "bar", baz: 42 }
@@ -56,6 +91,38 @@ console.log(Object.entries("foo")) // [ ['0', 'f'], ['1', 'o'], ['2', 'o'] ]
 
 // 其他基本类型没有自有属性
 console.log(Object.entries(100)) // []
+```
+
+
+
+### fromEntries方法
+
+`Object.fromEntries()` 静态方法将**键值对列表**转换为一个**对象**。即<strong style="color:#DD5145">可以将二维数组转换为对象</strong>。
+
+```js
+Object.fromEntries(iterable)
+```
+
+- iterable，一个包含对象列表的可迭代对象，例如 `Array` 或 `Map`。每个对象都要有两个属性：
+  - 0，表示属性键的字符串或者 symbol
+  - 1，属性值
+
+通常，该对象被实现为二元数组，第一个元素是属性键，第二个元素是属性值。
+
+通过 `Object.fromEntries`，你可以将 `Map` 转换成 `Object`：
+
+```js
+const map = new Map([ ["foo", "bar"], ["baz", 42] ])
+const obj = Object.fromEntries(map)
+console.log(obj) // { foo: "bar", baz: 42 }
+```
+
+通过 `Object.fromEntries`，你可以将 `Array` 转换成 `Object`：
+
+```js
+const arr = [ ["0", "a"], ["1", "b"], ["2", "c"] ]
+const obj = Object.fromEntries(arr)
+console.log(obj) // { 0: "a", 1: "b", 2: "c" }
 ```
 
 
@@ -467,7 +534,7 @@ Array.filter(function (ele, index) {
 ```js
 slice()
 slice(start)
-slice(start, end) // 截取数组
+slice(start, end) // 截取数组（左闭右开）
 ```
 
 - 当只有一个参数的时候，则会截取至数组的最后一个单元
@@ -667,20 +734,48 @@ Array.flat(depth)
 ```
 
 - depth 可选，如果是`Infinity`就意味着不管你嵌套了多少个数组都能转为一维
-- 如果不写参数，默认值为 1，如果参数写成**数字**，意味着减少多少层 [ ]
+- 如果参数写成**数字**，意味着减少多少层 [ ]，如果不写参数，默认值为 1
 
 注意：<strong style="color:#DD5145">`flat()`会跳过空位</strong>
 
 ```js
-let arr = [[1, 2, 3], 4, 5, 6, [[7, 8, 9]]]
-console.log(arr.flat(Infinity)) // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+let arr = [[1, 2, 3], 4, , 6, [[7, 8, 9]]]
+console.log(arr.flat(Infinity)) // [1, 2, 3, 4, 6, 7, 8, 9]
 
-console.log(arr.flat()) // [1, 2, 3, 4, 5, 6, [7, 8, 9]]
+console.log(arr.flat()) // [1, 2, 3, 4, 6, [7, 8, 9]]
 ```
 
 
 
 ### flatMap方法
+
+`flatMap()` 方法对数组中的每个元素执行一个回调函数，然后将结果展开一级，返回一个新数组。
+
+相当于执行`Array.prototype.map()`，然后对返回值组成的数组执行`flat()`方法。该方法返回一个新数组，**不改变原数组**。
+
+```js
+flatMap(callbackFn)
+flatMap(callbackFn, thisArg)
+```
+
+- callbackFn，一个在数组的每个元素上执行的函数。它应该返回一个包含新数组元素的数组，或是要添加到新数组中的单个非数组值
+- thisArg（可选），在执行 `callbackFn` 时用作 `this` 的值
+
+map() 与 flatMap()：
+
+```js
+const arr1 = [1, 2, 3]
+
+arr1.map((x) => [x * 2]) // [ [2], [4], [6] ]
+arr1.map((x) => [x * 2].flat()) // [2, 4, 6]
+
+arr1.flatMap((x) => [x * 2]) // [2, 4, 6]
+
+// flatMap()只能展开一层数组
+arr1.flatMap((x) => [[x * 2]]) // [ [2], [4], [6] ]
+```
+
+
 
 
 
