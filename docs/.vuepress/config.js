@@ -278,7 +278,13 @@ module.exports = {
                     path: '/others/nodejs_study/',
                     sidebarDepth: 2,
                     children: [
-                        "/others/nodejs_study/NodeJsNotes.md",
+                        "/others/nodejs_study/Modularization.md",
+                        "/others/nodejs_study/PackageManagementTool.md",
+                        "/others/nodejs_study/Buffer.md",
+                        "/others/nodejs_study/fsModule.md",
+                        "/others/nodejs_study/pathModule.md",
+                        "/others/nodejs_study/httpModule.md",
+                        "/others/nodejs_study/Express.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -309,9 +315,9 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
-                // Regex学习
+                // RegExp学习
                 {
-                    title: 'Regex学习',
+                    title: 'RegExp学习',
                     path: '/others/regex_study/',
                     sidebarDepth: 2,
                     children: [

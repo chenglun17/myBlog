@@ -38,17 +38,17 @@ JavaScript 引擎线程负责**解析 JavaScript 脚本并运行相关代码**�
 
 ### 1.基本概念
 
-Web Worker 是 HTML5 提供的一个 JavaScript 多线程解决方案
+Web Worker 是 HTML5 提供的一个 JavaScript 多线程解决方案。
 
-> JavaScript 语言采用的是单线程模型，也就是说，所有任务只能在一个现场上完成，一次只能做一件事
+- JavaScript 语言采用的是单线程模型，也就是说，所有任务只能在一个现场上完成，一次只能做一件事
 
 Web Worker 的出现，就是为 JavaScript 创造多线程环境，允许主线程创建 Worker 线程，将一些任务分配给后者运行。在主线程运行的同时，Worker 线程在后台运行，两则互不干扰。
 
-> 一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务。
+- 一条线程指的是进程中一个单一顺序的控制流，一个进程中可以并发多个线程，每条线程并行执行不同的任务
 
 通过使用 Web Workers，Web 应用程序可以在独立于主线程的后台线程中，运行一个脚本操作。这样做的好处是可以在独立线程中执行费时的处理任务，从而允许主线程（通常是UI线程）不会因此被阻塞/放慢。 
 
-<img src="WebWorker.assets/Worker线程.png" alt="Worker线程" style="zoom: 50%;" />
+![](WebWorker.assets/Worker线程.png)
 
 ### 2.几个注意点
 
@@ -76,8 +76,6 @@ Web Worker 有几个使用注意点：
 
 - Worker 线程上下文也存在一个顶级对象<strong style="color:#DD5145">`self`</strong>（类似浏览器中的 window对象）
 
-------
-
 绝大多数 Window 对象上的方法和属性，都被共享到 Worker 上下文全局对象 WorkerGlobalScope 中。
 
 
@@ -94,7 +92,7 @@ const worker = new Worker(path, options)
 const worker = new Worker('worker.js')
 ```
 
-> 由于 Worker 不能读取本地文件，这个脚本必须来自网络，如果没有下载成功（例如404），Worker 就会失败
+- 由于 Worker 不能读取本地文件，这个脚本必须来自网络，如果没有下载成功（例如404），Worker 就会失败
 
 | 参数                | 说明                                                         |
 | ------------------- | ------------------------------------------------------------ |
@@ -112,7 +110,7 @@ worker.postMessage('Hello World')
 worker.postMessage({method: 'echo', args: ['work']})
 ```
 
-> `worker.postMessage()`方法的参数，就是主线程传给 Worker 的数据，它可以是**各种类型的数据**，包括二进制数据
+- `worker.postMessage()`方法的参数，就是主线程传给 Worker 的数据，它可以是**各种类型的数据**，包括二进制数据
 
 1.3 主线程通过<strong style="color:orange">`worker.onMessage`</strong>指定监听函数，接收来自 Worker 线程发送的信息：
 
@@ -137,7 +135,7 @@ worker.terminate()
 
 ### 2. Worker 线程
 
-Worker 线程内部需要有一个监听函数，来监听<strong style="color:#27ba9b">`message`事件</strong>：
+Worker 线程内部需要有一个监听函数，来监听 <strong style="color:#27ba9b">message 事件</strong>：
 
 ```js
 self.addEventListener('message', function(event) {
@@ -145,7 +143,7 @@ self.addEventListener('message', function(event) {
 }, false)
 ```
 
-> <strong style="color:#DD5145">`self`</strong>代表子线程自身，即子线程的全局对象。等价于下面两种写法
+- <strong style="color:#DD5145">`self`</strong>代表子线程自身，即子线程的全局对象。等价于下面两种写法
 
 ```js
 // 写法一
@@ -163,7 +161,7 @@ addEventListener('message', function(event) {
 
 ### 3. 监听错误信息
 
-Web Worker 提供两个事件监听错误，<strong style="color:#27ba9b">`error`事件 和 `messageerror`事件</strong>
+Web Worker 提供两个事件监听错误，<strong style="color:#27ba9b">error 事件 和 messageerror 事件</strong>
 
 | 事件         | 说明                                                |
 | ------------ | --------------------------------------------------- |
@@ -204,9 +202,9 @@ self.close()
 
 无论是在主线程关闭 Worker ，还是在 Worker 线程内部关闭 Worker ，Worker 线程当前的 Event Loop 中的任务会继续执行。而 Worker 线程下一个 Event Loop 中的任务，则会被直接忽略，不会继续执行。
 
-> - 在主线程关闭 Worker ，主线程与 Worker 线程之间的连接都会被立刻停止，即使 Worker 线程当前的 Event Loop 中仍有待执行的任务继续调用 `postMessage()` 方法，但主线程不会再接收到消息。
->
-> - 在 Worker 线程内部关闭 Worker ，不会直接断开与主线程的连接，而是等 Worker 线程当前的 Event Loop 所有任务执行完，再关闭。即，在当前 Event Loop 中继续调用 `postMessage()` 方法，主线程还是能通过监听`message`事件收到消息的。
+- 在主线程关闭 Worker ，主线程与 Worker 线程之间的连接都会被立刻停止，即使 Worker 线程当前的 Event Loop 中仍有待执行的任务继续调用 `postMessage()` 方法，但主线程不会再接收到消息。
+
+- 在 Worker 线程内部关闭 Worker ，不会直接断开与主线程的连接，而是等 Worker 线程当前的 Event Loop 所有任务执行完，再关闭。即，在当前 Event Loop 中继续调用 `postMessage()` 方法，主线程还是能通过监听`message`事件收到消息的。
 
 ### 5. Worker 加载脚本
 
@@ -269,7 +267,7 @@ export default add = (a, b) => a + b;
 
 所以你会发现，即使你传递的是一个`Object`，并且被直接传递回来，接收到的也不是原来的那个值了。
 
-> 浏览器内部的运行机制：先将通信内容串行化，然后把串行化后的字符串发送给 Worker，后者再将它还原。
+- 浏览器内部的运行机制：先将通信内容串行化，然后把串行化后的字符串发送给 Worker，后者再将它还原。
 
 为了解决这个问题，JavaScript 运行主线程把二进制数据直接转移给子线程，但是一旦转移，主线程就无法再使用这些二进制数据了，这是为了防止出现多个线程同时修改数据，这种转移数据的方法，叫做 Transferable Objects。
 
