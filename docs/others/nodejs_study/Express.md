@@ -1,4 +1,4 @@
-# express 框架
+# Express 框架
 
 ##  :star:express 介绍
 
@@ -6,39 +6,72 @@
 
 简单来说，express 是一个封装好的工具包，封装了很多功能，便于我们开发 WEB 应用(HTTP 服务)
 
+Express 框架核心特性：
+
+- 可以设置中间件来响应 HTTP 请求。
+- 定义了路由表用于执行不同的 HTTP 请求动作。
+- 可以通过向模板传递参数来动态渲染 HTML 页面。
+
 
 
 ## :star:express 使用
 
-### express 下载
+**express 安装**
 
 **express 本身是一个 npm 包**，所以可以通过 npm 安装
 
 ```shell
-npm init
-npm i express
+npm init -y
+npm install express --save
 ```
 
-### express 初体验
+以上命令会将 Express 框架安装在当前目录的 **node_modules** 目录中， **node_modules** 目录下会自动创建 express 目录。
+
+以下几个重要的模块是需要与 express 框架一起安装的：
+
+- **body-parser**：node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据。
+- **cookie-parser**：这就是一个解析Cookie的工具。通过`req.cookies`可以取到传过来的 cookie，并把它们转成对象。
+- **multer**：node.js 中间件，用于处理 `enctype="multipart/form-data"`（设置表单的MIME编码）的表单数据。
+
+```sh
+npm install body-parser --save
+npm install cookie-parser --save
+npm install multer --save
+```
+
+安装完后，我们可以查看下 express 使用的版本号：
+
+```sh
+npm list express
+```
+
+
+
+**Hello World**
 
 操作步骤：
 
-1. 创建 js 文件，键入如下代码
+1. 创建`app.js`文件，键入如下代码
 
 ```javascript
 // 1. 导入 express
 const express = require('express')
+
 // 2. 创建应用对象
 const app = express()
 
+const PORT = 3000
+const HOST = 'http://127.0.0.1'
+const HOSTNAME = `${HOST}:${PORT}`
+
 // 3. 创建路由规则
-app.get('/home', (req, res) => {
-	res.end('hello express server')
+app.get('/', (req, res) => {
+    res.end('Hello World')
 })
 
 // 4. 监听端口 启动服务
-app.listen(3000, () =>{
-	console.log('服务已经启动, 端口监听为 3000...')
+let server = app.listen(PORT, () => {
+    console.log(`serve is runnig at ${HOSTNAME}`);
 })
 ```
 
@@ -50,17 +83,63 @@ node <文件名>
 nodemon <文件名>
 ```
 
-3. 然后在浏览器就可以访问 http://127.0.0.1:3000/home 
+或`package.json`中配置
+
+```json
+"scripts": {
+    "dev": "nodemon ./app.js"
+}
+```
+
+3. 然后在浏览器就可以访问 http://127.0.0.1:3000
+
+
+
+##  :star:响应设置
+
+express 框架封装了一些 API 来方便给客户端响应数据，并且兼容原生 HTTP 模块的获取方式。
+
+Express 应用使用回调函数的参数： **request** 和 **response** 对象来处理请求和响应的数据。
+
+```javascript
+// 获取请求的路由规则
+app.get('/', (req, res) => {
+  	// 1. express 中设置响应的方式兼容 HTTP 模块的方式（原生响应）
+  	res.statusCode = 404;
+  	res.statusMessage = 'xxx'
+  	res.setHeader('abc','xyz')
+  	res.write('响应体')
+  	res.end('xxx')
+  
+    // 2. express 的响应方法
+  	res.status(500)  //设置响应状态码
+  	res.set('xxx','yyy')  //设置响应头
+  	res.send('中文响应不乱码')  //设置响应体
+  	// 连贯操作
+  	res.status(404).set('xxx','yyy').send('你好朋友')
+  	
+    // 3. 其他响应
+  	res.redirect('http://atguigu.com')  // 重定向
+  	res.download('./package.json')    	// 下载响应
+  	res.json({    					  // 响应 JSON
+        name: 'atguigu',
+        slogon: '123456'
+    })
+  	res.sendFile(__dirname + '/home.html')   //响应文件内容
+})
+```
+
+
 
 
 
 ##  :star:express 路由
 
-### 什么是路由
+### 1.什么是路由
 
 > 官方定义： 路由确定了应用程序如何响应客户端对特定端点的请求
 
-### 路由的使用
+### 2.路由的使用
 
 一个路由的组成有 **请求方法**， **路径** 和 **回调函数** 组成
 
@@ -78,17 +157,12 @@ const express = require('express')
 //创建应用对象
 const app = express()
 
-// 创建 get 路由
-app.get('/home', (req, res) => {
-	res.send('网站首页')
-});
-
-// 首页路由
+// GET 请求
 app.get('/', (req,res) => {
 	res.send('我才是真正的首页')
 })
 
-// 创建 post 路由
+// POST 请求
 app.post('/login', (req, res) => {
 	res.send('登录成功')
 })
@@ -109,7 +183,7 @@ app.listen(3000, () =>{
 })
 ```
 
-###  获取请求参数
+###  2.获取请求参数
 
 express 框架封装了一些 API 来方便获取请求报文中的数据，并且兼容原生 HTTP 模块的获取方式
 
@@ -143,7 +217,7 @@ app.listen(3000, () => {
 })
 ```
 
-### 获取路由参数
+### 3.获取路由参数
 
 路由参数指的是 URL 路径中的参数（数据）
 
@@ -154,37 +228,7 @@ app.get('/:id.html', (req, res) => {
 })
 ```
 
-##  :star:express 响应设置
 
-express 框架封装了一些 API 来方便给客户端响应数据，并且兼容原生 HTTP 模块的获取方式
-
-```javascript
-// 获取请求的路由规则
-app.get("/response", (req, res) => {
-  	// 1. express 中设置响应的方式兼容 HTTP 模块的方式（原生响应）
-  	res.statusCode = 404;
-  	res.statusMessage = 'xxx'
-  	res.setHeader('abc','xyz')
-  	res.write('响应体')
-  	res.end('xxx')
-  
-    // 2. express 的响应方法
-  	res.status(500)  //设置响应状态码
-  	res.set('xxx','yyy')  //设置响应头
-  	res.send('中文响应不乱码')  //设置响应体
-  	// 连贯操作
-  	res.status(404).set('xxx','yyy').send('你好朋友')
-  	
-    // 3. 其他响应
-  	res.redirect('http://atguigu.com')  //重定向
-  	res.download('./package.json')    //下载响应
-  	res.json({
-        name: 'atguigu',
-        slogon: '123456'
-    })    			//响应 JSON
-  	res.sendFile(__dirname + '/home.html')   //响应文件内容
-})
-```
 
 ## :star:express 中间件
 

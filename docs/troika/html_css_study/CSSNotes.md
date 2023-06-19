@@ -81,6 +81,28 @@ overflow用于控制内容溢出时的行为
 
 
 
+## :star:z-index属性
+
+`z-index`属性用来设置定位元素的<strong style="color:#DD5145">层叠顺序</strong>（仅对定位元素有效）
+
+- 取值可以是正整数、负整数、0
+
+![](CSSNotes.assets/image-20230616190553223.png)
+
+比较原则：
+
+若是兄弟关系
+
+- `z-index`越大，层叠在越上面
+- `z-index`相等，写在后面的那个元素层叠在上面
+
+若不是兄弟关系
+
+- 各自从元素自己以及祖先元素，找出最邻近的2个定位元素进行比较
+- 而且这2个定位元素必须有设置`z-index`的具体数值
+
+
+
 ## :star:display属性
 
 CSS 属性值 `display` 为 `inline`，`inline-block`，`inline-table` 时，它就是<strong style="color:#DD5145">行内元素</strong>。
@@ -644,6 +666,48 @@ CSS中可以自定义属性：
 元素语义化有利于SEO
 
 ![](CSSNotes.assets/image-20230614092612734.png)
+
+
+
+## :star:grid布局
+
+目前对于界面布局我们已经学习了多种方式：定位、浮动、flex布局
+
+flex布局是一个一维的布局方案，主要的布局是在主轴、交叉轴
+
+CSS为了进一步增加自己的布局能力，提供了grid布局：
+
+- CSS Grid Layout 是一种基于二维的布局系统
+
+### 基础概念
+
+- `Grid Container` ，元素设置`display`为`gird`的盒子
+
+- `Grid Item`，单元格称之为 `grid cell`
+
+  `grid container` 的直接子项（必须是直接子代）
+
+- `Grid Line`
+
+  构成网络结构的分隔线，它们可以是垂直的或水平的
+
+![](CSSNotes.assets/image-20230616222127788.png)
+
+- `Grid Track`
+
+  两条相邻网格线之间的空间
+
+![](CSSNotes.assets/image-20230616222220743.png)
+
+- `Grid Area`
+
+  由四条网格线包围的总空间
+
+  一个网格区域可以由任意数量的网格单元组成
+
+![](CSSNotes.assets/image-20230616222423681.png)
+
+
 
 
 

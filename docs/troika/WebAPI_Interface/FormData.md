@@ -1,6 +1,8 @@
 # FormData
 
-[FormData](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData) 接口提供了一种表示**表单数据的键值对** `key/value` 的构造方式，并且可以轻松的将数据通过`XMLHttpRequest.send()` 方法发送出去。如果送出时的编码类型被设为 `"multipart/form-data"`，它会使用和表单一样的格式。
+[FormData](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData) 提供了一种**表单数据的键值对**的构造方式，可以将数据通过`XMLHttpRequest.send()`方法发送出去。
+
+如果送出时的编码类型被设为 `"multipart/form-data"`，它会使用和表单一样的格式。
 
 如果你想构建一个简单的`GET`请求，并且通过`<form>`的形式带有查询参数，可以将它直接传递给`URLSearchParams`。
 
@@ -8,7 +10,7 @@
 >
 > 一个实现了 `URLSearchParams` 的对象可以直接用在 `for...of` 结构中
 
-实现了`FormData` 接口的对象可以直接在`for...of`结构中使用，
+实现了`FormData` 接口的对象可以直接在`for...of`结构中使用。
 
 
 
@@ -26,7 +28,7 @@ var formData = new FormData(form)
 
 ### append方法
 
-通过`append(key,value)`来添加数据，如果指定的key不存在则会新增一条数据，如果key存在，则追加到数据末尾。
+通过`append(key,value)`来**添加数据**，如果指定的key不存在则会新增一条数据，如果key存在，则追加到数据末尾。
 
 `FormData.set`和 `append()` 的区别在于，如果指定的键已经存在，`FormData.set` 会使用新值覆盖已有的值，而 `append()` 会把新值添加到已有值集合的后面。
 
@@ -43,27 +45,45 @@ formData.append(name, value, filename);
 
 
 
-
-
-
-
-
-
-
-
 ### delete方法
+
+`FormData.delete()`
+
+从 FormData 对象里面删除一个键值对。
 
 ### entries方法
 
+`FormData.entries()`
+
+返回一个包含所有键值对的`iterator`对象。
+
 ### get / getAll方法
+
+`FormData.getAll()`
+
+返回一个包含 `FormData` 对象中与给定键关联的所有值的数组。
 
 ### has方法
 
+`FormData.has()`
+
+返回一个布尔值表明 `FormData` 对象是否包含某些键。
+
 ### kyes方法
+
+`FormData.values()`
+
+返回一个包含所有值的[`iterator`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols)对象。
 
 ### set方法
 
+`FormData.set()`
+
+给 `FormData` 设置属性值，如果`FormData` 对应的属性值存在则覆盖原值，否则新增一项属性值。
+
 ### values方法
+
+
 
 ## 参考
 

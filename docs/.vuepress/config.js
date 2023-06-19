@@ -29,6 +29,7 @@ module.exports = {
                     { text: 'HTML/CSS', link: '/troika/html_css_study/' }, // 可不写后缀 .md
                     { text: 'JavaScript', link: '/troika/js_study/' },
                     { text: 'Web API 接口', link: '/troika/WebAPI_Interface/' },
+                    { text: '各种功能', link: '/troika/various_functions/' },
                     { text: 'Promise', link: '/troika/promise_study/' },
                     { text: 'Ajax', link: '/troika/ajax_study/' },
                     { text: 'Axios', link: '/troika/axios_study/' },
@@ -158,11 +159,22 @@ module.exports = {
                     children: [
                         "/troika/WebAPI_Interface/Blob.md",
                         "/troika/WebAPI_Interface/Canvas.md",
+                        "/troika/WebAPI_Interface/FormData.md",
                         "/troika/WebAPI_Interface/FileReader.md",
                         "/troika/WebAPI_Interface/WebSocket.md",
                         "/troika/WebAPI_Interface/WebWorker.md",
                     ],
                     initialOpenGroupIndex: 0
+                },
+                // 各种功能实现
+                {
+                    title: '各种功能实现',
+                    path: '/troika/various_functions/',
+                    sidebarDepth: 2,
+                    initialOpenGroupIndex: 0,
+                    children: [
+                        "/troika/various_functions/uploadFile.md",
+                    ]
                 },
                 // Promise学习
                 {
