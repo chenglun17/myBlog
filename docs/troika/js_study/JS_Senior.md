@@ -1018,13 +1018,13 @@ console.log(Object instanceof Function) // true
 
 两种拷贝方法：
 
-1. 拷贝**对象**：**`Object.assign(拷贝的对象，原始对象)`** 或 展开运算符**`{...obj}`**
-2. 拷贝**数组**：**`Array.prototype.concat()`** 或 **`[...arr]`**
+1. 拷贝<strong style="color:#DD5145">对象</strong>：`Object.assign(拷贝的对象，原始对象)` 或展开运算符 `{...obj}`
 
-- 拷贝对象之后，里面的属性值是简单数据类型，则**直接拷贝值**
-- 若属性值是引用数据类型，则拷贝的是**地址**
+   若里面的属性值是简单数据类型，则**直接拷贝值**，若属性值是引用数据类型，则拷贝的是**地址**。
 
-直接赋值与浅拷贝的区别：
+2. 拷贝<strong style="color:#DD5145">数组</strong>：`Array.prototype.concat()` 或展开运算符 `[...arr]`
+
+**直接赋值与浅拷贝的区别：**
 
 - **直接赋值**的方法，只要是对象，都会相互影响，因为是<strong style="color:#DD5145">直接拷贝对象栈里面的地址</strong>
 - 简单来说就是浅拷贝： **只能拷贝一层对象，或者一层数组**，如果出现多层对象拷贝则还会影响
@@ -1036,35 +1036,26 @@ const p1 = {
     age: 18
 }
 const p2 = {}
-Object.assign(p2, p1)
-console.log(p2) //{ name: '小白',age: 18}
 
-p2.name = '小黑'
-console.log(p2) //{name: '小黑', age: 18}
-console.log(p1) //{ name: '小白',age: 18}
+Object.assign(p2, p1)
+console.log(p2) // { name: '小白',age: 18}
+
+p2.name = '小黑' // 修改p2，p1不会受到影响
+console.log(p2) // {name: '小黑', age: 18}
+console.log(p1) // { name: '小白',age: 18}
 ```
 
 > 通过Object.assign() 可以解决直接赋值出现的问题
-
-```js
-// 创建一个p1对象
-const p1 = {
-    name: '小白',
-    age: 18
-}
-const p2 = {...p1}
-console.log(p2); //{ name: '小白',age: 18}
-```
 
 
 
 ### 2.深拷贝
 
-三种深拷贝方法：核心是创建新地址
+三种深拷贝方法：核心是<strong style="color:#DD5145">创建新地址</strong>
 
 1. 通过 **递归函数** 实现
-2. 通过 **js库 [lodash](https://www.lodashjs.com/)** ，使用 **`_.cloneDeep()`** 实现
-3. 通过 **`JSON.parse(JSON.stringify())`** 实现
+2. 通过 js库 [lodash](https://www.lodashjs.com/) ，使用 `_.cloneDeep()` 实现
+3. 通过 `JSON.parse(JSON.stringify())` 实现
 
 #### 通过 递归函数
 
@@ -1077,7 +1068,7 @@ function deepCopy(newObj, oldObj) {
         // 1.处理数组问题，一定先写数组，后写对象
         if (oldObj[k] instanceof Array) {
             newObj[k] = []
-            // newObj[k] 接收[]
+            // newObj[k] 初始化为一个 []
             // oldObj[k] 为 ['乒乓球', '足球']
             deepCopy(newObj[k], oldObj[k])
         }
@@ -1174,11 +1165,11 @@ console.log(obj)
 
 ## :star:异常处理
 
-异常处理是指预估代码执行过程中可能发生的错误，然后最大程度的避免错误的发生导致整个程序无法继续运行
+异常处理是指预估代码执行过程中可能发生的错误，然后最大程度的避免错误的发生导致整个程序无法继续运行。
 
 ### 1.throw 抛出异常
 
-- thorw 抛出异常信息，然后 **终止程序**
+- thorw 抛出异常信息，然后**终止程序**
 - throw 后面跟的是错误提升信息
 - Error 对象配合 throw 使用，能够设置更详细的错误信息
 
@@ -1195,10 +1186,10 @@ console.log(fn())
 
 ### 2.try / catch 捕获异常
 
-- try ... catch 用于捕获错误信息，**不会中断程序**
+- `try ... catch` 用于捕获错误信息，**不会中断程序**
 - 将预估可能发生错误的代码写在 **try** 代码段中
 - 如果 try 代码段中出现错误后，会执行 **catch** 代码段，并**捕获**到错误信息
-- **finally** 不管是否有错误，都会执行
+- `finally` 不管是否有错误，都会执行
 
 ```html
 <p>123</p>
@@ -1225,25 +1216,23 @@ console.log(fn())
 
 ### 3.debugger
 
-
+[参考文章](https://blog.csdn.net/qq_35430000/article/details/88116994)
 
 
 
 ## :star:性能优化
 
-### 1.防抖
+### 1.防抖（debounce）
 
-**防抖（debounce）**，单位时间内，频繁触发事件，**只执行最后一次**
+ 高频率触发的事件，<strong style="color:#DD5145">在单位时间内，只执行最后一次</strong>，如果在指定的时间内再次触发，则重新计算时间。
 
-防抖：前面所有的触发都取消，只执行最后一次在规定的时间之后才会触发，即频繁触发只会执行最后一次
+使用场景：监听 input 输入框，搜索框输入
 
-使用场景：
-
-> 搜索框输入，手机号、邮箱输入检测
+![](JS_Senior.assets/debounce.png)
 
 实现方式：
 
-**lodash库** 提供的防抖处理
+1.**lodash库** 提供的防抖处理
 
 语法：**`_.debounce(fun, 时间)`**
 
@@ -1263,7 +1252,14 @@ console.log(fn())
 </script>
 ```
 
-**手写**一个防抖函数来处理：
+2.**手写**一个防抖函数来处理：
+
+手写防抖函数【闭包+延迟器】，核心是利用 setTimeout 定时器来实现。
+
+- 先声明定时器变量
+- 每次鼠标移动（事件触发）的时候都先要判断是否有定时器，若有则先清除以前的定时器
+- 若没有定时器，则开启定时器，存入到定时器变量里面
+- 定时器里面写函数调用
 
 ```html
 <div class="box"></div>
@@ -1276,22 +1272,16 @@ console.log(fn())
         // 若里面存在大量消耗性能的代码，比如dom操作、数据处理，可能会造成卡顿
     }
 
-    // 手写防抖函数【闭包+延迟器】
-    // 核心是利用 setTimeout 定时器来实现
-    // 1.先声明定时器变量
-    // 2.每次鼠标移动（事件触发）的时候都先要判断是否有定时器，若有则先清除以前的定时器
-    // 3.若没有定时器，则开启定时器，存入到定时器变量里面
-    // 4.定时器里面写函数调用
-    function debounce(fn, t) {
-        let timer
+    function debounce(fn, time) {
+        let timer = null
         // return 返回一个匿名函数
         // return 可以把定时器返回给函数存起来，每次鼠标滑动都可以调用这个函数并执行传过来的参数
         return function () {
-            // 2.3.4
+            // 如果有定时器，则清除定时器
             if (timer) clearTimeout(timer)
             timer = setTimeout(function () {
                 fn()    // 加小括号调用
-            }, t)
+            }, time)
         }
     }
     box.addEventListener('mousemove', debounce(mouseMove, 500))
@@ -1300,19 +1290,19 @@ console.log(fn())
 
 
 
-### 2.节流
+### 2.节流（throttle）
 
-**节流（throttle）**，单位时间内，频繁触发事件，**只执行一次**
+高频率触发的事件，<strong style="color:#DD5145">在单位时间内，只执行一次</strong>。
 
-节流：在规定的间隔时间范围内不会重复触发回调函数，只有大于这个时间间隔才会触发，把频繁的触发变为少量的触发
+在规定的间隔时间范围内不会重复触发回调函数，只有大于这个时间间隔才会触发，把频繁的触发变为少量的触发。
 
-使用场景：
+使用场景：按钮点击事件，鼠标移动 mousemove、页面尺寸缩放 resize、滚动条滚动 scroll
 
-> 高频事件，鼠标移动 mousemove、页面尺寸缩放 resize、滚动条滚动 scroll
+![](JS_Senior.assets/throttle.png)
 
 实现方式：
 
-**lodash库** 提供的**节流函数**来处理
+1.**lodash库** 提供的**节流函数**来处理
 
 语法：**`_.throttle(fun, 时间)`**
 
@@ -1335,37 +1325,38 @@ console.log(fn())
 </script>
 ```
 
-**手写**一个防抖函数来处理：
+2.**手写**一个节流函数来处理：
+
+手写一个节流函数，1000ms间隔内只执行一次 【闭包+延迟器】，节流的核就是利用延迟器（setTimeout）来实现。
+
+- 声明一个定时器变量
+- 当鼠标每次滑动都先判断是否有定时器了，如果有定时器则不开启新的定时器
+- 如果没有定时器则开启定时器，并存到变量里面
+- 定时器里面调用执行的函数，定时器里面要把定时器清空
 
 ```html
 <div class="box"></div>
 <script>
-        // 鼠标在盒子上移动，里面的数字就会变化+1
-        const box = document.querySelector('.box')
+    // 鼠标在盒子上移动，里面的数字就会变化+1
+    const box = document.querySelector('.box')
     let i = 1
     function mouseMove() {
         box.innerHTML = i++
         // 若里面存在大量消耗性能的代码，比如dom操作、数据处理，可能会造成卡顿
     }
-    // 添加事件
     // box.addEventListener('mousemove', mouseMove)
 
-    // 手写一个节流函数，1000ms间隔内只执行一次 【闭包+延迟器】
-    // 节流的核就是利用定时器（setTimeout）来实现
-    // 1.声明一个定时器变量
-    // 2.当鼠标每次滑动都先判断是否有定时器了，如果有定时器则不开启新的定时器
-    // 3.如果没有定时器则开启定时器，并存到变量里面
-    // 3.1 定时器里面调用执行的函数
-    // 3.2 定时器里面要把定时器清空
-    function throttle(fn, t) {
+    function throttle(fn, time) {
         let timer = null
         return function () {
+            // 如果没有定时器
             if (!timer) {
+                // 开启定时器
                 timer = setTimeout(function () {
                     fn()
-                    // 清空定时器，在定时器运作时，不能使用 clearTimeout清空定时器
+                    // 清空定时器，在定时器内，不能使用clearTimeout清空定时器
                     timer = null
-                }, t)
+                }, time)
             }
         }
     }

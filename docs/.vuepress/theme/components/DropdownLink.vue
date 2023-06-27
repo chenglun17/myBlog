@@ -7,12 +7,7 @@
             <span class="title">{{ item.text }}</span>
             <span class="arrow down" />
         </button>
-        <button
-            class="mobile-dropdown-title"
-            type="button"
-            :aria-label="dropdownAriaLabel"
-            @click="setOpen(!open)"
-        >
+        <button class="mobile-dropdown-title" type="button" :aria-label="dropdownAriaLabel" @click="setOpen(!open)">
             <span class="title">{{ item.text }}</span>
             <span class="arrow" :class="open ? 'down' : 'right'" />
         </button>
@@ -24,27 +19,15 @@
                     <h4 v-if="subItem.type === 'links'">{{ subItem.text }}</h4>
 
                     <ul v-if="subItem.type === 'links'" class="dropdown-subitem-wrapper">
-                        <li
-                            v-for="childSubItem in subItem.items"
-                            :key="childSubItem.link"
-                            class="dropdown-subitem"
-                        >
+                        <li v-for="childSubItem in subItem.items" :key="childSubItem.link" class="dropdown-subitem">
                             <NavLink
                                 :item="childSubItem"
-                                @focusout="
-                                    isLastItemOfArray(childSubItem, subItem.items) &&
-                                        isLastItemOfArray(subItem, item.items) &&
-                                        setOpen(false)
-                                "
+                                @focusout="isLastItemOfArray(childSubItem, subItem.items) && isLastItemOfArray(subItem, item.items) && setOpen(false)"
                             />
                         </li>
                     </ul>
 
-                    <NavLink
-                        v-else
-                        :item="subItem"
-                        @focusout="isLastItemOfArray(subItem, item.items) && setOpen(false)"
-                    />
+                    <NavLink v-else :item="subItem" @focusout="isLastItemOfArray(subItem, item.items) && setOpen(false)" />
                 </li>
             </ul>
         </DropdownTransition>
@@ -125,8 +108,11 @@
         border none
         font-weight 500
         color $textColor
+
         &:hover
           border-color transparent
+          color $accentColor
+          transition: color .25s;
         .arrow
           vertical-align middle
           margin-top -1px
@@ -161,7 +147,7 @@
             font-weight 500
             margin-bottom 0
             padding 0 1.5rem 0 1.25rem
-            transition: background-color 1s,color .25s;
+            transition: background-color .5s,color .25s;
             &:hover
               color $accentColor
               background-color #f6f6f7

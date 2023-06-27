@@ -282,6 +282,8 @@ const exp = new ArrayBuffer(1)
 worker.postMessage(exp, [exp])
 ```
 
+![](WebWorker.assets/主线程与Worker线程之间的通信.png)
+
 ## 四、Web Worker 分类
 
 Web Worker 规范中定义了两类工作线程，**专用线程 Dedicated Worker** 和 **共享线程 Shared Worker**。

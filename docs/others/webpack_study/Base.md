@@ -128,7 +128,7 @@ module: {
 }
 ```
 
-- **`src/main.js`**中引入
+- `src/main.js`中引入
 
 ```js
 // 要想webpack打包资源，必须引入该资源
@@ -172,7 +172,7 @@ module: {
 }
 ```
 
-- **`src/main.js`**中引入
+- `src/main.js`中引入
 
 ```js
 // 要想webpack打包资源，必须引入该资源
@@ -209,7 +209,7 @@ module: {
 }
 ```
 
-- **`src/main.js`**中引入
+- `src/main.js`中引入
 
 ```js
 // 要想webpack打包资源，必须引入该资源
@@ -242,7 +242,7 @@ module: {
 }
 ```
 
-- **`src/main.js`**中引入
+- `src/main.js`中引入
 
 ```js
 // 要想webpack打包资源，必须引入该资源
@@ -329,6 +329,8 @@ module: {
 
 ## 7.自动清空上次打包资源
 
+webpack5 可以直接在 output 选项里加 `"clean:true"`，不用下载`clean-webpack-plugin`包了。
+
 ```js
 output: {
     clean: true, // 自动将上次打包目录资源清空
@@ -345,7 +347,7 @@ output: {
 
 但是我们现在希望能够使用新的特性，我们可以采用折中的方案。依然使用新特性编写代码，但是代码编写完成时我们可以通过一些工具将新代码转换为旧代码。
 
-### Eslint
+#### Eslint
 
 可组装的 JavaScript 和 JSX 检查工具。
 
@@ -353,7 +355,7 @@ output: {
 
 使用 Eslint，关键是写 Eslint 配置文件，里面写上各种 rules 规则，将来运行 Eslint 时就会以写的规则对代码进行检查
 
-### Babel
+#### Babel
 
 babel 就是这样一个工具，<strong style="color:#DD5145">可以将新的 js 语法转换为旧的 js，以提高代码的兼容性</strong>。主要用于将 ES6 语法编写的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。
 
@@ -361,7 +363,7 @@ babel 就是这样一个工具，<strong style="color:#DD5145">可以将新的 j
 
 在 Webpack 中使用
 
-- 下载包**`babel-loader（加载器） @babel/core（核心包） @babel/preset-env（预设环境）`**
+- 下载包 **`babel-loader（加载器） @babel/core（核心包） @babel/preset-env（预设环境）`**
 
 ```sh
 npm i babel-loader @babel/core @babel/preset-env -D
@@ -386,7 +388,7 @@ module: {
 }
 ```
 
-- 定义 Babel 配置文件，**`babel.config.js`**
+- 定义 Babel 配置文件，`babel.config.js`
 
 ```js
 module.exports = {
@@ -403,7 +405,7 @@ module.exports = {
 npm i html-webpack-plugin -D
 ```
 
-- 配置**`webpack.config.js`**
+- 配置`webpack.config.js`
 
 ```js
 const HtmlWebpackPlugin = require("html-webpack-plugin") // 引入插件
@@ -439,7 +441,7 @@ npx webpack --watch
 npm i webpack-dev-server -D
 ```
 
-- 配置**`webpack.config.js`**
+- 配置`webpack.config.js`
 
 ```js
 module.exports = {
@@ -600,7 +602,7 @@ npm run build
 npm i postcss-loader postcss postcss-preset-env -D
 ```
 
-- 配置**`webpack.prod.js`**
+- 配置`webpack.prod.js`
 
 ```js
 module: {

@@ -1688,5 +1688,8 @@ console.log(bar) // 打印为0 或 空串
 
 ## :page_facing_up:参考
 
-[阮一峰 ECMAScript 6 入门教程](https://es6.ruanyifeng.com/)、[参考视频](https://www.bilibili.com/video/BV1zd4y1X7ky/?spm_id_from=333.999.0.0&vd_source=78b42a044f07447d2049c465a76bae26)、[参考视频2](https://www.bilibili.com/video/BV1w8411s7g3/?vd_source=78b42a044f07447d2049c465a76bae26)、[参考文章](https://blog.csdn.net/qq_22182989/article/details/123811497)、[参考文章2](https://blog.csdn.net/aoxi9939/article/details/102038812)、[参考文章3](https://www.cnblogs.com/theblogs/p/10575845.html)
+1. [阮一峰 ECMAScript 6 入门教程](https://es6.ruanyifeng.com/)
+2. [ES7 - ES12 的知识点](https://juejin.cn/post/7046217976176967711)
+3. [参考视频](https://www.bilibili.com/video/BV1zd4y1X7ky/?spm_id_from=333.999.0.0&vd_source=78b42a044f07447d2049c465a76bae26)、[参考视频2](https://www.bilibili.com/video/BV1w8411s7g3/?vd_source=78b42a044f07447d2049c465a76bae26)
+4. [参考文章](https://blog.csdn.net/qq_22182989/article/details/123811497)、[参考文章2](https://blog.csdn.net/aoxi9939/article/details/102038812)、[参考文章3](https://www.cnblogs.com/theblogs/p/10575845.html)
 

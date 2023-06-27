@@ -1,17 +1,36 @@
 # 一、创建 Vue3.0工程
 
-## 创建一个Vue项目
+## 1.创建一个Vue3项目
 
-前提环境条件：16.0或更高版本的 Node.js
+### 使用 vite 创建
+
+环境条件：16.0或更高版本的 Node.js
 
 创建的项目将使用基于 [Vite](https://vitejs.dev/) 的构建设置，并允许我们使用 Vue 的[单文件组件](https://cn.vuejs.org/guide/scaling-up/sfc.html) (SFC)。
+
+接下来我们就用Vite来创建一个Vue3的项目：[参考](https://blog.csdn.net/weixin_52418790/article/details/124325110)
 
 ```sh
 npm init vue@latest
 # 这一指令将会安装并执行 create-vue
 ```
 
-**create-vue** 是Vue官方新的脚手架工具，底层从Webpack切换到了Vite，为开发提供极速响应
+**create-vue** 是 Vue 官方新的脚手架工具，底层从 Webpack 切换到了 Vite，为开发提供极速响应。你将会看到一些诸如 TypeScript 和测试支持之类的可选功能提示：
+
+```sh
+✔ Project name: … <your-project-name>
+✔ Add TypeScript? … No / Yes
+✔ Add JSX Support? … No / Yes
+✔ Add Vue Router for Single Page Application development? … No / Yes
+✔ Add Pinia for state management? … No / Yes
+✔ Add Vitest for Unit testing? … No / Yes
+✔ Add an End-to-End Testing Solution? … No / Cypress / Playwright
+✔ Add ESLint for code quality? … No / Yes
+✔ Add Prettier for code formatting? … No / Yes
+
+Scaffolding project in ./<your-project-name>...
+Done.
+```
 
 在项目被创建后，通过以下步骤安装依赖并启动开发服务器：（项目名称不能大写）
 
@@ -29,25 +48,91 @@ npm run dev
 npm run build
 ```
 
-### 1. 使用 vue-cli 创建
+此命令会在 `./dist` 文件夹中为你的应用创建一个生产环境的构建版本。
 
-官方文档：https://cli.vuejs.org/zh/guide/creating-a-project.html#vue-create
+
+
+### 使用 vue-cli 创建
+
+[Vue CLI](https://cli.vuejs.org/zh/) 是一个基于 Vue.js 进行快速开发的完整系统
+
+安装或者升级你的@vue/cli
+
+```sh
+npm install -g @vue/cli
+npm update -g @vue/cli
+
+# 查看@vue/cli版本，确保@vue/cli版本在4.5.0以上
+vue --version
+```
+
+创建 vue 项目：
 
 ```bash
-## 查看@vue/cli版本，确保@vue/cli版本在4.5.0以上
-vue --version
-## 安装或者升级你的@vue/cli
-npm install -g @vue/cli
-## 创建
-vue create vue_test
-## 启动
-cd vue_test
+vue create <your-project-name>
+# OR
+vue ui
+
+# 启动
+cd <your-project-name>
 npm run serve
 ```
 
-### 2. 使用 vite 创建
 
-接下来我们就用Vite来创建一个Vue3的项目：[参考](https://blog.csdn.net/weixin_52418790/article/details/124325110)
+
+
+
+## 2.Vite 前端构建工具
+
+- 什么是[Vite](https://vitejs.cn/)？—— 新一代前端构建工具。
+
+- 优势如下：
+
+  - 开发环境中，无需打包操作，可快速的冷启动。
+  - 轻量快速的**热重载**（又称**模块热替换**，HMR，hot module replacement），它可以在应用运行的时候，不需要刷新页面，就可以直接替换、增删模块。
+  - 真正的按需编译，不再等待整个应用编译完成。
+
+- 传统构建 与 vite构建对比图
+
+  传统构建模式，是将所有资源都打包好，再上线
+
+  ![](CreateProject.assets/传统构建.png)
+
+  而Vite是按需加载
+
+  ![vite构建](CreateProject.assets/vite构建.png)
+
+## 3.搭建第一个 Vite 项目
+
+Vite 需要 [Node.js](https://nodejs.org/en/) 版本 14.18+，16+。
+
+```sh
+npm create vite@latest
+```
+
+你还可以通过附加的命令行选项直接指定项目名称和你想要使用的模板。例如，要构建一个 Vite + Vue 项目，运行：
+
+```sh
+npm create vite@latest my-vue-app --template vue
+```
+
+在安装了 Vite 的项目中，可以在 npm scripts 中使用 `vite` 可执行文件，或者直接使用 `npx vite` 运行它。下面是通过脚手架创建的 Vite 项目中默认的 npm scripts：
+
+```json
+{
+    "scripts": {
+        "dev": "vite", // 启动开发服务器，别名：`vite dev`，`vite serve`
+        "build": "vite build", // 为生产环境构建产物
+        "preview": "vite preview" // 本地预览生产构建产物
+    }
+}
+```
+
+可以指定额外的命令行选项，如 `--port` 或 `--https`。运行 `npx vite --help` 获得完整的命令行选项列表。
+
+
+
+接下来我们就用[Vite](https://vitejs.cn/)来创建一个Vue3的项目：[参考](https://blog.csdn.net/weixin_52418790/article/details/124325110)
 
 ```bash
 ## 创建工程
@@ -72,45 +157,9 @@ npm run dev
 > **Unit Testing**：使用单元测试（unit tests）
 > **E2E Testing**：使用E2E（end to end）黑盒测试
 
-## git 管理项目
-
-基于 create-vue 创建出来的项目默认并没有初始化 git 仓库，需要我们手动初始化
-
-```sh
-git init
-git add .
-git commit -m 'init'
-```
 
 
-
-## Vite 前端构建工具
-
-官方文档：https://v3.cn.vuejs.org/guide/installation.html#vite
-
-vite官网：https://vitejs.cn
-
-- 什么是vite？—— 新一代前端构建工具。
-
-- 优势如下：
-
-  - 开发环境中，无需打包操作，可快速的冷启动。
-  - 轻量快速的**热重载**（又称**模块热替换**，HMR，hot module replacement），它可以在应用运行的时候，不需要刷新页面，就可以直接替换、增删模块。
-  - 真正的按需编译，不再等待整个应用编译完成。
-
-- 传统构建 与 vite构建对比图
-
-  传统构建模式，是将所有资源都打包好，再上线
-
-  <img src="CreateProject.assets/传统构建.png" alt="传统构建" style="zoom:33%;" />![vite构建](CreateProject.assets/vite构建.png)
-
-  而Vite是按需加载
-
-  ![vite构建](CreateProject.assets/vite构建.png)
-
-
-
-##  分析文件目录
+##  4.分析文件目录
 
 ```
 .vscode			--- VSCode工具配置文件

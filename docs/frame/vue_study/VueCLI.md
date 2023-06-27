@@ -2,8 +2,6 @@
 
 ## :star:创建一个项目
 
-[参考文章](https://blog.csdn.net/James_liPeng/article/details/85329677)、[参考文章](https://huaweicloud.csdn.net/638eab63dacf622b8df8d01d.html)、[参考文章](https://blog.csdn.net/weixin_47127256/article/details/125766037)
-
 [三种创建Vue项目的方式](https://kaven.blog.csdn.net/article/details/110262834)
 
 安装脚手架：
@@ -107,3 +105,6 @@ module.exports = {
 }
 ```
 
+## :page_facing_up:参考
+
+[参考文章](https://blog.csdn.net/James_liPeng/article/details/85329677)、[参考文章](https://huaweicloud.csdn.net/638eab63dacf622b8df8d01d.html)、[参考文章](https://blog.csdn.net/weixin_47127256/article/details/125766037)

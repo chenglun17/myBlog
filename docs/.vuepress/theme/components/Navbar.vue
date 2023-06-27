@@ -5,19 +5,8 @@
         <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')" />
 
         <RouterLink :to="$localePath" class="home-link">
-            <img
-                v-if="$site.themeConfig.logo"
-                class="logo"
-                :src="$withBase($site.themeConfig.logo)"
-                :alt="$siteTitle"
-            />
-            <span
-                v-if="$siteTitle"
-                ref="siteName"
-                class="site-name"
-                :class="{ 'can-hide': $site.themeConfig.logo }"
-                >{{ $siteTitle }}
-            </span>
+            <img v-if="$site.themeConfig.logo" class="logo" :src="$withBase($site.themeConfig.logo)" :alt="$siteTitle" />
+            <span v-if="$siteTitle" ref="siteName" class="site-name" :class="{ 'can-hide': $site.themeConfig.logo }">{{ $siteTitle }} </span>
         </RouterLink>
 
         <div class="links" :style="linksWrapMaxWidth ? { 'max-width': linksWrapMaxWidth + 'px' } : {}">
@@ -57,16 +46,13 @@
 
         mounted() {
             const MOBILE_DESKTOP_BREAKPOINT = 719 // refer to config.styl
-            const NAVBAR_VERTICAL_PADDING =
-                parseInt(css(this.$el, 'paddingLeft')) + parseInt(css(this.$el, 'paddingRight'))
+            const NAVBAR_VERTICAL_PADDING = parseInt(css(this.$el, 'paddingLeft')) + parseInt(css(this.$el, 'paddingRight'))
             const handleLinksWrapWidth = () => {
                 if (document.documentElement.clientWidth < MOBILE_DESKTOP_BREAKPOINT) {
                     this.linksWrapMaxWidth = null
                 } else {
                     this.linksWrapMaxWidth =
-                        this.$el.offsetWidth -
-                        NAVBAR_VERTICAL_PADDING -
-                        ((this.$refs.siteName && this.$refs.siteName.offsetWidth) || 0)
+                        this.$el.offsetWidth - NAVBAR_VERTICAL_PADDING - ((this.$refs.siteName && this.$refs.siteName.offsetWidth) || 0)
                 }
             }
             handleLinksWrapWidth()
@@ -97,7 +83,7 @@
       .logo
         height $navbarHeight - 1.4rem
         min-width $navbarHeight - 1.4rem
-        margin-right 0.8rem
+        margin-right 0.3rem
         vertical-align top
       .site-name
         font-size 1.3rem

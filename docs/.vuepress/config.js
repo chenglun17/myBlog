@@ -1,9 +1,9 @@
 module.exports = {
     // 站点配置
-    base: "/",
-    lang: "zh-CN",
-    title: "chenglun17 blog",
-    description: "学习学习在学习",
+    base: "/", // 部署站点的基础路径,默认/
+    lang: "zh-CN", // 语言设置
+    title: "chenglun17 blog", // 所有页面标题的后缀，并且在默认主题的导航栏中显示
+    description: "学习学习在学习", // 站点描述，它会被每个页面的 Frontmatter 中的 description 字段覆盖
     head: [["link", { rel: "icon", href: "/images/favicon.ico" }]], // 自定义的网页标签图标
     // 主题和它的配置
     themeConfig: {
@@ -22,9 +22,9 @@ module.exports = {
                     { text: '计算机组成原理', link: '/cs/CO/' }
                 ]
             },
-            // Web前端
+            // 前端基础
             {
-                text: 'Web前端',
+                text: '前端基础',
                 items: [
                     { text: 'HTML/CSS', link: '/troika/html_css_study/' }, // 可不写后缀 .md
                     { text: 'JavaScript', link: '/troika/js_study/' },
@@ -33,15 +33,17 @@ module.exports = {
                     { text: 'Promise', link: '/troika/promise_study/' },
                     { text: 'Ajax', link: '/troika/ajax_study/' },
                     { text: 'Axios', link: '/troika/axios_study/' },
+                    { text: 'TypeScript', link: '/troika/TypeScript_Study/' },
                 ]
             },
-            // 主流框架
+            // Web前端
             {
-                text: '主流框架', link: '/frame/', items: [
+                text: 'Web前端', link: '/frame/', items: [
                     { text: 'Vue2.x', link: '/frame/vue_study/' },
                     { text: 'Vue3', link: '/frame/vue3_study/' },
                     { text: 'Vue面试相关', link: '/frame/VueInterview/' },
-                    { text: 'React', link: '/frame/react_study/' }
+                    { text: 'React', link: '/frame/react_study/' },
+                    { text: 'Bootstrap', link: '/frame/Bootstrap_study/' },
                 ]
             },
             // 其他学习
@@ -49,8 +51,16 @@ module.exports = {
                 text: '其他学习', link: '/others/', items: [
                     { text: 'Nodejs', link: '/others/nodejs_study/' },
                     { text: 'Webpack', link: '/others/webpack_study/' },
+                    { text: 'Babel', link: '/others/babel_study/' },
                     { text: 'Git/Tortoisegit', link: '/others/git_study/' },
                     { text: '正则表达式', link: '/others/regex_study/' },
+                ]
+            },
+            // 移动端学习
+            {
+                text: '移动端', link: '/mobile/', items: [
+                    { text: '小程序学习', link: '/mobile/miniprogram_study/' },
+                    { text: 'uni-app', link: '/mobile/uni-app_study/' },
                 ]
             },
             { text: 'GitHub', link: 'https://github.com/chenglun17' },
@@ -116,7 +126,7 @@ module.exports = {
             '/troika/': [
                 // HTML/CSS学习
                 {
-                    title: 'HTML/CSS学习',
+                    title: 'HTML/CSS 学习',
                     path: '/troika/html_css_study/',
                     sidebarDepth: 2,
                     children: [
@@ -137,7 +147,7 @@ module.exports = {
                 },
                 // JS学习
                 {
-                    title: 'JS学习',
+                    title: 'JavaScript 学习',
                     path: '/troika/js_study/',
                     sidebarDepth: 2,
                     children: [
@@ -176,9 +186,9 @@ module.exports = {
                         "/troika/various_functions/uploadFile.md",
                     ]
                 },
-                // Promise学习
+                // Promise 学习
                 {
-                    title: 'Promise学习',
+                    title: 'Promise 学习',
                     path: '/troika/promise_study/',
                     sidebarDepth: 2,
                     children: [
@@ -194,9 +204,9 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
-                // Ajax学习
+                // Ajax 学习
                 {
-                    title: 'Ajax学习',
+                    title: 'Ajax 学习',
                     path: '/troika/ajax_study/',
                     sidebarDepth: 2,
                     children: [
@@ -209,15 +219,31 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
-                // Axios进阶
+                // Axios 学习
                 {
-                    title: 'Axios进阶',
+                    title: 'Axios 学习',
                     path: '/troika/axios_study/',
                     sidebarDepth: 2,
                     children: [
                         "/troika/axios_study/Preparation.md",
+                        "/troika/axios_study/Base.md",
                         "/troika/axios_study/AxiosUse.md",
+                        "/troika/axios_study/Interceptor.md",
+                        "/troika/axios_study/SecondaryPackage.md",
                         "/troika/axios_study/DifficultProblem.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                // TS 学习
+                {
+                    title: 'TypeScript 学习',
+                    path: '/troika/TypeScript_Study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/troika/TypeScript_Study/Intro.md",
+                        "/troika/TypeScript_Study/Base.md",
+                        "/troika/TypeScript_Study/Senior.md",
+                        "/troika/TypeScript_Study/Project.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -286,7 +312,7 @@ module.exports = {
             '/others/': [
                 // Nodejs学习
                 {
-                    title: 'Nodejs学习',
+                    title: 'Nodejs 学习',
                     path: '/others/nodejs_study/',
                     sidebarDepth: 2,
                     children: [
@@ -295,14 +321,16 @@ module.exports = {
                         "/others/nodejs_study/Buffer.md",
                         "/others/nodejs_study/fsModule.md",
                         "/others/nodejs_study/pathModule.md",
+                        "/others/nodejs_study/urlModule.md",
                         "/others/nodejs_study/httpModule.md",
                         "/others/nodejs_study/Express.md",
+                        "/others/nodejs_study/restfulAPI.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
                 // Webpack学习
                 {
-                    title: 'Webpack学习',
+                    title: 'Webpack 学习',
                     path: '/others/webpack_study/',
                     sidebarDepth: 2,
                     children: [
@@ -313,9 +341,18 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
+                // Babel学习
+                {
+                    title: 'Babel 学习',
+                    path: '/others/babel_study/',
+                    children: [
+                        "/others/babel_study/Base.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
                 // Git学习
                 {
-                    title: 'Git学习',
+                    title: 'Git 学习',
                     path: '/others/git_study/',
                     sidebarDepth: 2,
                     children: [
@@ -329,11 +366,40 @@ module.exports = {
                 },
                 // RegExp学习
                 {
-                    title: 'RegExp学习',
+                    title: 'RegExp 学习',
                     path: '/others/regex_study/',
                     sidebarDepth: 2,
                     children: [
                         "/others/regex_study/Regex.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+            ],
+            '/mobile/': [
+                // 小程序学习
+                {
+                    title: '小程序学习',
+                    path: '/mobile/miniprogram_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/mobile/miniprogram_study/Base.md",
+                        "/mobile/miniprogram_study/TemplatesAndConfiguration.md",
+                        "/mobile/miniprogram_study/ViewAndLogic.md",
+                        "/mobile/miniprogram_study/Senior.md",
+                        "/mobile/miniprogram_study/CustomComponent.md",
+                        "/mobile/miniprogram_study/MobX.md",
+                        "/mobile/miniprogram_study/Subcontract.md",
+                        "/mobile/miniprogram_study/VantWeapp.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                // uni-app
+                {
+                    title: 'uni-app',
+                    path: '/mobile/uni-app_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/mobile/uni-app_study/uni-appNotes.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -343,6 +409,7 @@ module.exports = {
         },
         smoothScroll: true, // 页面滚动
         sidebarDepth: 2, // 侧边栏显示2级
+        sidebarOpen: true, // 初始状态是否打开侧边栏，默认true
         // 默认值是 true 。设置为 false 来禁用所有页面的 下一篇 链接
         // nextLinks: false,
         // 默认值是 true 。设置为 false 来禁用所有页面的 上一篇 链接

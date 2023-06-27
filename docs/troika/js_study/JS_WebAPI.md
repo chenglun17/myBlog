@@ -33,113 +33,61 @@ const element = document.documentElement
 
 ### 2.获取 DOM 节点
 
-| `方法`                                  | `描述`                                                       |
-| :-------------------------------------- | :----------------------------------------------------------- |
-| `document.getElementById(id)`           | 通过元素 id 来查找元素                                       |
-| `document.getElementsByTagName(name)`   | 通过标签名来查找元素                                         |
-| `document.getElementsByClassName(name)` | 通过类名来查找元素                                           |
-| `document.querySelector()`              | 返回文档中匹配指定的CSS选择器的第一个元素                    |
-| `document.querySelectorAll()`           | HTML5中引入的新方法，返回文档中匹配的CSS选择器的所有元素节点列表 |
+```js
+document.getElementById('#id')				// 通过id获取一个元素
+document.getElementsByTagName('标签名')	   // 通过标签获取一类元素
+document.getElementsByClassName('.class')	 // 通过类名获取元素
 
-1. 选择匹配的第一个元素：**document.querySelector**
-
-```javascript
-document.querySelector('css选择器')
-// 参数：包含一个或多个有效的CSS选择器 字符串
-// 返回值：CSS选择器匹配的第一个元素，一个HTMLELement对象
+document.querySelector('css选择器')	   // 返回文档中匹配指定的CSS选择器的第一个元素
+document.querySelectorAll('ui li')		 // 返回文档中匹配的CSS选择器的所有元素节点列表
 ```
 
-2. 选择匹配多个元素：**document.querySelectorAll**
+`document.querySelectorAll（'css选择器'）`
 
-```javascript
-document.querySelectorAll('ui li')
-// 参数：包含一个或多个有效的CSS选择器 字符串
-// 返回值：CSS选择器匹配的NodeList 对象集合
-```
-
-document.querySelectorAll（'css选择器'）得到是一个 **伪数组**
+- 返回值：CSS选择器匹配的NodeList 对象集合，得到是一个 **伪数组**
 
 - 有长度、有索引号的数组
 - 没有pop()、push() 等数组方法
 - 不可以直接修改，只能通过遍历的方式一次给里面的元素做修改
 
-3. 其他获取 DOM 节点方法
 
-```javascript
-//	根据id获取一个元素
-document.getElementById('id')
-//	根据标签获取一类元素 获取页面所有div
-document.getElementByTagName('标签名')
-//	根据类名获取元素 获取页面所有类名为w的
-document.getElementByClassName('类名')
+
+### 3.增添 DOM 节点
+
+创建新节点：
+
+```js
+document.createElement('标签名')	// 创造一个新的元素节点
+
+createDocumentFragment(node)
+createTextNode(text)
 ```
 
+追加节点：添加节点之前，你要先创建好节点，同时要选好父节点 element，第二个方法甚至你还要找好插入位置后面的兄弟节点。
 
+```js
+element.appendChild(要插入的元素)		// 插入到这个父元素的最后
 
-### 3.操作 DOM 节点
-
-DOM 树里每一个内容都称之为节点
-
-节点类型
-
-- 元素节点
-
-  所有的标签 比如 body、div
-
-  html 是根节点
-
-- 属性节点
-
-  所有的属性 比如 class、href
-
-- 文本节点
-
-  所有的文本
-
-- 其他
-
-#### 2.1 增加节点
-
-创建节点
-
-```javascript
-// 创造一个新的元素节点
-document.createElement('标签名')
+element.insertBefore(要插入的元素, 某个子元素)	// 插入到某个子元素的前面
 ```
 
-追加节点
+克隆节点：cloneNode 会克隆出一个跟原标签一样的元素
 
-```javascript
-// 插入到这个父元素的最后
-element.appendChild(要插入的元素)
-
-// 插入到某个子元素的前面
-element.insertBefore(要插入的元素, 某个子元素)
+```js
+element.cloneNode(布尔值)	// 克隆一个已有的元素节点
 ```
 
-> 添加节点之前，你要先创建好节点，同时要选好父节点element，第二个方法甚至你还要找好插入位置后面的兄弟节点。
-
-克隆节点
-
-```javascript
-// 克隆一个已有的元素节点
-element.cloneNode(布尔值)
-// true 代表克隆时会包含后代节点一起克隆
-// false 代表克隆时不包含后代节点，默认为 false
-```
-
-> cloneNode 会克隆出一个跟原标签一样的元素
->
+- true 代表克隆时会包含后代节点一起克隆
+- false 代表克隆时不包含后代节点，默认为 false
 
 
 
-#### 2.2 删除节点
+### 4.删除 DOM 节点
 
 在 JavaScript 原生 DOM 操作中，要删除必须通过 **父节点删除**
 
 ```javascript
-// 删除元素节点
-element.removeChild(要删除的元素)
+element.removeChild(要删除的元素)	// 删除元素节点
 ```
 
 > 删除节点和隐藏节点（display:none）有区别
@@ -147,7 +95,34 @@ element.removeChild(要删除的元素)
 
 
 
-#### 2.3 查找节点
+### 5.修改 DOM 节点
+
+对于这样一个 HTML 元素
+
+```html
+<div>content<br/></div>
+```
+
+内部 HTML 与 Text：
+
+```javascript
+// 获取当前元素的所有文本，包括html源码和文本，能够识别文本，能够解析标签
+element.innerHTML	// content<br/>
+// 获取当前元素的所有文本，不包含html源码，只识别文本，不能解析标签
+element.innerText	// content
+```
+
+外部 HTML 与 Text：
+
+```js
+element.outerHTML	// <div>content<br/></div>
+
+element.outerText	// content
+```
+
+
+
+### 6.查找 DOM 节点
 
 父结点查找
 
@@ -173,17 +148,6 @@ element.childNodes
 element.previousElementSibling
 // 查找下一个兄弟节点
 element.nextElementSibling
-```
-
-
-
-#### 2.4 节点内容
-
-```javascript
-// 获取当前元素的所有文本，包括html源码和文本，能够识别文本，能够解析标签
-element.innerHTML
-// 获取当前元素的所有文本，不包含html源码，只识别文本，不能解析标签
-element.innerText
 ```
 
 

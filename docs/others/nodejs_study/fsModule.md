@@ -9,6 +9,12 @@ JavaScript 的是没有操作文件的能力，但是 Node 是可以做到的，
 - 异步文件系统不会阻塞程序的执行，而是在操作完成时，通过**回调函数**将结果返回，然后可以立即向下执行代码
 - 一般情况下我们使用的都是异步方式！比起同步，异步方法性能更高，速度更快，而且没有阻塞。
 
+引入模块：
+
+```js
+const fs = require("fs");
+```
+
 
 
 ## :star:打开文件
@@ -56,7 +62,7 @@ fs.statSync(path[, options])
 
 
 
-## 1.:star:文件写入
+## :star:文件写入
 
 | 方法                                    | 说明         |
 | --------------------------------------- | ------------ |
@@ -148,7 +154,7 @@ fs.createWriteStream (path, [, options])
 
 
 
-## 2.:star:文件读取
+## :star:文件读取
 
 | 方法             | 说明     |
 | ---------------- | -------- |
@@ -195,7 +201,7 @@ fs.createReadStream(path[, options])
 
 
 
-## 3.:star:文件移动与重命名
+## :star:文件移动与重命名
 
 在 Node.js 中，我们使用 **rename** 或 **renameSync** 来移动或重命名 **文件 或 文件夹**
 
@@ -213,7 +219,7 @@ fs.renameSync(oldPath, newPath)
 
 
 
-## 4.:star:文件删除
+## :star:文件删除
 
 在 Node.js 中，我们使用 **unlink** 或 **unlinkSync** 来删除文件
 
@@ -241,7 +247,7 @@ fs.existsSync(path)
 
 
 
-## 5.:star:文件夹操作
+## :star:文件夹操作
 
 | 方法                  | 说明       |
 | --------------------- | ---------- |
@@ -291,7 +297,7 @@ fs.rmdirSync(path[, options])
 
 
 
-## 7.:star:相对路径问题
+## :star:相对路径问题
 
 相对路径：
 
@@ -306,7 +312,7 @@ fs.rmdirSync(path[, options])
 
 注意：相对路径中所谓的 **当前目录**，指的是 **命令行的工作目录**，而并非是文件的所在目录
 
-## 8.:star:\__dirname
+## :star:\__dirname
 
 - **\__dirname** 与 **require** 类似，都是 Node.js 环境中的 **全局变量**
 
