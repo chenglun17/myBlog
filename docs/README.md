@@ -11,7 +11,7 @@ features:
       title: 计算机基础
       details: 数据结构、计算机网络、操作系统...
     - icon: 📖
-      title: 前端知识
+      title: 前端基础
       details: HTML、CSS、JavaScript、Vue...
     - icon: ⚡️
       title: 学无止境

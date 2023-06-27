@@ -54,6 +54,7 @@ module.exports = {
                     { text: 'Babel', link: '/others/babel_study/' },
                     { text: 'Git/Tortoisegit', link: '/others/git_study/' },
                     { text: '正则表达式', link: '/others/regex_study/' },
+                    { text: 'SQL', link: '/others/sql_study/' },
                 ]
             },
             // 移动端学习
@@ -371,6 +372,17 @@ module.exports = {
                     sidebarDepth: 2,
                     children: [
                         "/others/regex_study/Regex.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                // SQL学习
+                {
+                    title: 'SQL 学习',
+                    path: '/others/sql_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/others/sql_study/Base.md",
+                        "/others/sql_study/Senior.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
