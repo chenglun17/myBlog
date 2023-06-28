@@ -16,6 +16,7 @@
     "webpack": "^4.28.4"
   },
   "dependencies": {
+    "@docsearch/js": "^3.5.1",
     "markdown-it-disable-url-encode": "^1.0.1"
   }
 }

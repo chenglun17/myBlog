@@ -75,6 +75,7 @@
     .navbar
       padding $navbar-vertical-padding $navbar-horizontal-padding
       line-height $navbarHeight - 1.4rem
+      // background-color #000
       .home-link:hover
         opacity 0.65
         transition: opacity 0.25s;

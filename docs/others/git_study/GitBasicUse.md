@@ -15,7 +15,7 @@ git config user.name	# 查看用户名
 git config user.email	# 查看邮箱
 ```
 
-## :star:提交操作
+## :star:基本操作
 
 ```sh
 git init	# 初始化一个版本库
@@ -107,7 +107,40 @@ git revert -n (版本号)
 
 ![](GitBasicUse.assets/revert.png)
 
+### 撤销修改
 
+当我们在工作中修改了一个文件，突然发现内容好像改的不对，想重新修改，这时又不知道自己改了什么代码，想撤销修改怎么办呢？
+
+有一个最简单的方法，就是 `git checkout -- file`。
+
+> `git checkout -- file`命令中的`--`很重要，没有`--`，就变成了“切换到另一个分支”的命令。
+
+首先，使用 `git status` 查看一下
+
+```sh
+git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+
+#	 modified:   readme.txt
+
+# no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+你可以发现，Git 会告诉你，`git checkout -- file` 可以丢弃工作区的修改：
+
+```sh
+git checkout -- readme.txt
+```
+
+命令`git checkout -- readme.txt`意思是，把`readme.txt`文件在工作区的修改全部撤销，有两种情况：
+
+- 一种是`readme.txt`自修改后还没有被放到暂存区（即 git add 了），现在撤销修改就回到和版本库一模一样的状态；
+- 一种是`readme.txt`已经添加到暂存区后，又作了修改，现在撤销修改就回到添加到暂存区后的状态。
+
+总之，就是让这个文件回到最近一次`git commit`或`git add`时的状态。
 
 
 
@@ -115,53 +148,83 @@ git revert -n (版本号)
 
 git 在存储文件时，每一次代码的提交都会创建一个与之对应的节点，git 就是通过一个一个的节点来记录代码的状态的。
 
-节点会构成一个树状结构，树状结构就意味着这个树会存在分支，默认情况下仓库只有一个分支，命名为 master。
+节点会构成一个树状结构，表示这个树会存在分支，默认情况下仓库只有一个分支，命名为 master。
 
-在使用 git 时，可以创建多个分支，分支与分支之间相互独立，在一个分支上修改代码不会影响其他的分支。
+在使用 git 时，可以创建多个分支，分支之间相互独立，在一个分支上修改代码不会影响其他的分支。
+
+一开始的时候，`master`分支是一条线，Git 用`master`指向最新的提交，再**用`HEAD`指向`master`，就能确定当前分支**，以及当前分支的提交点：
+
+![image-20230628104229884](GitBasicUse.assets/image-20230628104229884.png)
+
+当我们创建新的分支，例如`dev`时，Git新建了一个指针叫`dev`，指向`master`相同的提交，再把`HEAD`指向`dev`，就表示当前分支在`dev`上：
+
+![image-20230628104342866](GitBasicUse.assets/image-20230628104342866.png)
+
+不过，从现在开始，对工作区的修改和提交就是针对`dev`分支了，比如新提交一次后，`dev`指针往前移动一步，而`master`指针不变：
+
+![image-20230628104501911](GitBasicUse.assets/image-20230628104501911.png)
+
+假如我们在`dev`上的工作完成了，就可以把`dev`合并到`master`上。
+
+Git 怎么合并呢？最简单的方法，就是直接把`master`指向`dev`的当前提交，就完成了合并：
+
+![image-20230628104627850](GitBasicUse.assets/image-20230628104627850.png)
+
+> 所以Git合并分支也很快！就改改指针，工作区内容也不变！
+
+合并完分支后，甚至可以删除`dev`分支。删除`dev`分支就是把`dev`指针给删掉，删掉后，我们就剩下了一条`master`分支：
+
+![image-20230628104730706](GitBasicUse.assets/image-20230628104730706.png)
+
+### 1.查看分支
 
 ```sh
 git branch		# 查看本地分支
 git branch -r	# 查看远程分支
 git branch -a 	# 列出所有本地分支和远程分支
+```
 
-git branch <name>	# 创建新的分支----注意新分支创建后不会自动切换为当前分支
+### 2.创建与删除分支
+
+```sh
+git branch <name>	# 创建新的分支----注意：新分支创建后不会自动切换为当前分支
 
 git branch -m <oldName> <newName> # 重命名
 
+git branch -d <name>	# 删除分支，-d 选项只能删除已经参与了合并的
+# 不能删除当前工作分支或者不存在的分支（会在删除前检查merge状态）
+git branch -D <name>	# 对于未有合并的分支是无法删除的，如果想强制删除一个分支，可以使用-D选项
+# -D 是 --delete --force 的简写
+```
+
+### 3.创建并切换分支
+
+```sh
 git checkout <name>		# 切换分支
 git checkout -b <name>	# 创建，并切换分支
 
 git switch <name>		# 切换分支
 git switch -c <name>	# 创建，并切换分支
-
-git branch -d <name>	# 删除分支，-d 选项只能删除已经参与了合并的
-# 不能删除当前工作分支或者不存在的分支（会在删除前检查merge状态）
-git branch -D <name>	# 对于未有合并的分支是无法删除的，如果想强制删除一个分支，可以使用-D选项
-# git branch --delete --force 的简写
 ```
 
 > 在开发中，都是在自己的分支上编写代码，代码编写完成后，在将自己的分支合并到主分支中。
 >
-> 因为`git checkout`除了可以操作分支，它还可以操作文件。这条命令可以重写工作区，是一个很危险的命令
+> git checkout 不仅可以操作分支，还可以操作文件。这条命令可以重写工作区，是一个很危险的命令
 
-
-
-### merge 合并
+### 4.merge 合并
 
 ```sh
-git merge <name>		# 合并分支，把指定的分支合并到当前分支上
-git merge new			# 此命令为将new分支合并到master分支上（默认为master）
-
-git rebase 分支名/节点哈希值
+# 需要先切换到主分支（默认为master）
+git switch master
+# 合并分支，将 new 分支合并到 master 分支上（默认为master）
+git merge new
 ```
 
-与`merge`不同的是`rebase`合并看起来不会产生新的节点(实际上是会产生的，只是做了一次复制)，而是将需要合并的节点直接累加。
+合并分支后会出现 `Fast-forward` 信息，Git 告诉我们，这次合并是 “快进模式”，也就是直接把`master`指向`dev`的当前提交，所以合并速度非常快。
 
 
 
-
-
-### 变基（rebase）
+### 5.rebase 变基
 
 在开发中除了通过 **merge** 来合并分支外，还可以通过 **变基（rebase）** 来完成分支的合并。
 
@@ -177,7 +240,10 @@ git rebase 分支名/节点哈希值
 4. 以**当前基底**开始，**重新执行**历史操作
 
 ```sh
-git rebase master # 在需要变基的分支上执行，master为主分支
+# 需要先切换到 new 分支
+git switch new
+# 将 new 分支变基到 master 主分支上（在需要变基的分支上执行）
+git rebase master
 ```
 
 变基 和 merge 对于合并分支来说最终的结果是一样的！但是变基会使得代码的提交记录更整洁更清晰！
@@ -186,13 +252,13 @@ git rebase master # 在需要变基的分支上执行，master为主分支
 
 
 
-### Bug 分支
+### 5.Bug 分支
 
 每个bug都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。
 
 当你准备修复一个代号101的bug时，很自然地，你想创建一个分支`issue-101`来修复它，但是，等等，当前正在`dev`上进行的工作还没有提交。
 
-幸好，Git还提供了一个`stash`功能，可以把当前工作现场 “储藏” 起来，等以后恢复现场后继续工作：
+幸好，Git 还提供了一个`stash`功能，可以把当前工作现场 **“储藏”** 起来，等以后恢复现场后继续工作：
 
 ```sh
 git stash
@@ -250,11 +316,11 @@ git stash list
 # stash@{0}: WIP on dev: f52c633 add merge
 ```
 
-工作现场还在，Git把stash内容存在某个地方了，但是需要恢复一下，有两个办法：
+工作现场还在，Git 把stash内容存在某个地方了，但是需要恢复一下，有两个办法：
 
-一是用`git stash apply`恢复，但是恢复后，stash内容并不删除，你需要用`git stash drop`来删除；
+一是用`git stash apply`恢复，但是恢复后，stash 内容并不删除，你需要用`git stash drop`来删除；
 
-另一种方式是用`git stash pop`，恢复的同时把stash内容也删了：
+另一种方式是用`git stash pop`，恢复的同时把 stash 内容也删了：
 
 ```sh
 git stash pop
@@ -287,7 +353,7 @@ git stash apply stash@{0}
 
 
 
-### Feature 分支
+### 6.Feature 分支
 
 添加一个新功能时，你肯定不希望因为一些实验性质的代码，把主分支搞乱了，所以，每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支。
 
@@ -298,7 +364,7 @@ git switch -c feature-vulcan
 # Switched to a new branch 'feature-vulcan'
 ```
 
-开发完毕后
+经过漫长的开发，终于开发完毕后
 
 切回`dev`，准备合并：
 
@@ -318,7 +384,7 @@ git branch -d feature-vulcan
 # If you are sure you want to delete it, run 'git branch -D feature-vulcan'.
 ```
 
-销毁失败。Git友情提醒，`feature-vulcan`分支还没有被合并，如果删除，将丢失掉修改。
+销毁失败。Git 友情提醒，`feature-vulcan`分支还没有被合并，如果删除，将丢失掉修改。
 
 如果要强行删除，需要使用大写的`-D`参数：
 
@@ -333,38 +399,66 @@ git branch -D feature-vulcan
 
 ## :star:远程库操作
 
+### 1.查看远程仓库
+
 ```bash
 git remote		# 列出当前的关联的远程库
 git remote --verbose # 查看当前所有远程地址别名
 git remote -v
 
 git remote show <remote-name> # 查看某个远程仓库的详细信息
+```
 
-git remote add origin <url> 	# 关联远程仓库
-# 添加后，远程库的名字就是origin，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库
+
+
+### 2.操作远程仓库
+
+```sh
+git remote add origin <url> 	# 关联远程仓库，添加后，远程库的名字就是origin
+# 这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库
 
 git remote remove <远程库名>  	# 删除远程库，使用前，建议先用 git remote -v 查看远程库信息
 # 此处的“删除”其实是解除了本地和远程的绑定关系，并不是物理上删除了远程库
+```
 
-# 由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令
+
+
+### 3.向远程库推送
+
+由于远程库是空的，我们第一次推送 master 分支时，加上了-u参数，Git 不但会把本地的 master 分支内容推送的远程新的 master 分支，还会把本地的 master 分支和远程的 master 分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+```sh
 git push -u <远程库名> <分支名> 			# 向远程库推送代码，并和当前分支关联
-git push <远程库名> <本地分支>:<远程分支> 	 # 把本地的分支推送给远程的分支
 git push <远程库名> <分支名>				# 后续直接push即可
 
-git pull <远程库名> <分支名>  # 拉取远程仓库（必须连接远程仓库才能用，不管本地有没有代码。可以用于下载完整代码更新本地代码）
-
-git clone <url>		# 将远程仓库的内容克隆到本地
-git clone <url> <重命名>
-# 只要你想往本地下载远程仓库完整的代码就可以用，不用连接远程仓库（连接了也可以），不适用于更新本地代码
-
- 
-# 要想推送成功，必须先确保本地库和远程库的版本一致，fetch会从远程库下载所有代码，但它不会将代码和当前分支自动合并
-git fetch	# 使用fetch拉取代码后，必须要手动对代码进行合并
-		
-git merge origin/master		# 将当前分支和远程仓库（origin是在本地的名字）上的master分支合并 
+git push <远程库名> <本地分支>:<远程分支> 	 # 把本地的分支推送给远程的分支
 ```
 
 > 注意：推送代码之前，一定要先从远程库中拉取最新的代码
+
+### 4.从远程库克隆
+
+只要你想往本地下载远程仓库完整的代码就可以用，不用连接远程仓库（连接了也可以），不适用于更新本地代码。
+
+```sh
+git clone <url>		# 将远程仓库的内容克隆到本地
+git clone <url> <重命名>
+```
+
+
+
+### 5.从远程库拉取代码
+
+必须连接远程仓库才能用，不管本地有没有代码。可以用于下载完整代码、更新本地代码。
+
+```sh
+git pull <远程库名> <分支名>  # 拉取远程仓库
+
+# 要想推送成功，必须先确保本地库和远程库的版本一致
+git fetch	# fetch会从远程库拉取代码，但它不会将代码和当前分支自动合并，必须要手动合并
+```
+
+
 
 
 
