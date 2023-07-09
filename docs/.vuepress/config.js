@@ -54,7 +54,6 @@ module.exports = {
                     { text: 'Babel', link: '/others/babel_study/' },
                     { text: 'Git/Tortoisegit', link: '/others/git_study/' },
                     { text: '正则表达式', link: '/others/regex_study/' },
-                    { text: 'SQL', link: '/others/sql_study/' },
                 ]
             },
             // 移动端学习
@@ -62,6 +61,13 @@ module.exports = {
                 text: '移动端', link: '/mobile/', items: [
                     { text: '小程序学习', link: '/mobile/miniprogram_study/' },
                     { text: 'uni-app', link: '/mobile/uni-app_study/' },
+                ]
+            },
+            // java后端
+            {
+                text: 'Java后端', link: '/java/', items: [
+                    { text: 'Java核心基础', link: '/java/java_core/' },
+                    { text: 'SQL/MySQL', link: '/java/sql_study/' },
                 ]
             },
             { text: 'GitHub', link: 'https://github.com/chenglun17' },
@@ -375,17 +381,6 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
-                // SQL学习
-                {
-                    title: 'SQL 学习',
-                    path: '/others/sql_study/',
-                    sidebarDepth: 2,
-                    children: [
-                        "/others/sql_study/Base.md",
-                        "/others/sql_study/Senior.md",
-                    ],
-                    initialOpenGroupIndex: 0
-                },
             ],
             '/mobile/': [
                 // 小程序学习
@@ -412,6 +407,31 @@ module.exports = {
                     sidebarDepth: 2,
                     children: [
                         "/mobile/uni-app_study/uni-appNotes.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+            ],
+            '/java/': [
+                // Java核心基础
+                {
+                    title: 'Java 核心基础',
+                    path: '/java/java_core/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/java/java_core/Base.md",
+                        "/java/java_core/Senior.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                // SQL学习
+                {
+                    title: 'SQL/MySQL',
+                    path: '/java/sql_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/java/sql_study/Base.md",
+                        "/java/sql_study/Senior.md",
+                        "/java/sql_study/Function.md",
                     ],
                     initialOpenGroupIndex: 0
                 },

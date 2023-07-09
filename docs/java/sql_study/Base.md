@@ -64,8 +64,6 @@ SQL 的范围包括数据插入、查询、更新和删除，数据库模式创�
 
 在本文中，我们将在每条 SQL 语句的末端使用分号。
 
-
-
 ## :star:SQL 数据类型
 
 - **int**：整型
@@ -81,7 +79,7 @@ SQL 的范围包括数据插入、查询、更新和删除，数据库模式创�
 
 
 
-## :star:SQL 基本语句
+## :star:SQL 基本语法
 
 - **[CREATE DATABASE](#create-database)** - 创建新数据库
 
@@ -393,13 +391,242 @@ ORDER BY column1, column2, ... ASC|DESC;
 - `ASC`：默认，升序排序
 - `DESC`：降序排序
 
+## :star:SQL 高级语法
+
+### LIKE 查找类似值
+
+LIKE 操作符用于在 WHERE 子句中搜索列中的指定模式。
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column LIKE pattern;
+```
+
+参数说明：
+
+- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
+- `table_name`：要查询的表名称
+- `column`：要搜索的字段名称
+- `pattern`：搜索模式
+
+### IN 锁定多个值
+
+IN 操作符允许您在 WHERE 子句中规定多个值。
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column IN (value1, value2, ...);
+```
+
+参数说明：
+
+- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
+- `table_name`：要查询的表名称
+- `column`：要查询的字段名称
+- `value1, value2, ...`：要查询的值，可以为多个值。
+
+### BETWEEN 选取区间数据
+
+BETWEEN 操作符选取介于两个值之间的数据范围内的值。这些值可以是数值、文本或者日期。
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+WHERE column BETWEEN value1 AND value2;
+```
+
+参数说明：
+
+- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
+- `table_name`：要查询的表名称
+- `column`：要查询的字段名称
+- `value1`：范围的起始值
+- `value2`：范围的结束值
+
+### AS 别名
+
+通过使用 SQL AS，可以为表名称或列名称指定别名。创建别名是为了让列名称的可读性更强。
+
+列的 SQL 别名语法：
+
+```sql
+SELECT column_name AS alias_name
+FROM table_name;
+```
+
+表的 SQL 别名语法：
+
+```sql
+SELECT column_name(s)
+FROM table_name AS alias_name;
+```
+
+### JOIN 多表关联
+
+SQL JOIN 子句用于把来自两个或多个表的行结合起来，基于这些表之间的共同字段。
+
+```sql
+SELECT column1, column2, ...
+FROM table1
+JOIN table2 ON condition;
+```
+
+参数说明：
+
+- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
+- `table1`：要连接的第一个表
+- `table2`：要连接的第二个表
+- `condition`：连接条件，用于指定连接方式
+
+![](Base.assets/sql-join.png)
+
+### 不同的 JOIN
+
+下面列出了您可以使用的 JOIN 类型，以及它们之间的差异。
+
+- **JOIN**：如果表中有至少一个匹配，则返回行
+- **INNER JOIN**：内部连接，在表中存在至少一个匹配时，返回两表中匹配的行
+- **LEFT JOIN**：即使右表中没有匹配，也从左表返回所有的行
+- **RIGHT JOIN**：即使左表中没有匹配，也从右表返回所有的行
+- **FULL JOIN**：只要其中一个表中存在匹配，就返回行
+
+**注释：** INNER JOIN 与 JOIN 是相同的。
+
+![](Base.assets/innerjoin.png)
+
+最常见的 JOIN 类型：**SQL INNER JOIN**，表示从多个表中返回满足 JOIN 条件的所有行。
+
+INNER JOIN 关键字在表中存在至少一个匹配时返回行。
+
+```sql
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name=table2.column_name;
+```
+
+或
+
+```sql
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name=table2.column_name;
+```
+
+参数说明：
+
+- `columns`：要显示的列名
+- `table1`：表1的名称
+- `table2`：表2的名称
+- `column_name`：表中用于连接的列名
+
+### UNION 合并结果集
+
+SQL UNION 操作符合并两个或多个 SELECT 语句的结果。
+
+```sql
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+```
+
+**📢注意：** UNION 操作符默认为选取不同的值。如果查询结果需要显示重复的值，请使用 `UNION ALL`。
+
+```sql
+SELECT column_name(s) FROM table1
+UNION ALL
+SELECT column_name(s) FROM table2;
+```
+
+**📢注意：** UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的列名。
+
+### NOTNULL 非空
+
+NOT NULL 约束强制列不接受 NULL 值。
+
+NOT NULL 约束强制字段始终包含值。即，如果不向字段添加值，就无法插入新记录或者更新记录。
+
+实例：
+
+```sql
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+```
+
+**📢 注意：** 如果插入 `NULL` 值，则会报错 `ORA-01400` 提示无法插入！
+
+**拓展小知识：** `NOT NULL` 也可以用于查询条件：
+
+```sql
+SELECT * FROM Persons WHERE FirstName IS NOT NULL;
+```
+
+**添加 NOT NULL 约束：**
+
+在一个已创建的表的 "Age" 字段中添加 NOT NULL 约束如下所示：
+
+```sql
+ALTER TABLE Persons MODIFY Age int NOT NULL;
+```
+
+**删除 NOT NULL 约束：**
+
+在一个已创建的表的 "Age" 字段中删除 NOT NULL 约束如下所示：
+
+```sql
+ALTER TABLE Persons MODIFY Age int NULL;
+```
+
+### VIEW 视图
+
+在 SQL 中，视图是基于 SQL 语句的结果集的可视化的表。
+
+视图包含行和列，就像一个真实的表。视图中的字段就是来自一个或多个数据库中的真实的表中的字段。
+
+**视图的作用：**
+
+- 视图隐藏了底层的表结构，简化了数据访问操作，客户端不再需要知道底层表的结构及其之间的关系
+- 视图提供了一个统一访问数据的接口（即可以允许用户通过视图访问数据的安全机制，而不授予用户直接访问底层表的权限）
+- 从而加强了安全性，使用户只能看到视图所显示的数据
+- 视图还可以被嵌套，一个视图中可以嵌套另一个视图
+
+可以向视图添加 SQL 函数、WHERE 以及 JOIN 语句，也可以提交数据，就像这些来自于某个单一的表。
+
+```sql
+CREATE VIEW view_name AS
+SELECT column_name(s)
+FROM table_name
+WHERE condition;
+```
+
+**📢 注意：** 视图总是显示最近的数据。每当用户查询视图时，数据库引擎通过使用 SQL 语句来重建数据。
+
+**更新视图：CREATE OR REPLACE VIEW**
+
+```sql
+CREATE OR REPLACE VIEW view_name AS
+SELECT column_name(s)
+FROM table_name
+WHERE condition;
+```
+
+**删除视图：DROP VIEW**
+
+```sql
+DROP VIEW view_name;
+```
+
 
 
 
 
 ## :page_facing_up:参考
 
-[参考文章](https://blog.csdn.net/m0_50546016/article/details/120070003)、[参考文章](https://blog.csdn.net/PILIpilipala/article/details/113798383)、[参考文章](https://www.cnblogs.com/geaozhang/p/6682952.html)
-
-
-
+[菜鸟教程](https://www.runoob.com/sql/sql-tutorial.html)、[W3school](https://www.w3school.com.cn/sql/index.asp)、[参考文章](https://blog.csdn.net/m0_50546016/article/details/120070003)、[参考文章](https://blog.csdn.net/PILIpilipala/article/details/113798383)、[参考文章](https://www.cnblogs.com/geaozhang/p/6682952.html)
