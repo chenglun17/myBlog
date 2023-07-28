@@ -11,10 +11,10 @@ features:
       title: 计算机基础
       details: 数据结构、计算机网络、操作系统...
     - icon: 📖
-      title: 前端基础
-      details: HTML、CSS、JavaScript、Vue...
+      title: 编程基础
+      details: C/C++、Java、Python、JS/TS...
     - icon: ⚡️
       title: 学无止境
-      details: 学习学习再学习
+      details: 学习学习再学习...
 footer: Copyright © 2022-present chenglun17
 ---

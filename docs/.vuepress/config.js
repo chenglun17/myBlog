@@ -33,6 +33,8 @@ module.exports = {
                     { text: 'Promise', link: '/troika/promise_study/' },
                     { text: 'Ajax', link: '/troika/ajax_study/' },
                     { text: 'Axios', link: '/troika/axios_study/' },
+                    { text: 'Webpack', link: '/troika/webpack_study/' },
+                    { text: 'Babel', link: '/troika/babel_study/' },
                     { text: 'TypeScript', link: '/troika/TypeScript_Study/' },
                 ]
             },
@@ -50,10 +52,9 @@ module.exports = {
             {
                 text: '其他学习', link: '/others/', items: [
                     { text: 'Nodejs', link: '/others/nodejs_study/' },
-                    { text: 'Webpack', link: '/others/webpack_study/' },
-                    { text: 'Babel', link: '/others/babel_study/' },
                     { text: 'Git/Tortoisegit', link: '/others/git_study/' },
                     { text: '正则表达式', link: '/others/regex_study/' },
+                    { text: 'Linux', link: '/others/linux_study/' },
                 ]
             },
             // 移动端学习
@@ -98,7 +99,7 @@ module.exports = {
                     path: '/cs/DS/',
                     sidebarDepth: 2,
                     children: [
-                        // "/cs/nodejs_study/NodeJsNotes.md",
+                        "/cs/DS/overview.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -241,6 +242,28 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
+                // Webpack学习
+                {
+                    title: 'Webpack 学习',
+                    path: '/troika/webpack_study/',
+                    sidebarDepth: 2,
+                    children: [
+                        "/troika/webpack_study/Intro.md",
+                        "/troika/webpack_study/Base.md",
+                        "/troika/webpack_study/Senior.md",
+                        "/troika/webpack_study/Project.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                // Babel学习
+                {
+                    title: 'Babel 学习',
+                    path: '/troika/babel_study/',
+                    children: [
+                        "/troika/babel_study/Base.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
                 // TS 学习
                 {
                     title: 'TypeScript 学习',
@@ -335,28 +358,6 @@ module.exports = {
                     ],
                     initialOpenGroupIndex: 0
                 },
-                // Webpack学习
-                {
-                    title: 'Webpack 学习',
-                    path: '/others/webpack_study/',
-                    sidebarDepth: 2,
-                    children: [
-                        "/others/webpack_study/Intro.md",
-                        "/others/webpack_study/Base.md",
-                        "/others/webpack_study/Senior.md",
-                        "/others/webpack_study/Project.md",
-                    ],
-                    initialOpenGroupIndex: 0
-                },
-                // Babel学习
-                {
-                    title: 'Babel 学习',
-                    path: '/others/babel_study/',
-                    children: [
-                        "/others/babel_study/Base.md",
-                    ],
-                    initialOpenGroupIndex: 0
-                },
                 // Git学习
                 {
                     title: 'Git 学习',
@@ -378,6 +379,16 @@ module.exports = {
                     sidebarDepth: 2,
                     children: [
                         "/others/regex_study/Regex.md",
+                    ],
+                    initialOpenGroupIndex: 0
+                },
+                // Linux学习
+                {
+                    title: 'Linux 学习',
+                    path: '/others/linux_study/',
+                    sidebarDepth: 2,
+                    children: [
+
                     ],
                     initialOpenGroupIndex: 0
                 },

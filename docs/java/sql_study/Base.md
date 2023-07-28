@@ -2,7 +2,7 @@
 
 ## :star:SQL 基本概念
 
-### SQL 是什么
+### 是什么
 
 SQL (Structured Query Language，结构化查询语言) 是用于管理**关系数据库管理系统**（RDBMS）。
 
@@ -16,7 +16,7 @@ SQL (Structured Query Language，结构化查询语言) 是用于管理**关系�
 
 SQL 的范围包括数据插入、查询、更新和删除，数据库模式创建和修改，以及数据访问控制。
 
-### SQL 能做什么
+### 能做什么
 
 - SQL 面向数据库执行查询
 - SQL 可从数据库取回数据
@@ -29,33 +29,9 @@ SQL 的范围包括数据插入、查询、更新和删除，数据库模式创�
 - SQL 可在数据库中创建视图
 - SQL 可以设置表、存储过程和视图的权限
 
-### SQL 的分类
-
-可以把 SQL 分为五大类型：
-
-- <strong style="color:#DD5145">DDL（Data Definition Language，数据定义语言）</strong>：用来定义数据库对象：库、表、列等
-
-  操作数据对象的语言，包括创建 create、删除 drop、修改 alter 、清除 truncate 数据库对象。
-
-- <strong style="color:#DD5145">DML（Data Manipulation Language，数据操作语言）</strong>：用来定义数据库记录（数据）
-
-  主要有增插 insert、更新 update、删除 delete 等操作表的语句。
-
-  DML语句修改后数据将保持较好的一致性。
-
-- <strong style="color:#DD5145">DCL（Data Control Language，数据控制语言）</strong>：用来定义访问权限和安全级别
-
-  主要有 grant、revoke 语句。
-
-- <strong style="color:#DD5145">DQL（Data Query Language，数据查询语言）</strong>：用来查询记录（数据）
-
-  主要由于 select 关键字完成，查询语句是 SQL 语句中最复杂，功能最丰富的语句。
-
-- <strong style="color:#DD5145">事务控制语句</strong>：主要有 commit、rollback 和 savepoint 三个关键字完成
 
 
-
-### SQL 语法要求
+### 语法要求
 
 - SQL 语句可以单行或多行书写，末端使用分号结尾
 - 分号是在数据库系统中分隔每条 SQL 语句的标准方法
@@ -64,7 +40,11 @@ SQL 的范围包括数据插入、查询、更新和删除，数据库模式创�
 
 在本文中，我们将在每条 SQL 语句的末端使用分号。
 
+
+
 ## :star:SQL 数据类型
+
+下面列举一下常用数据类型：
 
 - **int**：整型
 - **double**：浮点型，例如 double(5,2)表示最多 5 位，其中必须有 2 位小数，即最大值为 999.99；
@@ -79,7 +59,33 @@ SQL 的范围包括数据插入、查询、更新和删除，数据库模式创�
 
 
 
-## :star:SQL 基本语法
+## :star:SQL 语句分类
+
+可以把 SQL 分为五大类型：
+
+- <strong style="color:#DD5145">DDL（Data Definition Language，数据定义语言）</strong>：用来定义数据库对象：库、表、列等
+
+  操作数据对象的语言，包括创建 create、删除 drop、修改 alter 、清除 truncate 数据库对象。
+
+- <strong style="color:#DD5145">DML（Data Manipulation Language，数据操作语言）</strong>：用来操作数据库记录（数据）
+
+  主要有增插 insert、更新 update、删除 delete 等操作表的语句。
+
+  DML语句修改后数据将保持较好的一致性。
+
+- <strong style="color:#DD5145">DQL（Data Query Language，数据查询语言）</strong>：用来查询数据库记录（数据）
+
+  主要由于 select 关键字完成，查询语句是 SQL 语句中最复杂，功能最丰富的语句。
+
+- <strong style="color:#DD5145">DCL（Data Control Language，数据控制语言）</strong>：用来管理数据库，例如用户访问权限和安全级别
+
+  主要有 grant (授予)、revoke (撤销) 语句。
+
+- <strong style="color:#DD5145">事务控制语句</strong>：主要有 commit、rollback 和 savepoint 三个关键字完成
+
+
+
+## :star:DDL 数据定义语言
 
 - **[CREATE DATABASE](#create-database)** - 创建新数据库
 
@@ -101,9 +107,8 @@ SQL 的范围包括数据插入、查询、更新和删除，数据库模式创�
 
 ------
 
-- **[INSERT INTO](#insert-into)** - 向数据库中插入新数据
-- **[SELECT](#select)** - 从数据库中选取数据
-- **[SELECT DISTINCT](#select-distinct)** - 去除重复值
+
+
 - **[WHERE](#where)** - 条件过滤
 - **[UPDATE](#Update)** - 更新数据库中的数据
 - **[DELETE](#delete)** - 从数据库中删除数据
@@ -115,25 +120,66 @@ SQL 的范围包括数据插入、查询、更新和删除，数据库模式创�
 
 ### CREATE DATABASE
 
-CREATE DATABASE 语句用于创建数据库。
+CREATE DATABASE 语句用于**创建数据库**。
+
+```mysql
+CREATE DATABASE database_name;
+# 当数据库名是关键字时，为了避免关键字，可以使用反引号解决
+CREATE DATABASE `CREATE`;
+
+# 完全版
+CREATE DATABASE [IF NOT EXISTS] database_name
+	[CHARACTER SET utf8][, COLLATE utf8_general_ci][, ENGINE INNODB];
+```
+
+- character set：指定数据库采用的字符集，如果不指定字符集，默认为`utf8`
+
+- collate：指定数据库字符集的校对规则，常用的 `utf8_bin (区分大小写)` 、 `utf8_general_ci (不区分大小写)`
+
+  默认为`utf8_general_ci`
+  
+- engine：指定引擎，例如 `INNODB`
+
+### SHOW 查看数据库
 
 ```sql
-CREATE DATABASE database_name;
+-- 查看数据库
+SHOW DATABASES;
+-- 查看数据库创建的定义信息
+SHOW CREATE DATABASE db_name;
 ```
 
 
+
+### USE 选择数据库
+
+MySQL中切换数据库：
+
+```mysql
+USE database_name;
+```
+
+
+
+### DROP DATABASE
+
+DROP DATABASE 语句用于**删除数据库**。
+
+```sql
+-- 删除数据库(一定要慎用)
+DROP DATABASE [IF EXISTS] db_name;
+```
 
 
 
 ### CREATE TABLE
 
-CREATE TABLE 语句用于创建数据库中的表。
+CREATE TABLE 语句用于**创建数据库中的表**。
 
 表由行和列组成，每个表都必须有个表名。
 
 ```sql
-CREATE TABLE table_name
-(
+CREATE TABLE table_name(
     column_name1 data_type(size),
     column_name2 data_type(size),
     column_name3 data_type(size),
@@ -149,88 +195,150 @@ CREATE TABLE table_name
 
 
 
-### ALTER TABLE
-
-ALTER TABLE 语句用于在已有的表中添加、删除或修改列。
-
-如需在表中添加列，请使用下面的语法:
+### DESC 查看表结构
 
 ```sql
-ALTER TABLE table_name
-ADD column_name datatype;
+DESC table_name;
 ```
 
-如需删除表中的列，请使用下面的语法：
+
+
+### ALTER TABLE
+
+ALTER TABLE 语句用于**在已有的数据表中添加、修改或删除列**。
+
+如需在表中**添加列**，请使用下面的语法:
 
 ```sql
+ALTER TABLE table_name ADD (
+    column_name datatype NOT NULL DEFAULT '',
+    column_name datatype ...
+);
+```
+
+> `NOT NULL DEFAULT ''`，表示不允许为空，默认为一个空字符
+
+如需在表中**修改列**，请使用下面的语法:
+
+```sql
+-- 修改列的类型
+ALTER TABLE table_name MODIFY (
+    column_name data_type(new_size),
+    column_name data_type(new_size) ...
+);
+
+-- 修改列名
 ALTER TABLE table_name
-DROP COLUMN column_name;
+	CHANGE column_name new_column_name datatype NOT NULL DEFAULT '';
+```
+
+如需在表中的**删除列**，请使用下面的语法：
+
+```sql
+-- 查看表的结构，查看表所有的列
+desc 表名;
+
+ALTER TABLE table_name DROP (column_name, column_name ...);
 ```
 
 > 请注意，某些数据库系统不允许这种在数据库表中删除列的方式
 
-### TRUNCATE TABLE
-
-TRUNCATE TABLE 语句用于清除表内的数据（表的结构、属性以及索引仍存在）。
+修改表名：
 
 ```sql
-TRUNCATE TABLE table_name;
+ALTER TABLE 表名 RENAME TO 新表名;
+-- 或
+RENAME TABLE 表名 TO 新表名;
 ```
 
-TRUNCATE 和 DELETE 都可以删除表的所有记录，但有原理不同。DELETE 的效率没有 TRUNCATE 高！
+修改表字符集：
 
-TRUNCATE 其实属性 DDL 语句，因为它是先 DROP TABLE，再 CREATE TABLE。
+```sql
+ALTER TABLE 表名 CHARACTER SET 字符集;
+```
 
-而且 TRUNCATE 删除的记录是无法回滚的，但 DELETE 删除的记录是可以回滚的（回滚是事务的知识！）
+修改存储引擎
+
+```sql
+ALTER TABLE `表名` ENGINE = 引擎;
+```
+
+
 
 ### DROP TABLE
 
-DROP TABLE 语句用于删除表（表的结构、属性以及索引也会被删除）。
+DROP TABLE 语句用于**删除表（表的结构、属性以及索引也会被删除）**。
 
 ```sql
 DROP TABLE table_name;
 ```
 
-### CREATE INDEX
 
-CREATE INDEX 语句用于在表中创建索引。
 
-在不读取整个表的情况下，索引使数据库应用程序可以更快地查找数据。
+### TRUNCATE TABLE
+
+TRUNCATE TABLE 语句用于**清除表内的数据（表的结构、属性以及索引仍存在）**。
+
+```sql
+TRUNCATE TABLE table_name;
+```
+
+> TRUNCATE 和 DELETE 都可以删除表的所有记录，但有原理不同。DELETE 的效率没有 TRUNCATE 高！
+>
+> TRUNCATE 其实属性 DDL 语句，因为它是先 DROP TABLE，再 CREATE TABLE。
+>
+> 而且 TRUNCATE 删除的记录是无法回滚的，但 DELETE 删除的记录是可以回滚的（回滚是事务的知识！）
+>
+
+
+
+### CREATE INDEX 索引
+
+CREATE INDEX 语句用于在表中创建索引。(**索引本身会占用空间**)
+
+在不读取整个表的情况下，**索引使数据库应用程序可以更快地查找数据**。
 
 在表上创建一个简单的索引。允许使用重复的值：
 
 ```sql
-CREATE INDEX index_name
-ON table_name (column_name);
+CREATE INDEX index_name ON table_name (column_name);
 ```
 
 在表上创建一个唯一的索引。不允许使用重复的值：唯一的索引意味着两个行不能拥有相同的索引值
 
 ```sql
-CREATE UNIQUE INDEX index_name
-ON table_name (column_name);
+CREATE UNIQUE INDEX index_name ON table_name (column_name);
 ```
+
+
+
+
+
+## :star:DML 数据操作语言
+
+- **[INSERT INTO](#insert-into)** - 向数据库中插入新数据
+- **[UPDATE](#update)** - 更新数据库中的数据
+- **[DELETE](#delete)** - 从数据库中删除数据
+
 
 
 
 ### INSERT INTO
 
-INSERT INTO 语句用于向表中插入新记录（新的行）。
+INSERT INTO 语句用于**向表中插入新记录（新的行）**。
 
-有两种编写形式：
-
-第一种形式无需指定要插入数据的列名，只需提供被插入的值即可：
+- 给表中的所有字段添加数据，则无需指定要插入数据的列名，只需提供被插入的值即可：
 
 ```sql
 INSERT INTO table_name
-VALUES (value1, value2, value3, ...);
+	VALUES (value1, value2, value3, ...);
 ```
 
-第二种形式需要指定列名及被插入的值：
+- 需要指定列名及被插入的值：
 
 ```sql
 INSERT INTO table_name (column1, column2, column3, ...)
-VALUES (value1, value2, value3, ...);
+	VALUES (value1, value2, value3, ...);
 ```
 
 参数说明：
@@ -239,86 +347,52 @@ VALUES (value1, value2, value3, ...);
 - `column1, column2, ...`：需要插入的字段名
 - `value1, value2, ...`：需要插入的字段值
 
+**注意细节：**
 
-
-### SELECT
-
-SELECT 语句用于从数据库中选取数据。
-
-结果被存储在一个结果表中，称为结果集。
-
-```sql
-SELECT column1, column2, ...
-FROM table_name;
-
-/* 或 */
-SELECT * FROM table_name;
-```
-
-参数说明：
-
-- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
-- `table_name`：要查询的表名称
+- 插入的数据应该与字段的数据类型相同
+- 在`values`中列的数据位置必须与被加入列的位置一一对应
+- 数据的长度应在列的范围内
+- 字符和日期型数据应该包含在单引号中
+- 列可以插入空值（前提是该字段允许为空），`insert into table values(null)`
+- 如果是给表中的所有字段添加数据，可以不写前面的字段名称
+- 默认值的使用，当不给某个字段值时，如果有默认值就会添加默认值，否则报错
 
 
 
-### SELECT DISTINCT
+### INSERT INTO SELECT
 
-在表中，一个列可能会包含多个重复值，有时您也许希望仅仅列出不同（distinct）的值。
+INSERT INTO SELECT 语句从一个表复制数据，然后把数据插入到一个已存在的表中。目标表中任何已存在的行都不会受影响。
 
-DISTINCT 关键词用于返回唯一不同的值。
+我们可以从一个表中复制所有的列插入到另一个已存在的表中：
 
 ```sql
-SELECT DISTINCT column1, column2, ...
-FROM table_name;
+INSERT INTO table2
+	SELECT * FROM table1;
 ```
 
-参数说明：
-
-- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
-- `table_name`：要查询的表名称
-
-
-
-### WHERE
-
-WHERE 子句用于提取那些满足指定条件的记录。
+或者我们可以只复制指定的列插入到另一个已存在的表中：
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name
-WHERE condition;
+INSERT INTO table2
+	(column_name(s))
+	SELECT column_name(s) FROM table1;
 ```
-
-参数说明：
-
-- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段。
-- `table_name`：要查询的表名称。
-
-下面的运算符可在 WHERE 子句中使用：
-
-| 操作符  | 描述                                                         |
-| ------- | ------------------------------------------------------------ |
-| =       | 等于                                                         |
-| <>      | 不等于，**📢 注意：** 在某些版本的 SQL 中，操作符 <> 可以写为 != |
-| >       | 大于                                                         |
-| <       | 小于                                                         |
-| >=      | 大于等于                                                     |
-| <=      | 小于等于                                                     |
-| BETWEEN | 在某个范围内                                                 |
-| LIKE    | 搜索某种模式                                                 |
 
 
 
 ### UPDATE
 
-UPDATE 语句用于更新表中已存在的记录。
+UPDATE 语句用于**更新表中已存在的记录（数据）**。
 
 ```sql
 UPDATE table_name
-SET column1 = value1, column2 = value2, ...
-WHERE condition;
+	SET column1 = value1, column2 = value2, ...
+	WHERE condition;
+
+-- 慎重使用没有带where的语句
 ```
+
+> **📢 注意：** WHERE 子句规定哪条记录或者哪些记录需要更新，否则所有的记录都将被更新！
 
 参数说明：
 
@@ -327,27 +401,24 @@ WHERE condition;
 - `value1, value2, ...`：要修改的值，可以为多个值
 - `condition`：修改条件，用于指定哪些数据要修改
 
-> **📢 注意：** WHERE 子句规定哪条记录或者哪些记录需要更新，否则所有的记录都将被更新！
-
-
-
 
 
 ### DELETE
 
-DELETE 语句用于删除表中的行。
+DELETE 语句用于**删除表中的记录（行）**。
 
 ```sql
 DELETE FROM table_name
-WHERE condition;
+	WHERE condition;
+-- 慎重使用没有带where的语句
 ```
+
+> **📢 注意：** WHERE 子句规定哪条记录或者哪些记录需要删除，否则所有的记录都将被删除！
 
 参数说明：
 
 - `table_name`：要删除的表名称
 - `condition`：删除条件，用于指定哪些数据要删除
-
-> **📢 注意：** WHERE 子句规定哪条记录或者哪些记录需要删除，否则所有的记录都将被删除！
 
 **删除所有行：**
 
@@ -359,48 +430,215 @@ DELETE FROM table_name;
 
 
 
-### AND&OR 运算符
+
+
+## :star:DQL 数据查询语言
+
+- **[SELECT](#select)** - 从数据库中选取数据
+- **[SELECT DISTINCT](#select-distinct)** - 去除重复值
+
+
+
+### SELECT（单表）
+
+SELECT 语句用于**从数据库中选取（查询）数据**。
+
+结果被存储在一个结果表中，称为结果集。
+
+```sql
+SELECT column1, column2, ...
+	FROM table_name;
+
+-- 或查询所有信息
+SELECT * FROM table_name;
+```
+
+参数说明：
+
+- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
+- `form`：指定查询的是哪一张表
+- `table_name`：要查询的表名称
+
+
+
+### SELECT DISTINCT
+
+在表中，一个列可能会包含多个重复值，有时您也许希望仅仅列出不同（distinct）的值。
+
+DISTINCT 关键词用于**返回唯一不同的值**。
+
+```sql
+SELECT DISTINCT column1, column2, ...
+	FROM table_name;
+```
+
+
+
+
+
+### WHERE 条件过滤
+
+WHERE 子句用于**提取那些满足指定条件的记录**。
+
+```sql
+SELECT column1, column2, ...
+	FROM table_name
+	WHERE condition;
+```
+
+参数说明：
+
+- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段。
+- `table_name`：要查询的表名称。
+
+**在 WHERE 子句中经常使用的运算符：**
+
+|                | 操作符                    | 描述                                     |
+| -------------- | ------------------------- | ---------------------------------------- |
+| **比较运算符** | \>，<，<=，>=，=，<> / != | 大于、小于、大于(小于)等于、等于、不等于 |
+|                | BETWEEN ... AND ...       | 显示在某一区间的值                       |
+|                | IN(set)                   | 锁定多个值，例，in(100, 200)             |
+|                | LIKE '张pattern'          | 模糊查询                                 |
+|                | NOT LIKE  ' '             | 模糊查询                                 |
+|                | IS NULL                   | 判断是否为空                             |
+| **逻辑运算符** | and、or、not              |                                          |
+
+
+
+### AND & OR 运算符
 
 AND & OR 运算符用于基于一个以上的条件对记录进行过滤。
 
 如果第一个条件和第二个条件都成立，则 AND 运算符显示一条记录
 
 ```sql
-SELECT * FROM 表名称 WHERE 列 运算符 值 AND 列 运算符 值;
+SELECT * FROM table_name
+	WHERE column1 运算符 value1 AND column2 运算符 value2;
 ```
 
 如果第一个条件和第二个条件中只要有一个成立，则 OR 运算符显示一条记录
 
 ```sql
-SELECT * FROM 表名称 WHERE 列 运算符 值 OR 列 运算符 值;
+SELECT * FROM table_name
+	WHERE column1 运算符 value1 OR column2 运算符 value2;
 ```
+
+
+
+### ------查询增强------
+
+如果 SELECT 语句中同时包含，它们的执行顺序为 **group by，having，order by，limit**。
+
+
+
+### GROUP BY  分组
+
+GROUP BY 子句用于**结合聚合函数，根据一个或多个列对结果集进行 分组**。
+
+```sql
+SELECT column_name, aggregate_function(column_name) 
+	FROM table_name
+	WHERE column_name operator value
+	GROUP BY column_name;
+```
+
+- `GROUP BY column_name`：按照 `column_name`来分组查询
+
+### HAVING 分组过滤
+
+在 SQL 中增加 HAVING 子句原因是，**WHERE 关键字无法与聚合函数一起使用**。
+
+HAVING 子句用于**对 GROUP BY 分组后的结果进行 过滤**。
+
+```sql
+SELECT column_name, aggregate_function(column_name)
+	FROM table_name
+	WHERE column_name operator value
+	GROUP BY column_name
+	HAVING aggregate_function(column_name) operator value;
+```
+
+
 
 ### ORDER BY 排序
 
-ORDER BY 关键字用于对结果集按照一个列或者多个列进行排序。
+ORDER BY 关键字**用于对结果集按照一个列或者多个列进行排序**。
 
-ORDER BY 关键字默认按照升序对记录进行排序。如果需要降序排序，可以使用 DESC 关键字。
+默认按照升序 ASC 对记录进行排序。如果需要降序排序，可以使用 DESC 关键字。
 
 ```sql
 SELECT column1, column2, ...
-FROM table_name
-ORDER BY column1, column2, ... ASC|DESC;
+	FROM table_name
+	ORDER BY column1, column2, ... ASC;
+
+-- 还可以先安装列1升序，再按照列2降序
+SELECT column1, column2, ...
+	FROM table_name
+	ORDER BY column1 ASC, column2 DESC;
 ```
 
 - `column1, column2, ...`：要排序的字段名称，可以为多个字段
 - `ASC`：默认，升序排序
 - `DESC`：降序排序
 
-## :star:SQL 高级语法
+> asc是 ascend (上升) 的缩写，desc是 descend (下降) 的缩写。
+
+
+
+### LIMIT 限制（分页）
+
+limit 子句**用于限制查询结果返回的数量，常用于分页查询**。
+
+```mysql
+SELECT * FROM table_name LIMIT idx, num;
+```
+
+- table_name：为数据表
+- idx：为查询结果的索引值（默认从0开始）
+- num：为查询结果返回的数量
+
+MySQL 语法：
+
+```mysql
+SELECT ... LIMIT `start`, rows;
+-- limit 每页显示记录数 * (第几页 - 1), 每页显示记录数
+```
+
+表示从 start +1 行开始取，取出 rows 行，start 从0开始计算
+
+
+
+
+
+### AS 别名
+
+通过使用 SQL AS，**可以为表名称或列名称指定别名**。创建别名是为了让列名称的可读性更强。
+
+列的 SQL 别名语法：
+
+```sql
+SELECT column_name 
+	AS alias_name
+	FROM table_name;
+```
+
+表的 SQL 别名语法：
+
+```sql
+SELECT column_name(s)
+	FROM table_name AS alias_name;
+```
+
+
 
 ### LIKE 查找类似值
 
-LIKE 操作符用于在 WHERE 子句中搜索列中的指定模式。
+LIKE 操作符用于**在 WHERE 子句中搜索列中的指定模式**。
 
 ```sql
 SELECT column1, column2, ...
-FROM table_name
-WHERE column LIKE pattern;
+	FROM table_name
+	WHERE column LIKE pattern;
 ```
 
 参数说明：
@@ -410,14 +648,28 @@ WHERE column LIKE pattern;
 - `column`：要搜索的字段名称
 - `pattern`：搜索模式
 
+```sql
+SELECT column1, column2, ...
+	FROM table_name
+	WHERE column LIKE '韩%';
+	
+-- 韩% 表示名字已韩开头的就可以
+-- %韩% 代表带韩的都显示
+```
+
+> - <strong style="color:#DD5145">%：表示0到多个字符</strong> 
+> - <strong style="color:#DD5145">\_：表示单个字符</strong> 
+
+
+
 ### IN 锁定多个值
 
-IN 操作符允许您在 WHERE 子句中规定多个值。
+IN 操作符**允许您在 WHERE 子句中规定多个值**。
 
 ```sql
 SELECT column1, column2, ...
-FROM table_name
-WHERE column IN (value1, value2, ...);
+	FROM table_name
+	WHERE column IN (value1, value2, ...);
 ```
 
 参数说明：
@@ -427,14 +679,18 @@ WHERE column IN (value1, value2, ...);
 - `column`：要查询的字段名称
 - `value1, value2, ...`：要查询的值，可以为多个值。
 
-### BETWEEN 选取区间数据
+
+
+### BETWEEN 选取区间
 
 BETWEEN 操作符选取介于两个值之间的数据范围内的值。这些值可以是数值、文本或者日期。
 
 ```sql
 SELECT column1, column2, ...
-FROM table_name
-WHERE column BETWEEN value1 AND value2;
+	FROM table_name
+	WHERE column BETWEEN value1 AND value2;
+
+-- 是闭区间
 ```
 
 参数说明：
@@ -445,87 +701,11 @@ WHERE column BETWEEN value1 AND value2;
 - `value1`：范围的起始值
 - `value2`：范围的结束值
 
-### AS 别名
 
-通过使用 SQL AS，可以为表名称或列名称指定别名。创建别名是为了让列名称的可读性更强。
-
-列的 SQL 别名语法：
-
-```sql
-SELECT column_name AS alias_name
-FROM table_name;
-```
-
-表的 SQL 别名语法：
-
-```sql
-SELECT column_name(s)
-FROM table_name AS alias_name;
-```
-
-### JOIN 多表关联
-
-SQL JOIN 子句用于把来自两个或多个表的行结合起来，基于这些表之间的共同字段。
-
-```sql
-SELECT column1, column2, ...
-FROM table1
-JOIN table2 ON condition;
-```
-
-参数说明：
-
-- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
-- `table1`：要连接的第一个表
-- `table2`：要连接的第二个表
-- `condition`：连接条件，用于指定连接方式
-
-![](Base.assets/sql-join.png)
-
-### 不同的 JOIN
-
-下面列出了您可以使用的 JOIN 类型，以及它们之间的差异。
-
-- **JOIN**：如果表中有至少一个匹配，则返回行
-- **INNER JOIN**：内部连接，在表中存在至少一个匹配时，返回两表中匹配的行
-- **LEFT JOIN**：即使右表中没有匹配，也从左表返回所有的行
-- **RIGHT JOIN**：即使左表中没有匹配，也从右表返回所有的行
-- **FULL JOIN**：只要其中一个表中存在匹配，就返回行
-
-**注释：** INNER JOIN 与 JOIN 是相同的。
-
-![](Base.assets/innerjoin.png)
-
-最常见的 JOIN 类型：**SQL INNER JOIN**，表示从多个表中返回满足 JOIN 条件的所有行。
-
-INNER JOIN 关键字在表中存在至少一个匹配时返回行。
-
-```sql
-SELECT column_name(s)
-FROM table1
-INNER JOIN table2
-ON table1.column_name=table2.column_name;
-```
-
-或
-
-```sql
-SELECT column_name(s)
-FROM table1
-INNER JOIN table2
-ON table1.column_name=table2.column_name;
-```
-
-参数说明：
-
-- `columns`：要显示的列名
-- `table1`：表1的名称
-- `table2`：表2的名称
-- `column_name`：表中用于连接的列名
 
 ### UNION 合并结果集
 
-SQL UNION 操作符合并两个或多个 SELECT 语句的结果。
+SQL UNION 操作符**合并两个或多个 SELECT 语句的结果**。
 
 ```sql
 SELECT column_name(s) FROM table1
@@ -533,7 +713,9 @@ UNION
 SELECT column_name(s) FROM table2;
 ```
 
-**📢注意：** UNION 操作符默认为选取不同的值。如果查询结果需要显示重复的值，请使用 `UNION ALL`。
+**📢注意：** UNION 操作符**默认为选取不同的值**。
+
+如果查询结果需要显示重复的值，请使用 `UNION ALL`。
 
 ```sql
 SELECT column_name(s) FROM table1
@@ -543,13 +725,45 @@ SELECT column_name(s) FROM table2;
 
 **📢注意：** UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的列名。
 
-### NOTNULL 非空
 
-NOT NULL 约束强制列不接受 NULL 值。
+
+
+
+## :star:SQL 高级语法
+
+### 约束（Constraints）
+
+SQL 约束用于规定表中的数据规则。
+
+如果存在违反约束的数据行为，行为会被约束终止。
+
+约束可以在创建表时规定（通过 CREATE TABLE 语句），或者在表创建之后规定（通过 ALTER TABLE 语句）。
+
+#### DEFAULT (默认约束)
+
+DEFAULT 约束**用于向列中插入默认值**。
+
+如果没有规定其他的值，那么会将默认值添加到所有的新记录。
+
+**My SQL / SQL Server / Oracle / MS Access：**
+
+```mysql
+CREATE TABLE Persons(
+    P_Id int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255) DEFAULT 'Sandnes'
+);
+```
+
+
+
+#### NOT NULL (非空约束)
+
+NOT NULL 约束**用于强制列不接受 NULL 值**。
 
 NOT NULL 约束强制字段始终包含值。即，如果不向字段添加值，就无法插入新记录或者更新记录。
-
-实例：
 
 ```sql
 CREATE TABLE Persons (
@@ -584,6 +798,197 @@ ALTER TABLE Persons MODIFY Age int NOT NULL;
 ALTER TABLE Persons MODIFY Age int NULL;
 ```
 
+
+
+#### UNIQUE (唯一约束)
+
+UNIQUE **约束唯一标识数据库表中的每条记录**。
+
+UNIQUE 和 PRIMARY KEY 约束均为列或列集合提供了唯一性的保证。
+
+**PRIMARY KEY 约束拥有自动定义的 UNIQUE 约束**。
+
+```mysql
+字段名 字段类型 unique
+```
+
+**MySQL：**下面的 SQL 在 "Persons" 表创建时在 "P_Id" 列上创建 UNIQUE 约束
+
+```mysql
+CREATE TABLE Persons(
+    P_Id int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255),
+    UNIQUE (P_Id)
+);
+```
+
+请注意：
+
+- **每个表可以有多个 UNIQUE 约束，但是每个表只能有一个 PRIMARY KEY 约束**。
+- 如果没有 NOT NULL 约束，则 UNIQUE 字段可以有多个 NULL 值。
+
+
+
+#### CHECK (强制约束)
+
+CHECK 约束**用于限制列中的值的范围**。
+
+如果对单个列定义 CHECK 约束，那么该列只允许特定的值。
+
+如果对一个表定义 CHECK 约束，那么此约束会基于行中其他列的值在特定的列中对值进行限制。
+
+```mysql
+字段名 字段类型 check (条件)
+```
+
+**MySQL：**在 "Persons" 表创建时在 "P_Id" 列上创建 CHECK 约束。CHECK 约束规定 "P_Id" 列必须只包含大于 0 的整数。
+
+```mysql
+CREATE TABLE Persons(
+    P_Id int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255),
+    CHECK (P_Id > 0)
+)
+```
+
+
+
+#### PRIMARY KEY (主键)
+
+PRIMARY KEY 约束唯一标识数据库表中的每条记录。
+
+主键必须包含唯一的值。主键列不能包含 NULL 值。
+
+每个表都应该有一个主键，并且每个表只能有一个主键。
+
+```mysql
+字段名 字段类型 primary key
+
+（在表定义的最后写）PRIMARY KEY(列名)
+
+-- 查看 primary key 的情况
+desc 表名;
+```
+
+
+
+#### FOREIGN KEY (外键)
+
+一个表中的 FOREIGN KEY 指向另一个表中的 UNIQUE KEY(唯一约束的键)。
+
+```mysql
+foreign key (本表字段名) references 主表名(主键名或unique字段名)
+```
+
+
+
+### AUTO INCREMENT 自增长
+
+我们通常希望在每次插入新记录时，自动地创建主键字段的值。
+
+我们可以在表中创建一个 auto-increment 字段。
+
+**用于 MySQL 的语法：**下面的 SQL 语句把 "Persons" 表中的 "ID" 列定义为 auto-increment 主键字段
+
+```mysql
+CREATE TABLE Persons(
+    ID int NOT NULL AUTO_INCREMENT,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255),
+    PRIMARY KEY (ID)
+);
+```
+
+MySQL 使用 AUTO_INCREMENT 关键字来执行 auto-increment 任务。
+
+默认地，AUTO_INCREMENT 的开始值是 1，每条新记录递增 1。
+
+要让 AUTO_INCREMENT 序列以其他的值起始，请使用下面的 SQL 语法：
+
+```mysql
+ALTER TABLE Persons AUTO_INCREMENT=100;
+```
+
+要在 "Persons" 表中插入新记录，我们不必为 "ID" 列规定值（会自动添加一个唯一的值）：
+
+```mysql
+INSERT INTO Persons (FirstName,LastName)
+	VALUES ('Lars','Monsen');
+```
+
+上面的 SQL 语句会在 "Persons" 表中插入一条新记录。"ID" 列会被赋予一个唯一的值。"FirstName" 列会被设置为 "Lars"，"LastName" 列会被设置为 "Monsen"。
+
+
+
+### JOIN 多表关联
+
+SQL JOIN 子句**用于把来自两个或多个表的行结合起来，基于这些表之间的共同字段**。
+
+```sql
+SELECT column1, column2, ...
+	FROM table1 JOIN table2 ON condition;
+```
+
+参数说明：
+
+- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
+- `table1`：要连接的第一个表
+- `table2`：要连接的第二个表
+- `condition`：连接条件，用于指定连接方式
+
+![](Base.assets/sql-join.png)
+
+### 不同的 JOIN
+
+下面列出了您可以使用的 JOIN 类型，以及它们之间的差异。
+
+- **JOIN**：如果表中有至少一个匹配，则返回行
+- **INNER JOIN**：内部连接，在表中存在至少一个匹配时，返回两表中匹配的行
+- **LEFT JOIN**：即使右表中没有匹配，也从左表返回所有的行
+- **RIGHT JOIN**：即使左表中没有匹配，也从右表返回所有的行
+- **FULL JOIN**：只要其中一个表中存在匹配，就返回行
+
+**注释：** INNER JOIN 与 JOIN 是相同的。
+
+![](Base.assets/innerjoin.png)
+
+最常见的 JOIN 类型：**SQL INNER JOIN**，表示从多个表中返回满足 JOIN 条件的所有行。
+
+INNER JOIN 关键字在表中存在至少一个匹配时返回行。
+
+```sql
+SELECT column_name(s)
+	FROM table1 INNER JOIN table2
+	ON table1.column_name = table2.column_name;
+```
+
+或
+
+```sql
+SELECT column_name(s)
+	FROM table1 JOIN table2
+	ON table1.column_name = table2.column_name;
+```
+
+参数说明：
+
+- `columns`：要显示的列名
+- `table1`：表1的名称
+- `table2`：表2的名称
+- `column_name`：表中用于连接的列名
+
+
+
+
+
 ### VIEW 视图
 
 在 SQL 中，视图是基于 SQL 语句的结果集的可视化的表。
@@ -601,9 +1006,7 @@ ALTER TABLE Persons MODIFY Age int NULL;
 
 ```sql
 CREATE VIEW view_name AS
-SELECT column_name(s)
-FROM table_name
-WHERE condition;
+	SELECT column_name(s) FROM table_name WHERE condition;
 ```
 
 **📢 注意：** 视图总是显示最近的数据。每当用户查询视图时，数据库引擎通过使用 SQL 语句来重建数据。
@@ -612,9 +1015,7 @@ WHERE condition;
 
 ```sql
 CREATE OR REPLACE VIEW view_name AS
-SELECT column_name(s)
-FROM table_name
-WHERE condition;
+	SELECT column_name(s) FROM table_name WHERE condition;
 ```
 
 **删除视图：DROP VIEW**
