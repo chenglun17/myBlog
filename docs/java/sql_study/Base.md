@@ -122,7 +122,7 @@ SQL 的范围包括数据插入、查询、更新和删除，数据库模式创�
 
 CREATE DATABASE 语句用于**创建数据库**。
 
-```mysql
+```sql
 CREATE DATABASE database_name;
 # 当数据库名是关键字时，为了避免关键字，可以使用反引号解决
 CREATE DATABASE `CREATE`;
@@ -155,7 +155,7 @@ SHOW CREATE DATABASE db_name;
 
 MySQL中切换数据库：
 
-```mysql
+```sql
 USE database_name;
 ```
 
@@ -322,8 +322,7 @@ CREATE UNIQUE INDEX index_name ON table_name (column_name);
 
 
 
-
-### INSERT INTO
+### 🌟INSERT INTO
 
 INSERT INTO 语句用于**向表中插入新记录（新的行）**。
 
@@ -380,7 +379,7 @@ INSERT INTO table2
 
 
 
-### UPDATE
+### 🌟UPDATE
 
 UPDATE 语句用于**更新表中已存在的记录（数据）**。
 
@@ -403,7 +402,7 @@ UPDATE table_name
 
 
 
-### DELETE
+### 🌟DELETE
 
 DELETE 语句用于**删除表中的记录（行）**。
 
@@ -439,7 +438,7 @@ DELETE FROM table_name;
 
 
 
-### SELECT（单表）
+### 🌟SELECT（单表）
 
 SELECT 语句用于**从数据库中选取（查询）数据**。
 
@@ -589,7 +588,7 @@ SELECT column1, column2, ...
 
 limit 子句**用于限制查询结果返回的数量，常用于分页查询**。
 
-```mysql
+```sql
 SELECT * FROM table_name LIMIT idx, num;
 ```
 
@@ -599,7 +598,7 @@ SELECT * FROM table_name LIMIT idx, num;
 
 MySQL 语法：
 
-```mysql
+```sql
 SELECT ... LIMIT `start`, rows;
 -- limit 每页显示记录数 * (第几页 - 1), 每页显示记录数
 ```
@@ -725,304 +724,24 @@ SELECT column_name(s) FROM table2;
 
 **📢注意：** UNION 结果集中的列名总是等于 UNION 中第一个 SELECT 语句中的列名。
 
+## :star:DCL 数据控制语言
 
+详见高级部分
 
 
 
-## :star:SQL 高级语法
+## :star:CRUD 语句
 
-### 约束（Constraints）
+- C (create)：INSERT，添加数据
+- R (read)：SELECT，查找数据
+- U (update)：UPDATE，更新数据
+- D (delete)：DELETE，删除数据
 
-SQL 约束用于规定表中的数据规则。
 
-如果存在违反约束的数据行为，行为会被约束终止。
 
-约束可以在创建表时规定（通过 CREATE TABLE 语句），或者在表创建之后规定（通过 ALTER TABLE 语句）。
 
-#### DEFAULT (默认约束)
 
-DEFAULT 约束**用于向列中插入默认值**。
 
-如果没有规定其他的值，那么会将默认值添加到所有的新记录。
-
-**My SQL / SQL Server / Oracle / MS Access：**
-
-```mysql
-CREATE TABLE Persons(
-    P_Id int NOT NULL,
-    LastName varchar(255) NOT NULL,
-    FirstName varchar(255),
-    Address varchar(255),
-    City varchar(255) DEFAULT 'Sandnes'
-);
-```
-
-
-
-#### NOT NULL (非空约束)
-
-NOT NULL 约束**用于强制列不接受 NULL 值**。
-
-NOT NULL 约束强制字段始终包含值。即，如果不向字段添加值，就无法插入新记录或者更新记录。
-
-```sql
-CREATE TABLE Persons (
-    ID int NOT NULL,
-    LastName varchar(255) NOT NULL,
-    FirstName varchar(255) NOT NULL,
-    Age int
-);
-```
-
-**📢 注意：** 如果插入 `NULL` 值，则会报错 `ORA-01400` 提示无法插入！
-
-**拓展小知识：** `NOT NULL` 也可以用于查询条件：
-
-```sql
-SELECT * FROM Persons WHERE FirstName IS NOT NULL;
-```
-
-**添加 NOT NULL 约束：**
-
-在一个已创建的表的 "Age" 字段中添加 NOT NULL 约束如下所示：
-
-```sql
-ALTER TABLE Persons MODIFY Age int NOT NULL;
-```
-
-**删除 NOT NULL 约束：**
-
-在一个已创建的表的 "Age" 字段中删除 NOT NULL 约束如下所示：
-
-```sql
-ALTER TABLE Persons MODIFY Age int NULL;
-```
-
-
-
-#### UNIQUE (唯一约束)
-
-UNIQUE **约束唯一标识数据库表中的每条记录**。
-
-UNIQUE 和 PRIMARY KEY 约束均为列或列集合提供了唯一性的保证。
-
-**PRIMARY KEY 约束拥有自动定义的 UNIQUE 约束**。
-
-```mysql
-字段名 字段类型 unique
-```
-
-**MySQL：**下面的 SQL 在 "Persons" 表创建时在 "P_Id" 列上创建 UNIQUE 约束
-
-```mysql
-CREATE TABLE Persons(
-    P_Id int NOT NULL,
-    LastName varchar(255) NOT NULL,
-    FirstName varchar(255),
-    Address varchar(255),
-    City varchar(255),
-    UNIQUE (P_Id)
-);
-```
-
-请注意：
-
-- **每个表可以有多个 UNIQUE 约束，但是每个表只能有一个 PRIMARY KEY 约束**。
-- 如果没有 NOT NULL 约束，则 UNIQUE 字段可以有多个 NULL 值。
-
-
-
-#### CHECK (强制约束)
-
-CHECK 约束**用于限制列中的值的范围**。
-
-如果对单个列定义 CHECK 约束，那么该列只允许特定的值。
-
-如果对一个表定义 CHECK 约束，那么此约束会基于行中其他列的值在特定的列中对值进行限制。
-
-```mysql
-字段名 字段类型 check (条件)
-```
-
-**MySQL：**在 "Persons" 表创建时在 "P_Id" 列上创建 CHECK 约束。CHECK 约束规定 "P_Id" 列必须只包含大于 0 的整数。
-
-```mysql
-CREATE TABLE Persons(
-    P_Id int NOT NULL,
-    LastName varchar(255) NOT NULL,
-    FirstName varchar(255),
-    Address varchar(255),
-    City varchar(255),
-    CHECK (P_Id > 0)
-)
-```
-
-
-
-#### PRIMARY KEY (主键)
-
-PRIMARY KEY 约束唯一标识数据库表中的每条记录。
-
-主键必须包含唯一的值。主键列不能包含 NULL 值。
-
-每个表都应该有一个主键，并且每个表只能有一个主键。
-
-```mysql
-字段名 字段类型 primary key
-
-（在表定义的最后写）PRIMARY KEY(列名)
-
--- 查看 primary key 的情况
-desc 表名;
-```
-
-
-
-#### FOREIGN KEY (外键)
-
-一个表中的 FOREIGN KEY 指向另一个表中的 UNIQUE KEY(唯一约束的键)。
-
-```mysql
-foreign key (本表字段名) references 主表名(主键名或unique字段名)
-```
-
-
-
-### AUTO INCREMENT 自增长
-
-我们通常希望在每次插入新记录时，自动地创建主键字段的值。
-
-我们可以在表中创建一个 auto-increment 字段。
-
-**用于 MySQL 的语法：**下面的 SQL 语句把 "Persons" 表中的 "ID" 列定义为 auto-increment 主键字段
-
-```mysql
-CREATE TABLE Persons(
-    ID int NOT NULL AUTO_INCREMENT,
-    LastName varchar(255) NOT NULL,
-    FirstName varchar(255),
-    Address varchar(255),
-    City varchar(255),
-    PRIMARY KEY (ID)
-);
-```
-
-MySQL 使用 AUTO_INCREMENT 关键字来执行 auto-increment 任务。
-
-默认地，AUTO_INCREMENT 的开始值是 1，每条新记录递增 1。
-
-要让 AUTO_INCREMENT 序列以其他的值起始，请使用下面的 SQL 语法：
-
-```mysql
-ALTER TABLE Persons AUTO_INCREMENT=100;
-```
-
-要在 "Persons" 表中插入新记录，我们不必为 "ID" 列规定值（会自动添加一个唯一的值）：
-
-```mysql
-INSERT INTO Persons (FirstName,LastName)
-	VALUES ('Lars','Monsen');
-```
-
-上面的 SQL 语句会在 "Persons" 表中插入一条新记录。"ID" 列会被赋予一个唯一的值。"FirstName" 列会被设置为 "Lars"，"LastName" 列会被设置为 "Monsen"。
-
-
-
-### JOIN 多表关联
-
-SQL JOIN 子句**用于把来自两个或多个表的行结合起来，基于这些表之间的共同字段**。
-
-```sql
-SELECT column1, column2, ...
-	FROM table1 JOIN table2 ON condition;
-```
-
-参数说明：
-
-- `column1, column2, ...`：要选择的字段名称，可以为多个。如果不指定字段名称，则会选择所有字段
-- `table1`：要连接的第一个表
-- `table2`：要连接的第二个表
-- `condition`：连接条件，用于指定连接方式
-
-![](Base.assets/sql-join.png)
-
-### 不同的 JOIN
-
-下面列出了您可以使用的 JOIN 类型，以及它们之间的差异。
-
-- **JOIN**：如果表中有至少一个匹配，则返回行
-- **INNER JOIN**：内部连接，在表中存在至少一个匹配时，返回两表中匹配的行
-- **LEFT JOIN**：即使右表中没有匹配，也从左表返回所有的行
-- **RIGHT JOIN**：即使左表中没有匹配，也从右表返回所有的行
-- **FULL JOIN**：只要其中一个表中存在匹配，就返回行
-
-**注释：** INNER JOIN 与 JOIN 是相同的。
-
-![](Base.assets/innerjoin.png)
-
-最常见的 JOIN 类型：**SQL INNER JOIN**，表示从多个表中返回满足 JOIN 条件的所有行。
-
-INNER JOIN 关键字在表中存在至少一个匹配时返回行。
-
-```sql
-SELECT column_name(s)
-	FROM table1 INNER JOIN table2
-	ON table1.column_name = table2.column_name;
-```
-
-或
-
-```sql
-SELECT column_name(s)
-	FROM table1 JOIN table2
-	ON table1.column_name = table2.column_name;
-```
-
-参数说明：
-
-- `columns`：要显示的列名
-- `table1`：表1的名称
-- `table2`：表2的名称
-- `column_name`：表中用于连接的列名
-
-
-
-
-
-### VIEW 视图
-
-在 SQL 中，视图是基于 SQL 语句的结果集的可视化的表。
-
-视图包含行和列，就像一个真实的表。视图中的字段就是来自一个或多个数据库中的真实的表中的字段。
-
-**视图的作用：**
-
-- 视图隐藏了底层的表结构，简化了数据访问操作，客户端不再需要知道底层表的结构及其之间的关系
-- 视图提供了一个统一访问数据的接口（即可以允许用户通过视图访问数据的安全机制，而不授予用户直接访问底层表的权限）
-- 从而加强了安全性，使用户只能看到视图所显示的数据
-- 视图还可以被嵌套，一个视图中可以嵌套另一个视图
-
-可以向视图添加 SQL 函数、WHERE 以及 JOIN 语句，也可以提交数据，就像这些来自于某个单一的表。
-
-```sql
-CREATE VIEW view_name AS
-	SELECT column_name(s) FROM table_name WHERE condition;
-```
-
-**📢 注意：** 视图总是显示最近的数据。每当用户查询视图时，数据库引擎通过使用 SQL 语句来重建数据。
-
-**更新视图：CREATE OR REPLACE VIEW**
-
-```sql
-CREATE OR REPLACE VIEW view_name AS
-	SELECT column_name(s) FROM table_name WHERE condition;
-```
-
-**删除视图：DROP VIEW**
-
-```sql
-DROP VIEW view_name;
-```
 
 
 

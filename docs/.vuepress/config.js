@@ -441,8 +441,8 @@ module.exports = {
                     sidebarDepth: 2,
                     children: [
                         "/java/sql_study/Base.md",
-                        "/java/sql_study/Senior.md",
                         "/java/sql_study/Function.md",
+                        "/java/sql_study/Senior.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
@@ -465,7 +465,7 @@ module.exports = {
             sidebarLinkSelector: '.sidebar-link',
             headerAnchorSelector: '.header-anchor'
         }],
-        ['vuepress-plugin-code-copy', true], // 复制代码块
+        // ['vuepress-plugin-code-copy', true], // 复制代码块
     ],
     // 解决中文图片资源路径
     markdown: {
