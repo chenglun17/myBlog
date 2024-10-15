@@ -52,7 +52,9 @@
 - 算法所执行的基本运算次数跟**问题规模**有关
 - 对于**固定的规模**，算法所执行的基本运算次数跟**特定的输入**有关
 
-算法的时间复杂度记为，$T(n)=O(f(n)) \lArr\rArr \lim\limits_{n \to \infty} \cfrac{T(n)}{f(n)}$，其中$f(n)$ 为频率
+算法的时间复杂度记为，$T(n)=O(f(n)) \lArr\rArr \lim\limits_{n \to \infty} \cfrac{T(n)}{f(n)}$
+
+- 其中$f(n)$ 为频率
 
 加法规则：$T(n)=T_1(n)+T_2(n)=O(f(n))+O(g(n))=O(max(f(n),g(n)))$ 
 

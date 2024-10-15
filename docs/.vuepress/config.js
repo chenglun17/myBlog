@@ -99,7 +99,15 @@ module.exports = {
                     path: '/cs/DS/',
                     sidebarDepth: 2,
                     children: [
-                        "/cs/DS/overview.md",
+                        "/cs/DS/Overview.md",
+                        "/cs/DS/LinearList.md",
+                        "/cs/DS/StackQueueArray.md",
+                        "/cs/DS/String.md",
+                        "/cs/DS/Tree.md",
+                        "/cs/DS/Graph.md",
+                        "/cs/DS/Search.md",
+                        "/cs/DS/Sort.md",
+                        "/cs/DS/Senior.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
