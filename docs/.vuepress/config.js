@@ -99,7 +99,7 @@ module.exports = {
                     path: '/cs/DS/',
                     sidebarDepth: 2,
                     children: [
-                        "/cs/DS/Overview.md",
+                        "/cs/DS/overview.md",
                         "/cs/DS/LinearList.md",
                         "/cs/DS/StackQueueArray.md",
                         "/cs/DS/String.md",
