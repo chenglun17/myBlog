@@ -118,7 +118,7 @@ SQL 的范围包括数据插入、查询、更新和删除，数据库模式创�
 
 > SQL 对大小写不敏感：SELECT 与 select 是相同的。但建议使用大写
 
-### CREATE DATABASE
+### CREATE 创建数据库
 
 CREATE DATABASE 语句用于**创建数据库**。
 
@@ -161,7 +161,7 @@ USE database_name;
 
 
 
-### DROP DATABASE
+### DROP 删除数据库
 
 DROP DATABASE 语句用于**删除数据库**。
 
@@ -277,7 +277,7 @@ DROP TABLE table_name;
 
 ### TRUNCATE TABLE
 
-TRUNCATE TABLE 语句用于**清除表内的数据（表的结构、属性以及索引仍存在）**。
+TRUNCATE TABLE 语句用于**清除表内的数据（表的结构、属性以及索引仍存在）**。truncate
 
 ```sql
 TRUNCATE TABLE table_name;
@@ -547,7 +547,7 @@ SELECT column_name, aggregate_function(column_name)
 
 在 SQL 中增加 HAVING 子句原因是，**WHERE 关键字无法与聚合函数一起使用**。
 
-HAVING 子句用于**对 GROUP BY 分组后的结果进行 过滤**。
+HAVING 子句用于**对 GROUP BY 分组后的结果进行过滤**。
 
 ```sql
 SELECT column_name, aggregate_function(column_name)
@@ -563,7 +563,7 @@ SELECT column_name, aggregate_function(column_name)
 
 ORDER BY 关键字**用于对结果集按照一个列或者多个列进行排序**。
 
-默认按照升序 ASC 对记录进行排序。如果需要降序排序，可以使用 DESC 关键字。
+默认按照 **升序ASC** 对记录进行排序。如果需要**降序**排序，可以使用 **DESC** 关键字。
 
 ```sql
 SELECT column1, column2, ...
@@ -586,7 +586,7 @@ SELECT column1, column2, ...
 
 ### LIMIT 限制（分页）
 
-limit 子句**用于限制查询结果返回的数量，常用于分页查询**。
+LIMIT 子句**用于限制查询结果返回的数量，常用于分页查询**。
 
 ```sql
 SELECT * FROM table_name LIMIT idx, num;
@@ -656,8 +656,8 @@ SELECT column1, column2, ...
 -- %韩% 代表带韩的都显示
 ```
 
-> - <strong style="color:#DD5145">%：表示0到多个字符</strong> 
-> - <strong style="color:#DD5145">\_：表示单个字符</strong> 
+- <strong style="color:#DD5145">%：表示0到多个字符</strong> 
+- <strong style="color:#DD5145">\_：表示单个字符</strong> 
 
 
 

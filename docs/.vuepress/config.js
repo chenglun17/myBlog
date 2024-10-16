@@ -450,6 +450,7 @@ module.exports = {
                     children: [
                         "/java/sql_study/Base.md",
                         "/java/sql_study/Function.md",
+                        "/java/sql_study/mysql.md",
                         "/java/sql_study/Senior.md",
                     ],
                     initialOpenGroupIndex: 0

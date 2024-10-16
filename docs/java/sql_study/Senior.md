@@ -1,4 +1,4 @@
-# SQL/MYSQL 高级
+# SQL/MySQL 高级
 
 ## :star:多表查询
 
