@@ -396,7 +396,10 @@ module.exports = {
                     path: '/others/linux_study/',
                     sidebarDepth: 2,
                     children: [
-
+                        "/others/linux_study/Introduction.md",
+                        "/others/linux_study/Base.md",
+                        "/others/linux_study/Senior.md",
+                        "/others/linux_study/Extension.md",
                     ],
                     initialOpenGroupIndex: 0
                 },
