@@ -1,6 +1,6 @@
 # 二、基础篇
 
-## 文件与目录结构
+## :star:文件与目录结构
 
 Linux的文件系统是采用<strong style="color:#DD5145">级层式的树状</strong>目录结构，在此结构在的最上层是<strong style="color:#DD5145">根目录`/`</strong>，然后在此目录下创建其他目录。
 
@@ -96,7 +96,7 @@ Linux的文件系统是采用<strong style="color:#DD5145">级层式的树状</s
 
 
 
-## Vi 和 Vim编辑器
+## :star:Vi 和 Vim编辑器
 
 Linux 系统会内置 vi 文本编辑器。
 
@@ -135,7 +135,7 @@ Vim 具有程序编辑的能力，可以看做是Vi 的增强版本，具有代�
 
 ![image-20240312233159528](Base.assets/image-20240312233159528.png)
 
-## 网络配置
+## :star:网络配置
 
 ### 网络连接的三种方式
 
@@ -258,13 +258,187 @@ DNS=192.168.200.2
 
 
 
-## 系统管理
+## :star:系统管理
+
+### 进程与服务
+
+计算机中，一个正在执行的程序或命令，被称之为 “进程”（process）。
+
+启动之后，一直存在、常驻内存的进程，一般被称之为 “服务”（service）。
+
+服务（service）本质就是进程，但是是运行在后台的，通常都会**监听某个端口**，等待其他程序的请求，比如（mysql、sshd、防火墙等），因此又称为守护进程，是Linux中非常重要的知识点。
+
+### 系统运行级别
+
+Linux系统有7种运行级别（runlevel）：<strong style="color:#DD5145">常用的是级别3和5</strong>
+
+- 运行级别0：系统停机状态，系统默认运行级别不能设为0，否则不能正常启动
+- 运行级别1：单用户工作状态，root权限，用于系统维护，禁止远程登录
+- 运行级别2：多用户工作状态，没有NFS，即不支持网络服务
+- 运行级别3：<strong style="color:#DD5145">多用户工作状态（有NFS），登录后进入控制台命令行模式</strong>
+- 运行级别4：系统未使用，保留
+- 运行级别5：<strong style="color:#DD5145">X11控制台，登录后进入图形GUI模式</strong>
+- 运行级别6：系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动
+
+开机的流程：
+
+![image-20241009112453886](Base.assets/image-20241009112453886.png)
+
+> 通过 init 命令来切换不通的运行级别：`init [0/1/2/3/4/5/6]`
+
+CentOS7后运行级别说明：
+
+在centos7之前，`/etc/inittab`文件中。之后版本进行了简化，如下：
+
+`multi-user.target:analogous to runlevel 3`
+
+`graphical.target:analogous to runlevel 5`
+
+> - 查看当前运行级别命令：<strong style="color:#DD5145">`systemctl get-default`</strong>
+> - 设置默认运行级别命令：<strong style="color:#DD5145">`systemctl set-default TARGET.target`</strong>
+
+
+
+### `service`指令
+
+- `service 服务名 [start | stop | restart | reload | status]`
+- 在 CentOS7.0 后<strong style="color:#DD5145">很多服务不再使用 service，而是systemctl </strong>
+- service 指令管理的服务在`/etc/init.d`在看
+
+![image-20241009110238872](Base.assets/image-20241009110238872.png)
+
+查看服务名：
+
+1. 在`/etc/init.d`看到service指令管理的服务
+2. 使用`setup`指令，系统服务就可以看都全部
+
+![image-20241009111503993](Base.assets/image-20241009111503993.png)
+
+### `chkconfig`指令
+
+通过 `chkconfig` 指令可以给服务的各个运行级别设置**自启动/关闭**。
+
+1. chkconfig 指令管理的服务在` /etc/init.d` 查看
+2. 注意：CentOS7.0 后，很多服务使用 `systemctl`进行管理
+
+基本语法：
+
+- 查看服务：`chkconfig --list [| grep xxx]`
+- `chkconfig 服务名 --list`
+- `chkconfig --level 5 服务名 on/off`
+
+![image-20241009113640962](Base.assets/image-20241009113640962.png)
+
+> chkconfig 重新设置服务自启动或关闭，需要重启 reboot生效
+
+### `systemctl`指令
+
+`systemctl`指令可以管理的服务在 /usr/lib/systemd/system 查看。
+
+基本语法：
+
+- `systemctl [start | stop | restart | status] 服务名`
+
+systemctl 设置服务的自启动状态：
+
+1. `systemctl list-unit-files [| grep 服务名]`，查看服务开机启动状态，grep可以进行过滤
+2. `systemctl enable 服务名`，设置服务开机启动
+3. `systemctl disable 服务名`，关闭服务开机启动
+4. `systemctl is-enabled 服务名`，查询某个服务是否是自启动的
+
+应用案例：查看当前防火墙的状态，关闭和重启防火墙
+
+> ```sh
+> systemctl status firewalld	# 查看防火墙状态
+> systemctl stop firewalld	# 关闭防火墙
+> systemctl start firewalld	# 重启防火墙
+> ```
+>
+> ![image-20241009143241390](Base.assets/image-20241009143241390.png)
+
+注意：
+
+> 1. 关闭或启动防火墙后，会立即生效。（`telnet`测试某个端口即可）
+> 2. 这种方式只是临时生效，当重启系统后，还是会回到以前对服务的设置
+> 3. 如果希望设置某个服务自启动或关闭**永久生效**，要使用<strong style="color:#DD5145">`systemctl [enable | disable] 服务名`</strong>
 
 
 
 
 
-## 远程登录
+### `firewall`指令
+
+在实际生产环境中，往往需要防火墙打开，但问题来了，如果把防火墙打开，那么外部数据包就不能跟服务器监听端口通讯。这时，**需要打开指定的端口**。
+
+![image-20241009161745396](Base.assets/image-20241009161745396.png)
+
+基本语法：
+
+- 打开端口：`firewall-cmd --permanent --add-port=端口号/协议`
+- 关闭端口：`firewall-cmd --permanent --remove-port=端口号/协议`
+- <strong style="color:#DD5145">无论是打开还是关闭，需要重新载入，才能生效：`firewall-cmd --reload`</strong>
+- 查询端口是否开放：`firewall-cmd --query-port=端口/协议`
+
+注：`netstat -anp | more`指令可以查看端口和协议
+
+![image-20241009150218445](Base.assets/image-20241009150218445.png)
+
+应用案例：启用防火墙，测试111端口是否能 telnet ？
+
+> 不行
+>
+> ![image-20241009150452447](Base.assets/image-20241009150452447.png)
+>
+> 开放111端口
+>
+> ![image-20241009150436177](Base.assets/image-20241009150436177.png)
+>
+> 成功连接
+>
+> ![image-20241009150512499](Base.assets/image-20241009150512499.png)
+>
+> 再次关闭111端口
+>
+> ![image-20241009151013502](Base.assets/image-20241009151013502.png)
+>
+> 连接断开
+>
+> ![image-20241009150646028](Base.assets/image-20241009150646028.png)
+
+## :star:开机、重启、登录注销
+
+### 关机和重启
+
+基本介绍
+
+```powershell
+shutdown -h now		# 立刻进行关机
+shutdown -h 1		# "hello，1分钟后会关机"，直接输入shutdown，默认为此项
+shutdown -r now		# 现在重新启动计算机
+halt			   # 关机，作用和上面一样
+reboot			   # 现在重新启动计算机
+sync			   # 把内存的数据同步到磁盘，首先要运行sync命令，把内存中的数据写入磁盘中
+# --halt 关闭系统但不会关电，--poweroff关闭系统并且断电
+```
+
+注意细节
+
+1. 不管是重启系统还是关闭系统，<strong style="color:#DD5145">首先要运行`sync`命令</strong>，把内存中的数据写入磁盘中
+2. 目前`shutdown/reboot/halt`等命令均已经在关机前进行了`sync`
+
+### 登录和注销
+
+基本介绍
+
+1. 登录时尽量少用 root 账户登录，因为它是系统管理员，避免操作失误。可以利用普通用户登录，登录后再用<strong style="color:#DD5145">`su - 用户名`</strong>，命令来切换成系统管理员身份
+2. 在提示符下输入`logout`即可注销用户
+
+注意细节
+
+> 1. `logout`注销指令在<strong style="color:#DD5145">图形运行级别</strong>是无效的，在<strong style="color:#DD5145">运行级别 3</strong>下有效
+> 2. 运行级别这个概念后续介绍
+
+## :star:远程登录
 
 为什么需要远程登录Linux？
 
@@ -295,3 +469,48 @@ Xshell 可以在 Windows 界面下用来访问远端不同系统下的服务器�
 > 如何处理 XFtp 中文乱码问题？
 
 ![image-20231223202433925](Base.assets/image-20231223202433925.png)
+
+## :star:软件包的管理
+
+### rpm
+
+基本介绍：
+
+rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生产具有`.RPM`扩展名的文件。RPM（RedHat Package Manager，RedHat软件包管理工具）类似Windows的 setup.exe。
+
+rpm 包的简单查询指令：`rpm -qa | grep xxx`
+
+> ![image-20241009162959962](Base.assets/image-20241009162959962.png)
+>
+> rpm包基本格式：
+>
+> - 名称：`firefox`
+> - 版本号：`60.2.2-1`
+> - 适用操作系统：`el7.centos.x86_64`
+
+查询软件包是否安装：`rpm -q 软件包名`
+
+查询软件包信息：`rpm -qi 软件包名`
+
+查询软件包中的文件：`rpm -ql 软件包名`
+
+查询文件所属软件包：`rpm -qf 文件完整路径名`
+
+卸载rpm包：`rpm -e RPM包名称`
+
+安装rpm包：`rpm -ivh RPM包全路径名称`
+
+- `i`：install，安装
+- `v`：verbose，提示
+- `h`：hash，进度条
+
+### yum
+
+基本介绍：
+
+yum是一个Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包。
+
+yum的基本指令：
+
+- 查询yum服务器是否有需要安装的软件：`yum list | grep xx软件列表`
+- 安装指定的yum包：`yum install xxx`
